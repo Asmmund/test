@@ -6,6 +6,14 @@
 	<meta name="author" content="Elmor">
 	<title>UUit</title>
     <link type="text/css" rel="stylesheet" href="general.css">
+    <!--[if lte IE 6]>
+    <style type="text/css">
+        .nth-corners span {font-size:10px; line-height:10px}
+        .top-right {right: expression( this.parentNode && this.parentNode.offsetWidth % 2 ? -2 : -1 );}
+        .bot-right {bottom:expression( this.parentNode && this.parentNode.offsetHeight % 2 ? -2 : -1 ); right: expression( this.parentNode && this.parentNode.offsetWidth % 2 ? -2 : -1 );}
+        .bot-left  {bottom:expression( this.parentNode && this.parentNode.offsetHeight % 2 ? -2 : -1 );}
+    </style>
+    <![endif]-->
 </head>
 
 <body>
@@ -37,6 +45,11 @@
         Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit <br><br><br>
         Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit 
 
+      <span class="top-right"></span>
+      <span class="top-left"></span>
+      <span class="bot-right"></span>
+      <span class="bot-left"></span>
+
     </div>
     <div style="clear:both"></div>
     
@@ -46,6 +59,7 @@
         Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit
     
     </div>
+    
 
 </div>
 
