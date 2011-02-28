@@ -8,7 +8,7 @@
     <link type="text/css" rel="stylesheet" href="student_page3.css">
     <!--[if lte IE 6]>
     <style type="text/css">
-        .nth-corners span {font-size:10px; line-height:10px}
+        #main span {font-size:10px; line-height:10px}
         .top-right {right: expression( this.parentNode && this.parentNode.offsetWidth % 2 ? -2 : -1 );}
         .bot-right {bottom:expression( this.parentNode && this.parentNode.offsetHeight % 2 ? -2 : -1 ); right: expression( this.parentNode && this.parentNode.offsetWidth % 2 ? -2 : -1 );}
         .bot-left  {bottom:expression( this.parentNode && this.parentNode.offsetHeight % 2 ? -2 : -1 );}
@@ -23,22 +23,26 @@
     </div>
 
     <div id="search">
-    </div>
+        <img class="button" src="images/search/button-go.png">
+        <input type="text" name="search" class="search-text" size="15">
+        <div class="search-text-about"><bdo dir="rtl">Search</bdo></div>
+   </div>
     
     <div style="clear:both"></div>
     
     <div id="menu">
         <div class="links">
-            <div class="link1"></div>
-            <div class="link2"></div>
-            <div class="link3"></div>
-            <div class="link4"></div>
-            <div class="link5"></div>
-            <div class="link6"></div>
+            <div class="link1"><img src="images/link1.png"/></div>
+            <div class="link2"><img src="images/link2.png"/></div>
+            <div class="link3"><img src="images/link3.png"/></div>
+            <div class="link4"><img src="images/link4.png"/></div>
+            <div class="link5"><img src="images/link5.png"/></div>
+            <div class="link6"><img src="images/link6.png"/></div>
         </div>
         <div style="clear:both"></div>
 
         <div class="menu_under">
+            <div class="text"></div>
         </div>
     </div>
     
@@ -48,19 +52,86 @@
         </div>
         
         <div class="turn1">
+            <img src="images/turn1/turn1 button.png" class="button" height="55" width="139">
+            <img src="images/turn1/user.png" class="user" height="81" width="93">
+            <div class="turn1-text"><bdo dir="rtl">First</bdo></div>
         </div>
         
         <div class="turn2">
+            <h3 class="text"><bdo dir="rtl">Second</bdo></h3>
         </div>
         
         <div class="turn3">
+            <h3 class="header"><bdo dir="rtl">Third</bdo></h3>
+            <div class="subheader"><bdo dir="rtl">Subheader</bdo></div>
+            <table class="text1">
+                     <tr>
+                         <td><bdo dir="rtl">Rd2</bdo></td>
+                         <td><img src="images/turn3/top1.png" height="25" width="27"></td>
+                         <td><bdo dir="rtl">Rd1</bdo></td>
+                         <td><img src="images/turn3/top2.png" height="25" width="25"></td>
+                         <td><bdo dir="rtl">Question1?</bdo></td>
+                     </tr>
+                     <tr>
+                         <td></td>
+                         <td></td>
+                         <td></td>
+                         <td></td>
+                         <td><b><bdo dir="rtl">Sub1:</bdo></b></td>
+                     </tr>
+                   <tr>
+                         <td><bdo dir="rtl">Rd5</bdo></td>
+                         <td><img src="images/turn3/bottom.png" width="26" height="27"></td>
+                         <td><bdo dir="rtl">Rd4</bdo></td>
+                         <td><img src="images/turn3/bottom.png" width="26" height="27"></td>
+                         <td style="float: left;"><bdo dir="rtl">Rd3</bdo></td>
+                         <td style="float: left;"><img src="images/turn3/bottom.png" width="26" height="27"></td>
+                 </tr>
+           </table>
+           <div><bdo dir="rtl">Question2?</bdo></div>
+           <textarea class="textarea1" name="textarea1"></textarea>
         </div>
         
     <div style="clear:both"></div>
     
     <div class="text-boxes">
     </div>
-    <div class="low-right"></div>
+    
+    <div class="low-right">
+        <div><bdo dir="rtl">Question3?</bdo></div>
+        <input type="text" class="input2">
+        <img src="images/low-right/button.png" width="94" height="30">
+        
+        <div class="blue-text">
+            <bdo dir="rtl">
+                <b>Subheader1</b>
+            </bdo><br><br>
+            <bdo dir="rtl">            
+                Text1
+            </bdo> <br> 
+            <bdo dir="rtl">    
+            Text1 &raquo;  
+            </bdo><br><br> 
+            <bdo dir="rtl">
+                <b>Subheader2</b>
+            </bdo><br><br>
+            <bdo dir="rtl">            
+                Text2 &raquo;  
+            </bdo>
+        </div>
+        
+        <div class="facebook">
+            <bdo dir="rtl">
+                <b>Subheader2</b>
+            </bdo><br>
+            <input type="text" class="input2"><br>
+            <div class="facebook-button">
+                <img  src="images/low-right/facebook-button.png" width="76" height="39">
+                <img src="images/low-right/like.png" width="186" height="37">
+            </div>
+        </div>
+        
+    </div>
 
     <div id="video2"></div>
     
@@ -74,6 +145,15 @@
     <div style="clear:both"></div>
     
     <div id="footer">
+        <div class="links">
+            <a href="javascript:void();" class="link1"><bdo dir="rtl">Links Links Links</bdo></a>
+        </div>
+        <div class="writing">
+            <bdo dir="rtl">
+                Writing / Writing / Writing
+            </bdo>
+        </div>
+
     </div>
     
 
