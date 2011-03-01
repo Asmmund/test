@@ -1,0 +1,275 @@
+/* Main CSS document
+    CLEANING
+*/
+    html,body {
+        margin: 0;
+        padding: 0;
+        font-weight: inherit;
+        font-style:inherit;
+        font-size:100%;
+        font-family: inherit;
+        vertical-align: inherit;
+        border-left: inherit;
+    }
+    
+    div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, sub, sup, tt, var,
+    dl, dt, dd, ol, ul, li, bdo,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+    }
+    
+    body {
+            line-height: 1;
+            color: black;
+            background: white;
+            font-family: Verdana,Arial, Helvetica, sans-serif;
+        }
+    
+    ol, ul {
+        list-style: none;
+    }
+    
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    caption, th, td {
+        text-align: left;
+        font-weight: normal;
+    }
+    
+/* end reset styles */
+
+    body {
+              background-color:white;
+              font-family:  Arial, sans-serif 1em; 
+              margin: 0; 
+              padding:0; 
+              
+              
+       }
+
+    #content {
+            text-align:right;
+            width: 995px ;
+            margin-top:10px;
+            margin-left: auto ;
+            margin-right: auto ;
+       }
+
+    #content > #logo {
+        background-image: url(images/logo.png);
+        background-repeat: no-repeat;
+        float:right;
+        width: 328px;
+        height:79px;
+    }
+
+    #content > #search{
+        background-image: url(images/search/search.png);
+        background-repeat: no-repeat;
+        float:left;
+        width: 226px;
+        height: 58px;
+    }
+    
+    #content > #search > .button {
+        float: left;
+        padding-top: 25px;
+    }
+    
+    #content > #search >.search-text {
+        float:left;
+        margin-top: 35px;
+        background-color: #EDE4AF;
+        }
+
+    #content > #search > .search-text-about {
+        float:left;
+        margin-top: 35px;
+        }
+
+    
+    
+    #content > #menu {
+        width: 995px ;
+        margin-top:10px;
+     }
+     
+     #content >#menu > .links:first-child {
+        width:715px;
+        float:left;
+     }
+     
+     #content > #menu > .links > .link1 {
+        float: left;
+        height:31px;
+        width:117px;
+     }
+     #content > #menu > .links > .link2 {
+        float: left;
+        height:31px;
+        width:117px;
+        background-image: url(images/link2.png);
+        background-repeat: no-repeat;
+     }
+
+     #content > #menu > .links > .link3 {
+        float: left;
+        height:31px;
+        width:116px;
+        background-image: url(images/link3.png);
+        background-repeat: no-repeat;
+     }
+
+          #content > #menu > .links > .link4 {
+        float: left;
+        height:31px;
+        width:120px;
+        background-image: url(images/link4.png);
+        background-repeat: no-repeat;
+     }
+
+          #content > #menu > .links > .link5 {
+        float: left;
+        height:31px;
+        width:118px;
+        background-image: url(images/link5.png);
+        background-repeat: no-repeat;
+     }
+
+          #content > #menu > .links > .link6 {
+        float: left;
+        height:31px;
+        width:117px;
+        background-image: url(images/link6.png);
+        background-repeat: no-repeat;
+     }
+
+     
+     #content > #menu > .menu_under {
+        width: 995px;
+        height: 23px;
+        background-image: url(images/menu_under.png);
+        background-repeat: no-repeat;
+     }
+
+     
+     #content > #main {
+        margin:20px 0 0 0;
+        background:  #E0D889 url(images/main-background.jpg) no-repeat;
+        position:relative;
+        height:688px;
+        width:995px;
+        padding: 7px 0 0 0;
+
+     }
+     
+
+     #content > #main > .main_box{
+        
+        width:335px;
+        height:630px;
+        margin: 0 400px 0px 240px; /* 20px 400px 5px 240px;*/
+        padding: 10px 10px 0  20px;
+        text-align: right;
+        background: #E8E091 url(images/main-box/background.jpg) no-repeat;
+        float: left;
+        display:block;
+        
+
+     }
+     
+     #content > #main > .main_box > div{
+        margin: 0px 0px 1em 0px;
+        text-align: center;
+     }
+
+     #content > #main > .main_box > .go{
+        margin: 0px 0px 0 0px;
+        text-align:left;
+     }
+
+     
+     #content > #main > .main_box input{
+        text-align: right;
+        background: #EDE9BC;
+     }
+     
+     #content > #main > .main_box > div > span{
+      float:right;  
+     }
+
+     #content > #main > .main_box > div  select{
+        background: #EDE9BC;
+     }
+
+     #content > #main > .main_box > div  textarea{
+        background: #EDE9BC;
+        overflow: hidden;
+        width: 300px;
+        height:60px;
+     }
+     
+     #content > #main > .turn1 {
+        height: 200px;
+        width: 350px;
+        float:right;
+        border: 1px solid black;
+        position:absolute;
+        top: 5px;
+        right: 10px;
+     }
+     #content > #main > .turn1 >h3{
+        margin: 0 600px 0px 10px;
+        
+        }
+
+     #content > #main > .turn1 >div{
+        background:  url(images/turn1/pic.jpg) no-repeat;
+        height: 176px;
+        width:215px;
+     }
+     
+
+     
+
+    #content >#footer {
+        background-image: url(images/footer.png);
+        background-repeat: no-repeat;
+        margin-top: 10px;
+        height:47px;
+        width:995px;
+    }
+
+    #content >#footer > .links {
+        float:left;
+        margin-top: 25px;
+    }
+
+    #content >#footer > .links > .link1{
+        float:left;
+        color:blue;
+    }
+
+    #content >#footer > .writing {
+        float: right;
+        color:#595124 ;
+        margin-top: 27px;
+        margin-right: 70px;
+        font-weight: bold;
+    }        
+    
