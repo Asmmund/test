@@ -1,0 +1,260 @@
+/* Main CSS document
+    CLEANING
+*/
+    html,body {
+        margin: 0;
+        padding: 0;
+        font-weight: inherit;
+        font-style:inherit;
+        font-size:100%;
+        font-family: inherit;
+        vertical-align: inherit;
+        border-left: inherit;
+    }
+    
+    div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, sub, sup, tt, var,
+    dl, dt, dd, ol, ul, li, bdo,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+    }
+    
+    body {
+            line-height: 1;
+            color: black;
+            background: white;
+            font-family: Verdana,Arial, Helvetica, sans-serif;
+        }
+    
+    ol, ul {
+        list-style: none;
+    }
+    
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    caption, th, td {
+        text-align: left;
+        font-weight: normal;
+    }
+    
+/* end reset styles */
+
+    body {
+              background-color:white;
+              font-family:  Arial, sans-serif 1em; 
+              margin: 0; 
+              padding:0; 
+              
+              
+       }
+
+    #content {
+            text-align:right;
+            width: 995px ;
+            margin-top:10px;
+            margin-left: auto ;
+            margin-right: auto ;
+       }
+
+    #content > #logo {
+        background-image: url(images/logo.png);
+        background-repeat: no-repeat;
+        float:right;
+        width: 328px;
+        height:79px;
+    }
+
+    #content > #search{
+        background-image: url(images/search/search.png);
+        background-repeat: no-repeat;
+        float:left;
+        width: 226px;
+        height: 58px;
+    }
+    
+    #content > #search > .button {
+        float: left;
+        padding-top: 25px;
+    }
+    
+    #content > #search >.search-text {
+        float:left;
+        margin-top: 35px;
+        background-color: #EDE4AF;
+        }
+
+    #content > #search > .search-text-about {
+        float:left;
+        margin-top: 35px;
+        }
+
+    
+    
+    #content > #menu {
+        width: 995px ;
+        margin-top:10px;
+     }
+     
+     #content >#menu > .links:first-child {
+        width:715px;
+        float:left;
+     }
+     
+     #content > #menu > .links > .link1 {
+        float: left;
+        height:31px;
+        width:117px;
+     }
+     #content > #menu > .links > .link2 {
+        float: left;
+        height:31px;
+        width:117px;
+        background-image: url(images/link2.png);
+        background-repeat: no-repeat;
+     }
+
+     #content > #menu > .links > .link3 {
+        float: left;
+        height:31px;
+        width:116px;
+        background-image: url(images/link3.png);
+        background-repeat: no-repeat;
+     }
+
+          #content > #menu > .links > .link4 {
+        float: left;
+        height:31px;
+        width:120px;
+        background-image: url(images/link4.png);
+        background-repeat: no-repeat;
+     }
+
+          #content > #menu > .links > .link5 {
+        float: left;
+        height:31px;
+        width:118px;
+        background-image: url(images/link5.png);
+        background-repeat: no-repeat;
+     }
+
+          #content > #menu > .links > .link6 {
+        float: left;
+        height:31px;
+        width:117px;
+        background-image: url(images/link6.png);
+        background-repeat: no-repeat;
+     }
+
+     
+     #content > #menu > .menu_under {
+        width: 995px;
+        height: 23px;
+        background-image: url(images/menu_under.png);
+        background-repeat: no-repeat;
+     }
+
+     
+     #content > #main {
+        margin:20px 0 0 0;
+        background:  #E0D889 url(images/main-box/background.jpg) no-repeat;
+        position: static;
+        top: 0;
+        left: 0;
+        height:900px;
+        width:1010px;
+        padding: 7px 0 0 0;
+
+     }
+     
+
+     #content > #main > .main_box1{
+        position:absolute;
+        left: 175px;
+        top:240px;
+        width:325px;
+        height:808px;
+        text-align: right;
+        background: #E8E091 url(images/main-box/column.jpg) no-repeat;
+        
+
+     }
+     
+     #content > #main > .main_box2{
+        position:absolute;
+        left: 525px;
+        top:240px;
+        width:325px;
+        height:808px;
+        text-align: right;
+        background: #E8E091 url(images/main-box/column.jpg) no-repeat;
+     }
+     
+     #content > #main > .main_box1  *,
+     #content > #main > .main_box2  * {
+            margin: 10px 10px 0 0;
+     
+     }
+     
+     #content > #main > .main_box1  h4 {
+        font-size: 120%;
+        font-weight: bold;
+     }
+
+     
+
+     #content > #main > .turn1 >h1{
+        position: absolute;
+        top:200px;
+        right:390px;
+        font-size: 200%;
+        color: #88772D;
+        }
+
+#content > #main > .turn1 >img{
+    margin: 10px 10px 0 0;
+    }
+     
+     
+
+     
+
+    #content >#footer {
+        background-image: url(images/footer.png);
+        background-repeat: no-repeat;
+        margin-top: 10px;
+        height:47px;
+        width:995px;
+    }
+
+    #content >#footer > .links {
+        float:left;
+        margin-top: 25px;
+    }
+
+    #content >#footer > .links > .link1{
+        float:left;
+        color:blue;
+    }
+
+    #content >#footer > .writing {
+        float: right;
+        color:#595124 ;
+        margin-top: 27px;
+        margin-right: 70px;
+        font-weight: bold;
+    }        
+    
