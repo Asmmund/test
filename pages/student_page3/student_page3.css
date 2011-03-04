@@ -24,27 +24,38 @@
     }
 
     #content > #search{
-        background-image: url(images/search/search.png);
-        background-repeat: no-repeat;
+        background: white;
         float:left;
         width: 226px;
         height: 58px;
     }
     
+    #content > #search > .position{
+        text-align: center;
+        color:#BDAD62;
+        
+    }
+
+    #content > #search  a{
+        color:#BDAD62;
+        text-decoration: none;
+   }
+
+    
     #content > #search > .button {
         float: left;
-        padding-top: 25px;
+        margin: 5px 0 0 0;
     }
     
     #content > #search >.search-text {
+        margin:10px 0 0 0;
         float:left;
-        margin-top: 35px;
-        background-color: #EDE4AF;
+        background: #EDE4AF;
         }
 
     #content > #search > .search-text-about {
+        margin:10px 0 0 0;
         float:left;
-        margin-top: 35px;
         }
 
     
