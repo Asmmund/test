@@ -73,46 +73,43 @@
      #content > #menu > .links > .link1 {
         float: left;
         height:31px;
-        width:117px;
+        width:114px;
+        background: #E9DC73 url(images/link1.png) no-repeat;
      }
-          #content > #menu > .links > .link2 {
-        float: left;
-        height:31px;
-        width:117px;
-        background-image: url(images/link2.png);
-        background-repeat: no-repeat;
-     }
-
-          #content > #menu > .links > .link3 {
+     #content > #menu > .links > .link2 {
         float: left;
         height:31px;
         width:116px;
-        background-image: url(images/link3.png);
-        background-repeat: no-repeat;
+        background: #E9DC73 url(images/link2.png) no-repeat;
+        
+     }
+
+     #content > #menu > .links > .link3 {
+        float: left;
+        height:31px;
+        width:116px;
+        background: #E9DC73 url(images/link3.png) no-repeat;
      }
 
           #content > #menu > .links > .link4 {
         float: left;
         height:31px;
-        width:120px;
-        background-image: url(images/link4.png);
-        background-repeat: no-repeat;
+        width:116px;
+        background: #E9DC73 url(images/link4.png) no-repeat;
      }
 
           #content > #menu > .links > .link5 {
         float: left;
         height:31px;
-        width:118px;
-        background-image: url(images/link5.png);
-        background-repeat: no-repeat;
+        width:117px;
+        background: #E9DC73 url(images/link5.png) no-repeat;
      }
 
           #content > #menu > .links > .link6 {
         float: left;
         height:31px;
         width:117px;
-        background-image: url(images/link6.png);
-        background-repeat: no-repeat;
+        background: #E9DC73 url(images/link6.png) no-repeat;
      }
 
      
