@@ -9,21 +9,23 @@ jq.ajaxSetup ({
 
 //picture while you're waiting for ajax call
 var ajax_load = '<img src="skins/images/loading.gif" alt="loading..." />';
-var loadUrl = '<?php SITE_HOST;?>modules/main/router.php';
+var click1 = 'modules/main/click1.php';
+var click2 = 'modules/main/click2.php';
 
 
-function to_main()
-{
-    jq('#main').html('aaa<hr />');
-    
-}
+
 
 /* when file is loaded*/
 jq(document).ready(function(){
     
-    jq('#to_main').click(function(){
-        jq('#main').html('aaa<hr />');
+    jq('.ajax_menu>.click1').click(function(){
+        jq('#result').html(ajax_load).load(click1);
     });
+
+    jq('.ajax_menu>.click2').click(function(){
+        jq('#result').html(ajax_load).load(click2);
+    });
+
 
 });
            

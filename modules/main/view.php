@@ -17,5 +17,4 @@
     
     include SITE_ROOT . 'skins/tpl/main/main.tpl';
     
-    echo '<br />' . __FILE__ . '<br />';   
 ?>
