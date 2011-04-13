@@ -13,17 +13,5 @@
         exit( file_get_contents(SITE_ROOT . '404.html') );
     }
      
-/** //////////////////////////////////////////////////////////////////////////////////////////////// 
- * setting __autoload function 
- /////////////////////////////////////////////////////////////////////////////////////////////////// */
-     function __autoload($className)
-     {
-        if(file_exists( SITE_ROOT . 'class/' . $className . '.php'))
-        {
-            require SITE_ROOT . 'class/' . $className . '.php';
-            return true;
-        }
-        else
-            die('Class <b>' . $className . '</b> couldn\'t be autoloaded!');
-     }    
+
 ?>

@@ -44,5 +44,19 @@
     define('MYSQL_PASS', '');
 
     define('MYSQL_DB', 'outsourcing');
+    
+/** //////////////////////////////////////////////////////////////////////////////////////////////// 
+ * setting __autoload function 
+ /////////////////////////////////////////////////////////////////////////////////////////////////// */
+     function __autoload($className)
+     {
+        if(file_exists( SITE_ROOT . 'libs/class/class.' . $className . '.php'))
+        {
+            require SITE_ROOT . 'libs/class/class.' . $className . '.php';
+            return true;
+        }
+        else
+            die('Class <b>' . $className . '</b> couldn\'t be autoloaded!');
+     }        
      
 ?>

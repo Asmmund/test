@@ -92,8 +92,6 @@ $POST = array (
                'value1' => '',
                'value2' => '',
                'value3' => '',
-               'value4' => '' ,
-               'value5' => '',
                
                'array1' => array(),
                'array2' => array(),
@@ -109,16 +107,6 @@ if( !empty( $_POST['form'] ))
     $POST = array_merge( $_POST['form'], array_diff_key($POST, $_POST['form']) );
 
 
-
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////
 
 
 

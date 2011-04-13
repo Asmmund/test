@@ -3,6 +3,9 @@
  * @author Elmor
  * @copyright 2011
  */
+     // start of buffering of the output
+    //so headers can be passed
+    ob_start();
     
     // Report all PHP errors
     error_reporting(-1);
@@ -46,15 +49,13 @@
     /** /////////////////////////////////////////////////
      *  End
     ///////////////////////////////////////////////// */ 
-    // start of buffering of the output
-    //so headers can be passed
-    ob_start();
+
     
     
-    // getting the output & cleaning the buffer    
-    $content = ob_get_contents();
+    //creating view object
+    // getting the output & cleaning the buffer     
+    $view = new generalView(ob_get_contents());   
     ob_end_clean(); 
-    
     
     // the default skin of index.php
     require_once SITE_ROOT . 'skins/tpl/index.tpl';

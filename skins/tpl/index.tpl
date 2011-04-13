@@ -12,7 +12,7 @@
 
 <body>
 <?php
-    echo $content;
+    echo $view;
 ?>
 
 
