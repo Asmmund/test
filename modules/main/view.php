@@ -2,7 +2,9 @@
 /**
  * @author Elmor
  * @copyright 2011
- * MySql PDO
+ * @module main
+ * @file view.php
+ * view of the main module
  */
 /**
  * chesking the passkey ;)
@@ -13,15 +15,7 @@
         exit( file_get_contents(SITE_ROOT . '404.html') );
     }
     
-    try
-    {
-        $connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS);
-    }
-    catch(PDOException $e)
-    {
-    echo $e->getMessage();
-    }
+    include SITE_ROOT . 'skins/tpl/main/main.tpl';
     
-    
-      
+    echo '<br />' . __FILE__ . '<br />';   
 ?>

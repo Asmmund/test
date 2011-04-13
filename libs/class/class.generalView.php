@@ -23,7 +23,7 @@
         public function __get($name)
         {
             if(array_key_exists($name, $this->arr))
-                return htmlspecialchars($this->arr[$name]);
+                return $this->arr[$name];
             
             $trace = debug_backtrace();
             trigger_error(
@@ -36,7 +36,7 @@
         
         public function __toString()
         {
-            return htmlspecialchars($this->arr['content']);
+            return $this->arr['content'];
             
         }
     }

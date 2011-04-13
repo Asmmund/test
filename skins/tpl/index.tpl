@@ -7,11 +7,20 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="Elmor" />
     <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/jquery.js"></script>
+    
+    <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/script.js"></script>
+    
 	<title>Outsourcing Ukraine</title>
 </head>
 
 <body>
+<a href="<?php echo href('page=main');?>" onclick="to_main()">Main page</a>
+<br />
+<a href="<?php echo SITE_HOST;?>">Host</a>
+<br />
+
 <?php
+
     echo $view;
 ?>
 

@@ -2,7 +2,10 @@
 /**
  * @author Elmor
  * @copyright 2011
- * MySql PDO
+
+ * @module main
+ * @file controller.php
+ * controller of the main module
  */
 /**
  * chesking the passkey ;)
@@ -12,16 +15,5 @@
         header('./101 404 Not Found');
         exit( file_get_contents(SITE_ROOT . '404.html') );
     }
-    
-    try
-    {
-        $connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS);
-    }
-    catch(PDOException $e)
-    {
-    echo $e->getMessage();
-    }
-    
-    
-      
+    echo __FILE__ . '<br />';   
 ?>

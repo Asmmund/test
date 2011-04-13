@@ -50,6 +50,13 @@
      *  End
     ///////////////////////////////////////////////// */ 
 
+
+    switch($GET['page'])
+    {
+        case 'main':
+            require SITE_ROOT . 'modules/main/router.php';
+            break;
+    }
     
     
     //creating view object
@@ -58,5 +65,5 @@
     ob_end_clean(); 
     
     // the default skin of index.php
-    require_once SITE_ROOT . 'skins/tpl/index.tpl';
+   require SITE_ROOT . 'skins/tpl/index.tpl';
 ?>
