@@ -5,6 +5,13 @@
  * @class generalView
  * General view class - is used to grab information from
  * buffer and output the result
+ * 
+ * @var private $arr - array of all variables
+ * 
+ * @method public __construct - magic method that sets $arr['content'] variable
+ * @method public  __set  - magic method that lets you set the variables
+ * @method public  __get -  magic method that returns variables if they're defined
+ * @method public  __toString  - magic method that sets the string representation of the class 
  */
     class generalView
     {
