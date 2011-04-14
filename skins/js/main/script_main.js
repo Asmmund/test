@@ -10,6 +10,7 @@ jq.ajaxSetup ({
 //picture while you're waiting for ajax call
 var ajax_load = '<img src="skins/images/loading.gif" alt="loading..." />';
 var image_selected = 'skins/images/green_chair.jpg';
+var image_normal = 'skins/images/blue_chair.jpg';
 var click1 = 'modules/main/click1.php';
 var click2 = 'modules/main/click2.php';
 var click_back = 'modules/main/router.php';
@@ -30,7 +31,7 @@ jq(document).ready(function(){
     
     
     jq('.chair_seat').click(function(){
-       jq(this).attr("src", image_selected);
+       jq(this).attr("src", jq(this).attr('src') == image_selected ? image_normal  : image_selected);
         return false;
 
     });
