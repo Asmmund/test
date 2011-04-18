@@ -17,12 +17,9 @@
     }
     
     //chair tryouts
-    $chair = new Chair(10,0,'ready','Testing Chair');
-    $chair->row = ' 0';
-    echo $chair->labelfds;
-    
-    $row = new chairRow(5,'First','row', 'first row');
+    $chair = new Chair(2,3,1);
 
-    $area = new rowArea(5,5,'special', 'first area');
+    
+
     
 ?>

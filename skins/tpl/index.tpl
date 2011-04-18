@@ -16,10 +16,6 @@
 
 <body>
 <div id="content">
-    <div id="menu">
-        <a href="<?php echo href('page=main');?>" onclick="to_main()">Main page</a>
-        <a href="<?php echo SITE_HOST;?>">Host</a>
-    </div>
 
     <?php
         echo $view;

@@ -2,17 +2,16 @@
 /**
  * @author Elmor
  * @copyright 2011
- * MySql PDO
- */
-/**
- * chesking the passkey ;)
+ * AJAX MySql PDO
 */
-    if( !defined('SITE_KEY') )
-    {
-        header('./101 404 Not Found');
-        exit( file_get_contents(SITE_ROOT . '404.html') );
-    }
+    //define const to grand  access only through index.php
+    define('SITE_KEY', true);
     
+    // connecting to the config file
+    require_once '../../../config.php';
+      
+    //using PDO to connect to MySql
+    //try{}catch(){} block
     try
     {
         if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
@@ -20,9 +19,6 @@
     }
     catch(PDOException $e)
     {
-        echo '<b>' . $e->getMessage() . '</b>';
+    echo $e->getMessage();
     }
-    
-    
-      
 ?>

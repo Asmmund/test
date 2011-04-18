@@ -35,28 +35,10 @@
     require SITE_ROOT . 'libs/mysql.php';
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /** /////////////////////////////////////////////////
      *  End
     ///////////////////////////////////////////////// */ 
-
-
-    switch($GET['page'])
-    {
-        case 'main':
-            require SITE_ROOT . 'modules/main/router.php';
-            break;
-    }
+    require SITE_ROOT . 'modules/main/router.php';
     
 
     

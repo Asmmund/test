@@ -24,7 +24,6 @@
 /** using this function */
     if( get_magic_quotes_gpc())
     {
-        $_GET = stripslashesDeep($_GET);
         $_POST = stripslashesDeep($_POST);
         $_COOKIE = stripslashesDeep($_COOKIE);
     };    
@@ -39,50 +38,6 @@
 
 
 
-/** /////////////////////////////////////////////
- *         Array of $_GET params 
-///////////////////////////////////////////// */
-   $GET = array(  
-                  'page' => '',  
-                  'module'  => ''  
-                );  
-/** /////////////////////////////////////////////////////
- *        Initializing the $_GET parametres
-///////////////////////////////////////////////////// */
-//to check, wether the SITE_REWRITE const is set or not
-    if( SITE_REWRITE == 'on' && !empty($_GET['route']) )
-    {
-        
-//return an array of substrings - parts of an adress, divided by the '/' char!         
-        $param = explode('/', trim($_GET['route'], '/') );
-        $param_counter = 0;
-        
-// using foreach cycle, we go through each value of an array,and read it from GET if it's not empty        
-        foreach( $GET as $variable => $value )
-        {
-            if( !empty( $param[$param_counter] ) )
-                $GET[$variable] = $param[$param_counter];
-                
-// increase the $param_count, to go through the $_get array
-// it's set up via the .htaccess ;)
-            ++$param_counter;                
-        }
-        
-    }
-// else, if the SITE_REWRITE const is false (no cragt free urls ), then we assign meanings to variables    
-    elseif ( count($_GET) )
-    {
-         foreach( $GET as $variable => $value )
-             if( !empty($_GET[$variable]) )
-                 $GET[$variable] = $_GET [$variable];
-    };
-       
-       
-
-
-
-       
-////////////////////////////////////////////////////////////////////////////////////
 
 /** /////////////////////////////////////////////
  *         Array of $_POST params 
