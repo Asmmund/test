@@ -16,11 +16,10 @@
         exit( file_get_contents(SITE_ROOT . '404.html') );
     }
     
-    //seat  tryouts
-    $seat = new Seat(2,3,'Fist hall');
     
     //hall tryouts
-    $hall = new Hall(2);
+    $hall = new Hall(1);
+   
     
     
 

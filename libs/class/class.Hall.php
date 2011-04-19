@@ -12,29 +12,6 @@
         
         public $label;
         
-         public function __get($variable)
-         {
-            if(isset($variable))
-            {
-                return $this->$variable;
-            }
-            
-            $trace = debug_backtrace();
-            trigger_error(
-                    'Undefined property via __get(): ' . $variable .
-                    ' in ' . $trace[0]['file'] .
-                    ' on line ' . $trace[0]['line'],
-                    E_USER_ERROR );
-            return null;
-                     
-        }
-        
-
-        
-        public function __set($variable,$value)
-        {
-            $this->$variable = $value;
-        }
 
         public function __isset($name)
         {
@@ -42,11 +19,18 @@
         }
         
         
-        public function __construct( $id)
+        public function __construct($id)
         {
-            $seats = NULL;
-            $hallid = (!empty($id)) ? $id : NULL;
-            $label = NULL; 
+            $this->hallid = $id;
+            
+            $this->LoadSeats();
+            
+        }
+        
+        private function LoadSeats()
+        {
+            $repo = new SeatRepository;
+            $this->seats = $repo->LoadSeats($this->hallid);
         }
         
     }

@@ -3,11 +3,12 @@
 
     <div id="main">
         <div id="result">
+        <pre>
         <?php
-            var_dump($seat);
             echo '<hr />';
             var_dump($hall);
         ?>
+        </pre>
         </div>
         
         

@@ -48,18 +48,17 @@
         }
         
         
-        public function __construct( $r,$number, $hallid)
+        public function __construct( $r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid)
         {
                 $this->row = $r;
                 $this->number = $number;
                 $this->hallid = $hallid;
-        
-                $this->id = NULL;
-                $this->x = NULL;
-                $this->y = NULL;
-                $this->label = NULL;
-                $this->delimiter = NULL;
-                $this->categoryID = NULL;
+
+                $this->x = $x;
+                $this->y = $y;
+                $this->label = $label;
+                $this->delimiter = $delimiter;
+                $this->categoryID = $categoryid;
             
         }
         
