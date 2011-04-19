@@ -4,7 +4,7 @@
     <div id="main">
         <div id="result">
         <?php
-            echo $chair->Draw();
+            echo var_dump($seat);
         ?>
         </div>
         
