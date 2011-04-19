@@ -4,7 +4,9 @@
     <div id="main">
         <div id="result">
         <?php
-            echo var_dump($seat);
+            var_dump($seat);
+            echo '<hr />';
+            var_dump($hall);
         ?>
         </div>
         
