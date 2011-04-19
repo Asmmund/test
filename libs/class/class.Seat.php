@@ -8,7 +8,7 @@
  * 
  * @var private $arr - array for all variables
  * 
- * @method public __construct   - magic method expects 4 vars: $number, $row, $category, $label
+ * @method public __construct   - magic method for creating an object
  * @method public __get - magic method, get the value of the variable
  * @method public __isset - magic method, checks for existanse the variable in a class
  * @method public __set -  magic method,  sets up a variable's value
@@ -17,13 +17,14 @@
     {
         protected $arr = array();
         
+        
         public function __get($variable)
         {
             if(isset($variable))
             {
                 return $this->arr[$variable];
             }
-            
+            //if variable is't found, then trigger an error
             $trace = debug_backtrace();
             trigger_error(
                     'Undefined property via __get(): ' . $variable .

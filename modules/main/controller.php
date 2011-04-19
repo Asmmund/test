@@ -17,7 +17,7 @@
     }
     
     
-    //hall tryouts
+    //hall object
     $hall = new Hall(1);
    
     

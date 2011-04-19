@@ -5,7 +5,6 @@
         <div id="result">
         <pre>
         <?php
-            echo '<hr />';
             var_dump($hall);
         ?>
         </pre>
