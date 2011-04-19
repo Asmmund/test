@@ -17,7 +17,7 @@
     }
     
     //chair tryouts
-    $seat = new Seat(2,3,'Fist hall');
+    $seat = new SeatCls(2,3,'Fist hall');
 
     
 
