@@ -13,7 +13,7 @@
  * @method public __isset - magic method, checks for existanse the variable in a class
  * @method public __set -  magic method,  sets up a variable's value
 */
-    class Seat  
+    class SeatCls  
     {
         protected $arr = array();
         
