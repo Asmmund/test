@@ -21,7 +21,7 @@
     $hall = new Hall(1);
     
     $halleditor = new HallEditor;
-    
+    //var_dump($hall);
     $params['x']  = 100;
     $params['y'] = 100;
     $params['label']  = 'Inserted by HallEditor';

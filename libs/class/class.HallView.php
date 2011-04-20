@@ -13,14 +13,14 @@
             $this->hall = $hall;
         }
         
-/*        public function DrawHall()
+        public function DrawHall()
         {
             $this->DrawGrid();
             $this->DrawArrows();
             $this->FillGrid();
             return $this->string;
         }
- */       
+
         private function DrawArrows()
         {
             $this->string = "<table > <tr>

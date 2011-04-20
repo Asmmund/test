@@ -5,7 +5,7 @@
         <div id="result">
         <pre>
         <?php
-//               echo $view->DrawHall();
+               echo $view->DrawHall();
         ?>
         </pre>
         </div>
