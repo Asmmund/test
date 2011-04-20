@@ -6,6 +6,7 @@
         <pre>
         <?php
             var_dump($hall);
+            $halleditor->seatEditor(10, 12);
         ?>
         </pre>
         </div>

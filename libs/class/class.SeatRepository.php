@@ -14,6 +14,8 @@
         
         public function LoadSeats($hallid)
         {
+            try
+            {
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
   
@@ -34,6 +36,12 @@
                 }
                 
                 $connect = null;
+          }
+          catch(PDOException $e)
+          {
+               echo '<b>' . $e->getMessage() . '</b>';
+            
+          }
                 return $array_object;
                       
             

@@ -19,6 +19,17 @@
     
     //hall object
     $hall = new Hall(1);
+    
+    $halleditor = new HallEditor;
+    
+    $params['x']  = 10;
+    $params['y'] = 10;
+    $params['label']  = 'try';
+    $params['row']  = 11;
+    $params['number']  = 11;
+    $params['delimiter']  = '/';
+    $params['categoryID']  = 1;
+    $halleditor->seatEditorAjax(1,'addchair',$params);
    
     
     
