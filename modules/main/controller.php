@@ -22,14 +22,14 @@
     
     $halleditor = new HallEditor;
     
-    $params['x']  = 10;
-    $params['y'] = 10;
-    $params['label']  = 'try';
+    $params['x']  = 100;
+    $params['y'] = 100;
+    $params['label']  = 'Inserted by HallEditor';
     $params['row']  = 11;
     $params['number']  = 11;
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
-    $halleditor->seatEditorAjax(1,'addchair',$params);
+   // $halleditor->seatEditorAjax(1,'addchair',$params);
    
     
     

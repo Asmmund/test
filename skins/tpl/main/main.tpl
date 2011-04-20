@@ -5,7 +5,7 @@
         <div id="result">
         <pre>
         <?php
-            var_dump($hall);
+            //var_dump($hall);
             $halleditor->seatEditor(10, 12);
         ?>
         </pre>
