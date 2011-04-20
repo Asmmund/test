@@ -13,27 +13,37 @@
             $this->hall = $hall;
         }
         
-        public function DrawHall()
+/*        public function DrawHall()
         {
             $this->DrawGrid();
             $this->DrawArrows();
             $this->FillGrid();
             return $this->string;
         }
-        
+ */       
         private function DrawArrows()
         {
-            $this->string = "<img src='" . SITE_HOST . "skins/images/up_arrow.jpg' /><br />" .
-                           "<img src='" . SITE_HOST . "skins/images/left_arrow.jpg' />"  .
-                           $this->string . 
-                           "<img src='" . SITE_HOST . "skins/images/right_arrow.jpg' /><br />" .
-                          "<img src='" . SITE_HOST . "skins/images/down_arrow.jpg' />" ;
+            $this->string = "<table > <tr>
+                                          <td style=''>" . 
+                                          "<img id='up_arrow' src='" . SITE_HOST . "skins/images/up_arrow.jpg'  />
+                                          </td>
+                                      </tr>"  .
+                                      "<tr> 
+                                          <td>
+                                              <img id='left_arrow' src='" . SITE_HOST . "skins/images/left_arrow.jpg' />
+                                          </td>
+                                          <td>"  . $this->string . "</td>" .
+                                          "<td><img id='right_arrow' src='" . SITE_HOST . "skins/images/right_arrow.jpg' /></td>
+                                       </tr>" .
+                                       "<tr><td><img id='down_arrow' src='" . SITE_HOST . "skins/images/down_arrow.jpg' /></td></tr>
+                              </table>" ;
             
         }
 
+
         private function DrawGrid()
         {
-            $this->string = '
+            $this->string = '<div>
                          <table border="2">';
             for($i=0; $i<$this->GetRows(); $i++)
             {
@@ -46,10 +56,14 @@
                 
             }
                       
-            $this->string .= '   </table>
+            $this->string .= '</div>   </table>
                       ';
                       
         } 
+        private function FillGrid()
+        {
+            
+        }
         
         //function getting number of rows of the hall
         private function GetRows()
@@ -63,9 +77,5 @@
             return 6;
         }
         
-        private function FillGrid()
-        {
-            
-        }
     }    
 ?>

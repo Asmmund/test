@@ -29,9 +29,9 @@
     $params['number']  = 11;
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
-  //    $halleditor->seatEditorAjax(1,'addchair',$params);
+//      $halleditor->seatEditorAjax(1,'addchair',$params);
    $view = new HallView($hall);
- //  echo $view->DrawHall();
+
     // var_dump($view);
     
     
