@@ -16,25 +16,36 @@
         public function DrawHall()
         {
             $this->DrawGrid();
-            //$this->DrawArrows();
+            $this->DrawArrows();
             //$this->FillGrid();
             return $this->string;
         }
 
         private function DrawArrows()
         {
-        }
-
-
-        private function DrawGrid()
-        {
-            $this->string = '<div id="output" >
+            /*
+            */
+            $this->string = '            <div id="output" >
                                  <img id="up_arrow" src="' . SITE_HOST . 
                                                   'skins/images/up_arrow.jpg" width="75" height="42" 
                                                   style="position: relative;bottom:-60px; right:-45px;" /> <br />
                                  <img id="left_arrow" src="' . SITE_HOST . 
                                                   'skins/images/left_arrow.jpg" width="42" height="75"
-                                                  style="float: left;position:relative;top:110px; left:-20px"  />
+                                                  style="float: left;position:relative;top:110px; left:-20px"  />' . 
+                                                  $this->string . 
+                                                  '<img id="right_arrow" src="' . SITE_HOST . 
+                                                  'skins/images/right_arrow.jpg" width="42" height="75" 
+                                                  style="position:relative;top:100px;left:-120px;" /><br />
+                                 <img style="position: relative; bottom: -140px; left:-340px;" 
+                                     id="down_arrow" src="' . SITE_HOST . 
+                                                  'skins/images/down_arrow.jpg" width="75" height="42" />
+                                     </div>';
+        }
+
+
+        private function DrawGrid()
+        {
+            $this->string = '
                                  <div style="float: left;" id="table">
                                       <table style="border: solid black 1px;" >
                                           <tr  style="border: solid black 1px;" >
@@ -80,13 +91,7 @@
                                           </tr>
                                       </table>
                                  </div>
-                                 <img id="right_arrow" src="' . SITE_HOST . 
-                                                  'skins/images/right_arrow.jpg" width="42" height="75" 
-                                                  style="position:relative;top:100px;left:-120px;" /><br />
-                                 <img style="position: relative; bottom: -140px; left:-340px;" 
-                                     id="down_arrow" src="' . SITE_HOST . 
-                                                  'skins/images/down_arrow.jpg" width="75" height="42" />
-                            </div>';
+                                 ';
             
                           
         } 
