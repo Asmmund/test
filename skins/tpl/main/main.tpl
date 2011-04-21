@@ -2,6 +2,11 @@
 <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/main/main.js"></script>  
 
     <div id="main">
+        
+            <?php
+                echo $view->DrawControlls();
+            ?>
+        
         <div id="result">
         <pre>
         <?php

@@ -7,6 +7,7 @@
     {
         private $hall;
         private $string;
+        private $controlls;
         
         public function __construct($hall)
         {
@@ -20,11 +21,19 @@
             //$this->FillGrid();
             return $this->string;
         }
+        
+        public function DrawControlls()
+        {
+            $this->controlls = '<div id="control_panel">
+                                    <div class="action">+</div> 
+                                    <div class="action">-</div> 
+                                
+                               </div>';
+            return $this->controlls;
+        }
 
         private function DrawArrows()
         {
-            /*
-            */
             $this->string = '            <div id="output" >
                                  <img id="up_arrow" src="' . SITE_HOST . 
                                                   'skins/images/up_arrow.jpg" width="75" height="42" 
@@ -75,19 +84,19 @@
                                           <tr style="border: solid black 1px;">
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                    src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat1" /></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                   src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat2" /></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                   src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat3" /></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                               src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat4" /></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                               src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat5"/></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat"/></td>
                                           </tr>
                                       </table>
                                  </div>

@@ -16,23 +16,13 @@ jq(document).ready(function(){
         alert('Left arrow pressed!');
     });
     
-    jq('#seat1').click(function(){
+    jq('.seat').click(function(){
         jq(this).attr('src', 'skins/images/green_chair.jpg');
     });
-    jq('#seat2').click(function(){
-        jq(this).attr('src', 'skins/images/green_chair.jpg');
-    });
-    jq('#seat3').click(function(){
-        jq(this).attr('src', 'skins/images/green_chair.jpg');
-    });
-    jq('#seat4').click(function(){
-        jq(this).attr('src', 'skins/images/green_chair.jpg');
-    });
-    jq('#seat5').click(function(){
-        jq(this).attr('src', 'skins/images/green_chair.jpg');
-    });
-    jq('#seat6').click(function(){
-        jq(this).attr('src', 'skins/images/green_chair.jpg');
+   
+    
+    jq('#control_panel>.action').click(function(){
+        alert('Action pressed!');
     });
 
 });

@@ -72,3 +72,18 @@ body {
     margin: 0px auto; /* centering the content */
 }
 
+#control_panel{
+    position:relative;
+    top:50px;
+    left:300px;
+    width:300px;
+    height:31px;
+    font: bold 18px;
+}
+
+#control_panel>.action{
+    height:31px;
+    width: 30px;
+    border: solid black 1px;
+}
+
