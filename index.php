@@ -32,7 +32,7 @@
     require SITE_ROOT . 'libs/default.php';
     
     //pdo object
-    require SITE_ROOT . 'libs/mysql.php';
+ //   require SITE_ROOT . 'libs/mysql.php';
     
     
     /** /////////////////////////////////////////////////

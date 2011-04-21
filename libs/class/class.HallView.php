@@ -16,49 +16,79 @@
         public function DrawHall()
         {
             $this->DrawGrid();
-            $this->DrawArrows();
-            $this->FillGrid();
+            //$this->DrawArrows();
+            //$this->FillGrid();
             return $this->string;
         }
 
         private function DrawArrows()
         {
-            $this->string = "<table > <tr>
-                                          <td style=''>" . 
-                                          "<img id='up_arrow' src='" . SITE_HOST . "skins/images/up_arrow.jpg'  />
-                                          </td>
-                                      </tr>"  .
-                                      "<tr> 
-                                          <td>
-                                              <img id='left_arrow' src='" . SITE_HOST . "skins/images/left_arrow.jpg' />
-                                          </td>
-                                          <td>"  . $this->string . "</td>" .
-                                          "<td><img id='right_arrow' src='" . SITE_HOST . "skins/images/right_arrow.jpg' /></td>
-                                       </tr>" .
-                                       "<tr><td><img id='down_arrow' src='" . SITE_HOST . "skins/images/down_arrow.jpg' /></td></tr>
-                              </table>" ;
-            
         }
 
 
         private function DrawGrid()
         {
-            $this->string = '<div>
-                         <table border="2">';
-            for($i=0; $i<$this->GetRows(); $i++)
-            {
-                $this->string .= '<tr>';
-                for($j=0; $j <$this->GetNumber(); $j++)
-                {
-                    $this->string .= "<td height='60' width='65'><img src='" . SITE_HOST . "skins/images/empty_grid.jpg' /></td>";
-                }
-                $this->string .= '</tr>';
-                
-            }
-                      
-            $this->string .= '</div>   </table>
-                      ';
-                      
+            $this->string = '<div id="output" >
+                                 <img id="up_arrow" src="' . SITE_HOST . 
+                                                  'skins/images/up_arrow.jpg" width="75" height="42" 
+                                                  style="position: relative;bottom:-60px; right:-45px;" /> <br />
+                                 <img id="left_arrow" src="' . SITE_HOST . 
+                                                  'skins/images/left_arrow.jpg" width="42" height="75"
+                                                  style="float: left;position:relative;top:110px; left:-20px"  />
+                                 <div style="float: left;" id="table">
+                                      <table style="border: solid black 1px;" >
+                                          <tr  style="border: solid black 1px;" >
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;"><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;"><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                          </tr>
+                                          <tr style="border: solid black 1px;">
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
+                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                          </tr>
+                                          <tr style="border: solid black 1px;">
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                   src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat1" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat2" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat3" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                              src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat4" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                              src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" id="seat5"/></td>
+                                          </tr>
+                                      </table>
+                                 </div>
+                                 <img id="right_arrow" src="' . SITE_HOST . 
+                                                  'skins/images/right_arrow.jpg" width="42" height="75" 
+                                                  style="position:relative;top:100px;left:-120px;" /><br />
+                                 <img style="position: relative; bottom: -140px; left:-340px;" 
+                                     id="down_arrow" src="' . SITE_HOST . 
+                                                  'skins/images/down_arrow.jpg" width="75" height="42" />
+                            </div>';
+            
+                          
         } 
         private function FillGrid()
         {
