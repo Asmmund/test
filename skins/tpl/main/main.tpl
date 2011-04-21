@@ -1,19 +1,13 @@
 <!-- shins/tpl/main/main.tpl begin-->
-<script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/main/main.js"></script>  
+  
 
     <div id="main">
         
             <?php
-                echo $view->DrawControlls();
+                echo $halleditor->seatEditor(1,'link');
             ?>
         
-        <div id="result">
-        <pre>
-        <?php
-               echo $view->DrawHall();
-        ?>
-        </pre>
-        </div>
+
         
         
         

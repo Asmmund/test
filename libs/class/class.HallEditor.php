@@ -7,7 +7,9 @@
     {
         private $editor;
         private $hallid;
-        
+        private $controlls;   
+        private $scripts;     
+        private $final;
 /*        public function __construct($hallid)
         {
             $this->hallid = $hallid;
@@ -29,17 +31,46 @@
         //method of showing editor
         private function showEditor()
         {
+            $this->controlls = '<div id="control_panel">
+                                    <div class="action">+</div> 
+                                    <div class="action">-</div> 
+                                
+                               </div>';
+            return $this->controlls;            
+        }
+        
+        private function switchScripts()
+        {
+            $this->scripts = '<script type="text/javascript" src="' . SITE_HOST . 'skins/js/main/main.js"></script>';
             
+            
+            return $this->scripts;
         }
         
         public function seatEditor($hallid ,$ajaxUrl)
         {
-            echo $this->showEditor();
+            //hall object
+            $hall = new Hall($hallid);
+            
+            //building hall object
+            $view = new HallView($hall);
+            
+            $this->showAll($view);
+
+            
+            
+            return $this->final;
             
             
         }
         
-        //funciton of adding a chair to $hallid
+        //function of formatting output string
+        private function ShowAll(HallView $view)
+        {
+            $this->final = $this->SwitchScripts() . $this->showEditor() . 
+                 '<div id="result">' .$view->DrawHall() . '</div>';
+            
+        }
 
 
               //this function needs to be exposed under the $ajaxUrl

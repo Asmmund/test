@@ -17,8 +17,6 @@
     }
     
     
-    //hall object
-    $hall = new Hall(1);
     
     $halleditor = new HallEditor;
     //var_dump($hall);
@@ -30,9 +28,7 @@
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
 //      $halleditor->seatEditorAjax(1,'addchair',$params);
-   $view = new HallView($hall);
 
-    // var_dump($view);
     
     
 

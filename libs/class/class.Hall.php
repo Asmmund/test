@@ -27,7 +27,17 @@
             $this->LoadSeats();
             
         }
+                //function getting number of rows of the hall
+        public function GetRows()
+        {
+            return 5;
+        }
         
+        //function getting number of chairs per row
+        public function GetNumber()
+        {
+            return 6;
+        }
         private function LoadSeats()
         {
             //create object for obtaining info from mysql table
