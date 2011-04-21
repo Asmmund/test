@@ -28,7 +28,7 @@
             $this->string = ' <div id="output" >
                                  <img id="up_arrow" src="' . SITE_HOST . 
                                                   'skins/images/up_arrow.jpg" width="75" height="42" 
-                                                  style="position: relative;top:-10px; left:165px;" /> <br />
+                                                  style="position: relative;left:165px;margin-bottom:15px;" /> <br />
                                  <img id="left_arrow" src="' . SITE_HOST . 
                                                   'skins/images/left_arrow.jpg" width="42" height="75"
                                                   style="float: left;position:relative;top:55px; left:-20px"  />' . 
@@ -36,7 +36,7 @@
                                                   '<img id="right_arrow" src="' . SITE_HOST . 
                                                   'skins/images/right_arrow.jpg" width="42" height="75" 
                                                   style="position:relative;top:50px; left:10px;" /><br />
-                                 <img style="position: relative;top:140px;left:-200px; " 
+                                 <img style="position: relative;left:-200px;top:140px; margin-top:10px" 
                                      id="down_arrow" src="' . SITE_HOST . 
                                                   'skins/images/down_arrow.jpg" width="75" height="42" />
                                      </div>';
@@ -46,8 +46,9 @@
         private function DrawGrid()
         {
             $this->string = '
-                                 <div style="float: left;" id="table">
-                                      <table style="border: solid black 1px;" >
+                                 <div style="float: left;" >
+                                      <table style="border: solid black 1px;" id="table">
+                                      <tbody>
                                           <tr  style="border: solid black 1px;" >
                                               <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
                                                   'skins/images/green_chair.jpg" width="61" height="54" /></td>
@@ -71,7 +72,12 @@
                                                   . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img src="'
                                                   . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                          </tr>
+                                      </tbody>
+                                      </table>
+                                 </div>';
+        }
+/**
+ *                                           </tr>
                                           <tr style="border: solid black 1px;">
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                    src="' . SITE_HOST . 
@@ -89,12 +95,9 @@
                                               src="' . SITE_HOST . 
                                                   'skins/images/empty_chair.jpg" width="61" height="54" class="seat"/></td>
                                           </tr>
-                                      </table>
-                                 </div>
-                                 ';
-            
-                          
-        } 
+
+*/        
+         
         private function FillGrid()
         {
             
