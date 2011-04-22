@@ -2,7 +2,7 @@
 var jq = jQuery.noConflict();
 
 //to determine which button is pressed
-var action = 'none';
+var action = 'add';
 
         
 

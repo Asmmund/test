@@ -56,7 +56,7 @@
         private function DrawGrid()
         {
             $this->string = '
-                                 <div style="height:500px;width:550px;overflow:scroll;" >
+                                 <div style="height:500px;width:550px;overflow:scroll; border:1px solid;padding:5px;" >
                                       <table style="border: solid black 1px;" id="table">
                                       <tbody>
                                           <tr style="border: solid black 1px;">

@@ -33,7 +33,7 @@
         {
             $this->controlls = '<table id="control_panel" >
                                 <tr>
-                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/001_01.png" /></td>
+                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/002_01.png" /></td>
                                     <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" /></td>
                                 </tr>
                                </table>';
