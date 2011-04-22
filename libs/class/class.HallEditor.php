@@ -32,8 +32,8 @@
         private function showEditor()
         {
             $this->controlls = '<div id="control_panel">
-                                    <div class="action"><img src="' . SITE_HOST . 'skins/images/add.png" /></div> 
-                                    <div class="action"><img src="' . SITE_HOST . 'skins/images/delete.png" /></div> 
+                                    <div class="add"><img src="' . SITE_HOST . 'skins/images/add.png" /></div> 
+                                    <div class="remove"><img src="' . SITE_HOST . 'skins/images/delete.png" /></div> 
                                 
                                </div>';
             return $this->controlls;            

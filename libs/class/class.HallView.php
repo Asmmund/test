@@ -50,34 +50,29 @@
                                       <table style="border: solid black 1px;" id="table">
                                       <tbody>
                                           <tr  style="border: solid black 1px;" >
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td width="65" height="65" style="border: solid black 1px;" ><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td width="65" height="65" style="border: solid black 1px;" ><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td width="65" height="65" style="border: solid black 1px;"><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td width="65" height="65" style="border: solid black 1px;"><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="' . SITE_HOST .'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;" ><img 
+                                                  class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;" ><img 
+                                                  class="seat" src="' . SITE_HOST .'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;"><img 
+                                                  class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;"><img 
+                                                      class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
                                           </tr>
                                           <tr style="border: solid black 1px;">
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' . SITE_HOST . 
-                                                  'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' 
-                                                  . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="' 
-                                                  . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img src="'
-                                                  . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                      </tbody>
-                                      </table>
-                                 </div>';
-        }
-/**
- *                                           </tr>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                                                                </tr>
                                           <tr style="border: solid black 1px;">
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                    src="' . SITE_HOST . 
@@ -95,7 +90,12 @@
                                               src="' . SITE_HOST . 
                                                   'skins/images/empty_chair.jpg" width="61" height="54" class="seat"/></td>
                                           </tr>
-
+                                         </tbody>
+                                      </table>
+                                 </div>';
+        }
+/**
+ * 
 */        
          
         private function FillGrid()
