@@ -35,18 +35,17 @@
                                  <div style="">
                                      <img id="left_arrow" src="' . SITE_HOST . 
                                          'skins/images/left_arrow.jpg" width="42" height="75"
-                                         style=" height:80%;vertical-align:middle; margin: 0 20px 0 0;
-                                                 float: left;position:relative;top:55px; left:-20px;"  />
+                                         style=" float: left;position:relative;top:155px; left:-20px;"  />
                                  </div>' . 
                                  $this->string . 
-                                 '<div style="position:relative; left:650px; top: -450px;">
+                                 '<div style="position:relative; left:620px; top: -350px;">
                                      <img id="right_arrow" src="' . SITE_HOST . 
                                          'skins/images/right_arrow.jpg" width="42" height="75" 
                                          style="" />
                                  </div><br />
                                          
                                 <div style="width:80%;text-align:center;">
-                                    <img style="margin: 0 0 0 0px;" 
+                                    <img style="position:relative; top:-80px;left:40px;" 
                                         id="down_arrow" src="' . SITE_HOST . 
                                         'skins/images/down_arrow.jpg" width="75" height="42" />
                                 </div>
