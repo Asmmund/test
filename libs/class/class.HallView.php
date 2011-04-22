@@ -75,7 +75,7 @@
                                                   'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                               src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat"/></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                           </tr>
                                       
                                           <tr  style="border: solid black 1px;" >
@@ -101,7 +101,7 @@
                                                   class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                   class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                                                                </tr>
+                                          </tr>
                                           <tr style="border: solid black 1px;">
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                    src="' . SITE_HOST . 
@@ -117,7 +117,7 @@
                                                   'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                               src="' . SITE_HOST . 
-                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat"/></td>
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
                                           </tr>
                                          </tbody>
                                       </table>

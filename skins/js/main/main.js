@@ -31,7 +31,8 @@ jq(document).ready(function(){
 
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
-        jq("#table >tbody> tr > td:last").clone(true) .insertAfter("table>tbody> tr > td:last");    
+        jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');  
+// jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table>tbody>tr> td:last-child');  
     });
     //adding row after the last one
     jq('#down_arrow').click(function(){
@@ -39,6 +40,7 @@ jq(document).ready(function(){
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
+        jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');  
 //        jq("#table >tbody> tr > td:first").clone(true) .insertBefore("table>tbody> tr > td");    
 s    });
     
