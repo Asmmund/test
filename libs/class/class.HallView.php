@@ -28,7 +28,7 @@
             $this->string = ' <div id="output" >
                                  <img id="up_arrow" src="' . SITE_HOST . 
                                                   'skins/images/up_arrow.jpg" width="75" height="42" 
-                                                  style="position: relative;left:165px;margin-bottom:15px;" /> <br />
+                                                  style="position: relative;left:150px;margin-bottom:15px;" /> <br />
                                  <img id="left_arrow" src="' . SITE_HOST . 
                                                   'skins/images/left_arrow.jpg" width="42" height="75"
                                                   style="float: left;position:relative;top:55px; left:-20px"  />' . 

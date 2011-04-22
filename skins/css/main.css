@@ -73,12 +73,14 @@ body {
 }
 
 #control_panel{
-    float:right;
-    width:300px;
+    float:left;
     height:31px;
 }
 
-#control_panel>.action{
+#control_panel > .add,
+ #control_panel > .remove,
+{
+    float:left;
     height:25px;
     width: 25px;
 }

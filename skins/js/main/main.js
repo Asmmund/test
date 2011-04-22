@@ -53,14 +53,14 @@ jq(document).ready(function(){
    // (action=='add')?('skins/images/green_chair.jpg'):('skins/images/empty_chair.jpg')
    
    //if the add icon is pressed then action (general var) is set to add) 
-    jq('#control_panel > .add').click(function(){
+    jq('#control_panel .add').click(function(){
         action = 'add';
         jq('#add_image').attr('src', 'skins/images/002_01.png');
         jq('#remove_image').attr('src', 'skins/images/001_02.png');
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
-    jq('#control_panel>.remove').click(function(){
+    jq('#control_panel .remove').click(function(){
         action = 'remove';
         jq('#add_image').attr('src', 'skins/images/001_01.png');
         jq('#remove_image').attr('src','skins/images/002_02.png' );

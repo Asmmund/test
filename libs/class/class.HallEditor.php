@@ -31,11 +31,12 @@
         //method of showing editor
         private function showEditor()
         {
-            $this->controlls = '<div id="control_panel" >
-                                    <div class="add" ><img id="add_image" src="' . SITE_HOST . 'skins/images/001_01.png" /></div> 
-                                    <div class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" /></div> 
-                                
-                               </div>';
+            $this->controlls = '<table id="control_panel" >
+                                <tr>
+                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/001_01.png" /></td>
+                                    <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" /></td>
+                                </tr>
+                               </table>';
             return $this->controlls;            
         }
         
