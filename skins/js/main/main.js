@@ -42,7 +42,7 @@ jq(document).ready(function(){
     jq('#left_arrow').click(function(){
         jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');  
 //        jq("#table >tbody> tr > td:first").clone(true) .insertBefore("table>tbody> tr > td");    
-s    });
+    });
     
     //based on the action of choise eather draw another chair, or draw empty cell
     jq('.seat').click(function(){

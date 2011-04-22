@@ -37,7 +37,7 @@
                                          'skins/images/left_arrow.jpg" width="42" height="75"
                                          style=" height:80%;vertical-align:middle; margin: 0 20px 0 0;
                                                  float: left;position:relative;top:55px; left:-20px;"  />
-                                 </div' . 
+                                 </div>' . 
                                  $this->string . 
                                  '<div style="position:relative; left:300px;top: -160px;">
                                      <img id="right_arrow" src="' . SITE_HOST . 
@@ -90,17 +90,17 @@
                                               <td width="65" height="65" style="border: solid black 1px;"><img 
                                                       class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
                                           </tr>
-                                          <tr style="border: solid black 1px;">
+                                          <tr  style="border: solid black 1px;" >
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  class="seat" src="' . SITE_HOST .'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;" ><img 
                                                   class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                              <td width="65" height="65" style="border: solid black 1px;" ><img 
+                                                  class="seat" src="' . SITE_HOST .'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;"><img 
                                                   class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
-                                                  class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
-                                                  class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
-                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
-                                                  class="seat" src="'. SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
+                                              <td width="65" height="65" style="border: solid black 1px;"><img 
+                                                      class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg" width="61" height="54" /></td>
                                           </tr>
                                           <tr style="border: solid black 1px;">
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
