@@ -4,44 +4,31 @@ var jq = jQuery.noConflict();
 //to determine which button is pressed
 var action = 'none';
 
-// content of the empty row
-var empty_row = '<tr style="border: solid black 1px;">'
-                 + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54" /></td>'
-                 + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54"  /></td>'
-                 + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54"  /></td>'
-                 + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54" /></td>'
-                 + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54" /></td>'
-                 + '</tr>';
-//content of the empty cell 
-var empty_cell =  '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54"  /></td>';
-                     
+        
 
 /* when file is loaded*/
 jq(document).ready(function(){
     //adding fow before the first one
     jq('#up_arrow').click(function(){
         jq('#table > tbody>tr:first').clone(true).insertBefore('#table > tbody>tr:first');
+        jq('#table > tbody>tr:first td img').attr('src','skins/images/empty_chair.jpg' );
+        
     });
 
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
-        jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');  
-// jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table>tbody>tr> td:last-child');  
+        jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
+        jq('#table >tbody>tr>td:last-child img').attr('src','skins/images/empty_chair.jpg' );  
     });
     //adding row after the last one
     jq('#down_arrow').click(function(){
         jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
+        jq('#table > tbody>tr:last td img').attr('src','skins/images/empty_chair.jpg' );
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
-        jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');  
-//        jq("#table >tbody> tr > td:first").clone(true) .insertBefore("table>tbody> tr > td");    
+        jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');
+        jq('#table>tbody>tr>td:first-child img').attr('src','skins/images/empty_chair.jpg' );  
     });
     
     //based on the action of choise eather draw another chair, or draw empty cell
@@ -53,7 +40,7 @@ jq(document).ready(function(){
                 return 'skins/images/empty_chair.jpg';
         });
     });
-   // (action=='add')?('skins/images/green_chair.jpg'):('skins/images/empty_chair.jpg')
+
    
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
