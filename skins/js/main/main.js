@@ -7,19 +7,19 @@ var action = 'none';
 // content of the empty row
 var empty_row = '<tr style="border: solid black 1px;">'
                  + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img src="skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>'
+                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54" /></td>'
                  + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img src="skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>'
+                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54"  /></td>'
                  + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img src="skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>'
+                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54"  /></td>'
                  + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img src="skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>'
+                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54" /></td>'
                  + '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img src="skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>'
+                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54" /></td>'
                  + '</tr>';
 //content of the empty cell 
 var empty_cell =  '<td style="border: solid black 1px;" width="65" height="65" >'
-                     + '<img src="skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>';
+                     + '<img class="seat" src="skins/images/empty_chair.jpg" width="61" height="54"  /></td>';
                      
 
 /* when file is loaded*/
@@ -53,13 +53,17 @@ jq(document).ready(function(){
    // (action=='add')?('skins/images/green_chair.jpg'):('skins/images/empty_chair.jpg')
    
    //if the add icon is pressed then action (general var) is set to add) 
-    jq('#control_panel>.add').click(function(){
+    jq('#control_panel > .add').click(function(){
         action = 'add';
+        jq('#add_image').attr('src', 'skins/images/002_01.png');
+        jq('#remove_image').attr('src', 'skins/images/001_02.png');
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel>.remove').click(function(){
         action = 'remove';
+        jq('#add_image').attr('src', 'skins/images/001_01.png');
+        jq('#remove_image').attr('src','skins/images/002_02.png' );
     });
 
 });

@@ -31,9 +31,9 @@
         //method of showing editor
         private function showEditor()
         {
-            $this->controlls = '<div id="control_panel">
-                                    <div class="add"><img src="' . SITE_HOST . 'skins/images/add.png" /></div> 
-                                    <div class="remove"><img src="' . SITE_HOST . 'skins/images/delete.png" /></div> 
+            $this->controlls = '<div id="control_panel" >
+                                    <div class="add" ><img id="add_image" src="' . SITE_HOST . 'skins/images/001_01.png" /></div> 
+                                    <div class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" /></div> 
                                 
                                </div>';
             return $this->controlls;            
