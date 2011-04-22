@@ -25,28 +25,39 @@
 
         private function DrawArrows()
         {
-            $this->string = ' <div id="output" >
-                                 <img id="up_arrow" src="' . SITE_HOST . 
-                                                  'skins/images/up_arrow.jpg" width="75" height="42" 
-                                                  style="position: relative;left:150px;margin-bottom:15px;" /> <br />
-                                 <img id="left_arrow" src="' . SITE_HOST . 
-                                                  'skins/images/left_arrow.jpg" width="42" height="75"
-                                                  style="float: left;position:relative;top:55px; left:-20px"  />' . 
-                                                  $this->string . 
-                                                  '<img id="right_arrow" src="' . SITE_HOST . 
-                                                  'skins/images/right_arrow.jpg" width="42" height="75" 
-                                                  style="position:relative;top:50px; left:10px;" /><br />
-                                 <img style="position: relative;left:-200px;top:140px; margin-top:10px" 
-                                     id="down_arrow" src="' . SITE_HOST . 
-                                                  'skins/images/down_arrow.jpg" width="75" height="42" />
-                                     </div>';
+            $this->string = ' 
+                                 <div style="width:50%;text-align:center;">
+                                     <img id="up_arrow" src="' . SITE_HOST . 
+                                         'skins/images/up_arrow.jpg" width="75" height="42" 
+                                         style="position: relative;left:150px;margin-bottom:15px;" />
+                                  </div> <br />
+                                  
+                                 <div style="">
+                                     <img id="left_arrow" src="' . SITE_HOST . 
+                                         'skins/images/left_arrow.jpg" width="42" height="75"
+                                         style=" height:80%;vertical-align:middle; margin: 0 20px 0 0;
+                                                 float: left;position:relative;top:55px; left:-20px;"  />
+                                 </div' . 
+                                 $this->string . 
+                                 '<div style="position:relative; left:300px;top: -160px;">
+                                     <img id="right_arrow" src="' . SITE_HOST . 
+                                         'skins/images/right_arrow.jpg" width="42" height="75" 
+                                         style="" />
+                                 </div><br />
+                                         
+                                <div style="width:80%;text-align:center;">
+                                    <img style="margin: 0 0 0 0px;" 
+                                        id="down_arrow" src="' . SITE_HOST . 
+                                        'skins/images/down_arrow.jpg" width="75" height="42" />
+                                </div>
+                             </div>';
         }
 
 
         private function DrawGrid()
         {
             $this->string = '
-                                 <div style="float: left;" >
+                                 <div style="margin: 0 0 0 50px; text-align:center;" >
                                       <table style="border: solid black 1px;" id="table">
                                       <tbody>
                                           <tr  style="border: solid black 1px;" >
@@ -92,7 +103,7 @@
                                           </tr>
                                          </tbody>
                                       </table>
-                                 </div>';
+                                 ';
         }
 /**
  * 
