@@ -39,7 +39,7 @@
                                                  float: left;position:relative;top:55px; left:-20px;"  />
                                  </div>' . 
                                  $this->string . 
-                                 '<div style="position:relative; left:300px;top: -160px;">
+                                 '<div style="position:relative; left:650px; top: -450px;">
                                      <img id="right_arrow" src="' . SITE_HOST . 
                                          'skins/images/right_arrow.jpg" width="42" height="75" 
                                          style="" />
@@ -57,7 +57,7 @@
         private function DrawGrid()
         {
             $this->string = '
-                                 <div style="margin: 0 0 0 50px; text-align:center;" >
+                                 <div style="height:500px;width:550px;overflow:scroll;" >
                                       <table style="border: solid black 1px;" id="table">
                                       <tbody>
                                           <tr style="border: solid black 1px;">
@@ -121,6 +121,7 @@
                                           </tr>
                                          </tbody>
                                       </table>
+                                      </div>
                                  ';
         }
 /**

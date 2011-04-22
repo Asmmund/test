@@ -76,6 +76,7 @@ body {
     float:left;
     height:31px;
 }
+td {text-align: center;}
 
 #control_panel > .add,
  #control_panel > .remove,
