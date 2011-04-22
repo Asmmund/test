@@ -60,6 +60,24 @@
                                  <div style="margin: 0 0 0 50px; text-align:center;" >
                                       <table style="border: solid black 1px;" id="table">
                                       <tbody>
+                                          <tr style="border: solid black 1px;">
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                   src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                                  src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                              src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat" /></td>
+                                              <td style="border: solid black 1px;" width="65" height="65" ><img 
+                                              src="' . SITE_HOST . 
+                                                  'skins/images/empty_chair.jpg" width="61" height="54" class="seat"/></td>
+                                          </tr>
+                                      
                                           <tr  style="border: solid black 1px;" >
                                               <td style="border: solid black 1px;" width="65" height="65" ><img 
                                                   class="seat" src="' . SITE_HOST .'skins/images/green_chair.jpg" width="61" height="54" /></td>

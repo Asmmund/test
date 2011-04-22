@@ -26,20 +26,21 @@ var empty_cell =  '<td style="border: solid black 1px;" width="65" height="65" >
 jq(document).ready(function(){
     //adding fow before the first one
     jq('#up_arrow').click(function(){
-        jq('#table > tbody:first').prepend(empty_row);
+        jq('#table > tbody>tr:first').clone(true).insertBefore('#table > tbody>tr:first');
     });
+
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
-        jq("#table tr").append(empty_cell);    
+        jq("#table >tbody> tr > td:last").clone(true) .insertAfter("table>tbody> tr > td:last");    
     });
     //adding row after the last one
     jq('#down_arrow').click(function(){
-        jq('#table > tbody:last').append(empty_row);
+        jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
-        jq("#table tr").prepend(empty_cell);    
-    });
+//        jq("#table >tbody> tr > td:first").clone(true) .insertBefore("table>tbody> tr > td");    
+s    });
     
     //based on the action of choise eather draw another chair, or draw empty cell
     jq('.seat').click(function(){
