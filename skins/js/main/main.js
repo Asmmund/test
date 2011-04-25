@@ -37,8 +37,12 @@ jq(document).ready(function(){
             if(action == 'add')
                 return 'skins/images/green_chair.jpg';
             else if(action == 'remove')
+            {
+                jq(this).attr('alt', 'empty');
                 return 'skins/images/empty_chair.jpg';
+            }
         });
+
     });
 
    

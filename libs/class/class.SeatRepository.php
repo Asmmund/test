@@ -19,7 +19,7 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
   
-                $query = "SELECT `row`, `number`, `seatID`, `x`, `y`,
+                $query = "SELECT `seatID`,`row`, `number`, `seatID`, `x`, `y`,
                                 `label`, `delimiter`, `categoryID`
                            FROM `seat`
                            WHERE `hallID` =" . $hallid . "
@@ -30,7 +30,7 @@
                     
                 while($row = $res->fetch(PDO::FETCH_ASSOC))
                 {
-                    $array_object[] = new Seat($row['row'],$row['number'], 
+                    $array_object[] = new Seat($row['seatID'],$row['row'],$row['number'], 
                                       $hallid, $row['x'],$row['y'],$row['label'],
                                       $row['delimiter'],$row['categoryID']);
                 }

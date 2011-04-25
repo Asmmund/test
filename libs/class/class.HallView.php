@@ -7,7 +7,7 @@
     {
         private $hall;
         private $string;
-        public $x ;
+        public $x = 0;
         public $y = 0;
         
 
@@ -68,81 +68,28 @@
         private function DrawGrid()
         {
             $this->string = '<div id="grid" >
-                                      <table id="table">
-                                          <tr>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                          </tr>
-                                      
-                                          <tr>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                          </tr>
+                                <table id="table">';
+            //go through each row of the hall
+            for($i=1; $i<=$this->x; $i++)
+            {
+                $this->string .='<tr>';
+                
+                //go through each place & deside is it empty or not...
+                for($j=1; $j <=$this->y;$j++)
+                {
+                    $this->string .= '<td>';
 
-                                          <tr>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/green_chair.jpg"  />
-                                              </td>
-                                          </tr>
+                    if($seat = $this->seatExists($i,$j))
+                        $this->string .= $this->drawSeat($seat);
+                    else
+                        $this->string .= '<img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />';
 
-                                          <tr>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                              <td>
-                                                  <img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />
-                                              </td>
-                                          </tr>
-                                      </table>
-                                      </div>
-                                 ';
+                    $this->string .= '</td>';
+                }
+                $this->string .= '</tr>';
+            }
+            $this->string .= '  </table>
+                            </div>';
         }
         
         private function seatExists($x,$y)
@@ -150,10 +97,22 @@
             foreach($this->hall->seats as $seat)
             {
                 if( ($seat->x == $x) && ($seat->y == $y) )
-                    return true;
+                    return $seat;
                 
-                return false;
+                
             }
+            return false;
+            
+        }
+        
+        private function drawSeat( $seat)
+        {
+            $image = '<img  class="seat" id="' .$seat->seatID . '"
+                      src="' . SITE_HOST .  'skins/images/green_chair.jpg" title="Seat:'
+                      . $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '"
+                      alt="Seat:'. $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '" />';
+            
+            return $image;
             
         }
          

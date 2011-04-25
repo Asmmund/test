@@ -49,8 +49,9 @@
         }
         
         
-        public function __construct( $r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid)
+        public function __construct( $id,$r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid)
         {
+                $this->seatID = $id;
                 $this->row = $r;
                 $this->number = $number;
                 $this->hallid = $hallid;
