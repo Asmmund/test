@@ -144,6 +144,18 @@
                                       </div>
                                  ';
         }
+        
+        private function seatExists($x,$y)
+        {
+            foreach($this->hall->seats as $seat)
+            {
+                if( ($seat->x == $x) && ($seat->y == $y) )
+                    return true;
+                
+                return false;
+            }
+            
+        }
          
         private function FillGrid()
         {
