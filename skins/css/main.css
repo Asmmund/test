@@ -65,24 +65,83 @@ body {
     padding:0; /* padding set to 0 */
     
 }
-
+/*
+the output div
+*/
 #content{
     width: 798px;
     padding: 10px;
     margin: 0px auto; /* centering the content */
 }
 
-#control_panel{
+
+/*
+grid & the hall model
+*/
+#grid {
+    height:500px;
+    width:550px;
+    overflow:scroll; 
+    border:1px solid;
+    padding: 5px;
+}
+#grid > #table {
+    border: solid black 1px;
+    
+}
+#table tr {
+    border: solid black 1px;
+}
+
+#table td {
+    border: solid black 1px;
+    text-align: center;
+    width: 65px;
+    height: 65px;
+}
+
+#table td img {
+    height: 54px;
+    width: 61px;
+}
+/* 
+arrows
+*/
+#main #up_arrow{
+    width:50%;text-align:center;position: relative;left:150px;margin-bottom:15px;    
+}
+#main #letf_arrow{
+    width:42px; 
+    height:75px; 
+}
+#main #left_arrow img {
+    float: left;position:relative;top:155px; left:-20px;
+}
+
+#main #right_arrow {
+    position:relative; left:620px; top: -350px;
+}
+#main #down_arrow {
+    width:80%;text-align:center;
+}
+#main #down_arrow img {
+    position:relative; top:-80px;left:40px;
+}
+
+/*
+Toolbar
+*/
+#main #control_panel{
     float:left;
     height:31px;
 }
-#table td {text-align: center;}
 
-#control_panel > .add,
- #control_panel > .remove,
+#main #control_panel > .add,
+#main  #control_panel > .remove
 {
     float:left;
     height:25px;
     width: 25px;
 }
+
 

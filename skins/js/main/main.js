@@ -1,7 +1,7 @@
 /* Setting no conflict version*/
 var jq = jQuery.noConflict();
 
-//to determine which button is pressed
+//default action
 var action = 'add';
 
         
@@ -32,7 +32,7 @@ jq(document).ready(function(){
     });
     
     //based on the action of choise eather draw another chair, or draw empty cell
-    jq('.seat').click(function(){
+    jq('#table .seat').click(function(){
         jq(this).attr('src', function(){
             if(action == 'add')
                 return 'skins/images/green_chair.jpg';
