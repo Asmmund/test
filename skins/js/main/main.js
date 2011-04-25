@@ -38,15 +38,15 @@ jq(document).ready(function(){
     
     //based on the action of choise eather draw another chair, or draw empty cell
     jq('#table .seat').click(function(){
-        jq(this).attr('src', function(){
-            if(action == 'add')
-                return 'skins/images/green_chair.jpg';
-            else if(action == 'remove')
-            {
-                jq(this).attr('alt', 'empty');
-                return 'skins/images/empty_chair.jpg';
-            }
-        });
+        if(action == 'add')
+        {
+            jq(this).attr('src', 'skins/images/green_chair.jpg'); 
+        }
+        else if (action == 'remove')
+        {
+            jq(this).attr('src', 'skins/images/empty_chair.jpg'); 
+        }
+        
 
     });
 

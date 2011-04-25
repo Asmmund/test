@@ -46,7 +46,7 @@
         
 
 
-        static public function AddChair($hallid, $params)
+        static public function addChair($hallid, $params)
         {
             try
             {

@@ -76,21 +76,21 @@
 
               //this function needs to be exposed under the $ajaxUrl
               //it contains the logic to handle an Ajax call (e.g. save a new seat)        }
-        public function seatEditorAjax($hallId,$action,$params)
+         static public function seatEditorAjax($hallid,$action,$params)
         {
             switch($action)
             {
                 case 'addchair':
-                    $this->addchair($hallId,$params);
+                    SeatRepository::addChair($hallid,$params);
                     break;
             
                     
             }
         }
         //fuciton of adding a chair to mysql table
-        private function addchair($hallid,$params)
+        static private function addchair($hallid,$params)
         {
-            SeatRepository::AddChair($hallid,$params);
+            
                 
         }
     }
