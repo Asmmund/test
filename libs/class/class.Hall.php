@@ -10,7 +10,7 @@
     class Hall
     {
         // array of seat objects
-        private $seats = array();
+        public $seats = array();
         
         public $hallid;
         

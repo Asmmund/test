@@ -7,11 +7,27 @@
     {
         private $hall;
         private $string;
+        public $x ;
+        public $y = 0;
+        
 
         
-        public function __construct($hall)
+        public function __construct(Hall $hall)
         {
             $this->hall = $hall;
+            $this->getMax();
+        }
+
+        private function getMax()
+        {
+            foreach($this->hall->seats as $seat)
+            {
+                if($seat ->x > $this->x )
+                    $this->x = $seat ->x;
+                    
+                if($seat->y > $this->y)
+                    $this->y = $seat->y;
+            }
         }
         
         public function DrawHall()
