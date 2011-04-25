@@ -12,6 +12,7 @@ jq(document).ready(function(){
     jq('#up_arrow').click(function(){
         jq('#table > tbody>tr:first').clone(true).insertBefore('#table > tbody>tr:first');
         jq('#table > tbody>tr:first td img').attr('src','skins/images/empty_chair.jpg' );
+        jq('#table > tbody>tr:first td img').attr('title', '');
         
     });
 
@@ -19,16 +20,20 @@ jq(document).ready(function(){
     jq('#right_arrow').click(function(){
         jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
         jq('#table >tbody>tr>td:last-child img').attr('src','skins/images/empty_chair.jpg' );  
+        jq('#table >tbody>tr>td:last-child img').attr('title', '');
+
     });
     //adding row after the last one
     jq('#down_arrow').click(function(){
         jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
         jq('#table > tbody>tr:last td img').attr('src','skins/images/empty_chair.jpg' );
+        jq('#table > tbody>tr:last td img').attr('title', '');
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
         jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');
         jq('#table>tbody>tr>td:first-child img').attr('src','skins/images/empty_chair.jpg' );  
+        jq('#table>tbody>tr>td:first-child img').attr('title', '');
     });
     
     //based on the action of choise eather draw another chair, or draw empty cell
