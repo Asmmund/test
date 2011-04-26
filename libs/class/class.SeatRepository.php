@@ -74,7 +74,7 @@
     
         }
         
-        static public function removeSeat($id)
+        static public function removeSeat($hallid, $params)
         {
             try
             {
@@ -83,7 +83,7 @@
   
                 $query = "DELETE 
                           FROM `seat`
-                          WHERE `seatID` =" . (int)$id . ";";
+                          WHERE `seatID` =" . (int)$params. " AND `hallid`= " . (int)$hallid . ";";
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error deleting the row!');

@@ -42,9 +42,27 @@ jq(document).ready(function(){
         {
             jq(this).attr('src', 'skins/images/green_chair.jpg'); 
         }
-        else if (action == 'remove')
+        else if (action == 'remove_seat')
         {
+            params = jq(this).attr('id'); 
+            var hallid = 1;
+            
+            jq.ajax({
+                url: 'skins/js/main/ajax.php',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                dataType: 'JSON',
+                data: 'hallid='+hallid+'&action=' + action + '&params=' + params,
+                success: function(response){
+                        alert('Seat removed!');
+                },
+                error: function(response) {
+                        alert('Error! ');
+                }
+            });
+            
             jq(this).attr('src', 'skins/images/empty_chair.jpg'); 
+            jq(this).attr('title', '');
         }
         
 
@@ -60,7 +78,7 @@ jq(document).ready(function(){
     
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel .remove').click(function(){
-        action = 'remove';
+        action = 'remove_seat';
         jq('#add_image').attr('src', 'skins/images/001_01.png');
         jq('#remove_image').attr('src','skins/images/002_02.png' );
     });

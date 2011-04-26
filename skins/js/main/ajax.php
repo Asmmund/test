@@ -11,6 +11,9 @@
     $action = $_POST['action'];
     $params = $_POST['params'];
     
+ //   if($hallid>10)
+   //     echo 'TRUE!';
+//        echo '{"success":"true", "text":"Id >10"}';
     HallEditor::seatEditorAjax($hallid,$action, $params);
     
 ?>

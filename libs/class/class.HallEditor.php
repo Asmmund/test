@@ -83,15 +83,11 @@
                 case 'addchair':
                     SeatRepository::addSeat($hallid,$params);
                     break;
+                case 'remove_seat':
+                    SeatRepository::removeSeat($hallid,$params);
             
                     
             }
-        }
-        //fuciton of adding a chair to mysql table
-        static private function addchair($hallid,$params)
-        {
-            
-                
         }
     }
 ?>
