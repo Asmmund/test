@@ -78,10 +78,11 @@
                 {
                     $this->string .= '<td>';
 
-                    if($seat = $this->seatExists($i,$j))
+                    if($seat = $this->getSeat($i,$j))
                         $this->string .= $this->drawSeat($seat);
                     else
-                        $this->string .= '<img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg"  />';
+                        $this->string .= '<img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg" 
+                                           alt="'.$i .'|' . $j . '" />';
 
                     $this->string .= '</td>';
                 }
@@ -91,7 +92,7 @@
                             </div>';
         }
         
-        private function seatExists($x,$y)
+        private function getSeat($x,$y)
         {
             foreach($this->hall->seats as $seat)
             {

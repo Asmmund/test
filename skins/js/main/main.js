@@ -58,12 +58,13 @@ jq(document).ready(function(){
         var click = this;
         if(action == 'add_seat')
         {
+            var coords = jq(click).attr('alt').split(/[|]/);
             var params ={};
-            params['x']  = 1;
-            params['y'] = 3;
-            params['label']  = 'Inserted by ajax';
-            params['row']  = 11;
-            params['number']  = 11;
+            params['x']  = coords[0];
+            params['y'] = coords[1];
+            params['label']  = 'New Seat';
+            params['row']  = 1;
+            params['number']  = 1;
             params['delimiter']  = '/';
             params['categoryID']  = 1;
             
@@ -77,7 +78,7 @@ jq(document).ready(function(){
 
             });
 
-          //jq(this).attr('src', normal_image); 
+          jq(this).attr('src', normal_image); 
         }
         else if (action == 'remove_seat')
         {
