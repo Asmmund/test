@@ -80,7 +80,7 @@
         {
             switch($action)
             {
-                case 'addchair':
+                case 'add_seat':
                     SeatRepository::addSeat($hallid,$params);
                     break;
                 case 'remove_seat':

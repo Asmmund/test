@@ -2,7 +2,7 @@
 var jq = jQuery.noConflict();
 
 //default action
-var action = 'add';
+var action = 'add_seat';
 
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
@@ -56,9 +56,28 @@ jq(document).ready(function(){
     //based on the action of choise eather draw another chair, or draw empty cell
     jq('#table .seat').click(function(){
         var click = this;
-        if(action == 'add')
+        if(action == 'add_seat')
         {
-            jq(this).attr('src', normal_image); 
+            var params ={};
+            params['x']  = 1;
+            params['y'] = 3;
+            params['label']  = 'Inserted by ajax';
+            params['row']  = 11;
+            params['number']  = 11;
+            params['delimiter']  = '/';
+            params['categoryID']  = 1;
+            
+            var dataSend = {'hallid':1, 'action':action, 'params':params};
+
+            jq.ajax({ 
+                data: dataSend,
+                success: function(response){
+                        jq(click).attr('src', normal_image); 
+                },
+
+            });
+
+          //jq(this).attr('src', normal_image); 
         }
         else if (action == 'remove_seat')
         {
@@ -66,7 +85,7 @@ jq(document).ready(function(){
             var hallid = jq(this).attr('alt');
             
             jq.ajax({
-                data: 'hallid='+hallid+'&action=' + action + '&params=' + params ,
+                data: 'hallid='+hallid+'&action=' + action + '&params=' + params.serialize() ,
                 success: function(response){
                         jq(click).attr('src', empty_image); 
                 },
@@ -81,7 +100,7 @@ jq(document).ready(function(){
    
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
-        action = 'add';
+        action = 'add_seat';
         jq('#add_image').attr('src', 'skins/images/002_01.png');
         jq('#remove_image').attr('src', 'skins/images/001_02.png');
     });
