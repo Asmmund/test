@@ -4,7 +4,23 @@ var jq = jQuery.noConflict();
 //default action
 var action = 'add';
 
-        
+//ajax params
+jq.ajaxSetup({
+                url: 'skins/js/main/ajax.php',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                dataType: 'JSON',
+                cache: false,
+                success: function(response){
+                        alert('Action complete!');
+                },
+                error: function(response) {
+                        alert('Error! ');
+                }
+                
+                
+
+});        
 
 /* when file is loaded*/
 jq(document).ready(function(){
@@ -44,21 +60,11 @@ jq(document).ready(function(){
         }
         else if (action == 'remove_seat')
         {
-            params = jq(this).attr('id'); 
-            var hallid = 1;
+            var params = jq(this).attr('id'); 
+            var hallid = jq(this).attr('alt');
             
             jq.ajax({
-                url: 'skins/js/main/ajax.php',
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded',
-                dataType: 'JSON',
-                data: 'hallid='+hallid+'&action=' + action + '&params=' + params,
-                success: function(response){
-                        alert('Seat removed!');
-                },
-                error: function(response) {
-                        alert('Error! ');
-                }
+                data: 'hallid='+hallid+'&action=' + action + '&params=' + params
             });
             
             jq(this).attr('src', 'skins/images/empty_chair.jpg'); 

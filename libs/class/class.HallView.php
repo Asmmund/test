@@ -109,7 +109,8 @@
             $image = '<img  class="seat" id="' .$seat->seatID . '"
                       src="' . SITE_HOST .  'skins/images/green_chair.jpg" title="Seat:'
                       . $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '"
-                      title="Seat:'. $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '" />';
+                      title="Seat:'. $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '" 
+                      alt="' . $seat->hallid . '" />';
             
             return $image;
             
