@@ -4,6 +4,10 @@ var jq = jQuery.noConflict();
 //default action
 var action = 'add';
 
+// vars for img url's
+var empty_image = 'skins/images/empty_chair.jpg';
+var normal_image = 'skins/images/green_chair.jpg';
+
 //ajax params
 jq.ajaxSetup({
                 url: 'skins/js/main/ajax.php',
@@ -24,7 +28,7 @@ jq(document).ready(function(){
     //adding fow before the first one
     jq('#up_arrow').click(function(){
         jq('#table > tbody>tr:first').clone(true).insertBefore('#table > tbody>tr:first');
-        jq('#table > tbody>tr:first td img').attr('src','skins/images/empty_chair.jpg' );
+        jq('#table > tbody>tr:first td img').attr('src',empty_image );
         jq('#table > tbody>tr:first td img').attr('title', '');
         
     });
@@ -32,20 +36,20 @@ jq(document).ready(function(){
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
         jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
-        jq('#table >tbody>tr>td:last-child img').attr('src','skins/images/empty_chair.jpg' );  
+        jq('#table >tbody>tr>td:last-child img').attr('src',empty_image );  
         jq('#table >tbody>tr>td:last-child img').attr('title', '');
 
     });
     //adding row after the last one
     jq('#down_arrow').click(function(){
         jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
-        jq('#table > tbody>tr:last td img').attr('src','skins/images/empty_chair.jpg' );
+        jq('#table > tbody>tr:last td img').attr('src',empty_image );
         jq('#table > tbody>tr:last td img').attr('title', '');
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
         jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');
-        jq('#table>tbody>tr>td:first-child img').attr('src','skins/images/empty_chair.jpg' );  
+        jq('#table>tbody>tr>td:first-child img').attr('src',empty_image );  
         jq('#table>tbody>tr>td:first-child img').attr('title', '');
     });
     
@@ -54,7 +58,7 @@ jq(document).ready(function(){
         var click = this;
         if(action == 'add')
         {
-            jq(this).attr('src', 'skins/images/green_chair.jpg'); 
+            jq(this).attr('src', normal_image); 
         }
         else if (action == 'remove_seat')
         {
@@ -64,7 +68,7 @@ jq(document).ready(function(){
             jq.ajax({
                 data: 'hallid='+hallid+'&action=' + action + '&params=' + params ,
                 success: function(response){
-                        jq(click).attr('src', 'skins/images/empty_chair.jpg'); 
+                        jq(click).attr('src', empty_image); 
                 },
 
             });
