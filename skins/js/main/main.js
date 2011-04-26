@@ -11,9 +11,6 @@ jq.ajaxSetup({
                 contentType: 'application/x-www-form-urlencoded',
                 dataType: 'JSON',
                 cache: false,
-                success: function(response){
-                        alert('Action complete!');
-                },
                 error: function(response) {
                         alert('Error! ');
                 }
@@ -54,6 +51,7 @@ jq(document).ready(function(){
     
     //based on the action of choise eather draw another chair, or draw empty cell
     jq('#table .seat').click(function(){
+        var click = this;
         if(action == 'add')
         {
             jq(this).attr('src', 'skins/images/green_chair.jpg'); 
@@ -64,11 +62,13 @@ jq(document).ready(function(){
             var hallid = jq(this).attr('alt');
             
             jq.ajax({
-                data: 'hallid='+hallid+'&action=' + action + '&params=' + params
+                data: 'hallid='+hallid+'&action=' + action + '&params=' + params ,
+                success: function(response){
+                        jq(click).attr('src', 'skins/images/empty_chair.jpg'); 
+                },
+
             });
             
-            jq(this).attr('src', 'skins/images/empty_chair.jpg'); 
-            jq(this).attr('title', '');
         }
         
 
