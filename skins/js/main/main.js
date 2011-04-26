@@ -4,10 +4,18 @@ var jq = jQuery.noConflict();
 //default action
 var action = 'add_seat';
 
+//toolbar icons
+var icon_add_selected = 'skins/images/002_01.png';
+var icon_add_normal = 'skins/images/001_01.png';
+var icon_remove_selected = 'skins/images/002_02.png';
+var icon_remove_normal = 'skins/images/001_02.png';
+var icon_select_normal = 'skins/images/select_icon.jpg';
+var icon_select_selected = 'skins/images/select_icon_02.jpg';   
+
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
 var normal_image = 'skins/images/green_chair.jpg';
-
+var selected_image = 'skins/images/blue_chair.jpg';
 //ajax params
 jq.ajaxSetup({
                 url: 'skins/js/main/ajax.php',
@@ -91,29 +99,47 @@ jq(document).ready(function(){
             jq.ajax({
                 data: dataSend,
                 success: function(response){
-                        jq(click).attr('src', empty_image); 
+                        jq(click).attr('src', empty_image);
+                        jq(click).attr('id', '');
                 },
 
             });
-            
+        }
+        
+        else if(action == 'select_seat')
+        {
+            if(jq(click).attr('id') > 0)
+                jq(click).attr('src',selected_image);
         }
         
 
     });
 
+
+   
+   //if the select icon is pressed
+   jq('#control_panel .select').click(function(){
+        action = 'select_seat';
+        jq('#select_image').attr('src', icon_select_selected);
+        jq('#add_image').attr('src',icon_add_normal );
+        jq('#remove_image').attr('src', icon_remove_normal);
+   });
    
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
         action = 'add_seat';
-        jq('#add_image').attr('src', 'skins/images/002_01.png');
-        jq('#remove_image').attr('src', 'skins/images/001_02.png');
+        jq('#select_image').attr('src', icon_select_normal);
+        jq('#add_image').attr('src',icon_add_selected );
+        jq('#remove_image').attr('src', icon_remove_normal);
+        
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel .remove').click(function(){
         action = 'remove_seat';
-        jq('#add_image').attr('src', 'skins/images/001_01.png');
-        jq('#remove_image').attr('src','skins/images/002_02.png' );
+        jq('#select_image').attr('src', icon_select_normal);
+        jq('#add_image').attr('src', icon_add_normal);
+        jq('#remove_image').attr('src', icon_remove_selected );
     });
 
 });
