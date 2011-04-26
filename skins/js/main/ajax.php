@@ -10,7 +10,7 @@
     $hallid = (int)$_POST['hallid'];
     $action = $_POST['action'];
     $params = $_POST['params'];
- 
+    
     HallEditor::seatEditorAjax($hallid,$action, $params);
     
 ?>

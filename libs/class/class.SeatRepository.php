@@ -83,7 +83,7 @@
   
                 $query = "DELETE 
                           FROM `seat`
-                          WHERE `seatID` =" . (int)$params. " AND `hallid`= " . (int)$hallid . ";";
+                          WHERE `seatID` =" . (int)$params['id']. " AND `hallid`= " . (int)$hallid . ";";
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error deleting the row!');

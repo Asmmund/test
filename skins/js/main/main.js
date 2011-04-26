@@ -81,11 +81,14 @@ jq(document).ready(function(){
         }
         else if (action == 'remove_seat')
         {
-            var params = jq(this).attr('id'); 
+            var params =  {};
+            params['id'] = jq(click).attr('id'); 
             var hallid = jq(this).attr('alt');
             
+            var dataSend = {'hallid':hallid,'action':action, 'params': params };
+
             jq.ajax({
-                data: 'hallid='+hallid+'&action=' + action + '&params=' + params.serialize() ,
+                data: dataSend,
                 success: function(response){
                         jq(click).attr('src', empty_image); 
                 },
