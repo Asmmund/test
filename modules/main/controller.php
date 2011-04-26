@@ -28,7 +28,7 @@
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
 //      $halleditor->seatEditorAjax(1,'addchair',$params);
-
+//    SeatRepository::removeSeat(3);
     
     
 

@@ -81,7 +81,7 @@
             switch($action)
             {
                 case 'addchair':
-                    SeatRepository::addChair($hallid,$params);
+                    SeatRepository::addSeat($hallid,$params);
                     break;
             
                     

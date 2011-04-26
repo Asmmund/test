@@ -46,7 +46,7 @@
         
 
 
-        static public function addChair($hallid, $params)
+        static public function addSeat($hallid, $params)
         {
             try
             {
@@ -72,6 +72,30 @@
            }           
                 
     
+        }
+        
+        static public function removeSeat($id)
+        {
+            try
+            {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+  
+                $query = "DELETE 
+                          FROM `seat`
+                          WHERE `seatID` =" . (int)$id . ";";
+                
+                if(!$result = $connect->exec($query))
+                    throw new Exception('Error deleting the row!');
+                    
+                
+                $connect = null;
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+            
         }
 
     }   
