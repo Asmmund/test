@@ -99,24 +99,25 @@ jq(document).ready(function(){
             
             //refresh_table(1);
         }
-        else if (action == 'remove_seat')
+        else if ((action == 'remove_seat') )
         {
-            var params =  {};
-            params['id'] = jq(click).attr('id');
-            params['title'] = jq(click).attr('title'); 
-            var hallid = jq(this).attr('alt');
-            
-            var dataSend = {'hallid':hallid,'action':action, 'params': params };
-
-            jq.ajax({
-                data: dataSend,
-                success: function(response){
+            if(jq(click).attr('id') > 0)
+            {
+                var params =  {};
+                params['id'] = jq(click).attr('id');
+                params['title'] = jq(click).attr('title');
+                var hallid = jq(this).attr('alt');
+                
+                var dataSend = {'hallid':hallid,'action':action, 'params': params };
+                jq.ajax({
+                    data: dataSend,
+                    success: function(response){
                         jq(click).attr('src', empty_image);
                         jq(click).attr('id', '');
                         jq(click).attr('title', response.title);
-                },
-
-            });
+                    },
+                });
+            }
         }
         
         else if(action == 'select_seat')

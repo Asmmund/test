@@ -19,10 +19,10 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
   
-                $query = "SELECT `seatID`,`row`, `number`, `seatID`, `x`, `y`,
-                                `label`, `delimiter`, `categoryID`
+                $query = "SELECT `seat_id`,`row`, `number`,  `x`, `y`,
+                                `label`, `delimiter`, `category_id`
                            FROM `seat`
-                           WHERE `hallID` =" . $hallid . "
+                           WHERE `hall_id` =" . $hallid . "
                            ORDER BY `row`, `number`;";
                 
                 if(!$res = $connect->query($query))
@@ -30,9 +30,9 @@
                     
                 while($row = $res->fetch(PDO::FETCH_ASSOC))
                 {
-                    $this->array_object[] = new Seat($row['seatID'],$row['row'],$row['number'], 
+                    $this->array_object[] = new Seat($row['seat_id'],$row['row'],$row['number'], 
                                       $hallid, $row['x'],$row['y'],$row['label'],
-                                      $row['delimiter'],$row['categoryID']);
+                                      $row['delimiter'],$row['category_id']);
                 }
                 
                 $connect = null;
@@ -52,14 +52,15 @@
             {
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
+                    
   
-                $query = "INSERT INTO `seat`( `hallid`,`x`, `y`, 
-                         `label`,`row`,`number`,`delimiter`, `categoryID`)
+                $query = "INSERT INTO `seat`( `hall_id`,`x`, `y`, 
+                         `label`,`row`,`number`,`delimiter`, `category_id`)
                           VALUES (" . $hallid ."," . $params['x'] .",
                           " . $params['y'] .",'" . $params['label'] ."'," . $params['row'] .",
                           " . $params['number'] .",'" . $params['delimiter'] ."'," 
                           . $params['categoryID'] ." );";
-                
+                          
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error inserting the row!!');
                     
@@ -86,7 +87,7 @@
   
                 $query = "DELETE 
                           FROM `seat`
-                          WHERE `seatID` =" . (int)$params['id']. " AND `hallid`= " . (int)$hallid . ";";
+                          WHERE `seat_id` =" . (int)$params['id']. " AND `hall_id`= " . (int)$hallid . ";";
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error deleting the row!');
