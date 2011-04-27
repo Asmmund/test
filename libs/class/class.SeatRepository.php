@@ -30,7 +30,7 @@
                     
                 while($row = $res->fetch(PDO::FETCH_ASSOC))
                 {
-                    $array_object[] = new Seat($row['seatID'],$row['row'],$row['number'], 
+                    $this->array_object[] = new Seat($row['seatID'],$row['row'],$row['number'], 
                                       $hallid, $row['x'],$row['y'],$row['label'],
                                       $row['delimiter'],$row['categoryID']);
                 }
@@ -41,7 +41,7 @@
               {
                    echo '<b>' . $e->getMessage() . '</b>';
               }
-             return $array_object;
+             return $this->array_object;
         }
         
 
@@ -63,8 +63,9 @@
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error inserting the row!!');
                     
+               echo '{"success":"true", "id":"' .$connect->lastInsertId() . '", "hallid":"' . $hallid . '"}' ;
                 
-                $connect = null;
+               $connect = null;
            }
            catch(PDOException $e)
            {
@@ -80,6 +81,8 @@
             {
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
+                    
+               preg_match('/([0-9]+?)\|([0-9]+?)/s',$params['title'],$matches);
   
                 $query = "DELETE 
                           FROM `seat`
@@ -87,6 +90,8 @@
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error deleting the row!');
+                    
+                echo '{"success":"true", "title":"' . $matches[1] . '|'. $matches[2]. '"}';
                     
                 
                 $connect = null;

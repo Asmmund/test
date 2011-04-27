@@ -69,7 +69,7 @@ body {
 the output div
 */
 #content{
-    width: 798px;
+    width: 998px;
     padding: 10px;
     margin: 0px auto; /* centering the content */
 }
@@ -79,8 +79,8 @@ the output div
 grid & the hall model
 */
 #grid {
-    height:500px;
-    width:550px;
+    height:800px;
+    width:950px;
     overflow:scroll; 
     border:1px solid;
     padding: 5px;
@@ -108,24 +108,35 @@ grid & the hall model
 arrows
 */
 #main #up_arrow{
-    width:50%;text-align:center;position: relative;left:150px;margin-bottom:15px;    
+    width:50%;
+    text-align:center;
+    position: relative;
+    left:150px;
+    top: 90px;
+    margin-bottom:15px;    
 }
 #main #letf_arrow{
     width:42px; 
     height:75px; 
 }
 #main #left_arrow img {
-    float: left;position:relative;top:155px; left:-20px;
+    float: left;
+    position:relative;
+    top:355px; 
+    left:-60px;
 }
 
 #main #right_arrow {
-    position:relative; left:620px; top: -350px;
+    float: right;
+    position:relative;
+    left:30px;
+    top: -530px;
 }
 #main #down_arrow {
-    width:80%;text-align:center;
+    width:80%;
+    text-align:center;
 }
 #main #down_arrow img {
-    position:relative; top:-80px;left:40px;
 }
 
 /*

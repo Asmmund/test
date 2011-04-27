@@ -9,7 +9,9 @@
         private $string;
         public $x = 0;
         public $y = 0;
-        
+        private $table;
+        const MIN_X = 10;
+        const MIN_Y = 10;
 
         
         public function __construct(Hall $hall)
@@ -64,32 +66,40 @@
         }
 
 
-        private function DrawGrid()
+        public function DrawGrid()
         {
             $this->string = '<div id="grid" >
                                 <table id="table">';
+            $this->table = '';
+            //find out how many rows and cols are there at all
+            $used_x = ($this->x > self::MIN_X)?$this->x: self::MIN_X;
+            $used_y = ($this->y > self::MIN_Y)?$this->y: self::MIN_Y;
+            
+            
             //go through each row of the hall
-            for($i=1; $i<=$this->x; $i++)
+            for($i=1; $i<=$used_x; $i++)
             {
-                $this->string .='<tr>';
+                $this->table.='<tr>';
                 
                 //go through each place & deside is it empty or not...
-                for($j=1; $j <=$this->y;$j++)
+                for($j=1; $j <=$used_y;$j++)
                 {
-                    $this->string .= '<td>';
+                    $this->table .= '<td>';
 
                     if($seat = $this->getSeat($i,$j))
-                        $this->string .= $this->drawSeat($seat);
+                        $this->table .= $this->drawSeat($seat);
                     else
-                        $this->string .= '<img class="seat" src="' . SITE_HOST . 'skins/images/empty_chair.jpg" 
-                                           alt="'.$i .'|' . $j . '" />';
+                        $this->table .= '<img class="seat" src="skins/images/empty_chair.jpg" 
+                                           title="'.$i .'|' . $j . '" alt="'. $this->hall->hallid . '" />';
 
-                    $this->string .= '</td>';
+                    $this->table .= '</td>';
                 }
-                $this->string .= '</tr>';
+                $this->table .= '</tr>';
             }
-            $this->string .= '  </table>
+             $this->string .= $this->table . '  </table>
                             </div>';
+             
+             return $this->table;
         }
         
         private function getSeat($x,$y)
@@ -108,9 +118,8 @@
         private function drawSeat( $seat)
         {
             $image = '<img  class="seat" id="' .$seat->seatID . '"
-                      src="' . SITE_HOST .  'skins/images/green_chair.jpg" title="Seat:'
-                      . $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '"
-                      title="Seat:'. $seat->row .$seat->delimiter . $seat->number .' L:' . $seat->label . '" 
+                      src="skins/images/green_chair.jpg" 
+                      title="'. $seat->x .'|'. $seat->y .' L:' . $seat->label . '" 
                       alt="' . $seat->hallid . '" />';
             
             return $image;

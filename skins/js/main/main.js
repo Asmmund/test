@@ -3,7 +3,8 @@ var jq = jQuery.noConflict();
 
 //default action
 var action = 'add_seat';
-
+//dif images
+var ajax_load = 'skins/images/loading.gif';
 //toolbar icons
 var icon_add_selected = 'skins/images/002_01.png';
 var icon_add_normal = 'skins/images/001_01.png';
@@ -31,6 +32,11 @@ jq.ajaxSetup({
 
 });        
 
+
+//function for refreshing content of the table 
+function refresh_table(hall_id){
+    jq('#table').html(ajax_load).load('skins/js/main/refresh.php', {'hallid': hall_id});
+}
 /* when file is loaded*/
 jq(document).ready(function(){
     //adding fow before the first one
@@ -66,32 +72,38 @@ jq(document).ready(function(){
         var click = this;
         if(action == 'add_seat')
         {
-            var coords = jq(click).attr('alt').split(/[|]/);
+            var coords = jq(click).attr('title').split(/[|]/);
             var params ={};
             params['x']  = coords[0];
             params['y'] = coords[1];
-            params['label']  = 'New Seat';
+            params['label']  = 'Added by Ajax';
             params['row']  = 1;
             params['number']  = 1;
             params['delimiter']  = '/';
             params['categoryID']  = 1;
+            hallid = jq(click).attr('alt');
             
-            var dataSend = {'hallid':1, 'action':action, 'params':params};
+            var dataSend = {'hallid':hallid, 'action':action, 'params':params};
 
             jq.ajax({ 
                 data: dataSend,
                 success: function(response){
-                        jq(click).attr('src', normal_image); 
+                        jq(click).attr('src', normal_image);
+                        jq(click).attr('id', response.id);
+                        jq(click).attr('alt', response.hallid);
+                        jq(click).attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
+                        
                 },
 
             });
-
-          jq(this).attr('src', normal_image); 
+            
+            //refresh_table(1);
         }
         else if (action == 'remove_seat')
         {
             var params =  {};
-            params['id'] = jq(click).attr('id'); 
+            params['id'] = jq(click).attr('id');
+            params['title'] = jq(click).attr('title'); 
             var hallid = jq(this).attr('alt');
             
             var dataSend = {'hallid':hallid,'action':action, 'params': params };
@@ -101,6 +113,7 @@ jq(document).ready(function(){
                 success: function(response){
                         jq(click).attr('src', empty_image);
                         jq(click).attr('id', '');
+                        jq(click).attr('title', response.title);
                 },
 
             });
