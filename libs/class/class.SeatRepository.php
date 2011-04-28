@@ -113,7 +113,7 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
 
-                    
+                
   
                 $query = "UPDATE `seat` 
                           SET `label` = '" . $params['label'] ."',

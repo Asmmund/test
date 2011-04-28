@@ -168,7 +168,7 @@ jq(document).ready(function(){
                 jq('#boxes #dialog #row').val(row);
                 jq('#boxes #dialog #number').val(number);
      
-                //showing window
+                   //showing window
                 jq('#boxes .window').fadeTo('slow',1);
                 
                 jq('#boxes #dialog .cancel').click(function() {
