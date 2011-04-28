@@ -11,7 +11,9 @@ var icon_add_normal = 'skins/images/001_01.png';
 var icon_remove_selected = 'skins/images/002_02.png';
 var icon_remove_normal = 'skins/images/001_02.png';
 var icon_select_normal = 'skins/images/select_icon.jpg';
-var icon_select_selected = 'skins/images/select_icon_02.jpg';   
+var icon_select_selected = 'skins/images/select_icon_02.jpg';
+var icon_info_normal = 'skins/images/label_icon.png';
+var icon_info_selected = 'skins/images/label_icon_02.png';   
 
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
@@ -67,9 +69,12 @@ jq(document).ready(function(){
         jq('#table>tbody>tr>td:first-child img').attr('title', '');
     });
     
-    //based on the action of choise eather draw another chair, or draw empty cell
+    // if the seat is pressed
     jq('#table .seat').click(function(){
+        //save the referense to clicked image
         var click = this;
+        
+        //if adding tool is in use
         if(action == 'add_seat')
         {
             var coords = jq(click).attr('title').split(/[|]/);
@@ -99,6 +104,8 @@ jq(document).ready(function(){
             
             //refresh_table(1);
         }
+        
+        //if removing seats tool is in use
         else if ((action == 'remove_seat') )
         {
             if(jq(click).attr('id') > 0)
@@ -120,16 +127,55 @@ jq(document).ready(function(){
             }
         }
         
+        // if the selection tool is in use
         else if(action == 'select_seat')
         {
             if(jq(click).attr('id') > 0)
                 jq(click).attr('src',selected_image);
         }
         
+        else if( action == 'info_seat')
+        {
+            var tags = jq(click).attr('title').split(/L:/);
+            var title =  tags[1];
+            
+            if(jq(click).attr('id') > 0)
+            {
+                //Get the window height and width
+                var winH = jq(window).height();
+                var winW = jq(window).width();
+                //Set the popup window to center
+                jq('#boxes .window').css('z-index','1').fadeIn(2000)
+                    .css('top',  winH/2-jq('#boxes .window').height())
+                    .css('left', winW/2-jq('#boxes .window').width());
+                
+                var tag = jq(click).attr('title').split(/L:/);
+                var label = tag[1];
+                var temp = tag[0].split(/|/);
+                var row = temp[0];
+                var number = temp[2];
+                jq('#boxes #dialog #label').val(label);
+                jq('#boxes #dialog #row').val(row);
+                jq('#boxes #dialog #nubmer').val(number);
+                
+
+                jq('#boxes .window').show();
+                
+            } 
+            
+            
+            
+        }
+        
 
     });
 
-
+    // closing bu
+    jq('#boxes #dialog .cancel').click(function() {
+        
+        jq('#boxes .window').fadeOut(2000);
+    });
+    
    
    //if the select icon is pressed
    jq('#control_panel .select').click(function(){
@@ -137,6 +183,7 @@ jq(document).ready(function(){
         jq('#select_image').attr('src', icon_select_selected);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
+        jq('#info_image').attr('src', icon_info_normal); 
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
@@ -145,7 +192,7 @@ jq(document).ready(function(){
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
-        
+       jq('#info_image').attr('src', icon_info_normal); 
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
@@ -154,7 +201,21 @@ jq(document).ready(function(){
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
+       jq('#info_image').attr('src', icon_info_normal); 
+    });
+    
+    jq('#control_panel .info').click(function(){
+       action = 'info_seat';
+       jq('#info_image').attr('src', icon_info_selected); 
+        jq('#select_image').attr('src', icon_select_normal);
+        jq('#add_image').attr('src',icon_add_normal );
+        jq('#remove_image').attr('src', icon_remove_normal);
     });
 
+
+ 
 });
+     
+ 
+
            

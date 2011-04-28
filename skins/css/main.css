@@ -153,6 +153,38 @@ Toolbar
     float:left;
     height:25px;
     width: 25px;
+    border: 1px black solid;
 }
 
-
+#main  #control_panel td {
+    padding: 10px 5px 0 5px;
+    
+}
+/*
+info window
+*/
+   
+  #boxes .window {
+  text-align:center;
+  border: 1px solid black;
+  width:440px;
+  height:150px;
+  padding:20px;
+  display:none;
+  background: white;
+  position:relative;
+  
+}
+    #boxes #dialog .save,
+        #boxes #dialog .cancel
+        {
+            float:right;
+            margin: 0 5px 0 5px;
+            font-weight: bolder;
+        }
+        
+    #boxes #dialog p {
+        margin: 5px 0 10px 0 ;
+        font-weight: bolder;
+    }
+ 

@@ -17,6 +17,9 @@
 <body>
 <div id="content">
 
+ 
+
+
     <?php
         echo $view;
     ?>
