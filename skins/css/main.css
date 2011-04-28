@@ -96,13 +96,13 @@ grid & the hall model
 #table td {
     border: solid black 1px;
     text-align: center;
-    width: 65px;
-    height: 65px;
+    width: 66px;
+    height: 58px;
 }
 
 #table td img {
-    height: 54px;
-    width: 61px;
+    width: 66px;
+    height: 58px;
 }
 /* 
 arrows
@@ -165,26 +165,24 @@ info window
 */
    
   #boxes .window {
-  text-align:center;
-  border: 1px solid black;
-  width:440px;
-  height:150px;
-  padding:20px;
-  display:none;
-  background: white;
-  position:relative;
-  
-}
+      text-align:center;
+      border: 1px solid black;
+      width:440px;
+      height:150px;
+      padding:20px 20px 55px 20px;
+      display:none;
+      background: white;
+      position:relative;
+ }
     #boxes #dialog .save,
         #boxes #dialog .cancel
         {
             float:right;
-            margin: 0 5px 0 5px;
-            font-weight: bolder;
+            position:relative;
+            top:-15px;
         }
-        
     #boxes #dialog p {
-        margin: 5px 0 10px 0 ;
+        margin: 15px 0 15px 0 ;
         font-weight: bolder;
     }
  

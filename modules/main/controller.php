@@ -19,17 +19,15 @@
     
     
     $halleditor = new HallEditor;
-    //var_dump($hall);
+
     $params['x']  = 100;
     $params['y'] = 100;
-    $params['label']  = 'Inserted by HallEditor';
-    $params['row']  = 11;
-    $params['number']  = 11;
+    $params['label']  = '123';
+    $params['row']  = '22';
+    $params['number']  = '55';
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
-//      $halleditor->seatEditorAjax(1,'addchair',$params);
-//    SeatRepository::removeSeat(3);
-    
+    $params['id'] = 54;
     
 
     

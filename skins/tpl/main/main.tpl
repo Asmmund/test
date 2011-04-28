@@ -8,11 +8,12 @@
         <p>Editing Seat information</p>
          <div>Label: <input type="text" id="label" size="15" /> </div> <br />
          <div>Row : <input type="text" id="row" size="15" /> </div> <br />
-         <div>Number: <input type="text" id="nubmer" size="15" /> </div> <br />
+         <div>Number: <input type="text" id="number" size="15" /> </div> <br />
          
          
         <!-- close button is defined as close class -->
-        <div class="save">Save</div><div class="cancel">Cancel</div>
+        <div class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></div>
+        <div class="cancel"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></div>
  
     </div>
  

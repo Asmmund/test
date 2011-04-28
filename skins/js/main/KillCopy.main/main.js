@@ -39,7 +39,6 @@ jq.ajaxSetup({
 function refresh_table(hall_id){
     jq('#table').html(ajax_load).load('skins/js/main/refresh.php', {'hallid': hall_id});
 }
-
 /* when file is loaded*/
 jq(document).ready(function(){
     //adding fow before the first one
@@ -78,9 +77,6 @@ jq(document).ready(function(){
         //if adding tool is in use
         if(action == 'add_seat')
         {
-            if(jq(click).attr('src') == empty_image)
-            {
-            //if( jq(click).attr('id') ==undefined)
             var coords = jq(click).attr('title').split(/[|]/);
             var params ={};
             params['x']  = coords[0];
@@ -106,8 +102,7 @@ jq(document).ready(function(){
 
             });
             
-            }
-            
+            //refresh_table(1);
         }
         
         //if removing seats tool is in use
@@ -136,21 +131,18 @@ jq(document).ready(function(){
         else if(action == 'select_seat')
         {
             if(jq(click).attr('id') > 0)
-            {
-                if(jq(click).attr('src') == selected_image)
-                    jq(click).attr('src', normal_image)
-                else jq(click).attr('src', selected_image);
-                    
-            }
+                jq(click).attr('src',selected_image);
         }
         
+        //creating window for updating seat info
         else if( action == 'update_info')
         {
+            var tags = jq(click).attr('title').split(/L:/);
+            var title =  tags[1];
+            params['id'] = jq(click).attr('id');
             
             if(jq(click).attr('id') > 0)
             {
-                var tags = jq(click).attr('title').split(/L:/);
-                var title =  tags[1];
                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
@@ -160,44 +152,13 @@ jq(document).ready(function(){
                     .css('left', winW/2-jq('#boxes .window').width());
                 
                 var tag = jq(click).attr('title').split(/L:/);
-                var label = tag[1];
+                var hallid = jq(this).attr('alt');
+
                 var temp = tag[0].split(/|/);
-                var row = temp[0];
-                var number = temp[2];
-                jq('#boxes #dialog #label').val(label);
-                jq('#boxes #dialog #row').val(row);
-                jq('#boxes #dialog #number').val(number);
                 
-                
-                //showing window
+
                 jq('#boxes .window').show();
                 
-                jq('#boxes #dialog .cancel').click(function() {
-                    jq('#boxes .window').fadeOut(2000);
-                });
-
-                // closing window
-                jq('#boxes #dialog .save').click(function()
-                {
-                    var params =  {};
-                    params['label'] = jq('#dialog #label').val();
-                    params['row'] = jq('#dialog #row').val();
-                    params['number'] = jq('#dialog #number').val();
-                    params['id'] = jq(click).attr('id');
-                    var hallid = jq(click).attr('alt');
-                
-                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
-                    jq.ajax({
-                        data: dataSend,
-                        success: function(response){
-                            jq(click).attr('title', response.title);
-                            jq('#boxes .window').fadeOut(2000);
-                            
-                        }
-                    });
-
-                });
-
             } 
             
             
@@ -207,12 +168,26 @@ jq(document).ready(function(){
 
     });
 
+    // closing bu
+    jq('#boxes #dialog .cancel').click(function() {
+        
+        jq('#boxes .window').fadeOut(2000);
+    });
+    
+    
+    jq('#boxes #dialog .save').click(function(){
+                var params =  {};
+                params['label'] = tag[1];
+                params['row'] = temp[0];
+                params['number'] = temp[2];
+
+        
+    });
     
    
    //if the select icon is pressed
    jq('#control_panel .select').click(function(){
         action = 'select_seat';
-        jq('#boxes .window').fadeOut(2000);
         jq('#select_image').attr('src', icon_select_selected);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
@@ -222,7 +197,6 @@ jq(document).ready(function(){
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
         action = 'add_seat';
-        jq('#boxes .window').fadeOut(2000);
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
@@ -232,7 +206,6 @@ jq(document).ready(function(){
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel .remove').click(function(){
         action = 'remove_seat';
-        jq('#boxes .window').fadeOut(2000);
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
@@ -241,8 +214,7 @@ jq(document).ready(function(){
     
     jq('#control_panel .info').click(function(){
        action = 'update_info';
-        jq('#boxes .window').fadeOut(2000);
-        jq('#info_image').attr('src', icon_info_selected); 
+       jq('#info_image').attr('src', icon_info_selected); 
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);

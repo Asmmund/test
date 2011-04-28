@@ -103,6 +103,40 @@
            }           
             
         }
+        
+        //function of editing info
+       
+        static public function editInfo($hallid,$params)
+        {
+            try
+            {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+
+                    
+  
+                $query = "UPDATE `seat` 
+                          SET `label` = '" . $params['label'] ."',
+                          `row` = " . $params['row'] . " ,
+                          `number` = '" . $params['number'] ."'
+                          WHERE `seat_id` = 54 AND `hall_id`= 1;";
+                
+                if(!$result = $connect->exec($query))
+                    throw new Exception('Error updating row!');
+                    
+                echo '{"success":"true", "title":"' . $params['row'] . '|'. $params['number']. 'L:' 
+                      . $params['label'] .'"}';
+                    
+                
+                $connect = null;
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+            
+        }
+        
 
     }   
 ?>

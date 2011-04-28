@@ -88,6 +88,10 @@
                     break;
                 case 'remove_seat':
                     SeatRepository::removeSeat($hallid,$params);
+                    break;
+                case 'update_info':
+                    SeatRepository::editInfo($hallid,$params);
+                    break;
             
                     
             }
