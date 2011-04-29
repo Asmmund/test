@@ -35,40 +35,106 @@ jq.ajaxSetup({
 });        
 
 
-//function for refreshing content of the table 
-function refresh_table(hall_id){
-    jq('#table').html(ajax_load).load('skins/js/main/refresh.php', {'hallid': hall_id});
-}
+
 
 /* when file is loaded*/
 jq(document).ready(function(){
     //adding fow before the first one
+   
+   
     jq('#up_arrow').click(function(){
+        var title_first_first = jq('#table > tbody>tr:first td:first img').attr('title');
+
+         var hallid = jq('#table > tbody>tr:first td:first img').attr('alt');
+
+        var first = jq("#table>tbody>tr:first>td:first img").attr('title');
+        
+        var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
+        var new_x = parseInt(temp[1])-1;
+        var new_y =  parseInt(temp[2]);
+        
         jq('#table > tbody>tr:first').clone(true).insertBefore('#table > tbody>tr:first');
-        jq('#table > tbody>tr:first td img').attr('src',empty_image );
-        jq('#table > tbody>tr:first td img').attr('title', '');
+        
+        
+        
+        
+        
+        jq('#table > tbody>tr:first td img').each(function(index){
+            var myIndex = index+1;
+           jq(this).attr('src',empty_image )
+                   .attr('alt',hallid)
+                   .attr('title', new_x +'|'+myIndex); 
+        });        
+        
+        
+        
         
     });
 
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
-        jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
-        jq('#table >tbody>tr>td:last-child img').attr('src',empty_image );  
-        jq('#table >tbody>tr>td:last-child img').attr('title', '');
+        //getting the hallid
+        var hallid = jq("#table tr> td> img").attr('alt');
+        
+        var last = jq("#table>tbody>tr:first>td:last img").attr('title');
+        
+        var temp = (temp = last.match(/(.+?)\|((.+?)L\:)/)==null)? last.match(/(.+?)\|(.+)/):last.match(/(.+?)\|(.+?)L\:/);
+        var new_x = parseInt(temp[1]);
+        var new_y =  parseInt(temp[2])+1;
 
-    });
-    //adding row after the last one
-    jq('#down_arrow').click(function(){
-        jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
-        jq('#table > tbody>tr:last td img').attr('src',empty_image );
-        jq('#table > tbody>tr:last td img').attr('title', '');
+        jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
+
+        jq('#table >tbody>tr>td:last-child img').each(function(i){
+            var row = i + new_x;
+           jq(this).attr('title', row   + '|' + new_y)
+                   .attr("src" ,empty_image )
+                   .attr('alt',hallid) ; 
+        });
+
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
+        //getting the hallid
+        var hallid = jq("#table tr> td> img").attr('alt');
+        
+        var first = jq("#table>tbody>tr:first>td:first-child img").attr('title');
+        var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
+        var new_x = parseInt(temp[1]);
+        var new_y =  parseInt(temp[2])-1;
+ 
         jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');
-        jq('#table>tbody>tr>td:first-child img').attr('src',empty_image );  
-        jq('#table>tbody>tr>td:first-child img').attr('title', '');
+        
+        jq('#table >tbody tr>td:first-child img').each(function(i){
+            var row = i + new_x;
+           jq(this).attr('title', row   + '|' + new_y)
+                   .attr("src" ,empty_image )
+                   .attr('alt',hallid) ; 
+        });
     });
+  
+  
+    //adding row after the last one
+    jq('#down_arrow').click(function(){
+        //getting the hallid
+        var hallid = jq('#table > tbody>tr:last td:first img').attr('alt');
+        //getting the last row 
+        var title_last_last = jq('#table > tbody>tr:last>td:first img').attr('title');
+
+        var temp = (temp = title_last_last.match(/(.+?)\|((.+?)L\:)/)==null)? title_last_last.match(/(.+?)\|(.+)/):title_last_last.match(/(.+?)\|(.+?)L\:/);
+        var new_last_x = parseInt(temp[1])+1;
+        var new_last_y =  parseInt(temp[2]);
+        
+        jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
+        jq('#table > tbody>tr:last td img').each(function(index){
+            var myIndex = index+1;
+           jq(this).attr('src',empty_image )
+                   .attr('alt',hallid)
+                   .attr('title', new_last_x+'|'+myIndex); 
+        });
+        
+    });
+
+
     
     // if the seat is pressed
     jq('#table .seat').click(function(){
@@ -85,7 +151,7 @@ jq(document).ready(function(){
             var params ={};
             params['x']  = coords[0];
             params['y'] = coords[1];
-            params['label']  = 'Added by Ajax';
+            params['label']  = 'New Seat';
             params['row']  = 1;
             params['number']  = 1;
             params['delimiter']  = '/';
@@ -147,10 +213,10 @@ jq(document).ready(function(){
         else if( action == 'update_info')
         {
             
+           
+            
             if(jq(click).attr('id') > 0)
             {
-                var tags = jq(click).attr('title').split(/L:/);
-                var title =  tags[1];
                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
@@ -159,14 +225,13 @@ jq(document).ready(function(){
                     .css('top',  winH/2-jq('#boxes .window').height())
                     .css('left', winW/2-jq('#boxes .window').width());
                 
-                var tag = jq(click).attr('title').split(/L:/);
-                var label = tag[1];
-                var temp = tag[0].split(/|/);
-                var row = temp[0];
-                var number = temp[2];
+                var tag = jq(click).attr('title').match(/(.*?)\|(.*?)L:(.*)/);
+    
+                var label = tag[3];
+                var row = tag[1];
+                var number = tag[2];
+                
                 jq('#boxes #dialog #label').val(label);
-                jq('#boxes #dialog #row').val(row);
-                jq('#boxes #dialog #number').val(number);
      
                    //showing window
                 jq('#boxes .window').fadeTo('slow',1);
@@ -180,8 +245,8 @@ jq(document).ready(function(){
                 {
                     var params =  {};
                     params['label'] = jq('#dialog #label').val();
-                    params['row'] = jq('#dialog #row').val();
-                    params['number'] = jq('#dialog #number').val();
+                    params['row'] = row;
+                    params['number'] = number;
                     params['id'] = jq(click).attr('id');
                     var hallid = jq(click).attr('alt');
                 
@@ -196,7 +261,6 @@ jq(document).ready(function(){
                     });
 
                 });
-
             } 
             
             

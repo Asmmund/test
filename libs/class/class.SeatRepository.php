@@ -83,7 +83,7 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                     
-               preg_match('/([0-9]+?)\|([0-9]+?)/s',$params['title'],$matches);
+               preg_match('/(-?[0-9]+?)\|(-?[0-9]+?)/s',$params['title'],$matches);
   
                 $query = "DELETE 
                           FROM `seat`
@@ -117,9 +117,7 @@
                 
   
                 $query = "UPDATE `seat` 
-                          SET `label` = '" . $params['label'] ."',
-                          `row` = " . $params['row'] . " ,
-                          `number` = '" . $params['number'] ."'
+                          SET `label` = '" . $params['label'] ."'
                           WHERE `seat_id` = " . $params['id'] . " AND `hall_id`= " . $hallid . ";";
                 
                 if(!$result = $connect->exec($query))
@@ -135,6 +133,39 @@
            {
                echo '<b>' . $e->getMessage() . '</b>';
            }           
+            
+        }
+        
+        //method of getting max value of x
+        static public function getMinMax($hallid)
+        {
+            try
+            {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+
+                
+  
+                $query = "SELECT MIN( `x` ) , MAX( `x` ) , MIN( `y` ) , MAX( `y` )
+                          FROM SEAT
+                          WHERE `hall_id` =1";
+                
+                $result = $connect->exec($query);
+                    //throw new Exception('Error getting min and max!');
+                var_dump($result);
+                    
+                //echo '{"success":"true", "title":"' . $params['row'] . '|'. $params['number']. 'L:' 
+//                      . $params['label'] .'"}';
+                    
+                
+                $connect = null;
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+            
             
         }
         

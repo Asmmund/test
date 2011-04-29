@@ -7,8 +7,6 @@
     <div id="dialog" class="window">
         <p>Editing Seat information</p>
          <div>Label: <input type="text" id="label" size="15" /> </div> <br />
-         <div>Row : <input type="text" id="row" size="15" /> </div> <br />
-         <div>Number: <input type="text" id="number" size="15" /> </div> <br />
          
          
         <!-- close button is defined as close class -->

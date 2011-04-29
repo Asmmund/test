@@ -7,28 +7,32 @@
     {
         private $hall;
         private $string;
-        public $x = 0;
-        public $y = 0;
+        public $min_x = 1;
+        public $max_x = 10;
+        public $min_y = 1;
+        public $max_y = 10;
         private $table;
-        const MIN_X = 10;
-        const MIN_Y = 10;
 
         
         public function __construct(Hall $hall)
         {
             $this->hall = $hall;
-            $this->getMax();
+            $this->getMinMax();
         }
 
-        private function getMax()
+        private function getMinMax()
         {
             foreach($this->hall->seats as $seat)
             {
-                if($seat ->x > $this->x )
-                    $this->x = $seat ->x;
+                if($seat ->x > $this->max_x )
+                    $this->max_x = $seat ->x;
+                if($seat ->x < $this->min_x )
+                    $this->min_x = $seat ->x;
                     
-                if($seat->y > $this->y)
-                    $this->y = $seat->y;
+                if($seat ->y > $this->max_y )
+                    $this->max_y = $seat ->y;
+                if($seat ->y < $this->min_y )
+                    $this->min_y = $seat ->y;
             }
         }
         
@@ -72,17 +76,15 @@
                                 <table id="table">';
             $this->table = '';
             //find out how many rows and cols are there at all
-            $used_x = ($this->x > self::MIN_X)?$this->x: self::MIN_X;
-            $used_y = ($this->y > self::MIN_Y)?$this->y: self::MIN_Y;
             
             
             //go through each row of the hall
-            for($i=1; $i<=$used_x; $i++)
+            for($i= $this->min_x; $i<=$this->max_x; $i++)
             {
                 $this->table.='<tr>';
                 
                 //go through each place & deside is it empty or not...
-                for($j=1; $j <=$used_y;$j++)
+                for($j= $this->min_y; $j <=$this->max_y;$j++)
                 {
                     $this->table .= '<td>';
 
