@@ -136,8 +136,7 @@ arrows
     width:80%;
     text-align:center;
 }
-#main #down_arrow img {
-}
+
 
 /*
 Toolbar
@@ -148,12 +147,12 @@ Toolbar
 }
 #main #control_panel > .select,
 #main #control_panel > .add,
-#main  #control_panel > .remove
+#main  #control_panel > .remove,
+#main  #control_panel > .info
 {
     float:left;
     height:25px;
     width: 25px;
-    border: 1px black solid;
 }
 
 #main  #control_panel td {

@@ -112,6 +112,7 @@
             {
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
+                    
 
                 
   
@@ -119,7 +120,7 @@
                           SET `label` = '" . $params['label'] ."',
                           `row` = " . $params['row'] . " ,
                           `number` = '" . $params['number'] ."'
-                          WHERE `seat_id` = 54 AND `hall_id`= 1;";
+                          WHERE `seat_id` = " . $params['id'] . " AND `hall_id`= " . $hallid . ";";
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error updating row!');
