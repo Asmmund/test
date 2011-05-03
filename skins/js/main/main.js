@@ -43,23 +43,23 @@ jq(document).ready(function(){
    
    
     jq('#up_arrow').click(function(){
-        var title_first_first = jq('#table > tbody>tr:first td:first img').attr('title');
+        var title_first_first = jq('#table > tbody>tr:first-child td:first-child img').attr('title');
 
-         var hallid = jq('#table > tbody>tr:first td:first img').attr('alt');
+         var hallid = jq('#table > tbody>tr:first-child td:first-child img').attr('alt');
 
-        var first = jq("#table>tbody>tr:first>td:first img").attr('title');
+        var first = jq("#table>tbody>tr:first-child>td:first-child img").attr('title');
         
         var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1])-1;
         var new_y =  parseInt(temp[2]);
         
-        jq('#table > tbody>tr:first').clone(true).insertBefore('#table > tbody>tr:first');
+        jq('#table > tbody>tr:first-child').clone(true).insertBefore('#table > tbody>tr:first-child');
         
         
         
         
         
-        jq('#table > tbody>tr:first td img').each(function(index){
+        jq('#table > tbody>tr:first-child td img').each(function(index){
             var myIndex = index+1;
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
@@ -74,17 +74,17 @@ jq(document).ready(function(){
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
         //getting the hallid
-        var hallid = jq("#table tr> td> img").attr('alt');
+        var hallid = jq("#table tr:first-child> td:last-child> img").attr('alt');
         
-        var last = jq("#table>tbody>tr:first>td:last img").attr('title');
+        var last = jq("#table>tbody>tr:first-child>td:last-child img").attr('title');
         
         var temp = (temp = last.match(/(.+?)\|((.+?)L\:)/)==null)? last.match(/(.+?)\|(.+)/):last.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1]);
         var new_y =  parseInt(temp[2])+1;
 
-        jq("#table>tbody>tr:last>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
+        jq("#table>tbody>tr:first-child>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
 
-        jq('#table >tbody>tr>td:last-child img').each(function(i){
+        jq('#table >tbody>tr>td:last-child>img').each(function(i){
             var row = i + new_x;
            jq(this).attr('title', row   + '|' + new_y)
                    .attr("src" ,empty_image )
@@ -95,16 +95,16 @@ jq(document).ready(function(){
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
         //getting the hallid
-        var hallid = jq("#table tr> td> img").attr('alt');
+        var hallid = jq("#table tr:first-child> td:first-child> img").attr('alt');
         
-        var first = jq("#table>tbody>tr:first>td:first-child img").attr('title');
+        var first = jq("#table>tbody>tr:first-child>td:first-child img").attr('title');
         var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1]);
         var new_y =  parseInt(temp[2])-1;
  
-        jq("#table>tbody>tr:first>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');
+        jq("#table>tbody>tr:first>td:first").clone(true).insertBefore('#table >tbody>tr td:first-child');
         
-        jq('#table >tbody tr>td:first-child img').each(function(i){
+        jq('#table >tbody tr >td:first-child > img').each(function(i){
             var row = i + new_x;
            jq(this).attr('title', row   + '|' + new_y)
                    .attr("src" ,empty_image )
@@ -116,20 +116,21 @@ jq(document).ready(function(){
     //adding row after the last one
     jq('#down_arrow').click(function(){
         //getting the hallid
-        var hallid = jq('#table > tbody>tr:last td:first img').attr('alt');
+        var hallid = jq('#table > tbody>tr:last-child >td:first img').attr('alt');
         //getting the last row 
-        var title_last_last = jq('#table > tbody>tr:last>td:first img').attr('title');
+        var title_last_last = jq('#table > tbody>tr:last-child>td:first-child img').attr('title');
 
         var temp = (temp = title_last_last.match(/(.+?)\|((.+?)L\:)/)==null)? title_last_last.match(/(.+?)\|(.+)/):title_last_last.match(/(.+?)\|(.+?)L\:/);
         var new_last_x = parseInt(temp[1])+1;
         var new_last_y =  parseInt(temp[2]);
         
-        jq('#table > tbody>tr:last').clone(true).insertAfter('#table > tbody>tr:last');
-        jq('#table > tbody>tr:last td img').each(function(index){
-            var myIndex = index+1;
+        jq('#table > tbody>tr:last-child').clone(true).insertAfter('#table > tbody>tr:last-child');
+        jq('#table > tbody>tr:last-child > td >img').each(function(index){
+           
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
-                   .attr('title', new_last_x+'|'+myIndex); 
+                   .attr('title', new_last_x+'|'+new_last_y);
+           new_last_y+=1; 
         });
         
     });
