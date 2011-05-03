@@ -198,3 +198,9 @@ info window
             position:relative;
             top: -15px;
         }
+
+/* drop down box for choosing seat category */
+#div_dropdown_category {
+    float:right;
+    width:100px;
+}

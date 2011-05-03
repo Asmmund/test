@@ -49,7 +49,7 @@
         }
         
         
-        public function __construct( $id,$r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid)
+        public function __construct( $id,$r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid,$seatcolor)
         {
                 $this->seatID = $id;
                 $this->row = $r;
@@ -61,6 +61,7 @@
                 $this->label = $label;
                 $this->delimiter = $delimiter;
                 $this->categoryID = $categoryid;
+                $this->color = $seatcolor;
             
         }
         

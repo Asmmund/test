@@ -18,7 +18,9 @@ var icon_info_selected = 'skins/images/label_icon_02.png';
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
 var normal_image = 'skins/images/green_chair.jpg';
-var selected_image = 'skins/images/blue_chair.jpg';
+var selected_image = 'skins/images/select_seat.jpg';
+var normal_seat = 'skins/images/seat/green.jpg';
+var vip_seat = 'skins/images/seat/blue.jpg';
 //ajax params
 jq.ajaxSetup({
                 url: 'skins/js/main/ajax.php',
@@ -29,10 +31,28 @@ jq.ajaxSetup({
                 error: function(response) {
                         alert('Error! ');
                 }
-                
-                
+});
+//function of getting seatcategories
+function getSeatCategory()
+{
+   var params =  {};
+   params['id'] = 1;
+    var action = 'seat_category';
+            var dataSend = {'hallid':1, 'action':action, 'params':params};
 
-});        
+            jq.ajax({ 
+                data: dataSend,
+                success: function(response){
+                        var options = 0;
+                        jq.each(response.seatcategory,function(){
+                            options += '<option  value="'+this.type.seatcategory_id + '">' + this.type.name + '</option>'
+                        });
+                        jq('#div_dropdown_category > #dropdown_category').html(options);
+                }
+            });
+            
+    
+}        
 
 
 
@@ -41,6 +61,8 @@ jq.ajaxSetup({
 jq(document).ready(function(){
     //adding fow before the first one
    
+    //loading seatcategory from db
+   getSeatCategory();
    
     jq('#up_arrow').click(function(){
         var title_first_first = jq('#table > tbody>tr:first-child td:first-child img').attr('title');
@@ -156,7 +178,7 @@ jq(document).ready(function(){
             params['row']  = 1;
             params['number']  = 1;
             params['delimiter']  = '/';
-            params['categoryID']  = 1;
+            params['categoryID']  = jq('#div_dropdown_category > #dropdown_category').val();
             hallid = jq(click).attr('alt');
             
             var dataSend = {'hallid':hallid, 'action':action, 'params':params};
@@ -164,10 +186,18 @@ jq(document).ready(function(){
             jq.ajax({ 
                 data: dataSend,
                 success: function(response){
-                        jq(click).attr('src', normal_image);
-                        jq(click).attr('id', response.id);
-                        jq(click).attr('alt', response.hallid);
-                        jq(click).attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
+                        jq(click).attr('src', function(){
+                            switch(jq('#div_dropdown_category > #dropdown_category').val())
+                            {
+                                case '1':
+                                    return normal_seat;
+                                case '2':
+                                    return vip_seat;
+                                
+                            }
+                        }).attr('id', response.id)
+                          .attr('alt', response.hallid)
+                          .attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
                         
                 },
 
@@ -281,6 +311,7 @@ jq(document).ready(function(){
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#info_image').attr('src', icon_info_normal); 
+       jq('#dropdown_category').hide(); 
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
@@ -290,7 +321,8 @@ jq(document).ready(function(){
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
-       jq('#info_image').attr('src', icon_info_normal); 
+       jq('#info_image').attr('src', icon_info_normal);
+       jq('#dropdown_category').show(); 
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
@@ -301,6 +333,7 @@ jq(document).ready(function(){
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
        jq('#info_image').attr('src', icon_info_normal); 
+       jq('#dropdown_category').hide(); 
     });
     
     jq('#control_panel .info').click(function(){
@@ -310,6 +343,7 @@ jq(document).ready(function(){
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
+       jq('#dropdown_category').hide(); 
     });
 
 

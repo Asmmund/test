@@ -19,20 +19,22 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
   
-                $query = "SELECT `seat_id`,`row`, `number`,  `x`, `y`,
-                                `label`, `delimiter`, `category_id`
-                           FROM `seat`
-                           WHERE `hall_id` =" . $hallid . "
+                $query = "SELECT `seat`.`seat_id`,`seat`.`row`, `seat`.`number`,  `seat`.`x`, `seat`.`y`,
+                                `seat`.`label`, `seat`.`delimiter`, `seat`.`category_id`,
+                                `seatcategory`.`name`, `seatcategory`.`seatcolor`
+                           FROM `seat` JOIN `seatcategory`
+                           WHERE `seat`.`hall_id` =" . $hallid . " 
+                               AND `seat`.`category_id` = `seatcategory`.`seatcategory_id`
                            ORDER BY `row`, `number`;";
                 
                 if(!$res = $connect->query($query))
-                    throw new Exception('Error processing the query!');
+                    throw new Exception('Error selecting the seats!');
                     
                 while($row = $res->fetch(PDO::FETCH_ASSOC))
                 {
                     $this->array_object[] = new Seat($row['seat_id'],$row['row'],$row['number'], 
                                       $hallid, $row['x'],$row['y'],$row['label'],
-                                      $row['delimiter'],$row['category_id']);
+                                      $row['delimiter'],$row['category_id'],$row['seatcolor']);
                 }
                 
                 $connect = null;
@@ -137,7 +139,7 @@
         }
         
         //method of getting max value of x
-        static public function getMinMax($hallid)
+        static public function getSeatCategory()
         {
             try
             {
@@ -147,16 +149,18 @@
 
                 
   
-                $query = "SELECT MIN( `x` ) , MAX( `x` ) , MIN( `y` ) , MAX( `y` )
-                          FROM SEAT
-                          WHERE `hall_id` =1";
+                $query = "SELECT `seatcategory_id`,`name`, `seatcolor`
+                          FROM `seatcategory`;";
                 
-                $result = $connect->exec($query);
-                    //throw new Exception('Error getting min and max!');
-                var_dump($result);
+                if(!$res = $connect->query($query))
+                    throw new Exception('Error selecting the seatcategory!');
                     
-                //echo '{"success":"true", "title":"' . $params['row'] . '|'. $params['number']. 'L:' 
-//                      . $params['label'] .'"}';
+                while($row = $res->fetch(PDO::FETCH_ASSOC))
+                {
+                    $result[] = array('type'=>$row);
+                }
+
+                echo json_encode(array('seatcategory'=>$result));      
                     
                 
                 $connect = null;

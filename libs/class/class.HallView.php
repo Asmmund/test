@@ -120,9 +120,10 @@
         private function drawSeat( $seat)
         {
             $image = '<img  class="seat" id="' .$seat->seatID . '"
-                      src="skins/images/green_chair.jpg" 
+                      src="skins/images/seat/' . $seat->color  . '.jpg" 
                       title="'. $seat->x .'|'. $seat->y .' L:' . $seat->label . '" 
                       alt="' . $seat->hallid . '" />';
+            //echo $seat->
             
             return $image;
             

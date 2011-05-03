@@ -38,7 +38,12 @@
                                     <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" /></td>
                                     <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/label_icon.png" /></td>
                                 </tr>
-                               </table>';
+                               </table>
+                               <div id="div_dropdown_category">
+                                   <select id="dropdown_category" >
+                                   
+                                   </select>
+                               </div> ';
             return $this->controlls;            
         }
         
@@ -91,6 +96,9 @@
                     break;
                 case 'update_info':
                     SeatRepository::editInfo($hallid,$params);
+                    break;
+                case 'seat_category':
+                    SeatRepository:: getSeatCategory();
                     break;
             
                     
