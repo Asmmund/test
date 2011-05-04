@@ -49,7 +49,7 @@ function getSeatCategory()
                 success: function(response){
                         var options = '<select id="dropdown_category" >';
                         jq.each(response.seatcategory,function(){
-                            options += '<option  value="'+this.type.seatcategory_id + '">' + this.type.name + '</option>'
+                            options += '<option  value="'+this.type.seatcategory_id +'|'+this.type.seatcolor+'">' + this.type.name + '</option>'
                         });
                         options += '</select>';
                         jq('#div_dropdown_category').html(options);
@@ -172,7 +172,9 @@ jq(document).ready(function(){
         {
             if(jq(click).attr('src') == empty_image)
             {
-            
+            var temp =jq('#div_dropdown_category > #dropdown_category').val().match(/([0-9]+?)\|([a-zA-Z0-9]+)/);
+            var category_id = temp[1];
+            var category_color=temp[2];
             var coords = jq(click).attr('title').split(/[|]/);
             var params ={};
             params['x']  = coords[0];
@@ -181,7 +183,7 @@ jq(document).ready(function(){
             params['row']  = 1;
             params['number']  = 1;
             params['delimiter']  = '/';
-            params['categoryID']  = jq('#div_dropdown_category > #dropdown_category').val();
+            params['categoryID']  = category_id;
             hallid = jq(click).attr('alt');
             
             var dataSend = {'hallid':hallid, 'action':action, 'params':params};
@@ -190,11 +192,11 @@ jq(document).ready(function(){
                 data: dataSend,
                 success: function(response){
                         jq(click).attr('src', function(){
-                            switch(jq('#div_dropdown_category > #dropdown_category').val())
+                            switch(category_color)
                             {
-                                case '1':
+                                case 'green':
                                     return green_seat;
-                                case '2':
+                                case 'blue':
                                     return blue_seat;
                                 
                             }
