@@ -17,10 +17,11 @@ var icon_info_selected = 'skins/images/label_icon_02.png';
 
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
-var normal_image = 'skins/images/green_chair.jpg';
-var selected_image = 'skins/images/select_seat.jpg';
-var normal_seat = 'skins/images/seat/green.jpg';
-var vip_seat = 'skins/images/seat/blue.jpg';
+
+var green_seat = 'skins/images/seat/green.jpg';
+var green_seat_selected = 'skins/images/seat/green_selected.jpg';
+var blue_seat = 'skins/images/seat/blue.jpg';
+var blue_seat_selected = 'skins/images/seat/blue_selected.jpg';
 //ajax params
 jq.ajaxSetup({
                 url: 'skins/js/main/ajax.php',
@@ -32,9 +33,12 @@ jq.ajaxSetup({
                         alert('Error! ');
                 }
 });
+
 //function of getting seatcategories
 function getSeatCategory()
 {
+
+
    var params =  {};
    params['id'] = 1;
     var action = 'seat_category';
@@ -43,18 +47,17 @@ function getSeatCategory()
             jq.ajax({ 
                 data: dataSend,
                 success: function(response){
-                        var options = 0;
+                        var options = '<select id="dropdown_category" >';
                         jq.each(response.seatcategory,function(){
                             options += '<option  value="'+this.type.seatcategory_id + '">' + this.type.name + '</option>'
                         });
-                        jq('#div_dropdown_category > #dropdown_category').html(options);
+                        options += '</select>';
+                        jq('#div_dropdown_category').html(options);
                 }
             });
             
     
 }        
-
-
 
 
 /* when file is loaded*/
@@ -169,7 +172,7 @@ jq(document).ready(function(){
         {
             if(jq(click).attr('src') == empty_image)
             {
-            //if( jq(click).attr('id') ==undefined)
+            
             var coords = jq(click).attr('title').split(/[|]/);
             var params ={};
             params['x']  = coords[0];
@@ -190,9 +193,9 @@ jq(document).ready(function(){
                             switch(jq('#div_dropdown_category > #dropdown_category').val())
                             {
                                 case '1':
-                                    return normal_seat;
+                                    return green_seat;
                                 case '2':
-                                    return vip_seat;
+                                    return blue_seat;
                                 
                             }
                         }).attr('id', response.id)
@@ -229,18 +232,43 @@ jq(document).ready(function(){
             }
         }
         
+        
         // if the selection tool is in use
         else if(action == 'select_seat')
         {
+            var done = false;
             if(jq(click).attr('id') > 0)
             {
-                if(jq(click).attr('src') == selected_image)
-                    jq(click).attr('src', normal_image)
-                else jq(click).attr('src', selected_image);
+                //geen seat select& diselect
+                if( jq(click).attr('src') == green_seat_selected)
+                {
+                    jq(click).attr('src', green_seat);
+                    done = true
+                }
+                if( jq(click).attr('src') == green_seat && done == false)
+                {
+                     jq(click).attr('src', green_seat_selected);   
+                     done = true
+                }
+
+                //blue seat select& diselect
+                if( jq(click).attr('src') == blue_seat_selected && done == false)
+                {
+                    jq(click).attr('src', blue_seat);
+                    done = true
+                }
+                if( jq(click).attr('src') == blue_seat && done == false)
+                {
+                     jq(click).attr('src', blue_seat_selected);   
+                     done = true
+                }
+                    
                     
             }
         }
         
+        
+        //if the update label is pressed
         else if( action == 'update_info')
         {
             

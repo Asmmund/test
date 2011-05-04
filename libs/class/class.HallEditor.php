@@ -40,9 +40,7 @@
                                 </tr>
                                </table>
                                <div id="div_dropdown_category">
-                                   <select id="dropdown_category" >
-                                   
-                                   </select>
+                                  <img src="skins/images/loading.gif" />
                                </div> ';
             return $this->controlls;            
         }
