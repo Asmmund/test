@@ -198,6 +198,8 @@ jq(document).ready(function(){
                                     return green_seat;
                                 case 'blue':
                                     return blue_seat;
+                                default:
+                                    alert('There\'s no image for this seatcolor!');
                                 
                             }
                         }).attr('id', response.id)
@@ -379,7 +381,3 @@ jq(document).ready(function(){
 
  
 });
-     
- 
-
-           
