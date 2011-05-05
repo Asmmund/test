@@ -18,10 +18,18 @@ var icon_info_selected = 'skins/images/label_icon_02.png';
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
 
-var green_seat = 'skins/images/seat/green.jpg';
-var green_seat_selected = 'skins/images/seat/green_selected.jpg';
 var blue_seat = 'skins/images/seat/blue.jpg';
 var blue_seat_selected = 'skins/images/seat/blue_selected.jpg';
+var green_seat = 'skins/images/seat/green.jpg';
+var green_seat_selected = 'skins/images/seat/green_selected.jpg';
+var red_seat = 'skins/images/seat/red.jpg';
+var red_seat_selected = 'skins/images/seat/red_selected.jpg';
+var violet_seat = 'skins/images/seat/violet.jpg';
+var violet_seat_selected = 'skins/images/seat/violet_selected.jpg';
+var yellow_seat = 'skins/images/seat/yellow.jpg';
+var yellow_seat_selected = 'skins/images/seat/yellow_selected.jpg';
+
+
 //ajax params
 jq.ajaxSetup({
                 url: 'skins/js/main/ajax.php',
@@ -198,6 +206,12 @@ jq(document).ready(function(){
                                     return green_seat;
                                 case 'blue':
                                     return blue_seat;
+                                case 'red':
+                                    return blue_seat;
+                                case 'violet':
+                                    return blue_seat;
+                                case 'yellow':
+                                    return blue_seat;
                                 default:
                                     alert('There\'s no image for this seatcolor!');
                                 
@@ -266,7 +280,41 @@ jq(document).ready(function(){
                      jq(click).attr('src', blue_seat_selected);   
                      done = true
                 }
+                //red seat select& diselect
+                if( jq(click).attr('src') == red_seat_selected && done == false)
+                {
+                    jq(click).attr('src', red_seat);
+                    done = true
+                }
+                if( jq(click).attr('src') == red_seat && done == false)
+                {
+                     jq(click).attr('src', red_seat_selected);   
+                     done = true
+                }
+
+                //violet seat select& diselect
+                if( jq(click).attr('src') == violet_seat_selected && done == false)
+                {
+                    jq(click).attr('src', violet_seat);
+                    done = true
+                }
+                if( jq(click).attr('src') == violet_seat && done == false)
+                {
+                     jq(click).attr('src', violet_seat_selected);   
+                     done = true
+                }
                     
+                //yellow seat select& diselect
+                if( jq(click).attr('src') == yellow_seat_selected && done == false)
+                {
+                    jq(click).attr('src', yellow_seat);
+                    done = true
+                }
+                if( jq(click).attr('src') == yellow_seat && done == false)
+                {
+                     jq(click).attr('src', yellow_seat_selected);   
+                     done = true
+                }
                     
             }
         }
