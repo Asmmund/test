@@ -38,7 +38,7 @@ jq.ajaxSetup({
                 dataType: 'JSON',
                 cache: false,
                 error: function(response) {
-                        alert('Error! ');
+                        alert('Error with query! ');
                 }
 });
 
@@ -59,7 +59,7 @@ function getSeatCategory()
                         jq.each(response.seatcategory,function(){
                             options += '<option  value="'+this.type.seatcategory_id +'|'+this.type.seatcolor+'">' + this.type.name + '</option>'
                         });
-                        options += '</select>';
+                        options += '</select><a href="javascript:void();" id="edit_categories">Edit categories</div>';
                         jq('#div_dropdown_category').html(options);
                 }
             });
@@ -332,23 +332,23 @@ jq(document).ready(function(){
                 var winH = jq(window).height();
                 var winW = jq(window).width();
                 //Set the popup window to center
-                jq('#boxes .window').css('z-index','1').fadeIn(2000)
+                jq('#boxes .window').css('z-index','1').show()
                     .css('top',  winH/2-jq('#boxes .window').height())
                     .css('left', winW/2-jq('#boxes .window').width());
                 
                 var tag = jq(click).attr('title').match(/(.*?)\|(.*?)L:(.*)/);
     
                 var label = tag[3];
+                
                 var row = tag[1];
                 var number = tag[2];
-                
                 jq('#boxes #dialog #label').val(label);
      
                    //showing window
-                jq('#boxes .window').fadeTo('slow',1);
+                jq('#boxes .window').show();
                 
                 jq('#boxes #dialog .cancel').click(function() {
-                    jq('#boxes .window').fadeOut(2000);
+                    jq('#boxes .window').hide();
                 });
 
                 // closing window
@@ -366,7 +366,7 @@ jq(document).ready(function(){
                         data: dataSend,
                         success: function(response){
                             jq(click).attr('title', response.title);
-                            jq('#boxes .window').fadeOut(2000);
+                            jq('#boxes .window').hide();
                             
                         }
                     });
@@ -386,44 +386,44 @@ jq(document).ready(function(){
    //if the select icon is pressed
    jq('#control_panel .select').click(function(){
         action = 'select_seat';
-        jq('#boxes .window').fadeOut(2000);
+        jq('#boxes .window').hide();
         jq('#select_image').attr('src', icon_select_selected);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#info_image').attr('src', icon_info_normal); 
-       jq('#dropdown_category').hide(); 
+       jq('#div_dropdown_category').hide(); 
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
         action = 'add_seat';
-        jq('#boxes .window').fadeOut(2000);
+        jq('#boxes .window').hide();
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
        jq('#info_image').attr('src', icon_info_normal);
-       jq('#dropdown_category').show(); 
+       jq('#div_dropdown_category').show(); 
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel .remove').click(function(){
         action = 'remove_seat';
-        jq('#boxes .window').fadeOut(2000);
+        jq('#boxes .window').hide();
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
        jq('#info_image').attr('src', icon_info_normal); 
-       jq('#dropdown_category').hide(); 
+       jq('#div_dropdown_category').hide(); 
     });
     
     jq('#control_panel .info').click(function(){
        action = 'update_info';
-        jq('#boxes .window').fadeOut(2000);
+        jq('#boxes .window').hide();
         jq('#info_image').attr('src', icon_info_selected); 
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
-       jq('#dropdown_category').hide(); 
+       jq('#div_dropdown_category').hide(); 
     });
 
 

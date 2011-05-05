@@ -106,8 +106,15 @@
             
         }
         
+/*
+
+                $query = "UPDATE `seat` 
+                          SET `label` = '" . $params['label'] ."'
+                          WHERE `seat_id` = " . (int)$params['id'] . " AND `hall_id`= " . (int)$hallid . ";";
+
+*/
+  
         //function of editing info
-       
         static public function editInfo($hallid,$params)
         {
             try
@@ -120,7 +127,7 @@
   
                 $query = "UPDATE `seat` 
                           SET `label` = '" . $params['label'] ."'
-                          WHERE `seat_id` = " . $params['id'] . " AND `hall_id`= " . $hallid . ";";
+                          WHERE `seat_id` =  " . (int)$params['id'] . " AND `hall_id`= " . (int)$hallid . ";";
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error updating row!');

@@ -48,7 +48,6 @@
         private function switchScripts()
         {
             $this->scripts = '<script type="text/javascript" src="' . SITE_HOST . 'skins/js/main/main.js"></script>'; 
-                             //'<script type="text/javascript" src="' . SITE_HOST . 'skins/js/main/window.js"></script>';
             
             
             return $this->scripts;
