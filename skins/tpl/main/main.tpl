@@ -28,6 +28,7 @@
          
          </div>
          
+         <div class="close">Close</div> 
         <!-- close button is defined as close class -->
  
     </div>

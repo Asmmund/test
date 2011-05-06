@@ -69,6 +69,22 @@ function getSeatCategory()
     
 }        
 
+// function used
+function windowListCategories()
+{
+   var params =  {};
+   params['id'] = 1;
+    var action = 'seat_category';
+    var dataSend = {'hallid':1, 'action':action, 'params':params};
+            jq.ajax({ 
+                data: dataSend,
+                success: function(response){
+
+                }
+            });
+
+    
+}
 
 /* when file is loaded*/
 jq(document).ready(function(){
@@ -380,7 +396,19 @@ jq(document).ready(function(){
     
     //window for editing categories
     jq('#edit_categories').click(function(){
-        alert('click!');
+                var winH = jq(window).height();
+                var winW = jq(window).width();
+                //Set the popup window to center
+                jq('#window_edit_categories').css('z-index','1').show()
+                    .css('top',  winH/2-jq('#boxes .window').height())
+                    .css('left', winW/2-jq('#boxes .window').width());
+
+                jq('#window_edit_categories').show();
+
+    });
+    
+    jq('#window_edit_categories .close').click(function(){
+        jq('#window_edit_categories').hide();
     });
     
    
