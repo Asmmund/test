@@ -95,7 +95,10 @@
                     SeatRepository::editInfo($hallid,$params);
                     break;
                 case 'seat_category':
-                    SeatRepository:: getSeatCategory();
+                    SeatRepository::getSeatCategory();
+                    break;
+                case 'add_category':
+                    SeatRepository::addCategory($params);
                     break;
             
                     

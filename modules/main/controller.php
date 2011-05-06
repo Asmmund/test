@@ -28,9 +28,9 @@
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
     $params['id'] = 54;
+    $params['name'] = 'ASD';
+    $params['color'] = 'violet';
     
-    
-
     
 
     

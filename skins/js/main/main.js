@@ -68,8 +68,9 @@ function getSeatCategory()
             
     
 }        
-
-// function used
+//*************************************************************************
+// fix it
+//*************************************************************************
 function windowListCategories()
 {
    var params =  {};
@@ -82,8 +83,6 @@ function windowListCategories()
 
                 }
             });
-
-    
 }
 
 /* when file is loaded*/
@@ -225,11 +224,11 @@ jq(document).ready(function(){
                                 case 'blue':
                                     return blue_seat;
                                 case 'red':
-                                    return blue_seat;
+                                    return red_seat;
                                 case 'violet':
-                                    return blue_seat;
+                                    return violet_seat;
                                 case 'yellow':
-                                    return blue_seat;
+                                    return yellow_seat;
                                 default:
                                     alert('There\'s no image for this seatcolor!');
                                 
@@ -384,6 +383,7 @@ jq(document).ready(function(){
                         data: dataSend,
                         success: function(response){
                             jq(click).attr('title', response.title);
+                            getSeatCategory();
                             jq('#boxes .window').hide();
                             
                         }
@@ -410,6 +410,48 @@ jq(document).ready(function(){
     jq('#window_edit_categories .close').click(function(){
         jq('#window_edit_categories').hide();
     });
+
+
+
+    //window for adding category
+    jq('#window_edit_categories > .add_category').click(function(){
+                var winH = jq(window).height() + 60;
+                var winW = jq(window).width()+ 60;
+                //Set the popup window to center
+                jq('#boxes > #add_category').css('z-index','1').show()
+                    .css('top',  winH/2-jq('#boxes >#add_category').height())
+                    .css('left', winW/2-jq('#boxes >#add_category').width());
+                jq('#add_category > #name').val('');
+                jq('#add_category > #color').val('');
+
+                jq('#boxes > #add_category').show();
+
+    });
+
+    jq('#add_category > .save').click(function(){
+        var action = 'add_category';
+        var params =  {};
+        params['name'] = jq('#add_category > #name').val();
+        params['color'] = jq('#add_category > #color').val();
+        
+        var hallid = 1;
+                
+        var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        
+        jq.ajax({
+                 data: dataSend,
+                 success: function(response){
+                    getSeatCategory();
+                    jq('#boxes > #add_category').hide();
+                     }
+                 });
+
+    });
+    
+    jq('#add_category >  .close').click(function(){
+        jq('#boxes > #add_category').hide();
+    });
+    
     
    
    //if the select icon is pressed

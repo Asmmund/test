@@ -74,8 +74,30 @@
            {
                echo '<b>' . $e->getMessage() . '</b>';
            }           
+        }
+        
+        
+        static public function addCategory($params)
+        {
+            try
+            {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+  
+                $query = "INSERT INTO `seatcategory`( `name`,`seatcolor`)
+                          VALUES ('" . $params['name'] . "', '" . $params['color'] . "');";
+                          
+                if(!$result = $connect->exec($query))
+                    throw new Exception('Error inserting  new category!');
                 
-    
+               $connect = null;
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+            
         }
         
         static public function removeSeat($hallid, $params)
