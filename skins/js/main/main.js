@@ -4,7 +4,7 @@ var jq = jQuery.noConflict();
 //default action
 var action = 'add_seat';
 //dif images
-var ajax_load = 'skins/images/loading.gif';
+var ajax_load = '<img src="skins/images/loading.gif" />';
 //toolbar icons
 var icon_add_selected = 'skins/images/002_01.png';
 var icon_add_normal = 'skins/images/001_01.png';
@@ -45,8 +45,6 @@ jq.ajaxSetup({
 //function of getting seatcategories
 function getSeatCategory()
 {
-
-
    var params =  {};
    params['id'] = 1;
     var action = 'seat_category';
@@ -65,25 +63,38 @@ function getSeatCategory()
                         jq('#edit_categories').show();
                 }
             });
-            
-    
-}        
+} 
+//getting list of categories for window
 //*************************************************************************
 // fix it
 //*************************************************************************
 function windowListCategories()
 {
-   var params =  {};
-   params['id'] = 1;
+    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
+    var params =  {};
     var action = 'seat_category';
     var dataSend = {'hallid':1, 'action':action, 'params':params};
             jq.ajax({ 
                 data: dataSend,
                 success: function(response){
+                    var list = '<ul class="list">';
+
+                    jq.each(response.seatcategory,function(){
+                        list += '<li>\'' 
+                             + this.type.name + '\' color:'+ this.type.seatcolor  
+                             + '<a href="javascript:void()" class="delete" id="'+ this.type.seatcategory_id+'">Delete</a></li>';
+                        });
+                    list += '</ul>';
+                    
+                    jq('#window_edit_categories>#window_list_categories').html(list);
+                    
+                    
 
                 }
             });
 }
+
+
 
 /* when file is loaded*/
 jq(document).ready(function(){
@@ -361,7 +372,8 @@ jq(document).ready(function(){
                 var number = tag[2];
                 jq('#boxes #dialog #label').val(label);
      
-                   //showing window
+                 //showing window
+                 listCategoriesForWindow();
                 jq('#boxes .window').show();
                 
                 jq('#boxes #dialog .cancel').click(function() {
@@ -402,13 +414,22 @@ jq(document).ready(function(){
                 jq('#window_edit_categories').css('z-index','1').show()
                     .css('top',  winH/2-jq('#boxes .window').height())
                     .css('left', winW/2-jq('#boxes .window').width());
+                    
+                    
 
                 jq('#window_edit_categories').show();
+                windowListCategories();
 
     });
     
-    jq('#window_edit_categories .close').click(function(){
+    jq('#window_edit_categories > .close').click(function(){
         jq('#window_edit_categories').hide();
+    });
+    
+//#window_edit_categories > #window_list_categories >     
+    jq('.delete').click(function(){
+       alert('click');
+      
     });
 
 
@@ -441,6 +462,7 @@ jq(document).ready(function(){
         jq.ajax({
                  data: dataSend,
                  success: function(response){
+                    windowListCategories()
                     getSeatCategory();
                     jq('#boxes > #add_category').hide();
                      }

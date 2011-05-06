@@ -1,6 +1,5 @@
 <!-- shins/tpl/main/main.tpl begin-->
 
-
     <!-- windows-->
 <div id="boxes">
     <div id="dialog" class="window">
@@ -21,13 +20,12 @@
     
     <!-- Categories editing window --> 
     <div id="window_edit_categories">
-        <p>Window Editing categories</p>
         <a href="javascript:void();" class="add_category">Add Category</a>
          <div id="window_list_categories">
          
          </div>
          
-         <div class="close">Close</div> 
+         <a href="javascript:void();" class="close">Close</a> 
         <!-- close button is defined as close class -->
     </div>
     
@@ -40,12 +38,13 @@
                <option value="yellow">Yellow</option>
                <option value="violet">Violet</option>
                </select><br />
-        <a class="save" href="javascript:void();">Save</a> <a class="close" href="javascript:void();">Close</a>
+        <a class="save" href="javascript:void();">Save</a><a class="close" href="javascript:void();">Close</a>
         
     </div>
 
 </div>
   
+
 
     <div id="main">
         
