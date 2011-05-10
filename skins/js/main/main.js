@@ -84,6 +84,7 @@ function windowListCategories()
                     jq.each(response.seatcategory,function(){
                         list += '<li>\'' 
                              + this.type.name + '\' color:'+ this.type.seatcolor  
+                             + '<a href="javascript:void()" class="edit" id="'+ this.type.seatcategory_id+'">Edit</a>'
                              + '<a href="javascript:void()" class="delete" id="'+ this.type.seatcategory_id+'">Delete</a></li>';
                         });
                     list += '</ul>';
@@ -97,37 +98,13 @@ function windowListCategories()
 }
 
 
+
 //just a wrap for 2 other functions
 function categoryUpdate()
 {
     getSeatCategory();
     windowListCategories();
     
-}
-// Get list of categories
-function deleteCategory(id)
-{
-    var q = confirm('Are you sure?');
-    if(q)
-    {
-    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
-        
-    var params =  {};
-    params['id'] = id;
-    var action = 'delete_category';
-    var dataSend = {'hallid':1, 'action':action, 'params':params};
-    jq.ajax({ 
-        data: dataSend,
-        success: function(response){
-                    
-        },
-        error: function(response){
-            alert('There are seats of this category!');
-        }
-        
-    });
-    categoryUpdate();
-    }   
 }
 
 
@@ -461,53 +438,11 @@ jq(document).ready(function(){
         jq('#window_edit_categories').hide();
     });
     
-//#window_edit_categories > #window_list_categories >     
-    jq('.delete').live('click', function(e){
-        var id =jq(this).attr('id') ;
-        deleteCategory(id);
-
-    });
 
 
 
-    //window for adding category
-    jq('#window_edit_categories > .add_category').click(function(){
-                var winH = jq(window).height() + 60;
-                var winW = jq(window).width()+ 60;
-                //Set the popup window to center
-                jq('#boxes > #add_category').css('z-index','1').show()
-                    .css('top',  winH/2-jq('#boxes >#add_category').height())
-                    .css('left', winW/2-jq('#boxes >#add_category').width());
-                jq('#add_category > #name').val('');
-                jq('#add_category > #color').val('');
 
-                jq('#boxes > #add_category').show();
 
-    });
-
-    jq('#add_category > .save').click(function(){
-        var action = 'add_category';
-        var params =  {};
-        params['name'] = jq('#add_category > #name').val();
-        params['color'] = jq('#add_category > #color').val();
-        
-        var hallid = 1;
-                
-        var dataSend = {'hallid':hallid,'action':action, 'params': params };
-        
-        jq.ajax({
-                 data: dataSend,
-                 success: function(response){
-                    categoryUpdate();
-                    jq('#boxes > #add_category').hide();
-                     }
-                 });
-
-    });
-    
-    jq('#add_category >  .close').click(function(){
-        jq('#boxes > #add_category').hide();
-    });
     
     
    
@@ -559,5 +494,159 @@ jq(document).ready(function(){
     });
 
 
- 
+/////////////////////////////////////////////////////////////////////
+//adding new category
+/////////////////////////////////////////////////////////////////////
+//window for adding category
+    jq('#window_edit_categories > .add_category').click(function(){
+                var winH = jq(window).height()+ 10;
+                var winW = jq(window).width()+ 10;
+                //Set the popup window to center
+                jq('#boxes > #add_category').css('z-index','1').show()
+                    .css('top',  winH/2.2-jq('#boxes >#add_category').height())
+                    .css('left', winW/1.5-jq('#boxes >#add_category').width());
+                jq('#add_category > #name').val('New category name');
+                jq('#add_category > #color').val('');
+
+                jq('#boxes > #add_category').show();
+
+    });
+
+    jq('#add_category > .save').click(function(){
+        var action = 'add_category';
+        var params =  {};
+        params['name'] = jq('#add_category > #name').val();
+        params['color'] = jq('#add_category > #color').val();
+        
+        var hallid = 1;
+                
+        var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        
+        jq.ajax({
+                 data: dataSend,
+                 success: function(response){
+                    categoryUpdate();
+                    jq('#boxes > #add_category').hide();
+                     }
+                 });
+
+    });
+    
+    jq('#add_category >  .close').click(function(){
+        jq('#boxes > #add_category').hide();
+    });
+
+
+    
+    
+/////////////////////////////////////////////////////////////////////
+//editing  category
+/////////////////////////////////////////////////////////////////////
+
+    
+    
+    jq('#window_edit_categories>#window_list_categories .list .edit').live('click', function(e){
+        var id =jq(this).attr('id') ;
+        editCategoryWindow(id);
+    });
+    
+//editing category
+function editCategoryWindow(id)
+{
+    var winH = jq(window).height()-50;
+    var winW = jq(window).width()+ 10;
+    //Set the popup window to center
+    jq('#boxes > #edit_category_window').css('z-index','1').show()
+        .css('top',  winH/2.2-jq('#boxes >#edit_category_window').height())
+        .css('left', winW/1.5-jq('#boxes >#edit_category_window').width());
+      
+        var action = 'get_category_info';
+        var params =  {};
+        params['id'] = id;
+        
+        var hallid = 1;
+                
+        var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        jq.ajax({
+                 data: dataSend,
+                 success: function(response){
+                     jq('#edit_category_window > #name').val(response.name);
+                     jq('#edit_category_window > #color').val(response.seatcolor);
+                     jq('#edit_category_window > #seatcategory_id').val(id);
+                     jq('#boxes > #edit_category_window').show();
+                 }
+        });
+}
+
+    //saving updated category 
+    jq('#edit_category_window >  .save').click(function(){
+        var action = 'update_category';
+        var params =  {};
+        params['id'] = jq('#edit_category_window > #seatcategory_id').val();
+        params['name'] = jq('#edit_category_window > #name').val();
+        params['seatcolor'] = jq('#edit_category_window > #color').val();
+        var hallid = 1;
+        var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        jq.ajax({
+                 data: dataSend,
+                 success: function(response){
+                     jq('#edit_category_window > #name').val('');
+                     jq('#edit_category_window > #color').val('');
+                     jq('#edit_category_window > #seatcategory_id').val('');
+                     jq('#boxes > #edit_category_window').hide();
+                 }
+
+
+        
+        
+    });
+    });
+     
+
+    jq('#edit_category_window >  .close').click(function(){
+        categoryUpdate();
+        jq('#edit_category_window > #name').val('');
+        jq('#edit_category_window > #color').val('');
+        jq('#edit_category_window > #seatcategory_id').val('');
+        jq('#boxes > #edit_category_window').hide();
+        
+    });
+
+/////////////////////////////////////////////////////////////////////
+//deleting category
+/////////////////////////////////////////////////////////////////////
+// Get list of categories
+function deleteCategory(id)
+{
+    var q = confirm('Are you sure?');
+    if(q)
+    {
+    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
+        
+    var params =  {};
+    params['id'] = id;
+    var action = 'delete_category';
+    var dataSend = {'hallid':1, 'action':action, 'params':params};
+    jq.ajax({ 
+        data: dataSend,
+        success: function(response){
+                    
+        },
+        error: function(response){
+            alert('There are seats of this category!');
+        }
+        
+    });
+    categoryUpdate();
+    }   
+}
+
+
+
+// assigning methods to dynamically created list of categories     
+    jq('#window_edit_categories>#window_list_categories .list .delete').live('click', function(e){
+        var id =jq(this).attr('id') ;
+        deleteCategory(id);
+    }); 
+
 });

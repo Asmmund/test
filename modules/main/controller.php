@@ -27,10 +27,10 @@
     $params['number']  = '55';
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
-    $params['id'] = 1;
+    $params['id'] = 7;
     $params['name'] = 'ASD';
-    $params['color'] = 'violet';
+    $params['seatcolor'] = 'violet';
     
-  
+   // SeatRepository::updateCategory($params);
     
 ?>

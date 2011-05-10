@@ -42,6 +42,21 @@
         
     </div>
 
+    <div id="edit_category_window">
+         <input type="hidden" id="seatcategory_id" value="" />
+        Name: <input type="text" size="20" id="name" /> <br />
+        Color: <select id="color">
+               <option value="green">Green</option>
+               <option value="red">Red</option>
+               <option value="blue">Blue</option>
+               <option value="yellow">Yellow</option>
+               <option value="violet">Violet</option>
+               </select><br />
+        <a class="save" href="javascript:void();">Save</a><a class="close" href="javascript:void();">Close</a>
+        
+    </div>
+
+
 </div>
   
 

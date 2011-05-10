@@ -249,6 +249,24 @@ info window
     margin:5px;
 }
 
+/* Edit category */
+#boxes #edit_category_window{
+  text-align:center;
+  position:absolute;
+  width:350px;
+  z-index:9999;
+  border: 1px black solid;
+  display: none;
+  padding:5px 5px 5px 5px;
+  background: white;
+}
+    
+#boxes  #edit_category_window input,
+#boxes  #edit_category_window select,
+#boxes  #edit_category_window a{
+    margin:5px;
+}
+
 
 /* drop down box for choosing seat category */
 #div_dropdown_category {

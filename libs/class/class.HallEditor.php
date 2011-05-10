@@ -95,7 +95,7 @@
                     SeatRepository::editInfo($hallid,$params);
                     break;
                 case 'seat_category':
-                    SeatRepository::getSeatCategory();
+                    SeatRepository::getHallCategories();
                     break;
                 case 'add_category':
                     SeatRepository::addCategory($params);
@@ -103,11 +103,13 @@
                 case 'delete_category':
                     SeatRepository::deleteCategory($params);
                     break;
-                case 'check_category':
-                    SeatRepository::chechCategoryId($params);
+                case 'get_category_info':
+                    SeatRepository::getCategoryInfo($params);
                     break;
-                    
-                    
+                case 'update_category':
+                    SeatRepository::updateCategory($params);
+                    break;
+                        
                 default:
                     echo 'No such action!';
                     break;

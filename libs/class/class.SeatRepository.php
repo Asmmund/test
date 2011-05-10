@@ -77,28 +77,7 @@
         }
         
         
-        static public function addCategory($params)
-        {
-            try
-            {
-               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
-                    throw new Exception('Error connecting to the Database!');
-                    
-  
-                $query = "INSERT INTO `seatcategory`( `name`,`seatcolor`)
-                          VALUES ('" . $params['name'] . "', '" . $params['color'] . "');";
-                          
-                if(!$result = $connect->exec($query))
-                    throw new Exception('Error inserting  new category!');
-                
-               $connect = null;
-           }
-           catch(PDOException $e)
-           {
-               echo '<b>' . $e->getMessage() . '</b>';
-           }           
-            
-        }
+
         
 
 
@@ -163,7 +142,7 @@
         }
         
         //method of getting max value of x
-        static public function getSeatCategory()
+        static public function getHallCategories()
         {
             try
             {
@@ -197,7 +176,31 @@
             
         }
         
-        
+        static public function addCategory($params)
+        {
+            try
+            {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+                    
+  
+                $query = "INSERT INTO `seatcategory`( `name`,`seatcolor`)
+                          VALUES ('" . $params['name']
+                           . "', '" . $params['color'] . "');";
+                          
+                if(!$result = $connect->exec($query))
+                    throw new Exception('Error inserting  new category!');
+                
+               $connect = null;
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+            
+        }
+                
         static public function deleteCategory( $params)
         {
             try
@@ -223,33 +226,64 @@
             
         }
         
-        static public function chechCategoryId($params)
+    static public function getCategoryInfo($params)
+    {
+        try
         {
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
+               
+               $query = 'SELECT `name`, `seatcolor`
+                        FROM `seatcategory`
+                        WHERE `seatcategory_id` = :seatcategory_id';
 
-                $query = "SELECT COUNT(*) 
-                          FROM `seat`
-                          WHERE `category_id` = " . $params['id']. ";";
+               $stmt= $connect->prepare($query);
+               
+               $stmt->execute(array(':seatcategory_id' => $params['id']));
+               
+                foreach ($stmt as $row) 
+               {
+                    $seatcolor = $row['seatcolor'];
+                    $name = $row['name'] ;
+               }
+               
+               echo '{"success":"true","name":"' . $name . '", "seatcolor":"'. $seatcolor . '"}'; 
                 
-                $result = $connect->prepare($query);
-                $result->execute();
-                $number_of_rows = $result->fetchColumn();
-                
-                if($number_of_rows == 0) 
-                    echo '{"success":"true"}';
-                else
-                    echo '{"error":"true", "reason":"Seats of this category are present!"}';
-                
-                    
-                    
-                
-                $connect = null;
+               
             
         }
+       catch(PDOException $e)
+       {
+          echo '<b>' . $e->getMessage() . '</b>';
+       }           
         
-
+    }
         
+    static public function updateCategory($params)
+    {
+        try
+        {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+               
+               $query = 'UPDATE `seatcategory`
+                         SET `name` = :name,
+                         `seatcolor` = :seatcolor
+                         WHERE `seatcategory_id` = :seatcategory_id';
 
-    }   
+               $stmt= $connect->prepare($query);
+               
+               if($stmt->execute(array(':seatcategory_id' => $params['id'], 
+                                    ':seatcolor'=>$params['seatcolor'],
+                                    ':name' => $params['name'])))
+                   echo '{"success":"true"}';
+               
+        }
+       catch(PDOException $e)
+       {
+          echo '<b>' . $e->getMessage() . '</b>';
+       }           
+        
+    }
+}   
 ?>
