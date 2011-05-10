@@ -59,15 +59,17 @@ function getSeatCategory()
                                         +'|'+this.type.seatcolor+'">\'' + this.type.name + '\' color:' + this.type.seatcolor + '</option>';
                         });
                         options += '</select>';
+                        
+                        //output the select content
                         jq('#div_dropdown_category').html(options);
+                        
+                        // just a link edit categories under select
                         jq('#edit_categories').show();
                 }
             });
 } 
 //getting list of categories for window
-//*************************************************************************
-// fix it
-//*************************************************************************
+// Get list of categories
 function windowListCategories()
 {
     jq('#window_edit_categories>#window_list_categories').html(ajax_load);
@@ -95,11 +97,44 @@ function windowListCategories()
 }
 
 
+//just a wrap for 2 other functions
+function categoryUpdate()
+{
+    getSeatCategory();
+    windowListCategories();
+    
+}
+// Get list of categories
+function deleteCategory(id)
+{
+    var q = confirm('Are you sure?');
+    if(q)
+    {
+    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
+        
+    var params =  {};
+    params['id'] = id;
+    var action = 'delete_category';
+    var dataSend = {'hallid':1, 'action':action, 'params':params};
+    jq.ajax({ 
+        data: dataSend,
+        success: function(response){
+                    
+        },
+        error: function(response){
+            alert('There are seats of this category!');
+        }
+        
+    });
+    categoryUpdate();
+    }   
+}
+
+
 
 /* when file is loaded*/
 jq(document).ready(function(){
     //adding fow before the first one
-   
     //loading seatcategory from db
    getSeatCategory();
    
@@ -427,9 +462,10 @@ jq(document).ready(function(){
     });
     
 //#window_edit_categories > #window_list_categories >     
-    jq('.delete').click(function(){
-       alert('click');
-      
+    jq('.delete').live('click', function(e){
+        var id =jq(this).attr('id') ;
+        deleteCategory(id);
+
     });
 
 
@@ -462,8 +498,7 @@ jq(document).ready(function(){
         jq.ajax({
                  data: dataSend,
                  success: function(response){
-                    windowListCategories()
-                    getSeatCategory();
+                    categoryUpdate();
                     jq('#boxes > #add_category').hide();
                      }
                  });

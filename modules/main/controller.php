@@ -27,11 +27,10 @@
     $params['number']  = '55';
     $params['delimiter']  = '/';
     $params['categoryID']  = 1;
-    $params['id'] = 54;
+    $params['id'] = 1;
     $params['name'] = 'ASD';
     $params['color'] = 'violet';
     
-    
-
+  
     
 ?>

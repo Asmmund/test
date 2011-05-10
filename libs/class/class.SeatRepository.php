@@ -100,6 +100,8 @@
             
         }
         
+
+
         static public function removeSeat($hallid, $params)
         {
             try
@@ -128,13 +130,6 @@
             
         }
         
-/*
-
-                $query = "UPDATE `seat` 
-                          SET `label` = '" . $params['label'] ."'
-                          WHERE `seat_id` = " . (int)$params['id'] . " AND `hall_id`= " . (int)$hallid . ";";
-
-*/
   
         //function of editing info
         static public function editInfo($hallid,$params)
@@ -201,6 +196,59 @@
             
             
         }
+        
+        
+        static public function deleteCategory( $params)
+        {
+            try
+            {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                $query = "DELETE 
+                          FROM `seatcategory`
+                          WHERE `seatcategory_id` = " . $params['id']. ";";
+                
+                if(!$result = $connect->exec($query))
+                    throw new Exception('Error deleting the category!');
+                    
+                echo '{"success":"true", "title":""}';
+                    
+                
+                $connect = null;
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+            
+        }
+        
+        static public function chechCategoryId($params)
+        {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+
+                $query = "SELECT COUNT(*) 
+                          FROM `seat`
+                          WHERE `category_id` = " . $params['id']. ";";
+                
+                $result = $connect->prepare($query);
+                $result->execute();
+                $number_of_rows = $result->fetchColumn();
+                
+                if($number_of_rows == 0) 
+                    echo '{"success":"true"}';
+                else
+                    echo '{"error":"true", "reason":"Seats of this category are present!"}';
+                
+                    
+                    
+                
+                $connect = null;
+            
+        }
+        
+
         
 
     }   

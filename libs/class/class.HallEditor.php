@@ -100,7 +100,17 @@
                 case 'add_category':
                     SeatRepository::addCategory($params);
                     break;
-            
+                case 'delete_category':
+                    SeatRepository::deleteCategory($params);
+                    break;
+                case 'check_category':
+                    SeatRepository::chechCategoryId($params);
+                    break;
+                    
+                    
+                default:
+                    echo 'No such action!';
+                    break;
                     
             }
         }
