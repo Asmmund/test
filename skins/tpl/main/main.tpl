@@ -14,18 +14,18 @@
     </div>
  
      
-     <a href="javascript:void();" id="edit_categories">Edit categories</a>
+     <a href="javascript:void(0);" id="edit_categories">Edit categories</a>
     <!-- Do not remove div#mask, because you'll need it to fill the whole screen --> 
     <div id="mask"></div>
     
     <!-- Categories editing window --> 
     <div id="window_edit_categories">
-        <a href="javascript:void();" class="add_category">Add Category</a>
+        <a href="javascript:void(0);" class="add_category">Add Category</a>
          <div id="window_list_categories">
          
          </div>
          
-         <a href="javascript:void();" class="close">Close</a> 
+         <a href="javascript:void(0);" class="close">Close</a> 
         <!-- close button is defined as close class -->
     </div>
     
@@ -38,7 +38,7 @@
                <option value="yellow">Yellow</option>
                <option value="violet">Violet</option>
                </select><br />
-        <a class="save" href="javascript:void();">Save</a><a class="close" href="javascript:void();">Close</a>
+        <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
         
     </div>
 
@@ -52,7 +52,7 @@
                <option value="yellow">Yellow</option>
                <option value="violet">Violet</option>
                </select><br />
-        <a class="save" href="javascript:void();">Save</a><a class="close" href="javascript:void();">Close</a>
+        <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
         
     </div>
 

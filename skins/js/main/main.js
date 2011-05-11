@@ -1,6 +1,7 @@
 /* Setting no conflict version*/
 var jq = jQuery.noConflict();
 
+
 //default action
 var action = 'add_seat';
 //dif images
@@ -29,6 +30,9 @@ var violet_seat_selected = 'skins/images/seat/violet_selected.jpg';
 var yellow_seat = 'skins/images/seat/yellow.jpg';
 var yellow_seat_selected = 'skins/images/seat/yellow_selected.jpg';
 
+// vars used in editing categories
+var old_name;
+var old_seatcolor;
 
 //ajax params
 jq.ajaxSetup({
@@ -84,8 +88,8 @@ function windowListCategories()
                     jq.each(response.seatcategory,function(){
                         list += '<li>\'' 
                              + this.type.name + '\' color:'+ this.type.seatcolor  
-                             + '<a href="javascript:void()" class="edit" id="'+ this.type.seatcategory_id+'">Edit</a>'
-                             + '<a href="javascript:void()" class="delete" id="'+ this.type.seatcategory_id+'">Delete</a></li>';
+                             + '<a href="javascript:void(0)" class="edit" id="'+ this.type.seatcategory_id+'">Edit</a>'
+                             + '<a href="javascript:void(0)" class="delete" id="'+ this.type.seatcategory_id+'">Delete</a></li>';
                         });
                     list += '</ul>';
                     
@@ -573,14 +577,28 @@ function editCategoryWindow(id)
                  success: function(response){
                      jq('#edit_category_window > #name').val(response.name);
                      jq('#edit_category_window > #color').val(response.seatcolor);
+                     old_seatcolor = response.seatcolor;
                      jq('#edit_category_window > #seatcategory_id').val(id);
                      jq('#boxes > #edit_category_window').show();
                  }
         });
-}
+        
 
+}
+    //redrawing seats with changed seatcolor
+    function changedSeatColor(old_seatcolor,new_seatcolor)
+    {
+        var old_img_src = 'skins/images/seat/' + old_seatcolor + '.jpg';
+        var new_img_src = 'skins/images/seat/' + new_seatcolor + '.jpg';
+        jq('#grid >#table>tbody>  tr > td img').each(function(e){
+           if( jq(this).attr('src') == old_img_src)
+               jq(this).attr('src', new_img_src);
+        });
+    }
+    
     //saving updated category 
     jq('#edit_category_window >  .save').click(function(){
+        
         var action = 'update_category';
         var params =  {};
         params['id'] = jq('#edit_category_window > #seatcategory_id').val();
@@ -588,6 +606,9 @@ function editCategoryWindow(id)
         params['seatcolor'] = jq('#edit_category_window > #color').val();
         var hallid = 1;
         var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        if(old_seatcolor != params['seatcolor'])
+            changedSeatColor(old_seatcolor,params['seatcolor']);
+
         jq.ajax({
                  data: dataSend,
                  success: function(response){
