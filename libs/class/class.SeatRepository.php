@@ -54,19 +54,20 @@
             {
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
-                    
-  
+
                 $query = "INSERT INTO `seat`( `hall_id`,`x`, `y`, 
                          `label`,`row`,`number`,`delimiter`, `category_id`)
-                          VALUES (" . $hallid ."," . $params['x'] .",
-                          " . $params['y'] .",'" . $params['label'] ."'," . $params['row'] .",
-                          " . $params['number'] .",'" . $params['delimiter'] ."'," 
-                          . $params['categoryID'] ." );";
-                          
-                if(!$result = $connect->exec($query))
+                          VALUES (:hall_id,:x, :y, :label, :row, :number, :declimer,:category_id );";
+
+               $stmt = $connect->prepare($query);
+
+               if($stmt->execute(array( ':hall_id'=>$hallid ,':x'=>$params['x'], ':y'=>$params['y'], 
+                                        ':label'=>$params['label'], ':row'=>$params['row'], ':number'=>$params['number'],
+                                        ':declimer'=>$params['delimiter'] ,':category_id'=>$params['categoryID'] )))
+                   echo '{"success":"true", "id":"' .$connect->lastInsertId() . '", "hallid":"' . $hallid . '"}' ;
+               else
                     throw new Exception('Error inserting the row!!');
                     
-               echo '{"success":"true", "id":"' .$connect->lastInsertId() . '", "hallid":"' . $hallid . '"}' ;
                 
                $connect = null;
            }
@@ -92,12 +93,14 @@
   
                 $query = "DELETE 
                           FROM `seat`
-                          WHERE `seat_id` =" . (int)$params['id']. " AND `hall_id`= " . (int)$hallid . ";";
-                
-                if(!$result = $connect->exec($query))
+                          WHERE `seat_id` =:seat_id AND `hall_id`= :hall_id;";
+
+               $stmt= $connect->prepare($query);
+               if($stmt->execute(array( ':seat_id'=> (int)$params['id'], ':hall_id'=>(int)$hallid)))
+                  echo '{"success":"true", "title":"' . $matches[1] . '|'. $matches[2]. '"}';
+               else
                     throw new Exception('Error deleting the row!');
                     
-                echo '{"success":"true", "title":"' . $matches[1] . '|'. $matches[2]. '"}';
                     
                 
                 $connect = null;
@@ -118,21 +121,27 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                     
+                    
 
-                
+
   
                 $query = "UPDATE `seat` 
-                          SET `label` = '" . $params['label'] ."'
-                          WHERE `seat_id` =  " . (int)$params['id'] . " AND `hall_id`= " . (int)$hallid . ";";
-                
-                if(!$result = $connect->exec($query))
-                    throw new Exception('Error updating row!');
+                          SET `label` = :label
+                          WHERE `seat_id` =  :seat_id AND `hall_id`= :hall_id;";
+               $stmt= $connect->prepare($query);
+
+               if($stmt->execute(array(':label' => $params['label'], 
+                                    ':seat_id'=>(int)$params['id'],
+                                    ':hall_id' => (int)$hallid)))
+                    echo '{"success":"true", "title":"' . $params['row'] . '|'. $params['number']. 'L:' 
+                          . $params['label'] .'"}';
+               else
+                    throw new Exception('Error updating label!');
                     
-                echo '{"success":"true", "title":"' . $params['row'] . '|'. $params['number']. 'L:' 
-                      . $params['label'] .'"}';
                     
                 
                 $connect = null;
+                $stmt = null;
            }
            catch(PDOException $e)
            {
@@ -176,6 +185,8 @@
             
         }
         
+
+        
         static public function addCategory($params)
         {
             try
@@ -186,10 +197,12 @@
                     
   
                 $query = "INSERT INTO `seatcategory`( `name`,`seatcolor`)
-                          VALUES ('" . $params['name']
-                           . "', '" . $params['color'] . "');";
-                          
-                if(!$result = $connect->exec($query))
+                          VALUES (:name, :seatcolor);";
+               $stmt= $connect->prepare($query);
+               if($stmt->execute(array(':name' => $params['name'], 
+                                    ':seatcolor'=>$params['color'])))
+                    echo '{"success":"true"}';
+               else
                     throw new Exception('Error inserting  new category!');
                 
                $connect = null;
@@ -209,7 +222,7 @@
                     throw new Exception('Error connecting to the Database!');
                 $query = "DELETE 
                           FROM `seatcategory`
-                          WHERE `seatcategory_id` = " . $params['id']. ";";
+                          WHERE `seatcategory_id` = " . (int) $params['id']. ";";
                 
                 if(!$result = $connect->exec($query))
                     throw new Exception('Error deleting the category!');

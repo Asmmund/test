@@ -385,9 +385,8 @@ jq(document).ready(function(){
                 jq('#boxes #dialog #label').val(label);
      
                  //showing window
-                 listCategoriesForWindow();
+
                 jq('#boxes .window').show();
-                
                 jq('#boxes #dialog .cancel').click(function() {
                     jq('#boxes .window').hide();
                 });
@@ -395,6 +394,7 @@ jq(document).ready(function(){
                 // closing window
                 jq('#boxes #dialog .save').click(function()
                 {
+                    var action = 'update_info';
                     var params =  {};
                     params['label'] = jq('#dialog #label').val();
                     params['row'] = row;
@@ -407,13 +407,14 @@ jq(document).ready(function(){
                         data: dataSend,
                         success: function(response){
                             jq(click).attr('title', response.title);
-                            getSeatCategory();
                             jq('#boxes .window').hide();
                             
                         }
                     });
 
                 });
+                
+                
             } 
         }
     });
@@ -605,7 +606,6 @@ function editCategoryWindow(id)
      
 
     jq('#edit_category_window >  .close').click(function(){
-        categoryUpdate();
         jq('#edit_category_window > #name').val('');
         jq('#edit_category_window > #color').val('');
         jq('#edit_category_window > #seatcategory_id').val('');
