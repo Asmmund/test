@@ -96,13 +96,13 @@ grid & the hall model
 #table td {
     border: solid black 1px;
     text-align: center;
-    width: 66px;
-    height: 58px;
+    width: 35px;
+    height: 35px;
 }
 
 #table td img {
-    width: 66px;
-    height: 58px;
+    width: 35px;
+    height: 35px;
 }
 /* 
 arrows
