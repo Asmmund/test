@@ -49,22 +49,22 @@
             $this->string = ' 
                                  <div id="up_arrow">
                                      <img src="' . SITE_HOST . 
-                                         'skins/images/up_arrow.jpg" width="75" height="42" />
+                                         'skins/images/up_arrow.jpg" width="75" height="42" title="Add one row to the beggining of the hall" />
                                   </div> <br />
                                   
                                  <div id="left_arrow" >
                                      <img  src="' . SITE_HOST . 
-                                         'skins/images/left_arrow.jpg"  width="42" height="75" />
+                                         'skins/images/left_arrow.jpg"  width="42" height="75" title="Add one column to the beggining  of the hall" />
                                  </div>' . 
                                  $this->string . 
                                  '<div id="right_arrow" style="">
                                      <img  src="' . SITE_HOST . 
-                                         'skins/images/right_arrow.jpg" width="42" height="75" />
+                                         'skins/images/right_arrow.jpg" width="42" height="75" title="Add one column to the end  of the hall" />
                                  </div><br />
                                          
                                 <div id="down_arrow" style="">
                                     <img src="' . SITE_HOST . 
-                                        'skins/images/down_arrow.jpg" width="75" height="42" />
+                                        'skins/images/down_arrow.jpg" width="75" height="42" title="Add one row to the end  of the hall" />
                                 </div>
                              </div>';
         }

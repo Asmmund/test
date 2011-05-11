@@ -33,10 +33,10 @@
         {
             $this->controlls = '<table id="control_panel" >
                                 <tr>
-                                    <td class="select"><img id="select_image" src="' . SITE_HOST . 'skins/images/select_icon.jpg" /></td>
-                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/002_01.png" /></td>
-                                    <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" /></td>
-                                    <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/label_icon.png" /></td>
+                                    <td class="select"><img id="select_image" src="' . SITE_HOST . 'skins/images/select_icon.jpg" title="Select multiple seats" /></td>
+                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/002_01.png" title="Add a seat" /></td>
+                                    <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" title="Delete a seat" /></td>
+                                    <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/label_icon.png" title="Change label of the seat" /></td>
                                 </tr>
                                </table>
                                <div id="div_dropdown_category">

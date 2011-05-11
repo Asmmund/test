@@ -118,7 +118,9 @@ jq(document).ready(function(){
     //adding fow before the first one
     //loading seatcategory from db
    getSeatCategory();
-   
+/////////////////////////////////////////////////////////////////////
+//editing hall size
+/////////////////////////////////////////////////////////////////////   
     jq('#up_arrow').click(function(){
         var title_first_first = jq('#table > tbody>tr:first-child td:first-child img').attr('title');
 
@@ -213,7 +215,9 @@ jq(document).ready(function(){
     });
 
 
-    
+/////////////////////////////////////////////////////////////////////
+//actions when clicked on seat
+/////////////////////////////////////////////////////////////////////    
     // if the seat is pressed
     jq('#table .seat').click(function(){
         //save the referense to clicked image
@@ -448,7 +452,9 @@ jq(document).ready(function(){
 
 
 
-    
+/////////////////////////////////////////////////////////////////////
+//toolbar actions
+/////////////////////////////////////////////////////////////////////    
     
    
    //if the select icon is pressed
@@ -548,7 +554,7 @@ jq(document).ready(function(){
 //editing  category
 /////////////////////////////////////////////////////////////////////
 
-    
+    //binding function to newly created categories
     
     jq('#window_edit_categories>#window_list_categories .list .edit').live('click', function(e){
         var id =jq(this).attr('id') ;
@@ -637,7 +643,6 @@ function editCategoryWindow(id)
 /////////////////////////////////////////////////////////////////////
 //deleting category
 /////////////////////////////////////////////////////////////////////
-// Get list of categories
 function deleteCategory(id)
 {
     var q = confirm('Are you sure?');
