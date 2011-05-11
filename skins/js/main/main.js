@@ -590,6 +590,7 @@ function editCategoryWindow(id)
         jq.ajax({
                  data: dataSend,
                  success: function(response){
+                     categoryUpdate();
                      jq('#edit_category_window > #name').val('');
                      jq('#edit_category_window > #color').val('');
                      jq('#edit_category_window > #seatcategory_id').val('');
