@@ -7,15 +7,21 @@ var action = 'add_seat';
 //dif images
 var ajax_load = '<img src="skins/images/loading.gif" />';
 //toolbar icons
-var icon_add_selected = 'skins/images/002_01.png';
-var icon_add_normal = 'skins/images/001_01.png';
-var icon_remove_selected = 'skins/images/002_02.png';
-var icon_remove_normal = 'skins/images/001_02.png';
-var icon_select_normal = 'skins/images/select_icon.jpg';
-var icon_select_selected = 'skins/images/select_icon_02.jpg';
-var icon_info_normal = 'skins/images/label_icon.png';
-var icon_info_selected = 'skins/images/label_icon_02.png';   
-
+var icon_add_selected = 'skins/images/icons/002_01.png';
+var icon_add_normal = 'skins/images/icons/001_01.png';
+var icon_remove_selected = 'skins/images/icons/002_02.png';
+var icon_remove_normal = 'skins/images/icons/001_02.png';
+var icon_select_normal = 'skins/images/icons/select_icon.jpg';
+var icon_select_selected = 'skins/images/icons/select_icon_02.jpg';
+var icon_info_normal = 'skins/images/icons/label_icon.png';
+var icon_info_selected = 'skins/images/icons/label_icon_02.png';   
+var icon_delete_group = 'skins/images/icons/delete_group.png';  
+var icon_delete_group_selected = 'skins/images/icons/delete_group_selected.png';
+var icon_label_group  = 'skins/images/icons/label_group.png';
+var icon_label_group_selected  = 'skins/images/icons/label_group_selected.png';    
+var icon_category_group  = 'skins/images/icons/change_group.png';
+var icon_category_group_selected  = 'skins/images/icons/change_group_selected.png';
+    
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
 
@@ -363,6 +369,7 @@ jq(document).ready(function(){
                      jq(click).attr('src', yellow_seat_selected);   
                      done = true
                 }
+                
                     
             }
         }
@@ -461,6 +468,7 @@ jq(document).ready(function(){
    jq('#control_panel .select').click(function(){
         action = 'select_seat';
         jq('#boxes .window').hide();
+        jq('#main  #control_panel #multiple_actions').show();
         jq('#select_image').attr('src', icon_select_selected);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
@@ -474,6 +482,7 @@ jq(document).ready(function(){
         action = 'add_seat';
         jq('#edit_categories').show();
         jq('#boxes .window').hide();
+        jq('#main  #control_panel #multiple_actions').hide();
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
@@ -485,6 +494,7 @@ jq(document).ready(function(){
     jq('#control_panel .remove').click(function(){
         action = 'remove_seat';
         jq('#boxes .window').hide();
+        jq('#main  #control_panel #multiple_actions').hide();
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
@@ -496,6 +506,7 @@ jq(document).ready(function(){
     jq('#control_panel .info').click(function(){
        action = 'update_info';
         jq('#boxes .window').hide();
+        jq('#main  #control_panel #multiple_actions').hide();
         jq('#info_image').attr('src', icon_info_selected); 
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_normal );
@@ -504,6 +515,30 @@ jq(document).ready(function(){
         jq('#edit_categories').hide();
     });
 
+
+/////////////////////////////////////////////////////////////////////
+//Group toolbar
+/////////////////////////////////////////////////////////////////////
+
+                jq('#main  #control_panel #multiple_actions .group_delete #group_delete').click(function(){
+                    jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
+                    jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
+                    
+                    jq(this).attr('src', icon_delete_group_selected);
+                });
+
+
+                jq('#main  #control_panel #multiple_actions .group_label #group_label').click(function(){
+                    jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
+                    jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
+                    jq(this).attr('src', icon_label_group_selected);
+                });
+
+                jq('#main  #control_panel #multiple_actions .group_category #group_category').click(function(){
+                    jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
+                    jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
+                    jq(this).attr('src', icon_category_group_selected);
+                });
 
 /////////////////////////////////////////////////////////////////////
 //adding new category

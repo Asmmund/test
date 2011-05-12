@@ -33,10 +33,16 @@
         {
             $this->controlls = '<table id="control_panel" >
                                 <tr>
-                                    <td class="select"><img id="select_image" src="' . SITE_HOST . 'skins/images/select_icon.jpg" title="Select multiple seats" /></td>
-                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/002_01.png" title="Add a seat" /></td>
-                                    <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/001_02.png" title="Delete a seat" /></td>
-                                    <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/label_icon.png" title="Change label of the seat" /></td>
+                                    <td class="select"><img id="select_image" src="' . SITE_HOST . 'skins/images/icons/select_icon.jpg" title="Select multiple seats" /></td>
+                                    <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/icons/002_01.png" title="Add a seat" /></td>
+                                    <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/icons/001_02.png" title="Delete a seat" /></td>
+                                    <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/icons/label_icon.png" title="Change label of the seat" /></td>
+                                </tr>
+                                <tr id="multiple_actions">
+                                    <td class="group_delete"><img id="group_delete" src="' . SITE_HOST . 'skins/images/icons/delete_group.png" title="Delete selected seats" /></td>
+                                    <td class="group_label"><img id="group_label" src="' . SITE_HOST . 'skins/images/icons/label_group.png" title="Change label of selected seats" /></td>
+                                    <td class="group_category"><img id="group_category" src="' . SITE_HOST . 'skins/images/icons/change_group.png" title="Change category of selected seats" /></td>
+                                    
                                 </tr>
                                </table>
                                <div id="div_dropdown_category">
