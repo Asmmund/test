@@ -115,6 +115,9 @@
                 case 'update_category':
                     SeatRepository::updateCategory($params);
                     break;
+                case 'delete_seats':
+                    SeatRepository::deleteSeats($hallid, $params);
+                    break;
                         
                 default:
                     echo 'No such action!';

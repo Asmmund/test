@@ -6,6 +6,8 @@ var jq = jQuery.noConflict();
 var action = 'add_seat';
 //dif images
 var ajax_load = '<img src="skins/images/loading.gif" />';
+//pool for id's of selected seats
+var selected_id = new Array();
 //toolbar icons
 var icon_add_selected = 'skins/images/icons/002_01.png';
 var icon_add_normal = 'skins/images/icons/001_01.png';
@@ -315,12 +317,18 @@ jq(document).ready(function(){
                 if( jq(click).attr('src') == green_seat_selected)
                 {
                     jq(click).attr('src', green_seat);
+                    jq.each(selected_id, function(index,value){
+                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                            selected_id[index] = null;
+                    });
+                     
                     done = true
                 }
                 if( jq(click).attr('src') == green_seat && done == false)
                 {
+                     selected_id.push( jq(click).attr('id') );
                      jq(click).attr('src', green_seat_selected);   
-                     done = true
+                     done = true;
                 }
 
                 //blue seat select& diselect
@@ -328,9 +336,14 @@ jq(document).ready(function(){
                 {
                     jq(click).attr('src', blue_seat);
                     done = true
+                    jq.each(selected_id, function(index,value){
+                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                            selected_id[index] = null;
+                    });
                 }
                 if( jq(click).attr('src') == blue_seat && done == false)
                 {
+                     selected_id.push( jq(click).attr('id') );
                      jq(click).attr('src', blue_seat_selected);   
                      done = true
                 }
@@ -339,9 +352,15 @@ jq(document).ready(function(){
                 {
                     jq(click).attr('src', red_seat);
                     done = true
+                    jq.each(selected_id, function(index,value){
+                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                            selected_id[index] = null;
+                    });
                 }
+
                 if( jq(click).attr('src') == red_seat && done == false)
                 {
+                     selected_id.push( jq(click).attr('id') );
                      jq(click).attr('src', red_seat_selected);   
                      done = true
                 }
@@ -351,9 +370,15 @@ jq(document).ready(function(){
                 {
                     jq(click).attr('src', violet_seat);
                     done = true
+                    jq.each(selected_id, function(index,value){
+                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                            selected_id[index] = null;
+                    });
                 }
+
                 if( jq(click).attr('src') == violet_seat && done == false)
                 {
+                     selected_id.push( jq(click).attr('id') );
                      jq(click).attr('src', violet_seat_selected);   
                      done = true
                 }
@@ -363,9 +388,14 @@ jq(document).ready(function(){
                 {
                     jq(click).attr('src', yellow_seat);
                     done = true
+                    jq.each(selected_id, function(index,value){
+                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                            selected_id[index] = null;
+                    });
                 }
                 if( jq(click).attr('src') == yellow_seat && done == false)
                 {
+                     selected_id.push( jq(click).attr('id') );
                      jq(click).attr('src', yellow_seat_selected);   
                      done = true
                 }
@@ -521,10 +551,35 @@ jq(document).ready(function(){
 /////////////////////////////////////////////////////////////////////
 
                 jq('#main  #control_panel #multiple_actions .group_delete #group_delete').click(function(){
+                    var q = confirm('Are you sure you want to delete selected seats?');
+                    if(q)
+                    {
                     jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
                     jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
-                    
                     jq(this).attr('src', icon_delete_group_selected);
+                    //var string_id = selected_id.toString();
+                    var action = 'delete_seats';
+                    var params =  {};
+                    params['selected'] = selected_id.toString();
+        
+                    var hallid = 1;
+                
+                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        
+                    jq.ajax({
+                               data: dataSend,
+                               success: function(response){
+                                   jq.each(selected_id, function(i,value){
+                                    jq('#'+ value).attr('src', empty_image);
+                                   });
+                                   jq('#main  #control_panel #multiple_actions .group_delete #group_delete')
+                                       .attr('src',icon_delete_group);
+                               }
+                          });
+                          
+                    }
+   
+
                 });
 
 
