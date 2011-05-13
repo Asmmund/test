@@ -321,7 +321,7 @@
                     if( $connect->exec($query))
                   echo '{"success":"true"}';
                else
-                    throw new Exception('Error deleting the row!');
+                    throw new Exception('Error deleting seats!');
                     
                     
                 
@@ -335,5 +335,55 @@
         
     }
     
+
+    static public function updateLabels($hallid,$params)
+    {
+        try
+        {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+               $temp = explode(',',$params['selected']);
+               
+               $query = 'UPDATE `seat`
+                         SET `label` = :label
+                         WHERE `seat_id` IN (' .  implode(', ', array_map('intval', $temp) ).  ") 
+                         AND `hall_id` = :hallid;";
+
+               $stmt= $connect->prepare($query);
+               
+               if($stmt->execute(array(':label' => $params['label'], ':hallid'=>$hallid)))
+                   echo '{"success":"true"}';
+               else
+                    throw new Exception('Error upgrading label of the seats!');
+               
+        }
+       catch(PDOException $e)
+       {
+          echo '<b>' . $e->getMessage() . '</b>';
+       }           
+        
+    }
+    
+    static public function changeCategory($hallid, $params)
+    {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+               $temp = explode(',',$params['selected']);
+               
+               $query = 'UPDATE `seat`
+                         SET `category_id` = :category_id
+                         WHERE `seat_id` IN (' .  implode(', ', array_map('intval', $temp) ).  ") 
+                         AND `hall_id` = :hallid;";
+
+               $stmt= $connect->prepare($query);
+               
+               if($stmt->execute(array(':category_id' => $params['categoryID'], ':hallid'=>$hallid)))
+                   echo '{"success":"true"}';
+               else
+                    throw new Exception('Error upgrading category of the seats!');
+        
+    }
 }   
 ?>

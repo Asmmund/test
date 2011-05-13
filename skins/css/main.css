@@ -276,7 +276,24 @@ info window
 #boxes  #edit_category_window a{
     margin:5px;
 }
+/* select category for group of seats */
+#boxes #select_category_for_group
+{
+  text-align:center;
+  position:absolute;
+  width:350px;
+  z-index:9999;
+  border: 1px black solid;
+  display: none;
+  padding:5px 5px 5px 5px;
+  background: white;
+    
+}
+#boxes #select_category_for_group *
 
+{
+    margin: 5px;
+}
 
 /* drop down box for choosing seat category */
 #div_dropdown_category {

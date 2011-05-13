@@ -118,6 +118,12 @@
                 case 'delete_seats':
                     SeatRepository::deleteSeats($hallid, $params);
                     break;
+                case 'update_labels':
+                    SeatRepository::updateLabels($hallid, $params);
+                    break;
+                case 'change_category':
+                    SeatRepository::changeCategory($hallid, $params);
+                    break;
                         
                 default:
                     echo 'No such action!';

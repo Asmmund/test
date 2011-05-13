@@ -464,14 +464,21 @@ jq(document).ready(function(){
         }
     });
     
+    
+    
+    /*
+    Editing categories
+    */
+    
+    
     //window for editing categories
     jq('#edit_categories').click(function(){
                 var winH = jq(window).height();
                 var winW = jq(window).width();
                 //Set the popup window to center
                 jq('#window_edit_categories').css('z-index','1').show()
-                    .css('top',  winH/2-jq('#boxes .window').height())
-                    .css('left', winW/2-jq('#boxes .window').width());
+                    .css('top',  winH/2-jq('#window_edit_categories').height())
+                    .css('left', winW/2-jq('#window_edit_categories').width());
                     
                     
 
@@ -549,7 +556,7 @@ jq(document).ready(function(){
 /////////////////////////////////////////////////////////////////////
 //Group toolbar
 /////////////////////////////////////////////////////////////////////
-
+                //deleting selected seats
                 jq('#main  #control_panel #multiple_actions .group_delete #group_delete').click(function(){
                     var q = confirm('Are you sure you want to delete selected seats?');
                     if(q)
@@ -574,6 +581,7 @@ jq(document).ready(function(){
                                    });
                                    jq('#main  #control_panel #multiple_actions .group_delete #group_delete')
                                        .attr('src',icon_delete_group);
+                                   selected_id.length = 0;
                                }
                           });
                           
@@ -583,16 +591,182 @@ jq(document).ready(function(){
                 });
 
 
+                
+                //changing label of the group
                 jq('#main  #control_panel #multiple_actions .group_label #group_label').click(function(){
                     jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
                     jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
                     jq(this).attr('src', icon_label_group_selected);
+                    
+                    
+                                    //Get the window height and width
+                var winH = jq(window).height();
+                var winW = jq(window).width();
+                //Set the popup window to center
+                jq('#boxes .window').css('z-index','1').show()
+                    .css('top',  winH/2-jq('#boxes .window').height())
+                    .css('left', winW/2-jq('#boxes .window').width());
+                
+                jq('#boxes #dialog #label').val('Enter label');
+     
+                 //showing window
+
+                jq('#boxes .window').show();
+                
+                jq('#boxes #dialog .cancel').click(function() {
+                    jq('#boxes .window').hide();
                 });
 
+                // 
+                jq('#boxes #dialog .save').click(function()
+                {
+                    var action = 'update_labels';
+                    var hallid = 1;
+                    var params =  {};
+                    params['label'] = jq('#dialog #label').val();
+                    params['selected'] = selected_id.toString();
+                
+                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
+                    jq.ajax({
+                        data: dataSend,
+                        success: function(response){
+                            jq.each(selected_id, function(i,value){
+                                    var title = jq('#'+ value).attr('title');
+                                    var temp = title.match(/(.*?)L:(.*?)/);
+                                    var coords = temp[1];
+                                    jq('#'+value).attr('title', coords + 'L:' +params['label'])
+                                                 .attr('src',function(){
+                                                    var color = jq(this).attr('src');
+                                                    switch(color)
+                                                    {
+                                                        case yellow_seat_selected:
+                                                            return yellow_seat;
+                                                        case red_seat_selected:
+                                                            return red_seat;
+                                                        case green_seat_selected:
+                                                            return green_seat;
+                                                        case violet_seat_selected:
+                                                            return violet_seat;
+                                                        case blue_seat_selected:
+                                                            return blue_seat;
+                                                    }
+                                                 });
+
+                                   });
+                            
+                            selected_id.length = 0;
+                            jq('#boxes .window').hide();
+                            jq('.group_label #group_label').attr('src',icon_label_group);
+
+                            
+                        }
+                    });
+
+                });
+                
+             
+                    
+                    
+      
+                });
+                //function of getting seatcategories
+function getCategoriesListForGroup()
+{
+   jq('#select_category_for_group .list').html(ajax_load);
+   var params =  {};
+   params['id'] = 1;
+    var action = 'seat_category';
+            var dataSend = {'hallid':1, 'action':action, 'params':params};
+
+            jq.ajax({ 
+                data: dataSend,
+                success: function(response){
+                        var options = '<select id="selected_category" >';
+                        jq.each(response.seatcategory,function(){
+                            options += '<option  value="'+this.type.seatcategory_id 
+                                        +'|'+this.type.seatcolor+'">\'' + this.type.name + '\' color:' + this.type.seatcolor + '</option>';
+                        });
+                        options += '</select>';
+                        
+                        //output the select content
+                        jq('#select_category_for_group .list').html(options);
+                }
+            });
+} 
+                //change category onclick
                 jq('#main  #control_panel #multiple_actions .group_category #group_category').click(function(){
                     jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
                     jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
                     jq(this).attr('src', icon_category_group_selected);
+                    var winH = jq(window).height();
+                    var winW = jq(window).width();
+                    //Set the popup window to center
+                    jq('#boxes #select_category_for_group').css('z-index','1').show()
+                    .css('top',  winH/2-jq('#boxes #select_category_for_group').height())
+                    .css('left', winW/2-jq('#boxes #select_category_for_group').width());
+                    
+                    
+
+                jq('#boxes #select_category_for_group').show();
+                getCategoriesListForGroup();
+                
+                
+                jq('#boxes #select_category_for_group > .save').click(function(){
+                  
+                    var action = 'change_category';
+                    var hallid = 1;
+                    var params =  {};
+                    var category_string = jq('#select_category_for_group .list #selected_category').val();
+                    var category_array = category_string.match(/([0-9]+)\|(.+)/);
+                    var color = category_array[2];
+
+                    params['categoryID'] = category_array[1];
+                    
+                    params['selected'] = selected_id.toString();
+
+                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
+                    jq.ajax({
+                        data: dataSend,
+                        success: function(response){
+                            jq.each(selected_id, function(i,value){
+                                jq('#' + value).attr('src', function(){
+                                    switch(color)
+                                    {
+                                        case 'blue':
+                                            return blue_seat;
+                                        case 'red':
+                                            return red_seat;
+                                        case 'green':
+                                            return green_seat;
+                                        case 'yellow':
+                                            return yellow_seat;
+                                        case 'violet':
+                                            return violet_seat;
+                                        default:
+                                        break;
+                                    }
+                                });
+                                jq('#boxes #select_category_for_group').hide();  
+                                jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
+
+                                   });
+                            
+                            selected_id.length = 0;
+                            jq('#boxes .window').hide();
+                            jq('.group_category #group_category').attr('src',icon_category_group_group);
+
+                            
+                        }
+                    });                  
+                  
+                  
+               });
+
+               jq('#boxes #select_category_for_group > .close').click(function(){
+                  jq('#boxes #select_category_for_group').hide();
+               });
+
+
                 });
 
 /////////////////////////////////////////////////////////////////////

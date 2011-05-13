@@ -55,6 +55,11 @@
         <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
         
     </div>
+    
+    <div id="select_category_for_group">
+        <p class="list">select_category_for_group</p>
+        <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
+    </div>
 
 
 </div>
