@@ -120,7 +120,73 @@ function categoryUpdate()
     windowListCategories();
     
 }
+//function of selecting seat
+    function select_seat(seat_id)
+    {
+        var done = false;
+        if( jq('#grid #table #'+seat_id).attr('src') == green_seat && done == false)
+        {
+            selected_id.push( seat_id);
+            jq('#grid #table #'+seat_id).attr('src', green_seat_selected);   
+            done = true;
+        }
+        if( jq('#grid #table #'+seat_id).attr('src') == red_seat && done == false)
+        {
+            selected_id.push( seat_id);
+            jq('#grid #table #'+seat_id).attr('src', red_seat_selected);   
+            done = true;
+        }
+        if( jq('#grid #table #'+seat_id).attr('src') == yellow_seat && done == false)
+        {
+            selected_id.push( seat_id);
+            jq('#grid #table #'+seat_id).attr('src', yellow_seat_selected);   
+            done = true;
+        }
+        if( jq('#grid #table #'+seat_id).attr('src') == blue_seat && done == false)
+        {
+            selected_id.push( seat_id);
+            jq('#grid #table #'+seat_id).attr('src', blue_seat_selected);   
+            done = true;
+        }
+        if( jq('#grid #table #'+seat_id).attr('src') == violet_seat && done == false)
+        {
+            selected_id.push( seat_id);
+            jq('#grid #table #'+seat_id).attr('src', violet_seat_selected);   
+            done = true;
+        }
+        
+        
+          
+        
+    }
+// function of unselecting selected seats
+   function unselectSeats()
+   {
+       if(selected_id != '')
+       {
+        jq.each(selected_id, function(index,value){
+                var old_src = jq('#grid #table tr td #'+value).attr('src') ;
+                jq('#grid #table tr td #'+value).attr('src', function(){
+                    switch(old_src)
+                    {
+                        case yellow_seat_selected:
+                            return yellow_seat;
+                        case green_seat_selected:
+                            return green_seat;
+                        case red_seat_selected:
+                            return red_seat;
+                        case yellow_seat_selected:
+                            return yellow_seat;
+                        case violet_seat_selected:
+                            return violet_seat;
+                        
+                    }
 
+               }); 
+        });
+       selected_id.length = 0 ;
+       } 
+   }
 
 
 /* when file is loaded*/
@@ -322,7 +388,7 @@ jq(document).ready(function(){
                     jq(click).attr('src', green_seat);
                     jq.each(selected_id, function(index,value){
                         if( delete_val == value )
-                            selected_id[index] = null;
+                            selected_id.splice(index,1);
                     });
                     done = true;
                 }
@@ -340,7 +406,7 @@ jq(document).ready(function(){
                     jq(click).attr('src', blue_seat);
                     jq.each(selected_id, function(index,value){
                         if( delete_val == value )
-                            selected_id[index] = null;
+                            selected_id.splice(index,1);
                     });
                     done = true;
                 }
@@ -377,7 +443,7 @@ jq(document).ready(function(){
                     jq(click).attr('src', violet_seat);
                     jq.each(selected_id, function(index,value){
                         if( delete_val == value )
-                            selected_id[index] = null;
+                            selected_id.splice(index,1);
                     });
                     done = true;
                 }
@@ -396,7 +462,7 @@ jq(document).ready(function(){
                     jq(click).attr('src', yellow_seat);
                     jq.each(selected_id, function(index,value){
                         if( delete_val == value )
-                            selected_id[index] = null;
+                            selected_id.splice(index,1);
                     });
                     done = true;
                 }
@@ -469,6 +535,17 @@ jq(document).ready(function(){
                 
             } 
         }
+        
+        else if(action == 'squere')
+        {
+            if(jq(click).attr('id')>0 )
+                if(selected_id == '')
+            {
+                select_seat(jq(click).attr('id'));
+                
+            }
+
+        }
     });
     
     
@@ -532,6 +609,7 @@ jq(document).ready(function(){
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
         jq('#window_edit_categories').hide();
+        unselectSeats();
         
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
@@ -548,6 +626,7 @@ jq(document).ready(function(){
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
         jq('#window_edit_categories').hide();
+        unselectSeats();
         
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
@@ -563,6 +642,7 @@ jq(document).ready(function(){
        jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
+        unselectSeats();
 
         jq('#info_image').attr('src', icon_info_selected); 
         jq('#select_image').attr('src', icon_select_normal);
@@ -570,7 +650,7 @@ jq(document).ready(function(){
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
     });
-
+/*
     jq('#control_panel .squere #squere').click(function(){
         action = 'squere';
         jq('#boxes .window').hide();
@@ -578,6 +658,7 @@ jq(document).ready(function(){
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
+        unselectSeats();
         
         jq(this).attr('src', icon_squere_selected );
         jq('#info_image').attr('src', icon_info_normal); 
@@ -586,7 +667,7 @@ jq(document).ready(function(){
         jq('#remove_image').attr('src', icon_remove_normal);
         
     });
-
+*/
 
 /////////////////////////////////////////////////////////////////////
 //Group toolbar
@@ -601,7 +682,6 @@ jq(document).ready(function(){
                     jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
                     jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
                     jq(this).attr('src', icon_delete_group_selected);
-                    //var string_id = selected_id.toString();
                     var action = 'delete_seats';
                     var params =  {};
                     params['selected'] = selected_id.toString();

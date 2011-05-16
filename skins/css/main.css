@@ -88,23 +88,23 @@ grid & the hall model
     top:200px;
 }
 #grid > #table {
-    border: solid black 1px;
+    border: solid #D3D3D3 1px; /*A9A9A9 */ 
     
 }
-#table tr {
-    border: solid black 1px;
+#grid > #table tr {
+    border: solid #D3D3D3 1px;
 }
 
-#table td {
-    border: solid black 1px;
+#grid > #table td {
+    border: solid #D3D3D3 1px;
     text-align: center;
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
 }
 
-#table td img {
-    width: 35px;
-    height: 35px;
+#grid #table td img {
+    width: 38px;
+    height: 38px;
 }
 /* 
 arrows
