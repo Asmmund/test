@@ -23,6 +23,8 @@ var icon_label_group  = 'skins/images/icons/label_group.png';
 var icon_label_group_selected  = 'skins/images/icons/label_group_selected.png';    
 var icon_category_group  = 'skins/images/icons/change_group.png';
 var icon_category_group_selected  = 'skins/images/icons/change_group_selected.png';
+var icon_squere_normal = 'skins/images/icons/squere.png';
+var icon_squere_selected = 'skins/images/icons/squere_selected.png';
     
 // vars for img url's
 var empty_image = 'skins/images/empty_chair.jpg';
@@ -511,50 +513,78 @@ jq(document).ready(function(){
         action = 'select_seat';
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').show();
+        jq('#div_dropdown_category').hide(); 
+        jq('#edit_categories').hide();
+        jq('#window_edit_categories').hide();
+
         jq('#select_image').attr('src', icon_select_selected);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#info_image').attr('src', icon_info_normal); 
-        jq('#div_dropdown_category').hide(); 
-        jq('#edit_categories').hide();
+        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
         action = 'add_seat';
         jq('#edit_categories').show();
+       jq('#div_dropdown_category').show(); 
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
+        jq('#window_edit_categories').hide();
+        
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
+        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
        jq('#info_image').attr('src', icon_info_normal);
-       jq('#div_dropdown_category').show(); 
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel .remove').click(function(){
         action = 'remove_seat';
+       jq('#div_dropdown_category').hide(); 
+        jq('#edit_categories').hide();
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
+        jq('#window_edit_categories').hide();
+        
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
        jq('#info_image').attr('src', icon_info_normal); 
-       jq('#div_dropdown_category').hide(); 
-        jq('#edit_categories').hide();
+        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
     });
     
     jq('#control_panel .info').click(function(){
        action = 'update_info';
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
+       jq('#div_dropdown_category').hide(); 
+        jq('#edit_categories').hide();
+        jq('#window_edit_categories').hide();
+
         jq('#info_image').attr('src', icon_info_selected); 
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
-       jq('#div_dropdown_category').hide(); 
+        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
+    });
+
+    jq('#control_panel .squere #squere').click(function(){
+        action = 'squere';
+        jq('#boxes .window').hide();
+        jq('#main  #control_panel #multiple_actions').show();
+        jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
+        jq('#window_edit_categories').hide();
+        
+        jq(this).attr('src', icon_squere_selected );
+        jq('#info_image').attr('src', icon_info_normal); 
+        jq('#select_image').attr('src', icon_select_normal);
+        jq('#add_image').attr('src',icon_add_normal );
+        jq('#remove_image').attr('src', icon_remove_normal);
+        
     });
 
 
@@ -967,5 +997,22 @@ function deleteCategory(id)
         var id =jq(this).attr('id') ;
         deleteCategory(id);
     }); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 });
