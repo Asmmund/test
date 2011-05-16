@@ -316,13 +316,13 @@ jq(document).ready(function(){
                 //geen seat select& diselect
                 if( jq(click).attr('src') == green_seat_selected)
                 {
+                    var delete_val = jq(click).attr('id') ;
                     jq(click).attr('src', green_seat);
                     jq.each(selected_id, function(index,value){
-                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                        if( delete_val == value )
                             selected_id[index] = null;
                     });
-                     
-                    done = true
+                    done = true;
                 }
                 if( jq(click).attr('src') == green_seat && done == false)
                 {
@@ -334,28 +334,31 @@ jq(document).ready(function(){
                 //blue seat select& diselect
                 if( jq(click).attr('src') == blue_seat_selected && done == false)
                 {
+                    var delete_val = jq(click).attr('id') ;
                     jq(click).attr('src', blue_seat);
-                    done = true
                     jq.each(selected_id, function(index,value){
-                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                        if( delete_val == value )
                             selected_id[index] = null;
                     });
+                    done = true;
                 }
                 if( jq(click).attr('src') == blue_seat && done == false)
                 {
                      selected_id.push( jq(click).attr('id') );
                      jq(click).attr('src', blue_seat_selected);   
-                     done = true
+                     done = true;
                 }
                 //red seat select& diselect
                 if( jq(click).attr('src') == red_seat_selected && done == false)
                 {
+                    var delete_val = jq(click).attr('id') ;
                     jq(click).attr('src', red_seat);
-                    done = true
                     jq.each(selected_id, function(index,value){
-                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
-                            selected_id[index] = null;
+                        if( delete_val == value )
+                            selected_id.splice(index,1);
                     });
+                    done = true;
+                    
                 }
 
                 if( jq(click).attr('src') == red_seat && done == false)
@@ -368,12 +371,13 @@ jq(document).ready(function(){
                 //violet seat select& diselect
                 if( jq(click).attr('src') == violet_seat_selected && done == false)
                 {
+                    var delete_val = jq(click).attr('id') ;
                     jq(click).attr('src', violet_seat);
-                    done = true
                     jq.each(selected_id, function(index,value){
-                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                        if( delete_val == value )
                             selected_id[index] = null;
                     });
+                    done = true;
                 }
 
                 if( jq(click).attr('src') == violet_seat && done == false)
@@ -386,12 +390,13 @@ jq(document).ready(function(){
                 //yellow seat select& diselect
                 if( jq(click).attr('src') == yellow_seat_selected && done == false)
                 {
+                    var delete_val = jq(click).attr('id') ;
                     jq(click).attr('src', yellow_seat);
-                    done = true
                     jq.each(selected_id, function(index,value){
-                        if(selected_id[jq(click).attr('id')] ==selected_id[index] )
+                        if( delete_val == value )
                             selected_id[index] = null;
                     });
+                    done = true;
                 }
                 if( jq(click).attr('src') == yellow_seat && done == false)
                 {
@@ -558,8 +563,10 @@ jq(document).ready(function(){
 /////////////////////////////////////////////////////////////////////
                 //deleting selected seats
                 jq('#main  #control_panel #multiple_actions .group_delete #group_delete').click(function(){
-                    var q = confirm('Are you sure you want to delete selected seats?');
-                    if(q)
+                    if(selected_id != '')
+                    {
+                        var q = confirm('Are you sure you want to delete selected seats?');
+                        if(q)
                     {
                     jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
                     jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
@@ -586,6 +593,11 @@ jq(document).ready(function(){
                           });
                           
                     }
+               }
+        
+               else 
+                   alert('To perform group actions you must select seats!');
+        
    
 
                 });
@@ -594,6 +606,8 @@ jq(document).ready(function(){
                 
                 //changing label of the group
                 jq('#main  #control_panel #multiple_actions .group_label #group_label').click(function(){
+                    if(selected_id != '')
+                    {
                     jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
                     jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
                     jq(this).attr('src', icon_label_group_selected);
@@ -667,8 +681,14 @@ jq(document).ready(function(){
              
                     
                     
-      
+                     }
+        
+               else 
+                   alert('To perform group actions you must select seats!');
+
                 });
+                
+                
                 //function of getting seatcategories
 function getCategoriesListForGroup()
 {
@@ -695,6 +715,9 @@ function getCategoriesListForGroup()
 } 
                 //change category onclick
                 jq('#main  #control_panel #multiple_actions .group_category #group_category').click(function(){
+                    if(selected_id != '')
+                    {
+
                     jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
                     jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
                     jq(this).attr('src', icon_category_group_selected);
@@ -765,7 +788,11 @@ function getCategoriesListForGroup()
                jq('#boxes #select_category_for_group > .close').click(function(){
                   jq('#boxes #select_category_for_group').hide();
                });
+               
+               }
 
+               else 
+                   alert('To perform group actions you must select seats!');
 
                 });
 
@@ -909,6 +936,7 @@ function editCategoryWindow(id)
 /////////////////////////////////////////////////////////////////////
 function deleteCategory(id)
 {
+    
     var q = confirm('Are you sure?');
     if(q)
     {
