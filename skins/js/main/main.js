@@ -8,6 +8,8 @@ var action = 'add_seat';
 var ajax_load = '<img src="skins/images/loading.gif" />';
 //pool for id's of selected seats
 var selected_id = new Array();
+var angles = new Array();
+
 //toolbar icons
 var icon_add_selected = 'skins/images/icons/002_01.png';
 var icon_add_normal = 'skins/images/icons/001_01.png';
@@ -27,8 +29,8 @@ var icon_squere_normal = 'skins/images/icons/squere.png';
 var icon_squere_selected = 'skins/images/icons/squere_selected.png';
     
 // vars for img url's
-var empty_image = 'skins/images/empty_chair.jpg';
-
+var empty_image = 'skins/images/seat/empty.jpg';
+var empty_selected = 'skins/images/seat/empty_selected.jpg';
 var blue_seat = 'skins/images/seat/blue.jpg';
 var blue_seat_selected = 'skins/images/seat/blue_selected.jpg';
 var green_seat = 'skins/images/seat/green.jpg';
@@ -120,49 +122,11 @@ function categoryUpdate()
     windowListCategories();
     
 }
-//function of selecting seat
-    function select_seat(seat_id)
-    {
-        var done = false;
-        if( jq('#grid #table #'+seat_id).attr('src') == green_seat && done == false)
-        {
-            selected_id.push( seat_id);
-            jq('#grid #table #'+seat_id).attr('src', green_seat_selected);   
-            done = true;
-        }
-        if( jq('#grid #table #'+seat_id).attr('src') == red_seat && done == false)
-        {
-            selected_id.push( seat_id);
-            jq('#grid #table #'+seat_id).attr('src', red_seat_selected);   
-            done = true;
-        }
-        if( jq('#grid #table #'+seat_id).attr('src') == yellow_seat && done == false)
-        {
-            selected_id.push( seat_id);
-            jq('#grid #table #'+seat_id).attr('src', yellow_seat_selected);   
-            done = true;
-        }
-        if( jq('#grid #table #'+seat_id).attr('src') == blue_seat && done == false)
-        {
-            selected_id.push( seat_id);
-            jq('#grid #table #'+seat_id).attr('src', blue_seat_selected);   
-            done = true;
-        }
-        if( jq('#grid #table #'+seat_id).attr('src') == violet_seat && done == false)
-        {
-            selected_id.push( seat_id);
-            jq('#grid #table #'+seat_id).attr('src', violet_seat_selected);   
-            done = true;
-        }
-        
-        
-          
-        
-    }
+
 // function of unselecting selected seats
    function unselectSeats()
    {
-       if(selected_id != '')
+       if(selected_id.length != 0)
        {
         jq.each(selected_id, function(index,value){
                 var old_src = jq('#grid #table tr td #'+value).attr('src') ;
@@ -185,12 +149,38 @@ function categoryUpdate()
                }); 
         });
        selected_id.length = 0 ;
+       }
+
+       if(angles.length != 0 )
+       {
+        
+           angles.length= 0; 
        } 
    }
-
-
+//function of selecting one id
+    function selectOneSeat(id)
+    {
+                var old_src = jq('#grid #table tr td #'+id).attr('src') ;
+                jq('#grid #table tr td #'+id).attr('src', function(){
+                    switch(old_src)
+                    {
+                        case yellow_seat:
+                            return yellow_seat_selected;
+                        case green_seat:
+                            return green_seat_selected;
+                        case red_seat:
+                            return red_seat_selected;
+                        case yellow_seat:
+                            return yellow_seat_selected;
+                        case violet_seat:
+                            return violet_seat_selected;
+                         
+                    }
+                })
+    }
 /* when file is loaded*/
 jq(document).ready(function(){
+
     //adding fow before the first one
     //loading seatcategory from db
    getSeatCategory();
@@ -296,6 +286,7 @@ jq(document).ready(function(){
 /////////////////////////////////////////////////////////////////////    
     // if the seat is pressed
     jq('#table .seat').click(function(){
+
         //save the referense to clicked image
         var click = this;
         
@@ -536,14 +527,55 @@ jq(document).ready(function(){
             } 
         }
         
-        else if(action == 'squere')
+        else if(action == 'square')
         {
-            if(jq(click).attr('id')>0 )
-                if(selected_id == '')
-            {
-                select_seat(jq(click).attr('id'));
+               // if it's  the first time then create first and second array elements
+               //first 1X
+               //second 1Y 
+               if(angles.length== 0)
+               {
+                    var tmp = jq(click).attr('title').match(/([0-9]+?).([0-9]+?)/);
+                    angles.push(tmp[1]);
+                    angles.push(tmp[2]);
+                    
+                    if(jq(this).attr('id')>0)
+                    {
+                        var id = jq(this).attr('id');
+                        selectOneSeat(id); 
+                    }
+                    else
+                    {
+                        jq(this).attr('src',empty_selected);
+                        
+                    }
+               }
+               /* else if it's the second time
+                  then copy coords
+                  first 2X
+                  second 2Y
+                  and copy coords to the selected fields
+               */
+               else
+               {
+                    var tmp = jq(click).attr('title').match(/([0-9]+?).([0-9]+?)/);
+                    angles.push(tmp[1]);
+                    angles.push(tmp[2]);
+                    
+                    if(jq(this).attr('id')>0)
+                    {
+                        var id = jq(this).attr('id');
+                        selectOneSeat(id); 
+                    }
+                    else
+                    {
+                        jq(this).attr('src',empty_selected);
+                        
+                    }
+                    //selectBlock(angles);
+               }
+
                 
-            }
+            
 
         }
     });
@@ -650,11 +682,11 @@ jq(document).ready(function(){
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
     });
-/*
-    jq('#control_panel .squere #squere').click(function(){
-        action = 'squere';
+
+    jq('#control_panel .square #square').click(function(){
+        action = 'square';
         jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').show();
+        jq('#main  #control_panel #multiple_actions').hide();
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
@@ -667,7 +699,7 @@ jq(document).ready(function(){
         jq('#remove_image').attr('src', icon_remove_normal);
         
     });
-*/
+
 
 /////////////////////////////////////////////////////////////////////
 //Group toolbar
@@ -1077,9 +1109,6 @@ function deleteCategory(id)
         var id =jq(this).attr('id') ;
         deleteCategory(id);
     }); 
-
-
-
 
 
 

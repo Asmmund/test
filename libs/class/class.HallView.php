@@ -91,7 +91,7 @@
                     if($seat = $this->getSeat($i,$j))
                         $this->table .= $this->drawSeat($seat);
                     else
-                        $this->table .= '<img class="seat" src="skins/images/empty_chair.jpg" 
+                        $this->table .= '<img class="seat" src="skins/images/seat/empty.jpg" 
                                            title="'.$i .'|' . $j . '" alt="'. $this->hall->hallid . '" />';
 
                     $this->table .= '</td>';

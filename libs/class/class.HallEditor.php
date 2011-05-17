@@ -34,7 +34,7 @@
             $this->controlls = '<table id="control_panel" >
                                 <tr>
                                     <td class="select"><img id="select_image" src="' . SITE_HOST . 'skins/images/icons/select_icon.jpg" title="Select multiple seats" /></td>
-                                    <td class="squere"><img id="squere" src="' . SITE_HOST . 'skins/images/icons/squere.png" title="Select squere of seats" /></td>
+                                    <td class="square"><img id="square" src="' . SITE_HOST . 'skins/images/icons/squere.png" title="Create square of seats" /></td>
                                     <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/icons/002_01.png" title="Add a seat" /></td>
                                     <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/icons/001_02.png" title="Delete a seat" /></td>
                                     <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/icons/label_icon.png" title="Change label of the seat" /></td>
