@@ -9,7 +9,7 @@ var ajax_load = '<img src="skins/images/loading.gif" />';
 //pool for id's of selected seats
 var selected_id = new Array();
 var angles = new Array();
-
+var selecting = true; 
 //toolbar icons
 var icon_add_selected = 'skins/images/icons/002_01.png';
 var icon_add_normal = 'skins/images/icons/001_01.png';
@@ -178,6 +178,68 @@ function categoryUpdate()
                     }
                 })
     }
+    
+    //unselect one id
+    function unselectOneSeat(id)
+    {
+                var old_src = jq('#grid #table tr td #'+id).attr('src') ;
+                jq('#grid #table tr td #'+id).attr('src', function(){
+                    switch(old_src)
+                    {
+                        case yellow_seat_selected:
+                            return yellow_seat;
+                        case green_seat_selected:
+                            return green_seat;
+                        case red_seat_selected:
+                            return red_seat;
+                        case yellow_seat_selected:
+                            return yellow_seat;
+                        case violet_seat_selected:
+                            return violet_seat;
+                          
+                    }
+                })
+        
+    }
+    
+    //if the seat is selected
+    function is_selected(id)
+    {
+        var bool = false;
+        var old_src = jq('#grid #table tr td #'+id).attr('src') ;
+        if( (old_src == green_seat_selected) || (old_src == blue_seat_selected) 
+            ||(old_src == red_seat_selected) || (old_src == yellow_seat_selected)
+            ||(old_src == violet_seat_selected)) bool = true;
+            
+        return bool;    
+        
+    }
+    //function for selecting square of seats
+  function selectBlock(block)
+    {
+        var x1 = block[0];
+        var y1 = block[1];
+        var x2 = block[2];
+        var y2 = block[3];
+        
+        var min_x = (x1>x2)?x2:x1;
+        var max_x = (x1>=x2)?x1:x2;
+
+        var min_y = (y1>y2)?y2:y1;
+        var max_y = (y1>=y2)?y1:y2;
+        
+        for(var i = min_x; i<=max_x; i++)
+        for(var j = min_y; j<=max_y; j++)
+        {
+            if(jq('#' + i + '_'+j + ' img').attr('src') != empty_image )
+               selectOneSeat(jq('#' + i + '_'+j + ' img').attr('id'));
+            else
+                jq('#' + i + '_'+j + ' img').attr('src', empty_selected);
+        }
+        
+        
+    }
+    
 /* when file is loaded*/
 jq(document).ready(function(){
 
@@ -205,10 +267,12 @@ jq(document).ready(function(){
         
         
         jq('#table > tbody>tr:first-child td img').each(function(index){
-            var myIndex = index+1;
+            var new_y = index+1;
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
-                   .attr('title', new_x +'|'+myIndex); 
+                   .attr('title', new_x +'|'+new_y)
+                   .parent().attr('id',new_x +'_'+new_y); 
+           
         });        
         
         
@@ -233,7 +297,8 @@ jq(document).ready(function(){
             var row = i + new_x;
            jq(this).attr('title', row   + '|' + new_y)
                    .attr("src" ,empty_image )
-                   .attr('alt',hallid) ; 
+                   .attr('alt',hallid)
+                   .parent().attr('id',row +'_'+new_y) ; 
         });
 
     });
@@ -253,7 +318,8 @@ jq(document).ready(function(){
             var row = i + new_x;
            jq(this).attr('title', row   + '|' + new_y)
                    .attr("src" ,empty_image )
-                   .attr('alt',hallid) ; 
+                   .attr('alt',hallid)
+                   .parent().attr('id',row  + '_' + new_y) ; 
         });
     });
   
@@ -274,7 +340,9 @@ jq(document).ready(function(){
            
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
-                   .attr('title', new_last_x+'|'+new_last_y);
+                   .attr('title', new_last_x+'|'+new_last_y)
+                   .parent().attr('id',new_last_x+'_'+new_last_y) ; 
+                   
            new_last_y+=1; 
         });
         
@@ -372,97 +440,22 @@ jq(document).ready(function(){
             var done = false;
             if(jq(click).attr('id') > 0)
             {
-                //geen seat select& diselect
-                if( jq(click).attr('src') == green_seat_selected)
+                if(is_selected(jq(click).attr('id')))
                 {
                     var delete_val = jq(click).attr('id') ;
-                    jq(click).attr('src', green_seat);
+                    unselectOneSeat(delete_val);
                     jq.each(selected_id, function(index,value){
                         if( delete_val == value )
                             selected_id.splice(index,1);
                     });
-                    done = true;
-                }
-                if( jq(click).attr('src') == green_seat && done == false)
-                {
-                     selected_id.push( jq(click).attr('id') );
-                     jq(click).attr('src', green_seat_selected);   
-                     done = true;
-                }
-
-                //blue seat select& diselect
-                if( jq(click).attr('src') == blue_seat_selected && done == false)
-                {
-                    var delete_val = jq(click).attr('id') ;
-                    jq(click).attr('src', blue_seat);
-                    jq.each(selected_id, function(index,value){
-                        if( delete_val == value )
-                            selected_id.splice(index,1);
-                    });
-                    done = true;
-                }
-                if( jq(click).attr('src') == blue_seat && done == false)
-                {
-                     selected_id.push( jq(click).attr('id') );
-                     jq(click).attr('src', blue_seat_selected);   
-                     done = true;
-                }
-                //red seat select& diselect
-                if( jq(click).attr('src') == red_seat_selected && done == false)
-                {
-                    var delete_val = jq(click).attr('id') ;
-                    jq(click).attr('src', red_seat);
-                    jq.each(selected_id, function(index,value){
-                        if( delete_val == value )
-                            selected_id.splice(index,1);
-                    });
-                    done = true;
                     
                 }
-
-                if( jq(click).attr('src') == red_seat && done == false)
+                else
                 {
                      selected_id.push( jq(click).attr('id') );
-                     jq(click).attr('src', red_seat_selected);   
-                     done = true
+                     selectOneSeat(jq(click).attr('id'));   
                 }
 
-                //violet seat select& diselect
-                if( jq(click).attr('src') == violet_seat_selected && done == false)
-                {
-                    var delete_val = jq(click).attr('id') ;
-                    jq(click).attr('src', violet_seat);
-                    jq.each(selected_id, function(index,value){
-                        if( delete_val == value )
-                            selected_id.splice(index,1);
-                    });
-                    done = true;
-                }
-
-                if( jq(click).attr('src') == violet_seat && done == false)
-                {
-                     selected_id.push( jq(click).attr('id') );
-                     jq(click).attr('src', violet_seat_selected);   
-                     done = true
-                }
-                    
-                //yellow seat select& diselect
-                if( jq(click).attr('src') == yellow_seat_selected && done == false)
-                {
-                    var delete_val = jq(click).attr('id') ;
-                    jq(click).attr('src', yellow_seat);
-                    jq.each(selected_id, function(index,value){
-                        if( delete_val == value )
-                            selected_id.splice(index,1);
-                    });
-                    done = true;
-                }
-                if( jq(click).attr('src') == yellow_seat && done == false)
-                {
-                     selected_id.push( jq(click).attr('id') );
-                     jq(click).attr('src', yellow_seat_selected);   
-                     done = true
-                }
                 
                     
             }
@@ -531,10 +524,11 @@ jq(document).ready(function(){
         {
                // if it's  the first time then create first and second array elements
                //first 1X
-               //second 1Y 
+               //second 1Y
+               
                if(angles.length== 0)
                {
-                    var tmp = jq(click).attr('title').match(/([0-9]+?).([0-9]+?)/);
+                    var tmp = jq(click).attr('title').match(/(-?[0-9]+?).(-?[0-9]+?)/);
                     angles.push(tmp[1]);
                     angles.push(tmp[2]);
                     
@@ -555,9 +549,9 @@ jq(document).ready(function(){
                   second 2Y
                   and copy coords to the selected fields
                */
-               else
+               else if (selecting == true)
                {
-                    var tmp = jq(click).attr('title').match(/([0-9]+?).([0-9]+?)/);
+                    var tmp = jq(click).attr('title').match(/(-?[0-9]+?).(-?[0-9]+?)/);
                     angles.push(tmp[1]);
                     angles.push(tmp[2]);
                     
@@ -571,7 +565,9 @@ jq(document).ready(function(){
                         jq(this).attr('src',empty_selected);
                         
                     }
-                    //selectBlock(angles);
+                    selectBlock(angles);
+                    selecting=false;
+                    
                }
 
                 

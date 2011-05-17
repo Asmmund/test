@@ -86,15 +86,13 @@
                 //go through each place & deside is it empty or not...
                 for($j= $this->min_y; $j <=$this->max_y;$j++)
                 {
-                    $this->table .= '<td>';
 
                     if($seat = $this->getSeat($i,$j))
-                        $this->table .= $this->drawSeat($seat);
+                        $this->table .= '<td id="' . $i . '_' . $j .'">'. $this->drawSeat($seat) . '</td>';
                     else
-                        $this->table .= '<img class="seat" src="skins/images/seat/empty.jpg" 
-                                           title="'.$i .'|' . $j . '" alt="'. $this->hall->hallid . '" />';
+                        $this->table .= '<td id="' . $i . '_' . $j .'"><img class="seat" src="skins/images/seat/empty.jpg" 
+                                           title="'.$i .'|' . $j . '" alt="'. $this->hall->hallid . '" /></td>';
 
-                    $this->table .= '</td>';
                 }
                 $this->table .= '</tr>';
             }
@@ -119,13 +117,12 @@
         
         private function drawSeat( $seat)
         {
-            $image = '<img  class="seat" id="' .$seat->seatID . '"
+            $seat = '<img  class="seat" id="' .$seat->seatID . '"
                       src="skins/images/seat/' . $seat->color  . '.jpg" 
                       title="'. $seat->x .'|'. $seat->y .' L:' . $seat->label . '" 
                       alt="' . $seat->hallid . '" />';
-            //echo $seat->
             
-            return $image;
+            return $seat;
             
         }
          
