@@ -662,89 +662,74 @@ jq(document).ready(function(){
 /////////////////////////////////////////////////////////////////////
 //toolbar actions
 /////////////////////////////////////////////////////////////////////    
-    
-   
-   //if the select icon is pressed
-   jq('#control_panel .select').click(function(){
-        action = 'select_seat';
+    //function of hiding exta windows. as the default hides all windows
+    function hideExtra()
+    {
         jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').show();
+        jq('#main  #control_panel #multiple_actions').hide();
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
         toolbarUnselect();
+        
+    }
+    
+    //function of normalizing all icons
+    function unselectIcons()
+    {
+        jq('#control_panel .select #select_image').attr('src', icon_select_normal);
+        jq(' #control_panel .square #square').attr('src', icon_squere_normal );
+        jq('#control_panel .add #add_image').attr('src',icon_add_normal );
+        jq('#control_panel .remove #remove_image').attr('src', icon_remove_normal);
+        jq('#control_panel .info #info_image').attr('src', icon_info_normal); 
+    }
+/* **************************************************************** 
+**************************************************************** */   
+
+   //if the select icon is pressed
+   jq('#control_panel .select').click(function(){
+        action = 'select_seat';
+        hideExtra();
+        unselectIcons();
+        jq('#main  #control_panel #multiple_actions').show();
 
         jq('#select_image').attr('src', icon_select_selected);
-        jq('#add_image').attr('src',icon_add_normal );
-        jq('#remove_image').attr('src', icon_remove_normal);
-        jq('#info_image').attr('src', icon_info_normal); 
-        jq('#control_panel .square #square').attr('src', icon_squere_normal );
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
     jq('#control_panel .add').click(function(){
         action = 'add_seat';
+        hideExtra();
+        unselectIcons();
         jq('#edit_categories').show();
-       jq('#div_dropdown_category').show(); 
-        jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').hide();
-        jq('#window_edit_categories').hide();
-        toolbarUnselect();
-        
-        jq('#select_image').attr('src', icon_select_normal);
+        jq('#div_dropdown_category').show(); 
+
         jq('#add_image').attr('src',icon_add_selected );
-        jq('#remove_image').attr('src', icon_remove_normal);
-        jq('#control_panel .square #square').attr('src', icon_squere_normal );
-       jq('#info_image').attr('src', icon_info_normal);
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
     jq('#control_panel .remove').click(function(){
         action = 'remove_seat';
-       jq('#div_dropdown_category').hide(); 
-        jq('#edit_categories').hide();
-        jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').hide();
-        jq('#window_edit_categories').hide();
-        toolbarUnselect();
-        
-        jq('#select_image').attr('src', icon_select_normal);
-        jq('#add_image').attr('src', icon_add_normal);
+         hideExtra();
+        unselectIcons();
+
         jq('#remove_image').attr('src', icon_remove_selected );
-       jq('#info_image').attr('src', icon_info_normal); 
-        jq('#control_panel .square #square').attr('src', icon_squere_normal );
     });
     
     jq('#control_panel .info').click(function(){
        action = 'update_info';
-        jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').hide();
-       jq('#div_dropdown_category').hide(); 
-        jq('#edit_categories').hide();
-        jq('#window_edit_categories').hide();
-        toolbarUnselect();
+        hideExtra();
+        unselectIcons();
 
         jq('#info_image').attr('src', icon_info_selected); 
-        jq('#select_image').attr('src', icon_select_normal);
-        jq('#add_image').attr('src',icon_add_normal );
-        jq('#remove_image').attr('src', icon_remove_normal);
-        jq('#control_panel .square #square').attr('src', icon_squere_normal );
     });
 
     jq('#control_panel .square #square').click(function(){
         action = 'square';
-        jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').hide();
-        jq('#div_dropdown_category').hide(); 
-        jq('#edit_categories').hide();
-        jq('#window_edit_categories').hide();
-        toolbarUnselect();
-        
+        hideExtra();        
+        unselectIcons();
+
         jq(this).attr('src', icon_squere_selected );
-        jq('#info_image').attr('src', icon_info_normal); 
-        jq('#select_image').attr('src', icon_select_normal);
-        jq('#add_image').attr('src',icon_add_normal );
-        jq('#remove_image').attr('src', icon_remove_normal);
         
     });
 
@@ -1037,11 +1022,6 @@ function getCategoriesListForGroup()
 
     //binding function to newly created categories
     
-    jq('#window_edit_categories>#window_list_categories .list .edit').live('click', function(e){
-        var id =jq(this).attr('id') ;
-        editCategoryWindow(id);
-    });
-    
 //editing category
 function editCategoryWindow(id)
 {
@@ -1069,9 +1049,55 @@ function editCategoryWindow(id)
                      jq('#boxes > #edit_category_window').show();
                  }
         });
-        
-
 }
+
+    
+    jq('#window_edit_categories>#window_list_categories .list .edit').live('click', function(e){
+        var id =jq(this).attr('id') ;
+        editCategoryWindow(id);
+    });
+
+/////////////////////////////////////////////////////////////////////
+//deleting category
+/////////////////////////////////////////////////////////////////////
+function deleteCategory(id)
+{
+    
+    var q = confirm('Are you sure?');
+    if(q)
+    {
+    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
+        
+    var params =  {};
+    params['id'] = id;
+    var action = 'delete_category';
+    var dataSend = {'hallid':1, 'action':action, 'params':params};
+    jq.ajax({ 
+        data: dataSend,
+        success: function(response){
+                    
+        },
+        error: function(response){
+            alert('There are seats of this category!');
+        }
+        
+    });
+    categoryUpdate();
+    }   
+}
+
+
+
+// assigning methods to dynamically created list of categories     
+    jq('#window_edit_categories>#window_list_categories .list .delete').live('click', function(e){
+        var id =jq(this).attr('id') ;
+        deleteCategory(id);
+    }); 
+
+
+
+
+
     //redrawing seats with changed seatcolor
     function changedSeatColor(old_seatcolor,new_seatcolor)
     {
@@ -1120,55 +1146,6 @@ function editCategoryWindow(id)
         jq('#boxes > #edit_category_window').hide();
         
     });
-
-/////////////////////////////////////////////////////////////////////
-//deleting category
-/////////////////////////////////////////////////////////////////////
-function deleteCategory(id)
-{
-    
-    var q = confirm('Are you sure?');
-    if(q)
-    {
-    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
-        
-    var params =  {};
-    params['id'] = id;
-    var action = 'delete_category';
-    var dataSend = {'hallid':1, 'action':action, 'params':params};
-    jq.ajax({ 
-        data: dataSend,
-        success: function(response){
-                    
-        },
-        error: function(response){
-            alert('There are seats of this category!');
-        }
-        
-    });
-    categoryUpdate();
-    }   
-}
-
-
-
-// assigning methods to dynamically created list of categories     
-    jq('#window_edit_categories>#window_list_categories .list .delete').live('click', function(e){
-        var id =jq(this).attr('id') ;
-        deleteCategory(id);
-    }); 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
