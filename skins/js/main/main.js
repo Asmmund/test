@@ -586,7 +586,6 @@ jq(document).ready(function(){
                if(angles.length == 0)
                {
                     var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
-                    alert(tmp[0]);
                     angles.push(tmp[1]+'_'+tmp[2]);
                     
                     if(jq(this).attr('id')>0)
@@ -610,8 +609,6 @@ jq(document).ready(function(){
                {
                     var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
                     angles.push(tmp[1]+'_'+tmp[2]);
-                    
-                    alert(tmp[0]);
                     if(jq(this).attr('id')>0)
                     {
                         var id = jq(this).attr('id');
