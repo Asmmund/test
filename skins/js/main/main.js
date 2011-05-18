@@ -148,14 +148,9 @@ function categoryUpdate()
 
                }); 
         });
-       selected_id.length = 0 ;
+       selected_id = new Array(); 
        }
 
-       if(angles.length != 0 )
-       {
-        
-           angles.length= 0; 
-       } 
    }
 //function of selecting one id
     function selectOneSeat(id)
@@ -224,7 +219,7 @@ function categoryUpdate()
         
         var x2 = temp1[1];
         var y2 = temp1[2];
-        angles.length = 0;
+        angles= [];
         
         var min_x = (x1>x2)?x2:x1;
         var max_x = (x1>=x2)?x1:x2;
@@ -281,7 +276,8 @@ function categoryUpdate()
         jq.each(angles,function(i,value){
             unselectSeatInCell(value);
         });
-        angles.length = 0;
+        angles = new Array(); 
+        selecting = true; 
     }
     
     
