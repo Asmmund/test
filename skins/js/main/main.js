@@ -217,10 +217,14 @@ function categoryUpdate()
     //function for selecting square of seats
   function selectBlock(block)
     {
-        var x1 = block[0];
-        var y1 = block[1];
-        var x2 = block[2];
-        var y2 = block[3];
+        var temp1 = block[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        var x1 = temp1[1];
+        var y1 = temp1[2];
+        temp1 = block[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        
+        var x2 = temp1[1];
+        var y2 = temp1[2];
+        angles.length = 0;
         
         var min_x = (x1>x2)?x2:x1;
         var max_x = (x1>=x2)?x1:x2;
@@ -232,13 +236,66 @@ function categoryUpdate()
         for(var j = min_y; j<=max_y; j++)
         {
             if(jq('#' + i + '_'+j + ' img').attr('src') != empty_image )
+            {
                selectOneSeat(jq('#' + i + '_'+j + ' img').attr('id'));
+               angles.push( i + '_' + j );
+            }
             else
+            {
                 jq('#' + i + '_'+j + ' img').attr('src', empty_selected);
+                angles.push( i + '_' + j );
+            }
+            
         }
         
-        
     }
+    
+    //function of unselecting seat by td id
+    function unselectSeatInCell(cell)
+    {
+        var old_src = jq('#' + cell + ' img').attr('src'); 
+        jq('#' + cell + ' img').attr('src', function(){
+            switch(old_src)
+            {
+                case green_seat_selected:
+                    return green_seat;
+                case red_seat_selected:
+                    return red_seat;
+                 case blue_seat_selected:
+                    return blue_seat;
+                 case yellow_seat_selected:
+                    return yellow_seat;
+                 case violet_seat_selected:
+                    return violet_seat;
+                 case empty_selected:
+                    return empty_image;
+                     
+            }
+            
+        })
+    }
+    
+    //function of unselecting selected square
+    function unselectBlock()
+    {
+        jq.each(angles,function(i,value){
+            unselectSeatInCell(value);
+        });
+        angles.length = 0;
+    }
+    
+    
+    //function for toolbar - when changing icon
+    function toolbarUnselect()
+    {
+        unselectBlock();
+        unselectSeats();
+    }
+    
+    
+    
+    
+    
     
 /* when file is loaded*/
 jq(document).ready(function(){
@@ -526,11 +583,11 @@ jq(document).ready(function(){
                //first 1X
                //second 1Y
                
-               if(angles.length== 0)
+               if(angles.length == 0)
                {
-                    var tmp = jq(click).attr('title').match(/(-?[0-9]+?).(-?[0-9]+?)/);
-                    angles.push(tmp[1]);
-                    angles.push(tmp[2]);
+                    var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
+                    alert(tmp[0]);
+                    angles.push(tmp[1]+'_'+tmp[2]);
                     
                     if(jq(this).attr('id')>0)
                     {
@@ -551,10 +608,10 @@ jq(document).ready(function(){
                */
                else if (selecting == true)
                {
-                    var tmp = jq(click).attr('title').match(/(-?[0-9]+?).(-?[0-9]+?)/);
-                    angles.push(tmp[1]);
-                    angles.push(tmp[2]);
+                    var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
+                    angles.push(tmp[1]+'_'+tmp[2]);
                     
+                    alert(tmp[0]);
                     if(jq(this).attr('id')>0)
                     {
                         var id = jq(this).attr('id');
@@ -567,6 +624,7 @@ jq(document).ready(function(){
                     }
                     selectBlock(angles);
                     selecting=false;
+                    
                     
                }
 
@@ -621,12 +679,13 @@ jq(document).ready(function(){
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
+        toolbarUnselect();
 
         jq('#select_image').attr('src', icon_select_selected);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#info_image').attr('src', icon_info_normal); 
-        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
+        jq('#control_panel .square #square').attr('src', icon_squere_normal );
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
@@ -637,12 +696,12 @@ jq(document).ready(function(){
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
         jq('#window_edit_categories').hide();
-        unselectSeats();
+        toolbarUnselect();
         
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_selected );
         jq('#remove_image').attr('src', icon_remove_normal);
-        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
+        jq('#control_panel .square #square').attr('src', icon_squere_normal );
        jq('#info_image').attr('src', icon_info_normal);
     });
     
@@ -654,13 +713,13 @@ jq(document).ready(function(){
         jq('#boxes .window').hide();
         jq('#main  #control_panel #multiple_actions').hide();
         jq('#window_edit_categories').hide();
-        unselectSeats();
+        toolbarUnselect();
         
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src', icon_add_normal);
         jq('#remove_image').attr('src', icon_remove_selected );
        jq('#info_image').attr('src', icon_info_normal); 
-        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
+        jq('#control_panel .square #square').attr('src', icon_squere_normal );
     });
     
     jq('#control_panel .info').click(function(){
@@ -670,13 +729,13 @@ jq(document).ready(function(){
        jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
-        unselectSeats();
+        toolbarUnselect();
 
         jq('#info_image').attr('src', icon_info_selected); 
         jq('#select_image').attr('src', icon_select_normal);
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
-        jq('#control_panel .squere #squere').attr('src', icon_squere_normal );
+        jq('#control_panel .square #square').attr('src', icon_squere_normal );
     });
 
     jq('#control_panel .square #square').click(function(){
@@ -686,7 +745,7 @@ jq(document).ready(function(){
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
-        unselectSeats();
+        toolbarUnselect();
         
         jq(this).attr('src', icon_squere_selected );
         jq('#info_image').attr('src', icon_info_normal); 
