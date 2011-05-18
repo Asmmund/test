@@ -8,7 +8,7 @@ var action = 'add_seat';
 var ajax_load = '<img src="skins/images/loading.gif" />';
 //pool for id's of selected seats
 var selected_id = new Array();
-var angles = new Array();
+var selected_td = new Array();
 var selecting = true; 
 //toolbar icons
 var icon_add_selected = 'skins/images/icons/002_01.png';
@@ -212,14 +212,14 @@ function categoryUpdate()
     //function for selecting square of seats
   function selectBlock(block)
     {
-        var temp1 = block[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        var temp1 = block[0].match(/^(-?[0-9]+)_(-?[0-9]+)$/)
         var x1 = temp1[1];
         var y1 = temp1[2];
-        temp1 = block[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        temp1 = block[1].match(/^(-?[0-9]+)_(-?[0-9]+)$/)
         
         var x2 = temp1[1];
         var y2 = temp1[2];
-        angles= [];
+        selected_td= [];
         
         var min_x = (x1>x2)?x2:x1;
         var max_x = (x1>=x2)?x1:x2;
@@ -233,12 +233,12 @@ function categoryUpdate()
             if(jq('#' + i + '_'+j + ' img').attr('src') != empty_image )
             {
                selectOneSeat(jq('#' + i + '_'+j + ' img').attr('id'));
-               angles.push( i + '_' + j );
+               selected_td.push( i + '_' + j );
             }
             else
             {
                 jq('#' + i + '_'+j + ' img').attr('src', empty_selected);
-                angles.push( i + '_' + j );
+                selected_td.push( i + '_' + j );
             }
             
         }
@@ -273,10 +273,10 @@ function categoryUpdate()
     //function of unselecting selected square
     function unselectBlock()
     {
-        jq.each(angles,function(i,value){
+        jq.each(selected_td,function(i,value){
             unselectSeatInCell(value);
         });
-        angles = new Array(); 
+        selected_td = new Array(); 
         selecting = true; 
     }
     
@@ -361,7 +361,7 @@ jq(document).ready(function(){
         var hallid = jq("#table tr:first-child> td:first-child> img").attr('alt');
         
         var first = jq("#table>tbody>tr:first-child>td:first-child img").attr('title');
-        var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
+        var temp = (temp = first.match(/^(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1]);
         var new_y =  parseInt(temp[2])-1;
  
@@ -579,10 +579,10 @@ jq(document).ready(function(){
                //first 1X
                //second 1Y
                
-               if(angles.length == 0)
+               if(selected_td.length == 0)
                {
-                    var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
-                    angles.push(tmp[1]+'_'+tmp[2]);
+                    var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:.*)?/);
+                    selected_td.push(tmp[1]+'_'+tmp[2]);
                     
                     if(jq(this).attr('id')>0)
                     {
@@ -604,7 +604,7 @@ jq(document).ready(function(){
                else if (selecting == true)
                {
                     var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
-                    angles.push(tmp[1]+'_'+tmp[2]);
+                    selected_td.push(tmp[1]+'_'+tmp[2]);
                     if(jq(this).attr('id')>0)
                     {
                         var id = jq(this).attr('id');
@@ -615,7 +615,7 @@ jq(document).ready(function(){
                         jq(this).attr('src',empty_selected);
                         
                     }
-                    selectBlock(angles);
+                    selectBlock(selected_td);
                     selecting=false;
                     
                     
