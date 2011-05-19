@@ -64,7 +64,7 @@ function isTdId(string)
 {
     var numericExpression = /^-?[0-9]+_-?[0-9]+$/;
    
-    return numericExpression.test(string)  != null;
+    return numericExpression.test(string)  != false;
 
     
 }
@@ -72,7 +72,7 @@ function isTdId(string)
 function isImgId(id)
 {
     var numericExpression = /^[0-9]+$/;
-    return (numericExpression.test(id)) != null; 
+    return (numericExpression.test(id)) != false; 
     
 }
 
@@ -147,14 +147,9 @@ function categoryUpdate()
        if(selected_id.length != 0)
        {
         jq.each(selected_id, function(index,value){
-                jq('#grid #table tr td #'+value).attr('src', function(i,val){
-                    var new_src = val.match(/^(.+)_selected(.+)$/);
-                    var filename=new_src[1] + new_src[2];
-                    return filename;
-
-               }); 
+                unselectOneSeat(value);
         });
-       selected_id = new Array(); 
+       selected_id = []; 
        }
 
    }
@@ -804,6 +799,7 @@ jq(document).ready(function(){
                     jq.ajax({
                         data: dataSend,
                         success: function(response){
+                            unselectSeats();
                             jq.each(selected_id, function(i,value){
                                     var title = jq('#'+ value).attr('title');
                                     var temp = title.match(/(.*?)L:(.*?)/);
