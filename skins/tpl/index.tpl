@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo SITE_HOST;?>skins/css/main.css" />
     <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/jquery.js"></script>
     
-    <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/script.js"></script>
+    
     
 	<title>Outsourcing Ukraine</title>
 </head>

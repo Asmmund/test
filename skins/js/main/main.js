@@ -58,6 +58,37 @@ jq.ajaxSetup({
                 }
 });
 
+//function to validate cell id
+function isTdId(string)
+{
+    var numericExpression = /^-?[0-9]+_-?[0-9]+$/;
+    if(string.match(numericExpression)) 
+    {
+        return true;
+    } 
+    else 
+    {
+
+    return false;
+
+    }
+}
+//to validate Id of image
+function isImgId(id)
+{
+    var numericExpression = /^[0-9]+$/;
+    if(id.match(numericExpression)) 
+    {
+        return true;
+    } 
+    else 
+    {
+
+    return false;
+
+    }
+}
+
 //function of getting seatcategories
 function getSeatCategory()
 {
@@ -155,8 +186,11 @@ function categoryUpdate()
 //function of selecting one id
     function selectOneSeat(id)
     {
-                var old_src = jq('#grid #table tr td #'+id).attr('src') ;
-                jq('#grid #table tr td #'+id).attr('src', function(){
+        if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
+//        alert(id);
+        var jq_id = jq('#grid #table tr td #'+id);
+                var old_src = jq_id.attr('src') ;
+                jq_id.attr('src', function(){
                     switch(old_src)
                     {
                         case yellow_seat:
@@ -177,8 +211,10 @@ function categoryUpdate()
     //unselect one id
     function unselectOneSeat(id)
     {
-                var old_src = jq('#grid #table tr td #'+id).attr('src') ;
-                jq('#grid #table tr td #'+id).attr('src', function(){
+        if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
+        var jq_id = jq('#grid #table tr td #'+id);
+                var old_src = jq_id.attr('src') ;
+                jq_id.attr('src', function(){
                     switch(old_src)
                     {
                         case yellow_seat_selected:
@@ -200,6 +236,8 @@ function categoryUpdate()
     //if the seat is selected
     function is_selected(id)
     {
+        if(!isImgId(id)) alert('Incorrect value passed to is_selected(id)');
+        
         var bool = false;
         var old_src = jq('#grid #table tr td #'+id).attr('src') ;
         if( (old_src == green_seat_selected) || (old_src == blue_seat_selected) 
@@ -212,10 +250,10 @@ function categoryUpdate()
     //function for selecting square of seats
   function selectBlock(block)
     {
-        var temp1 = block[0].match(/^(-?[0-9]+)_(-?[0-9]+)$/)
+        var temp1 = block[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
         var x1 = temp1[1];
         var y1 = temp1[2];
-        temp1 = block[1].match(/^(-?[0-9]+)_(-?[0-9]+)$/)
+        temp1 = block[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
         
         var x2 = temp1[1];
         var y2 = temp1[2];
@@ -226,23 +264,24 @@ function categoryUpdate()
 
         var min_y = (y1>y2)?y2:y1;
         var max_y = (y1>=y2)?y1:y2;
-        
+ //       alert(' min_x ' + min_x + ' max_x ' + max_x + '\n min_y'+min_y + ' max_y '+max_y);
         for(var i = min_x; i<=max_x; i++)
         for(var j = min_y; j<=max_y; j++)
         {
-            if(jq('#' + i + '_'+j + ' img').attr('src') != empty_image )
+            var img = jq('#' + i + '_'+j + ' > img'); 
+            if(img.attr('id') > 0)
             {
-               selectOneSeat(jq('#' + i + '_'+j + ' img').attr('id'));
-               selected_td.push( i + '_' + j );
+                selectOneSeat(img.attr('id'));
+                selected_td.push( i + '_' + j );
             }
             else
             {
-                jq('#' + i + '_'+j + ' img').attr('src', empty_selected);
+                jq(img).attr('src', empty_selected);
                 selected_td.push( i + '_' + j );
             }
             
         }
-        
+//        alert(selected_td);
     }
     
     //function of unselecting seat by td id
@@ -273,8 +312,8 @@ function categoryUpdate()
     //function of unselecting selected square
     function unselectBlock()
     {
-        jq.each(selected_td,function(i,value){
-            unselectSeatInCell(value);
+        jq.each(selected_td,function(i){
+            unselectSeatInCell(selected_td[i]);
         });
         selected_td = new Array(); 
         selecting = true; 
@@ -303,13 +342,15 @@ jq(document).ready(function(){
 //editing hall size
 /////////////////////////////////////////////////////////////////////   
     jq('#up_arrow').click(function(){
-        var title_first_first = jq('#table > tbody>tr:first-child td:first-child img').attr('title');
-
-         var hallid = jq('#table > tbody>tr:first-child td:first-child img').attr('alt');
-
-        var first = jq("#table>tbody>tr:first-child>td:first-child img").attr('title');
+        var parent_img = jq('#table > tbody>tr:first-child td:first-child img');
         
-        var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
+        var title_first_first = parent_img.attr('title');
+
+         var hallid = parent_img.attr('alt');
+
+        var first = parent_img.attr('title');
+        
+         var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1])-1;
         var new_y =  parseInt(temp[2]);
         
@@ -336,9 +377,10 @@ jq(document).ready(function(){
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
         //getting the hallid
-        var hallid = jq("#table tr:first-child> td:last-child> img").attr('alt');
+        var parent_img = jq("#table tr:first-child> td:last-child> img");
+        var hallid = parent_img.attr('alt');
         
-        var last = jq("#table>tbody>tr:first-child>td:last-child img").attr('title');
+        var last = parent_img.attr('title');
         
         var temp = (temp = last.match(/(.+?)\|((.+?)L\:)/)==null)? last.match(/(.+?)\|(.+)/):last.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1]);
@@ -357,15 +399,16 @@ jq(document).ready(function(){
     });
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
+        var parent_img = jq("#table> tbody>tr:first-child> td:first-child> img");
         //getting the hallid
-        var hallid = jq("#table tr:first-child> td:first-child> img").attr('alt');
+        var hallid = parent_img.attr('alt');
         
-        var first = jq("#table>tbody>tr:first-child>td:first-child img").attr('title');
-        var temp = (temp = first.match(/^(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
+        var first = parent_img.attr('title');
+         var temp = (temp = first.match(/^(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
         var new_x = parseInt(temp[1]);
         var new_y =  parseInt(temp[2])-1;
  
-        jq("#table>tbody>tr:first>td:first").clone(true).insertBefore('#table >tbody>tr td:first-child');
+        jq("#table>tbody>tr:first-child>td:first-child").clone(true).insertBefore('#table >tbody>tr td:first-child');
         
         jq('#table >tbody tr >td:first-child > img').each(function(i){
             var row = i + new_x;
@@ -380,9 +423,10 @@ jq(document).ready(function(){
     //adding row after the last one
     jq('#down_arrow').click(function(){
         //getting the hallid
-        var hallid = jq('#table > tbody>tr:last-child >td:first img').attr('alt');
+        var parent_img =jq('#table > tbody>tr:last-child >td:first img'); 
+        var hallid = parent_img.attr('alt');
         //getting the last row 
-        var title_last_last = jq('#table > tbody>tr:last-child>td:first-child img').attr('title');
+        var title_last_last = parent_img.attr('title');
 
         var temp = (temp = title_last_last.match(/(.+?)\|((.+?)L\:)/)==null)? title_last_last.match(/(.+?)\|(.+)/):title_last_last.match(/(.+?)\|(.+?)L\:/);
         var new_last_x = parseInt(temp[1])+1;
@@ -526,10 +570,11 @@ jq(document).ready(function(){
                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
+                var boxes_window = jq('#boxes .window');
                 //Set the popup window to center
-                jq('#boxes .window').css('z-index','1').show()
-                    .css('top',  winH/2-jq('#boxes .window').height())
-                    .css('left', winW/2-jq('#boxes .window').width());
+                boxes_window.css('z-index','1').show()
+                    .css('top',  winH/2-boxes_window.height())
+                    .css('left', winW/2-boxes_window.width());
                 
                 var tag = jq(click).attr('title').match(/(.*?)\|(.*?)L:(.*)/);
     
@@ -540,10 +585,10 @@ jq(document).ready(function(){
                 jq('#boxes #dialog #label').val(label);
      
                  //showing window
-
-                jq('#boxes .window').show();
+                boxes_window.show();
+                
                 jq('#boxes #dialog .cancel').click(function() {
-                    jq('#boxes .window').hide();
+                    boxes_window.hide();
                 });
 
                 // closing window
@@ -581,12 +626,12 @@ jq(document).ready(function(){
                
                if(selected_td.length == 0)
                {
-                    var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:.*)?/);
-                    selected_td.push(tmp[1]+'_'+tmp[2]);
-                    
-                    if(jq(this).attr('id')>0)
-                    {
+                    var tmp = jq(click).parent().attr('id');
+                    selected_td.push(tmp);
                         var id = jq(this).attr('id');
+                    
+                    if(parseInt(id)>0)
+                    {
                         selectOneSeat(id); 
                     }
                     else
@@ -603,11 +648,11 @@ jq(document).ready(function(){
                */
                else if (selecting == true)
                {
-                    var tmp = jq(click).attr('title').match(/(-?[0-9]+).(-?[0-9]+)(L:)?/);
-                    selected_td.push(tmp[1]+'_'+tmp[2]);
-                    if(jq(this).attr('id')>0)
+                    var tmp = jq(click).parent().attr('id');
+                    selected_td.push(tmp);
+                    var id = jq(this).attr('id');
+                    if(id>0)
                     {
-                        var id = jq(this).attr('id');
                         selectOneSeat(id); 
                     }
                     else
@@ -639,13 +684,14 @@ jq(document).ready(function(){
                 var winH = jq(window).height();
                 var winW = jq(window).width();
                 //Set the popup window to center
-                jq('#window_edit_categories').css('z-index','1').show()
-                    .css('top',  winH/2-jq('#window_edit_categories').height())
-                    .css('left', winW/2-jq('#window_edit_categories').width());
+                var window_edit_categories =jq('#window_edit_categories'); 
+                window_edit_categories.css('z-index','1').show()
+                    .css('top',  winH/2-window_edit_categories.height())
+                    .css('left', winW/2-window_edit_categories.width());
                     
                     
 
-                jq('#window_edit_categories').show();
+                window_edit_categories.show();
                 windowListCategories();
 
     });
@@ -697,31 +743,31 @@ jq(document).ready(function(){
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
-    jq('#control_panel .add').click(function(){
+    jq('#control_panel .add #add_image').click(function(){
         action = 'add_seat';
         hideExtra();
         unselectIcons();
         jq('#edit_categories').show();
         jq('#div_dropdown_category').show(); 
 
-        jq('#add_image').attr('src',icon_add_selected );
+        jq(this).attr('src',icon_add_selected );
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
-    jq('#control_panel .remove').click(function(){
+    jq('#control_panel .remove #remove_image').click(function(){
         action = 'remove_seat';
          hideExtra();
         unselectIcons();
 
-        jq('#remove_image').attr('src', icon_remove_selected );
+        jq(this).attr('src', icon_remove_selected );
     });
     
-    jq('#control_panel .info').click(function(){
+    jq('#control_panel .info #info_image').click(function(){
        action = 'update_info';
         hideExtra();
         unselectIcons();
 
-        jq('#info_image').attr('src', icon_info_selected); 
+        jq(this).attr('src', icon_info_selected); 
     });
 
     jq('#control_panel .square #square').click(function(){
@@ -744,9 +790,8 @@ jq(document).ready(function(){
                         var q = confirm('Are you sure you want to delete selected seats?');
                         if(q)
                     {
-                    jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
-                    jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
-                    jq(this).attr('src', icon_delete_group_selected);
+                        var delete_group = jq(this);
+                        
                     var action = 'delete_seats';
                     var params =  {};
                     params['selected'] = selected_id.toString();
@@ -761,8 +806,7 @@ jq(document).ready(function(){
                                    jq.each(selected_id, function(i,value){
                                     jq('#'+ value).attr('src', empty_image);
                                    });
-                                   jq('#main  #control_panel #multiple_actions .group_delete #group_delete')
-                                       .attr('src',icon_delete_group);
+                                   jq(this).attr('src',icon_delete_group);
                                    selected_id.length = 0;
                                }
                           });
@@ -783,27 +827,27 @@ jq(document).ready(function(){
                 jq('#main  #control_panel #multiple_actions .group_label #group_label').click(function(){
                     if(selected_id != '')
                     {
-                    jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
-                    jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
                     jq(this).attr('src', icon_label_group_selected);
                     
                     
-                                    //Get the window height and width
+                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
+                var boxes_window =jq('#boxes .window'); 
                 //Set the popup window to center
-                jq('#boxes .window').css('z-index','1').show()
-                    .css('top',  winH/2-jq('#boxes .window').height())
-                    .css('left', winW/2-jq('#boxes .window').width());
+
+                boxes_window.css('z-index','1').show()
+                    .css('top',  winH/2-boxes_window.height())
+                    .css('left', winW/2-boxes_window.width());
                 
                 jq('#boxes #dialog #label').val('Enter label');
      
                  //showing window
 
-                jq('#boxes .window').show();
+                boxes_window.show();
                 
                 jq('#boxes #dialog .cancel').click(function() {
-                    jq('#boxes .window').hide();
+                    boxes_window.hide();
                 });
 
                 // 
@@ -844,8 +888,8 @@ jq(document).ready(function(){
                                    });
                             
                             selected_id.length = 0;
-                            jq('#boxes .window').hide();
-                            jq('.group_label #group_label').attr('src',icon_label_group);
+                            boxes_window.hide();
+                            jq(this).attr('src',icon_label_group);
 
                             
                         }
@@ -864,7 +908,7 @@ jq(document).ready(function(){
                 });
                 
                 
-                //function of getting seatcategories
+//function of getting seatcategories
 function getCategoriesListForGroup()
 {
    jq('#select_category_for_group .list').html(ajax_load);
@@ -893,19 +937,18 @@ function getCategoriesListForGroup()
                     if(selected_id != '')
                     {
 
-                    jq('#main  #control_panel #multiple_actions .group_label #group_label').attr('src', icon_label_group);
-                    jq('#main  #control_panel #multiple_actions .group_delete #group_delete').attr('src', icon_delete_group);
                     jq(this).attr('src', icon_category_group_selected);
                     var winH = jq(window).height();
                     var winW = jq(window).width();
+                    var boxes_select_category_for_group =jq('#boxes #select_category_for_group'); 
                     //Set the popup window to center
-                    jq('#boxes #select_category_for_group').css('z-index','1').show()
-                    .css('top',  winH/2-jq('#boxes #select_category_for_group').height())
-                    .css('left', winW/2-jq('#boxes #select_category_for_group').width());
+                    boxes_select_category_for_group.css('z-index','1').show()
+                    .css('top',  winH/2-boxes_select_category_for_group.height())
+                    .css('left', winW/2-boxes_select_category_for_group.width());
                     
                     
 
-                jq('#boxes #select_category_for_group').show();
+                boxes_select_category_for_group.show();
                 getCategoriesListForGroup();
                 
                 
@@ -944,16 +987,13 @@ function getCategoriesListForGroup()
                                         break;
                                     }
                                 });
-                                jq('#boxes #select_category_for_group').hide();  
-                                jq('#main  #control_panel #multiple_actions .group_category #group_category').attr('src', icon_category_group);
+                                boxes_select_category_for_group.hide();  
+                                jq(this).attr('src', icon_category_group);
 
                                    });
                             
                             selected_id.length = 0;
                             jq('#boxes .window').hide();
-                            jq('.group_category #group_category').attr('src',icon_category_group_group);
-
-                            
                         }
                     });                  
                   
@@ -978,14 +1018,15 @@ function getCategoriesListForGroup()
     jq('#window_edit_categories > .add_category').click(function(){
                 var winH = jq(window).height()+ 10;
                 var winW = jq(window).width()+ 10;
+                var add_category = jq('#boxes > #add_category'); 
                 //Set the popup window to center
-                jq('#boxes > #add_category').css('z-index','1').show()
-                    .css('top',  winH/2.2-jq('#boxes >#add_category').height())
-                    .css('left', winW/1.5-jq('#boxes >#add_category').width());
+                add_category.css('z-index','1').show()
+                    .css('top',  winH/2.2-add_category.height())
+                    .css('left', winW/1.5-add_category.width());
                 jq('#add_category > #name').val('New category name');
                 jq('#add_category > #color').val('');
 
-                jq('#boxes > #add_category').show();
+                add_category.show();
 
     });
 
@@ -1003,7 +1044,7 @@ function getCategoriesListForGroup()
                  data: dataSend,
                  success: function(response){
                     categoryUpdate();
-                    jq('#boxes > #add_category').hide();
+                    add_category.hide();
                      }
                  });
 
@@ -1028,9 +1069,10 @@ function editCategoryWindow(id)
     var winH = jq(window).height()-50;
     var winW = jq(window).width()+ 10;
     //Set the popup window to center
-    jq('#boxes > #edit_category_window').css('z-index','1').show()
-        .css('top',  winH/2.2-jq('#boxes >#edit_category_window').height())
-        .css('left', winW/1.5-jq('#boxes >#edit_category_window').width());
+    var edit_category_window = jq('#boxes > #edit_category_window');
+    edit_category_window.css('z-index','1').show()
+        .css('top',  winH/2.2-edit_category_window.height())
+        .css('left', winW/1.5-edit_category_window.width());
       
         var action = 'get_category_info';
         var params =  {};
@@ -1046,7 +1088,7 @@ function editCategoryWindow(id)
                      jq('#edit_category_window > #color').val(response.seatcolor);
                      old_seatcolor = response.seatcolor;
                      jq('#edit_category_window > #seatcategory_id').val(id);
-                     jq('#boxes > #edit_category_window').show();
+                     edit_category_window.show();
                  }
         });
 }
@@ -1131,10 +1173,6 @@ function deleteCategory(id)
                      jq('#edit_category_window > #seatcategory_id').val('');
                      jq('#boxes > #edit_category_window').hide();
                  }
-
-
-        
-        
     });
     });
      
@@ -1146,7 +1184,5 @@ function deleteCategory(id)
         jq('#boxes > #edit_category_window').hide();
         
     });
-
-
 
 });
