@@ -63,31 +63,17 @@ jq.ajaxSetup({
 function isTdId(string)
 {
     var numericExpression = /^-?[0-9]+_-?[0-9]+$/;
-    if(string.match(numericExpression)) 
-    {
-        return true;
-    } 
-    else 
-    {
+   
+    return numericExpression.test(string)  != null;
 
-    return false;
-
-    }
+    
 }
 //to validate Id of image
 function isImgId(id)
 {
     var numericExpression = /^[0-9]+$/;
-    if(id.match(numericExpression)) 
-    {
-        return true;
-    } 
-    else 
-    {
-
-    return false;
-
-    }
+    return (numericExpression.test(id)) != null; 
+    
 }
 
 //function of getting seatcategories
@@ -161,22 +147,10 @@ function categoryUpdate()
        if(selected_id.length != 0)
        {
         jq.each(selected_id, function(index,value){
-                var old_src = jq('#grid #table tr td #'+value).attr('src') ;
-                jq('#grid #table tr td #'+value).attr('src', function(){
-                    switch(old_src)
-                    {
-                        case yellow_seat_selected:
-                            return yellow_seat;
-                        case green_seat_selected:
-                            return green_seat;
-                        case red_seat_selected:
-                            return red_seat;
-                        case yellow_seat_selected:
-                            return yellow_seat;
-                        case violet_seat_selected:
-                            return violet_seat;
-                        
-                    }
+                jq('#grid #table tr td #'+value).attr('src', function(i,val){
+                    var new_src = val.match(/^(.+)_selected(.+)$/);
+                    var filename=new_src[1] + new_src[2];
+                    return filename;
 
                }); 
         });
@@ -187,25 +161,12 @@ function categoryUpdate()
 //function of selecting one id
     function selectOneSeat(id)
     {
-        if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
-//        alert(id);
+        if(!isImgId(id)) alert('Incorrect value passed to selectOneSeat(id)');
         var jq_id = jq('#grid #table tr td #'+id);
-                var old_src = jq_id.attr('src') ;
-                jq_id.attr('src', function(){
-                    switch(old_src)
-                    {
-                        case yellow_seat:
-                            return yellow_seat_selected;
-                        case green_seat:
-                            return green_seat_selected;
-                        case red_seat:
-                            return red_seat_selected;
-                        case yellow_seat:
-                            return yellow_seat_selected;
-                        case violet_seat:
-                            return violet_seat_selected;
-                         
-                    }
+        jq_id.attr('src', function(i, val){
+                    var new_src = val.match(/^(.+)(\..+)$/);
+                    var filename=new_src[1]+ '_selected' + new_src[2];
+                        return filename;
                 })
     }
     
@@ -215,21 +176,10 @@ function categoryUpdate()
         if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
         var jq_id = jq('#grid #table tr td #'+id);
                 var old_src = jq_id.attr('src') ;
-                jq_id.attr('src', function(){
-                    switch(old_src)
-                    {
-                        case yellow_seat_selected:
-                            return yellow_seat;
-                        case green_seat_selected:
-                            return green_seat;
-                        case red_seat_selected:
-                            return red_seat;
-                        case yellow_seat_selected:
-                            return yellow_seat;
-                        case violet_seat_selected:
-                            return violet_seat;
-                          
-                    }
+                jq_id.attr('src', function(i,val){
+                    var new_src = val.match(/^(.+)_selected(.+)$/);
+                    var filename=new_src[1] + new_src[2];
+                    return filename;
                 })
         
     }
@@ -261,7 +211,7 @@ function categoryUpdate()
         
         var x2 = temp2[1];
         var y2 = temp2[2];
-        selected_td= [];
+        unselectBlock();
 //        alert(' x1 ' + x1 + ' x2 ' + x2 + '\n y1'+y1 + ' y2 '+y2);
         
         var max_x = Math.max(x1,x2);
@@ -296,26 +246,13 @@ function categoryUpdate()
     {
         if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
         var jq_img = jq('#' + cell + ' img');
-        var old_src = jq_img.attr('src'); 
-        jq_img.attr('src', function(){
-            switch(old_src)
-            {
-                case green_seat_selected:
-                    return green_seat;
-                case red_seat_selected:
-                    return red_seat;
-                 case blue_seat_selected:
-                    return blue_seat;
-                 case yellow_seat_selected:
-                    return yellow_seat;
-                 case violet_seat_selected:
-                    return violet_seat;
-                 case empty_selected:
-                    return empty_image;
-                     
-            }
+        var new_src = jq_img.attr('src'); 
+        jq_img.attr('src', function(i, val){
+                    var new_src = val.match(/^(.+)_selected(\..+)$/);
+                    var filename=new_src[1]+ new_src[2];
+                    return filename;
             
-        })
+        }).error(function(){alert(('Error in unselectSeatInCell(cell), not correct image'))});
     }
     
     //function of unselecting selected square
@@ -324,7 +261,7 @@ function categoryUpdate()
         jq.each(selected_td,function(i){
             unselectSeatInCell(selected_td[i]);
         });
-        selected_td = new Array(); 
+        selected_td = []; 
         selecting = true; 
     }
     
@@ -359,9 +296,9 @@ jq(document).ready(function(){
 
         var first = parent_img.attr('title');
         
-         var temp = (temp = first.match(/(.+?)\|((.+?)L\:)/)==null)? first.match(/(.+?)\|(.+)/):first.match(/(.+?)\|(.+?)L\:/);
+         var temp = first.match(/(.+?)\|((.+?)(L\:)?)/);
         var new_x = parseInt(temp[1])-1;
-        var new_y =  parseInt(temp[2]);
+        var new_y =  parseInt(temp[2])-1;
         
         jq('#table > tbody>tr:first-child').clone(true).insertBefore('#table > tbody>tr:first-child');
         
@@ -369,11 +306,13 @@ jq(document).ready(function(){
         
         
         
-        jq('#table > tbody>tr:first-child td img').each(function(index){
+        jq('#table > tbody>tr:first-child>td img').each(function(index,val){
             var new_y = index+1;
+           
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
                    .attr('title', new_x +'|'+new_y)
+                   .attr('id', '')
                    .parent().attr('id',new_x +'_'+new_y); 
            
         });        
@@ -447,6 +386,7 @@ jq(document).ready(function(){
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
                    .attr('title', new_last_x+'|'+new_last_y)
+                   .attr('id', '')
                    .parent().attr('id',new_last_x+'_'+new_last_y) ; 
                    
            new_last_y+=1; 
@@ -489,25 +429,13 @@ jq(document).ready(function(){
                 data: dataSend,
                 success: function(response){
                         jq(click).attr('src', function(){
-                            switch(category_color)
-                            {
-                                case 'green':
-                                    return green_seat;
-                                case 'blue':
-                                    return blue_seat;
-                                case 'red':
-                                    return red_seat;
-                                case 'violet':
-                                    return violet_seat;
-                                case 'yellow':
-                                    return yellow_seat;
-                                default:
-                                    alert('There\'s no image for this seatcolor!');
-                                
-                            }
-                        }).attr('id', response.id)
-                          .attr('alt', response.hallid)
-                          .attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
+                            var new_src = red_seat.match(/^(.+)red(\..+)$/);
+                            var filename=new_src[1]+category_color+ new_src[2];
+                            return filename;
+                            })
+                        .attr('id', response.id)
+                        .attr('alt', response.hallid)
+                        .attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
                         
                 },
 
@@ -881,22 +809,7 @@ jq(document).ready(function(){
                                     var temp = title.match(/(.*?)L:(.*?)/);
                                     var coords = temp[1];
                                     jq('#'+value).attr('title', coords + 'L:' +params['label'])
-                                                 .attr('src',function(){
-                                                    var color = jq(this).attr('src');
-                                                    switch(color)
-                                                    {
-                                                        case yellow_seat_selected:
-                                                            return yellow_seat;
-                                                        case red_seat_selected:
-                                                            return red_seat;
-                                                        case green_seat_selected:
-                                                            return green_seat;
-                                                        case violet_seat_selected:
-                                                            return violet_seat;
-                                                        case blue_seat_selected:
-                                                            return blue_seat;
-                                                    }
-                                                 });
+                                                 ;
 
                                    });
                             
@@ -949,6 +862,7 @@ function getCategoriesListForGroup()
                 jq('#main  #control_panel #multiple_actions .group_category #group_category').click(function(){
                     if(selected_id != '')
                     {
+                        var icon_categories =jq('#main  #control_panel #multiple_actions .group_category #group_category'); 
 
                     jq(this).attr('src', icon_category_group_selected);
                     var winH = jq(window).height();
@@ -984,24 +898,12 @@ function getCategoriesListForGroup()
                         success: function(response){
                             jq.each(selected_id, function(i,value){
                                 jq('#' + value).attr('src', function(){
-                                    switch(color)
-                                    {
-                                        case 'blue':
-                                            return blue_seat;
-                                        case 'red':
-                                            return red_seat;
-                                        case 'green':
-                                            return green_seat;
-                                        case 'yellow':
-                                            return yellow_seat;
-                                        case 'violet':
-                                            return violet_seat;
-                                        default:
-                                        break;
-                                    }
+                                    var new_src = red_seat.match(/^(.+)red(\..+)$/);
+                                    var filename=new_src[1]+color+ new_src[2];
+                                    return filename;
                                 });
                                 boxes_select_category_for_group.hide();  
-                                jq(this).attr('src', icon_category_group);
+                                icon_categories.attr('src', icon_category_group);
 
                                    });
                             
