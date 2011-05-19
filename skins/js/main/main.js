@@ -10,6 +10,7 @@ var ajax_load = '<img src="skins/images/loading.gif" />';
 var selected_id = new Array();
 var selected_td = new Array();
 var selecting = true; 
+var unselecting = false;
 //toolbar icons
 var icon_add_selected = 'skins/images/icons/002_01.png';
 var icon_add_normal = 'skins/images/icons/001_01.png';
@@ -250,25 +251,31 @@ function categoryUpdate()
     //function for selecting square of seats
   function selectBlock(block)
     {
+//      alert(block);
         var temp1 = block[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        if(!temp1) alert('Error in selectBlock(block) at x1 y1');
         var x1 = temp1[1];
         var y1 = temp1[2];
-        temp1 = block[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        var temp2 = block[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        if(!temp2) alert('Error in selectBlock(block) at x2 y2');
         
-        var x2 = temp1[1];
-        var y2 = temp1[2];
+        var x2 = temp2[1];
+        var y2 = temp2[2];
         selected_td= [];
+//        alert(' x1 ' + x1 + ' x2 ' + x2 + '\n y1'+y1 + ' y2 '+y2);
         
-        var min_x = (x1>x2)?x2:x1;
-        var max_x = (x1>=x2)?x1:x2;
+        var max_x = Math.max(x1,x2);
+        var min_x = Math.min(x1,x2);
+        
+        var max_y = Math.max(y1,y2);
+        var min_y = Math.min(y1,y2);
 
-        var min_y = (y1>y2)?y2:y1;
-        var max_y = (y1>=y2)?y1:y2;
- //       alert(' min_x ' + min_x + ' max_x ' + max_x + '\n min_y'+min_y + ' max_y '+max_y);
+//        alert(' min_x ' + min_x + ' max_x ' + max_x + '\n min_y'+min_y + ' max_y '+max_y);
         for(var i = min_x; i<=max_x; i++)
         for(var j = min_y; j<=max_y; j++)
         {
-            var img = jq('#' + i + '_'+j + ' > img'); 
+            var img = jq('#' + i + '_'+j + ' img'); 
+//            alert('#' + i + '_'+j);
             if(img.attr('id') > 0)
             {
                 selectOneSeat(img.attr('id'));
@@ -287,8 +294,10 @@ function categoryUpdate()
     //function of unselecting seat by td id
     function unselectSeatInCell(cell)
     {
-        var old_src = jq('#' + cell + ' img').attr('src'); 
-        jq('#' + cell + ' img').attr('src', function(){
+        if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
+        var jq_img = jq('#' + cell + ' img');
+        var old_src = jq_img.attr('src'); 
+        jq_img.attr('src', function(){
             switch(old_src)
             {
                 case green_seat_selected:
@@ -662,8 +671,12 @@ jq(document).ready(function(){
                     }
                     selectBlock(selected_td);
                     selecting=false;
-                    
-                    
+                    unselecting = true;
+               }
+               else if(unselecting == true)
+               {
+                unselectBlock();
+                unselecting = false;
                }
 
                 
