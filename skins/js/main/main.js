@@ -9,6 +9,7 @@ var ajax_load = '<img src="skins/images/loading.gif" />';
 //pool for id's of selected seats
 var selected_id = new Array();
 var selected_td = new Array();
+var selected_coords = {};
 var selecting = true; 
 var unselecting = false;
 //toolbar icons
@@ -158,10 +159,9 @@ function categoryUpdate()
     function selectOneSeat(id)
     {
         if(!isImgId(id)) alert('Incorrect value passed to selectOneSeat(id)');
-        var jq_id = jq('#'+id);
-        jq_id.attr('src', function(i, val){
-                    var new_src = val.match(/^(.+)(\..+)$/);
-                    var filename=new_src[1]+ '_selected' + new_src[2];
+         jq('#'+id).attr('src', function(i, val){
+                    var new_src = val.match(/^(.+)(_selected)?(\..+)$/);
+                    var filename=new_src[1]+ '_selected' + new_src[3];
                         return filename;
                 })
     }
@@ -171,10 +171,9 @@ function categoryUpdate()
     {
         if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
         var jq_id = jq('#'+id);
-                var old_src = jq_id.attr('src') ;
                 jq_id.attr('src', function(i,val){
-                    var new_src = val.match(/^(.+)_selected(.+)$/);
-                    var filename=new_src[1] + new_src[2];
+                    var new_src = val.match(/^(.+)(_selected)?(.+)$/);
+                    var filename=new_src[1] + new_src[3];
                     return filename;
                 })
         
@@ -195,14 +194,14 @@ function categoryUpdate()
         
     }
     //function for selecting square of seats
-  function selectBlock(block)
+  function selectBlock()
     {
 //      alert(block);
-        var temp1 = block[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        var temp1 =selected_td[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
         if(!temp1) alert('Error in selectBlock(block) at x1 y1');
         var x1 = temp1[1];
         var y1 = temp1[2];
-        var temp2 = block[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
+        var temp2 =selected_td[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
         if(!temp2) alert('Error in selectBlock(block) at x2 y2');
         
         var x2 = temp2[1];
@@ -220,18 +219,21 @@ function categoryUpdate()
         for(var i = min_x; i<=max_x; i++)
         for(var j = min_y; j<=max_y; j++)
         {
-            var img = jq('#' + i + '_'+j + ' img'); 
+            var seat_id = i + '_'+j;
+            if(!isTdId(seat_id)) alert('Error parsing values at selectBlock()!');
+            var img = jq('#' + seat_id + ' img'); 
 //            alert('#' + i + '_'+j);
             if(img.attr('id') > 0)
             {
                 selectOneSeat(img.attr('id'));
-                selected_td.push( i + '_' + j );
             }
             else
             {
-                jq(img).attr('src', empty_selected);
-                selected_td.push( i + '_' + j );
+                img.attr('src', empty_selected);
             }
+            selected_coords[seat_id] = {};
+            selected_coords[seat_id]['x'] = i;
+            selected_coords[seat_id]['y'] = j;
             
         }
 //        alert(selected_td);
@@ -240,30 +242,37 @@ function categoryUpdate()
     //function of unselecting seat by td id
     function unselectSeatInCell(cell)
     {
-        if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
+        //if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
         var jq_img = jq('#' + cell + ' img');
-        var new_src = jq_img.attr('src'); 
-        jq_img.attr('src', function(i, val){
-                    var new_src = val.match(/^(.+)_selected(\..+)$/);
-                    var filename=new_src[1]+ new_src[2];
+        if(jq_img.attr('id')>0)
+        {
+            jq_img.attr('src', function(i, val){
+                    var new_src = val.match(/^(.+)(_selected)(\..+)$/);
+                    var filename=new_src[1]+ new_src[3];
                     return filename;
             
         }).error(function(){alert(('Error in unselectSeatInCell(cell), not correct image'))});
+        }
+        else
+        {
+            jq_img.attr('src', empty_image);
+            
+        }
     }
     
     //function of unselecting selected square
     function unselectBlock()
     {
-        jq.each(selected_td,function(i){
-            unselectSeatInCell(selected_td[i]);
+        jq.each(selected_coords,function(i,val){
+            unselectSeatInCell(val['x']+ '_' + val['y']);
         });
-        selected_td = []; 
+        selected_coords = {}; 
         selecting = true; 
     }
     
     
     //function for toolbar - when changing icon
-    function toolbarUnselect()
+    function hallUnselect()
     {
         unselectBlock();
         unselectSeats();
@@ -416,7 +425,7 @@ jq(window).load(function(){
         {
             if(jq(click).attr('src') == empty_image)
             {
-            var temp =jq('#dropdown_category').val().match(/([0-9]+?)\|([a-zA-Z0-9]+)/);
+            var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
             var category_id = temp[1];
             var category_color=temp[2];
             var coords = jq(click).parent().attr('id').split(/_/);
@@ -436,8 +445,8 @@ jq(window).load(function(){
                 data: dataSend,
                 success: function(response){
                         jq(click).attr('src', function(){
-                            var new_src = red_seat.match(/^(.+)red(\..+)$/);
-                            var filename=new_src[1]+category_color+ new_src[2];
+                            var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
+                            var filename=new_src[1]+category_color+ new_src[3];
                             return filename;
                             })
                         .attr('id', response.id)
@@ -573,15 +582,7 @@ jq(window).load(function(){
                     selected_td.push(tmp);
                         var id = jq(this).attr('id');
                     
-                    if(parseInt(id)>0)
-                    {
-                        selectOneSeat(id); 
-                    }
-                    else
-                    {
-                        jq(this).attr('src',empty_selected);
-                        
-                    }
+                    
                }
                /* else if it's the second time
                   then copy coords
@@ -594,16 +595,7 @@ jq(window).load(function(){
                     var tmp = jq(click).parent().attr('id');
                     selected_td.push(tmp);
                     var id = jq(this).attr('id');
-                    if(id>0)
-                    {
-                        selectOneSeat(id); 
-                    }
-                    else
-                    {
-                        jq(this).attr('src',empty_selected);
-                        
-                    }
-                    selectBlock(selected_td);
+                    selectBlock();
                     selecting=false;
                     unselecting = true;
                }
@@ -662,7 +654,8 @@ jq(window).load(function(){
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
-        toolbarUnselect();
+        jq('#square_actions').hide();
+        hallUnselect();
         
     }
     
@@ -673,7 +666,8 @@ jq(window).load(function(){
         jq('#square').attr('src', icon_squere_normal );
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
-        jq('#info_image').attr('src', icon_info_normal); 
+        jq('#info_image').attr('src', icon_info_normal);
+         
     }
 /* **************************************************************** 
 **************************************************************** */   
@@ -720,6 +714,9 @@ jq(window).load(function(){
         action = 'square';
         hideExtra();        
         unselectIcons();
+        jq('#square_actions').show();
+        jq('#edit_categories').show();
+        jq('#div_dropdown_category').show(); 
 
         jq(this).attr('src', icon_squere_selected );
         
@@ -901,7 +898,7 @@ function getCategoriesListForGroup()
                         success: function(response){
                             jq.each(selected_id, function(i,value){
                                 jq('#' + value).attr('src', function(){
-                                    var new_src = red_seat.match(/^(.+)red(\..+)$/);
+                                    var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
                                     var filename=new_src[1]+color+ new_src[2];
                                     return filename;
                                 });
@@ -1072,6 +1069,7 @@ function deleteCategory(id)
         });
     }
     
+    
     //saving updated category 
     jq('#edit_category_window >  a.save').click(function(){
         var action = 'update_category';
@@ -1104,5 +1102,38 @@ function deleteCategory(id)
         jq('#edit_category_window').hide();
         
     });
+
+/* *************************************************************************
+ Square actions
+************************************************************************* */
+function square_add()
+{
+    var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
+    var category_id = temp[1];
+
+    action = 'square_add';
+    var params = {};
+    params['selected_td'] = selected_coords;
+    params['category_id'] = parseInt(category_id);
+
+    var hallid = 1;
+    var dataSend = {'hallid':hallid,'action':action, 'params': params };
+    jq.ajax({
+                 data: dataSend,
+                 success: function(response){
+                    alert('success!');
+                 }
+    });
+    unselectBlock();
+    
+}
+ jq('#square_add').click(function(){
+    jq(this).attr('src',icon_add_selected);
+    if(!jQuery.isEmptyObject(selected_coords))
+        square_add();
+    else
+        alert('You must select square of seats first!');
+ })
+
 
 });

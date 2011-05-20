@@ -159,7 +159,8 @@ Toolbar
     height:25px;
     width: 25px;
 }
-#main  #control_panel #multiple_actions {
+#main  #control_panel #multiple_actions,
+#main  #control_panel #square_actions {
     display:none;
     height:25px;
     width:200px;

@@ -385,5 +385,14 @@
                     throw new Exception('Error upgrading category of the seats!');
         
     }
+    
+    
+    static public function squareAdd($hallid, $params)
+    {
+        if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+            throw new Exception('Error connecting to the Database!');
+        $selected_td = explode(',', $params['seleced_td']);
+        
+    }
 }   
 ?>

@@ -45,6 +45,10 @@
                                     <td class="group_category"><img id="group_category" src="' . SITE_HOST . 'skins/images/icons/change_group.png" title="Change category of selected seats" /></td>
                                     
                                 </tr>
+                                <tr id="square_actions">
+                                    <td><img id="square_add" src="' . SITE_HOST . 'skins/images/icons/001_01.png" title="Add seats" /></td>
+                                    
+                                </tr>
                                </table>
                                <div id="div_dropdown_category">
                                   <img src="skins/images/loading.gif" />
