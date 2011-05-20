@@ -89,6 +89,7 @@ function getSeatCategory()
                 success: function(response){
                         var options = '<select id="dropdown_category" >';
                         jq.each(response.seatcategory,function(){
+                            if(this.type.seatcategory_id != '')
                             options += '<option  value="'+this.type.seatcategory_id 
                                         +'|'+this.type.seatcolor+'">\'' + this.type.name + '\' color:' + this.type.seatcolor + '</option>';
                         });
@@ -1011,7 +1012,7 @@ function editCategoryWindow(id)
 }
 
     
-    jq('#window_list_categories a.edit').live('click', function(e){
+    jq('#window_list_categories a.edit').live('click', function(){
         var id =jq(this).attr('id') ;
         editCategoryWindow(id);
     });
@@ -1034,6 +1035,7 @@ function deleteCategory(id)
     jq.ajax({ 
         data: dataSend,
         success: function(response){
+            categoryUpdate();
                     
         },
         error: function(response){
@@ -1041,7 +1043,7 @@ function deleteCategory(id)
         }
         
     });
-    categoryUpdate();
+    
     }   
 }
 
@@ -1049,6 +1051,7 @@ function deleteCategory(id)
 
 // assigning methods to dynamically created list of categories     
     jq('#window_list_categories a.delete').live('click', function(e){
+        
         var id =jq(this).attr('id') ;
         deleteCategory(id);
     }); 
