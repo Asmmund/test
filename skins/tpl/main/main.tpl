@@ -30,7 +30,7 @@
     </div>
     
     <div id="add_category">
-        Name: <input type="text" size="20" id="name" /> <br />
+        Name: <input type="text" size="20" id="name" /><br />
         Color: <select id="color">
                <option value="green">Green</option>
                <option value="red">Red</option>
@@ -43,9 +43,9 @@
     </div>
 
     <div id="edit_category_window">
-         <input type="hidden" id="seatcategory_id" value="" />
-        Name: <input type="text" size="20" id="name" /> <br />
-        Color: <select id="color">
+         <input type="hidden" id="edit_category_window_seatcategory_id" value="" />
+        Name: <input type="text" size="20" id="edit_category_window_name" /> <br />
+        Color: <select id="edit_category_window_color">
                <option value="green">Green</option>
                <option value="red">Red</option>
                <option value="blue">Blue</option>

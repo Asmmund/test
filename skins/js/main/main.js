@@ -64,7 +64,7 @@ function isTdId(string)
 {
     var numericExpression = /^-?[0-9]+_-?[0-9]+$/;
    
-    return numericExpression.test(string)  != false;
+    return numericExpression.test(string);
 
     
 }
@@ -72,7 +72,7 @@ function isTdId(string)
 function isImgId(id)
 {
     var numericExpression = /^[0-9]+$/;
-    return (numericExpression.test(id)) != false; 
+    return numericExpression.test(id); 
     
 }
 
@@ -106,7 +106,7 @@ function getSeatCategory()
 // Get list of categories
 function windowListCategories()
 {
-    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
+    jq('#window_list_categories').html(ajax_load);
     var params =  {};
     var action = 'seat_category';
     var dataSend = {'hallid':1, 'action':action, 'params':params};
@@ -123,7 +123,7 @@ function windowListCategories()
                         });
                     list += '</ul>';
                     
-                    jq('#window_edit_categories>#window_list_categories').html(list);
+                    jq('#window_list_categories').html(list);
                     
                     
 
@@ -157,7 +157,7 @@ function categoryUpdate()
     function selectOneSeat(id)
     {
         if(!isImgId(id)) alert('Incorrect value passed to selectOneSeat(id)');
-        var jq_id = jq('#grid #table tr td #'+id);
+        var jq_id = jq('#'+id);
         jq_id.attr('src', function(i, val){
                     var new_src = val.match(/^(.+)(\..+)$/);
                     var filename=new_src[1]+ '_selected' + new_src[2];
@@ -169,7 +169,7 @@ function categoryUpdate()
     function unselectOneSeat(id)
     {
         if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
-        var jq_id = jq('#grid #table tr td #'+id);
+        var jq_id = jq('#'+id);
                 var old_src = jq_id.attr('src') ;
                 jq_id.attr('src', function(i,val){
                     var new_src = val.match(/^(.+)_selected(.+)$/);
@@ -185,7 +185,7 @@ function categoryUpdate()
         if(!isImgId(id)) alert('Incorrect value passed to is_selected(id)');
         
         var bool = false;
-        var old_src = jq('#grid #table tr td #'+id).attr('src') ;
+        var old_src = jq('#'+id).attr('src') ;
         if( (old_src == green_seat_selected) || (old_src == blue_seat_selected) 
             ||(old_src == red_seat_selected) || (old_src == yellow_seat_selected)
             ||(old_src == violet_seat_selected)) bool = true;
@@ -274,7 +274,7 @@ function categoryUpdate()
     
     
 /* when file is loaded*/
-jq(document).ready(function(){
+jq(window).load(function(){
 
     //adding fow before the first one
     //loading seatcategory from db
@@ -283,24 +283,25 @@ jq(document).ready(function(){
 //editing hall size
 /////////////////////////////////////////////////////////////////////   
     jq('#up_arrow').click(function(){
-        var parent= jq('#table > tbody>tr:first-child>td:first-child');
+        var img = jq('#table > tbody>tr:first-child>td:first-child> img');
         
-        var id_td = parent.attr('id');
+        var id_td = img.parent().attr('id');
 
-         var hallid = jq('#table > tbody>tr:first-child>td:first-child>img').attr('alt');
+         var hallid = img.attr('alt');
 
          var temp = id_td.match(/(-?[0-9]+)_(-?[0-9]+)/);
 
         var new_x = parseInt(temp[1])-1;
         var new_y =  parseInt(temp[2]);
+        var first_tr =jq('#table > tbody>tr:first-child'); 
         
-        jq('#table > tbody>tr:first-child').clone(true).insertBefore('#table > tbody>tr:first-child');
-        
-        
-        
+        first_tr.clone(true).insertBefore('#table > tbody>tr:first-child');
         
         
-        jq('#table > tbody>tr:first-child>td>img').each(function(index,val){
+        
+        var for_each = jq('#table > tbody>tr:first-child>td>img');
+        
+        for_each.each(function(){
            
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
@@ -319,16 +320,20 @@ jq(document).ready(function(){
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
         //getting the hallid
-        var parent = jq("#table > tbody>tr:first-child> td:last-child");
-        var hallid = jq("#table > tbody>tr:first-child> td:last-child> img").attr('alt');
-        var id_td = parent.attr('id');
+        var img = jq("#table > tbody>tr:first-child> td:last-child>img");
+        
+        var hallid = img.attr('alt');
+        var id_td = img.parent().attr('id');
         var temp = id_td.match(/(-?[0-9]+)_(-?[0-9]+)/);
         var new_x = parseInt(temp[1]);
         var new_y =  parseInt(temp[2])+1;
+        var tr_td =jq("#table>tbody>tr:first-child>td:last-child") 
 
-        jq("#table>tbody>tr:first-child>td:last-child").clone(true).insertAfter('#table >tbody>tr>td:last-child');
+        tr_td.clone(true).insertAfter('#table >tbody>tr>td:last-child');
+        
+        var for_each =jq('#table >tbody>tr>td:last-child>img');
 
-        jq('#table >tbody>tr>td:last-child>img').each(function(i){
+        for_each.each(function(){
            jq(this).attr('title', new_x   + '|' + new_y)
                    .attr("src" ,empty_image )
                    .attr('alt',hallid)
@@ -342,18 +347,21 @@ jq(document).ready(function(){
     
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
-        var parent= jq("#table> tbody>tr:first-child> td:first-child");
+        var img = jq("#table> tbody>tr:first-child> td:first-child> img");
         //getting the hallid
-        var hallid =jq("#table> tbody>tr:first-child> td:first-child> img").attr('alt');
+        var hallid =img.attr('alt');
         
-        var first = parent.attr('id');
+        var first = img.parent().attr('id');
          var temp = first.match(/(-?[0-9]+)_(-?[0-9]+)/);
         var new_x = parseInt(temp[1]);
         var new_y =  parseInt(temp[2])-1;
+        var tr_td = jq("#table>tbody>tr:first-child>td:first-child");
  
-        jq("#table>tbody>tr:first-child>td:first-child").clone(true).insertBefore('#table >tbody>tr>td:first-child');
+        tr_td.clone(true).insertBefore('#table >tbody>tr>td:first-child');
         
-        jq('#table >tbody>tr >td:first-child > img').each(function(i){
+        var for_each = jq('#table >tbody>tr >td:first-child > img');
+        
+        for_each.each(function(i){
             var row = i + new_x;
            jq(this).attr('title', row   + '|' + new_y)
                    .attr("src" ,empty_image )
@@ -367,17 +375,19 @@ jq(document).ready(function(){
     //adding row after the last one
     jq('#down_arrow').click(function(){
         //getting the hallid
-        var parent =jq('#table > tbody>tr:last-child >td:first-child'); 
-        var hallid = jq('#table > tbody>tr:last-child >td:first-child> img').attr('alt');
+        var img =jq('#table > tbody>tr:last-child >td:first-child img'); 
+        var hallid = img.attr('alt');
         //getting the last row 
-        var id_td = parent.attr('id');
+        var id_td = img.parent().attr('id');
 
         var temp = id_td.match(/(-?[0-9]+)_(-?[0-9]+)/);;
         var new_x = parseInt(temp[1])+1;
         var new_y =  parseInt(temp[2]);
+        var tr_td = jq('#table > tbody>tr:last-child');
         
-        jq('#table > tbody>tr:last-child').clone(true).insertAfter('#table > tbody>tr:last-child');
-        jq('#table > tbody>tr:last-child > td >img').each(function(index){
+        tr_td.clone(true).insertAfter('#table > tbody>tr:last-child');
+        var for_each = jq('#table > tbody>tr:last-child > td >img');
+        for_each.each(function(){
            
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
@@ -395,7 +405,7 @@ jq(document).ready(function(){
 //actions when clicked on seat
 /////////////////////////////////////////////////////////////////////    
     // if the seat is pressed
-    jq('#table .seat').click(function(){
+    jq('#table img.seat').click(function(){
 
         //save the referense to clicked image
         var click = this;
@@ -405,10 +415,10 @@ jq(document).ready(function(){
         {
             if(jq(click).attr('src') == empty_image)
             {
-            var temp =jq('#div_dropdown_category > #dropdown_category').val().match(/([0-9]+?)\|([a-zA-Z0-9]+)/);
+            var temp =jq('#dropdown_category').val().match(/([0-9]+?)\|([a-zA-Z0-9]+)/);
             var category_id = temp[1];
             var category_color=temp[2];
-            var coords = jq(click).attr('title').split(/[|]/);
+            var coords = jq(click).parent().attr('id').split(/_/);
             var params ={};
             params['x']  = coords[0];
             params['y'] = coords[1];
@@ -503,11 +513,10 @@ jq(document).ready(function(){
                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
-                var boxes_window = jq('#boxes .window');
+                var boxes_window = jq('#dialog');
                 //Set the popup window to center
-                boxes_window.css('z-index','1').show()
-                    .css('top',  winH/2-boxes_window.height())
-                    .css('left', winW/2-boxes_window.width());
+                boxes_window.css('top',  winH/2-boxes_window.height())
+                    .css('left', winW/2-boxes_window.width()).show();
                 
                 var tag = jq(click).attr('title').match(/(.*?)\|(.*?)L:(.*)/);
     
@@ -515,21 +524,21 @@ jq(document).ready(function(){
                 
                 var row = tag[1];
                 var number = tag[2];
-                jq('#boxes #dialog #label').val(label);
+                jq('#label').val(label);
      
                  //showing window
                 boxes_window.show();
                 
-                jq('#boxes #dialog .cancel').click(function() {
+                jq('#dialog div.cancel').click(function() {
                     boxes_window.hide();
                 });
 
                 // closing window
-                jq('#boxes #dialog .save').click(function()
+                jq('#dialog div.save').click(function()
                 {
                     var action = 'update_info';
                     var params =  {};
-                    params['label'] = jq('#dialog #label').val();
+                    params['label'] = jq('#label').val();
                     params['row'] = row;
                     params['number'] = number;
                     params['id'] = jq(click).attr('id');
@@ -540,7 +549,7 @@ jq(document).ready(function(){
                         data: dataSend,
                         success: function(response){
                             jq(click).attr('title', response.title);
-                            jq('#boxes .window').hide();
+                            jq('#boxes div.window').hide();
                             
                         }
                     });
@@ -622,9 +631,8 @@ jq(document).ready(function(){
                 var winW = jq(window).width();
                 //Set the popup window to center
                 var window_edit_categories =jq('#window_edit_categories'); 
-                window_edit_categories.css('z-index','1').show()
-                    .css('top',  winH/2-window_edit_categories.height())
-                    .css('left', winW/2-window_edit_categories.width());
+                window_edit_categories.css('top',  winH/2-window_edit_categories.height())
+                    .css('left', winW/2-window_edit_categories.width()).show();
                     
                     
 
@@ -633,7 +641,7 @@ jq(document).ready(function(){
 
     });
     
-    jq('#window_edit_categories > .close').click(function(){
+    jq('#window_edit_categories  a.close').click(function(){
         jq('#window_edit_categories').hide();
     });
     
@@ -648,8 +656,8 @@ jq(document).ready(function(){
     //function of hiding exta windows. as the default hides all windows
     function hideExtra()
     {
-        jq('#boxes .window').hide();
-        jq('#main  #control_panel #multiple_actions').hide();
+        jq('#dialog').hide();
+        jq('#multiple_actions').hide();
         jq('#div_dropdown_category').hide(); 
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
@@ -660,27 +668,27 @@ jq(document).ready(function(){
     //function of normalizing all icons
     function unselectIcons()
     {
-        jq('#control_panel .select #select_image').attr('src', icon_select_normal);
-        jq(' #control_panel .square #square').attr('src', icon_squere_normal );
-        jq('#control_panel .add #add_image').attr('src',icon_add_normal );
-        jq('#control_panel .remove #remove_image').attr('src', icon_remove_normal);
-        jq('#control_panel .info #info_image').attr('src', icon_info_normal); 
+        jq('#select_image').attr('src', icon_select_normal);
+        jq('#square').attr('src', icon_squere_normal );
+        jq('#add_image').attr('src',icon_add_normal );
+        jq('#remove_image').attr('src', icon_remove_normal);
+        jq('#info_image').attr('src', icon_info_normal); 
     }
 /* **************************************************************** 
 **************************************************************** */   
 
    //if the select icon is pressed
-   jq('#control_panel .select').click(function(){
+   jq('#select_image').click(function(){
         action = 'select_seat';
         hideExtra();
         unselectIcons();
-        jq('#main  #control_panel #multiple_actions').show();
+        jq('#multiple_actions').show();
 
         jq('#select_image').attr('src', icon_select_selected);
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
-    jq('#control_panel .add #add_image').click(function(){
+    jq('#add_image').click(function(){
         action = 'add_seat';
         hideExtra();
         unselectIcons();
@@ -691,7 +699,7 @@ jq(document).ready(function(){
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
-    jq('#control_panel .remove #remove_image').click(function(){
+    jq('#remove_image').click(function(){
         action = 'remove_seat';
          hideExtra();
         unselectIcons();
@@ -699,7 +707,7 @@ jq(document).ready(function(){
         jq(this).attr('src', icon_remove_selected );
     });
     
-    jq('#control_panel .info #info_image').click(function(){
+    jq('#info_image').click(function(){
        action = 'update_info';
         hideExtra();
         unselectIcons();
@@ -707,7 +715,7 @@ jq(document).ready(function(){
         jq(this).attr('src', icon_info_selected); 
     });
 
-    jq('#control_panel .square #square').click(function(){
+    jq('#square').click(function(){
         action = 'square';
         hideExtra();        
         unselectIcons();
@@ -721,14 +729,13 @@ jq(document).ready(function(){
 //Group toolbar
 /////////////////////////////////////////////////////////////////////
                 //deleting selected seats
-                jq('#main  #control_panel #multiple_actions .group_delete #group_delete').click(function(){
+                jq('#group_delete').click(function(){
                     if(selected_id != '')
                     {
                         var q = confirm('Are you sure you want to delete selected seats?');
                         if(q)
                     {
-                        var delete_group = jq(this);
-                        
+                    jq(this).attr('src',icon_delete_group_selected);    
                     var action = 'delete_seats';
                     var params =  {};
                     params['selected'] = selected_id.toString();
@@ -761,34 +768,35 @@ jq(document).ready(function(){
 
                 
                 //changing label of the group
-                jq('#main  #control_panel #multiple_actions .group_label #group_label').click(function(){
+                jq('#group_label').click(function(){
                     if(selected_id != '')
                     {
-                    jq(this).attr('src', icon_label_group_selected);
+                        click =jq(this); 
+                    click.attr('src', icon_label_group_selected);
                     
                     
                  //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
-                var boxes_window =jq('#boxes .window'); 
+                var boxes_window =jq('#dialog'); 
                 //Set the popup window to center
 
-                boxes_window.css('z-index','1').show()
-                    .css('top',  winH/2-boxes_window.height())
-                    .css('left', winW/2-boxes_window.width());
+                jq('#label').val('Enter label');
                 
-                jq('#boxes #dialog #label').val('Enter label');
-     
-                 //showing window
+                boxes_window.css('top',  winH/2-boxes_window.height())
+                    .css('left', winW/2-boxes_window.width()).show();
+                
 
-                boxes_window.show();
+     
+
                 
-                jq('#boxes #dialog .cancel').click(function() {
+                jq('#dialog div.cancel').click(function() {
                     boxes_window.hide();
+                    click.attr('src',icon_label_group);
                 });
 
                 // 
-                jq('#boxes #dialog .save').click(function()
+                jq('#dialog div.save').click(function()
                 {
                     var action = 'update_labels';
                     var hallid = 1;
@@ -812,7 +820,7 @@ jq(document).ready(function(){
                             
                             selected_id.length = 0;
                             boxes_window.hide();
-                            jq(this).attr('src',icon_label_group);
+                            click.attr('src',icon_label_group);
 
                             
                         }
@@ -834,7 +842,8 @@ jq(document).ready(function(){
 //function of getting seatcategories
 function getCategoriesListForGroup()
 {
-   jq('#select_category_for_group .list').html(ajax_load);
+    var list = jq('#select_category_for_group p.list');
+   list.html(ajax_load);
    var params =  {};
    params['id'] = 1;
     var action = 'seat_category';
@@ -851,37 +860,33 @@ function getCategoriesListForGroup()
                         options += '</select>';
                         
                         //output the select content
-                        jq('#select_category_for_group .list').html(options);
+                        list.html(options);
                 }
             });
 } 
                 //change category onclick
-                jq('#main  #control_panel #multiple_actions .group_category #group_category').click(function(){
+                jq('#group_category').click(function(){
                     if(selected_id != '')
                     {
-                        var icon_categories =jq('#main  #control_panel #multiple_actions .group_category #group_category'); 
+                        var click =jq(this); 
 
-                    jq(this).attr('src', icon_category_group_selected);
+                    click.attr('src', icon_category_group_selected);
                     var winH = jq(window).height();
                     var winW = jq(window).width();
-                    var boxes_select_category_for_group =jq('#boxes #select_category_for_group'); 
+                    var boxes_select_category_for_group =jq('#select_category_for_group'); 
                     //Set the popup window to center
-                    boxes_select_category_for_group.css('z-index','1').show()
-                    .css('top',  winH/2-boxes_select_category_for_group.height())
-                    .css('left', winW/2-boxes_select_category_for_group.width());
+                    boxes_select_category_for_group.css('top',  winH/2-boxes_select_category_for_group.height())
+                    .css('left', winW/2-boxes_select_category_for_group.width()).show();
                     
-                    
-
-                boxes_select_category_for_group.show();
                 getCategoriesListForGroup();
                 
                 
-                jq('#boxes #select_category_for_group > .save').click(function(){
+                jq('#select_category_for_group  a.save').click(function(){
                   
                     var action = 'change_category';
                     var hallid = 1;
                     var params =  {};
-                    var category_string = jq('#select_category_for_group .list #selected_category').val();
+                    var category_string = jq('#selected_category').val();
                     var category_array = category_string.match(/([0-9]+)\|(.+)/);
                     var color = category_array[2];
 
@@ -900,20 +905,21 @@ function getCategoriesListForGroup()
                                     return filename;
                                 });
                                 boxes_select_category_for_group.hide();  
-                                icon_categories.attr('src', icon_category_group);
+                                click.attr('src', icon_category_group);
 
                                    });
                             
                             selected_id.length = 0;
-                            jq('#boxes .window').hide();
+                            boxes_select_category_for_group.hide();
+                            click.attr('src', icon_category_group);
                         }
                     });                  
                   
                   
                });
 
-               jq('#boxes #select_category_for_group > .close').click(function(){
-                  jq('#boxes #select_category_for_group').hide();
+               jq('#select_category_for_group  a.close').click(function(){
+                  boxes_select_category_for_group.hide();
                });
                
                }
@@ -927,26 +933,25 @@ function getCategoriesListForGroup()
 //adding new category
 /////////////////////////////////////////////////////////////////////
 //window for adding category
-    jq('#window_edit_categories > .add_category').click(function(){
+    jq('#window_edit_categories a.add_category').click(function(){
                 var winH = jq(window).height()+ 10;
                 var winW = jq(window).width()+ 10;
-                var add_category = jq('#boxes > #add_category'); 
+                var add_category = jq('#add_category'); 
                 //Set the popup window to center
-                add_category.css('z-index','1').show()
-                    .css('top',  winH/2.2-add_category.height())
-                    .css('left', winW/1.5-add_category.width());
-                jq('#add_category > #name').val('New category name');
-                jq('#add_category > #color').val('');
+                jq('#name').val('New category name');
+                jq('#color').val('');
 
-                add_category.show();
+                add_category.css('top',  winH/2.2-add_category.height())
+                    .css('left', winW/1.5-add_category.width()).show();
 
     });
 
-    jq('#add_category > .save').click(function(){
+    jq('#add_category a.save').click(function(){
+        var add_category = jq('#add_category');
         var action = 'add_category';
         var params =  {};
-        params['name'] = jq('#add_category > #name').val();
-        params['color'] = jq('#add_category > #color').val();
+        params['name'] = jq('#name').val();
+        params['color'] = jq('#color').val();
         
         var hallid = 1;
                 
@@ -960,11 +965,12 @@ function getCategoriesListForGroup()
                      }
                  });
 
+        jq('#add_category a.close').click(function(){
+            add_category.hide();
+        });
+
     });
     
-    jq('#add_category >  .close').click(function(){
-        jq('#boxes > #add_category').hide();
-    });
 
 
     
@@ -981,10 +987,9 @@ function editCategoryWindow(id)
     var winH = jq(window).height()-50;
     var winW = jq(window).width()+ 10;
     //Set the popup window to center
-    var edit_category_window = jq('#boxes > #edit_category_window');
-    edit_category_window.css('z-index','1').show()
-        .css('top',  winH/2.2-edit_category_window.height())
-        .css('left', winW/1.5-edit_category_window.width());
+    var edit_category_window = jq('#edit_category_window');
+    edit_category_window.css('top',  winH/2.2-edit_category_window.height())
+        .css('left', winW/1.5-edit_category_window.width()).show();
       
         var action = 'get_category_info';
         var params =  {};
@@ -996,17 +1001,17 @@ function editCategoryWindow(id)
         jq.ajax({
                  data: dataSend,
                  success: function(response){
-                     jq('#edit_category_window > #name').val(response.name);
-                     jq('#edit_category_window > #color').val(response.seatcolor);
+                     jq('#edit_category_window_name').val(response.name);
+                     jq('#edit_category_window_color').val(response.seatcolor);
                      old_seatcolor = response.seatcolor;
-                     jq('#edit_category_window > #seatcategory_id').val(id);
+                     jq('#edit_category_window_seatcategory_id').val(id);
                      edit_category_window.show();
                  }
         });
 }
 
     
-    jq('#window_edit_categories>#window_list_categories .list .edit').live('click', function(e){
+    jq('#window_list_categories a.edit').live('click', function(e){
         var id =jq(this).attr('id') ;
         editCategoryWindow(id);
     });
@@ -1020,7 +1025,7 @@ function deleteCategory(id)
     var q = confirm('Are you sure?');
     if(q)
     {
-    jq('#window_edit_categories>#window_list_categories').html(ajax_load);
+    jq('#window_list_categories').html(ajax_load);
         
     var params =  {};
     params['id'] = id;
@@ -1032,7 +1037,7 @@ function deleteCategory(id)
                     
         },
         error: function(response){
-            alert('There are seats of this category!');
+            alert('Error deleting category! Category deleted can\'t contain any seats.');
         }
         
     });
@@ -1043,7 +1048,7 @@ function deleteCategory(id)
 
 
 // assigning methods to dynamically created list of categories     
-    jq('#window_edit_categories>#window_list_categories .list .delete').live('click', function(e){
+    jq('#window_list_categories a.delete').live('click', function(e){
         var id =jq(this).attr('id') ;
         deleteCategory(id);
     }); 
@@ -1057,43 +1062,43 @@ function deleteCategory(id)
     {
         var old_img_src = 'skins/images/seat/' + old_seatcolor + '.jpg';
         var new_img_src = 'skins/images/seat/' + new_seatcolor + '.jpg';
-        jq('#grid >#table>tbody>  tr > td img').each(function(e){
+        var all_seats = jq('#grid >#table>tbody>  tr > td img');
+        all_seats.each(function(e){
            if( jq(this).attr('src') == old_img_src)
                jq(this).attr('src', new_img_src);
         });
     }
     
     //saving updated category 
-    jq('#edit_category_window >  .save').click(function(){
-        
+    jq('#edit_category_window >  a.save').click(function(){
         var action = 'update_category';
         var params =  {};
-        params['id'] = jq('#edit_category_window > #seatcategory_id').val();
-        params['name'] = jq('#edit_category_window > #name').val();
-        params['seatcolor'] = jq('#edit_category_window > #color').val();
+        params['id'] = jq('#edit_category_window_seatcategory_id').val();
+        params['name'] = jq('#edit_category_window_name').val();
+        params['seatcolor'] = jq('#edit_category_window_color').val();
         var hallid = 1;
         var dataSend = {'hallid':hallid,'action':action, 'params': params };
-        if(old_seatcolor != params['seatcolor'])
-            changedSeatColor(old_seatcolor,params['seatcolor']);
 
         jq.ajax({
                  data: dataSend,
                  success: function(response){
                      categoryUpdate();
-                     jq('#edit_category_window > #name').val('');
-                     jq('#edit_category_window > #color').val('');
-                     jq('#edit_category_window > #seatcategory_id').val('');
-                     jq('#boxes > #edit_category_window').hide();
+                     if(old_seatcolor != params['seatcolor'])
+                         changedSeatColor(old_seatcolor,params['seatcolor']);
+                     jq('#edit_category_window_name').val('');
+                     jq('#edit_category_window_color').val('');
+                     jq('#edit_category_window_seatcategory_id').val('');
+                     jq('#edit_category_window').hide();
                  }
     });
     });
      
 
-    jq('#edit_category_window >  .close').click(function(){
-        jq('#edit_category_window > #name').val('');
-        jq('#edit_category_window > #color').val('');
-        jq('#edit_category_window > #seatcategory_id').val('');
-        jq('#boxes > #edit_category_window').hide();
+    jq('#edit_category_window   a.close').click(function(){
+        jq('#edit_category_window_name').val('');
+        jq('#edit_category_window_color').val('');
+        jq('#edit_category_window_seatcategory_id').val('');
+        jq('#edit_category_window').hide();
         
     });
 
