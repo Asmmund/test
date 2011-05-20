@@ -206,7 +206,7 @@ function categoryUpdate()
         
         var x2 = temp2[1];
         var y2 = temp2[2];
-        unselectBlock();
+        selected_coords = {};
 //        alert(' x1 ' + x1 + ' x2 ' + x2 + '\n y1'+y1 + ' y2 '+y2);
         
         var max_x = Math.max(x1,x2);
@@ -242,7 +242,7 @@ function categoryUpdate()
     //function of unselecting seat by td id
     function unselectSeatInCell(cell)
     {
-        //if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
+        if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
         var jq_img = jq('#' + cell + ' img');
         if(jq_img.attr('id')>0)
         {
@@ -266,7 +266,8 @@ function categoryUpdate()
         jq.each(selected_coords,function(i,val){
             unselectSeatInCell(val['x']+ '_' + val['y']);
         });
-        selected_coords = {}; 
+        selected_coords = {};
+        selected_td.length = 0; 
         selecting = true; 
     }
     
@@ -576,13 +577,18 @@ jq(window).load(function(){
                //first 1X
                //second 1Y
                
-               if(selected_td.length == 0)
+               if( jq.isEmptyObject(selected_coords))
                {
                     var tmp = jq(click).parent().attr('id');
+                    var x_y = tmp.split(/_/)
                     selected_td.push(tmp);
+                    selected_coords[tmp] = {};
+                    selected_coords[tmp]['x'] = x_y[0];
+                    selected_coords[tmp]['y'] = x_y[1];
+                    
                         var id = jq(this).attr('id');
                     
-                    
+                   selecting = true; 
                }
                /* else if it's the second time
                   then copy coords
@@ -602,7 +608,7 @@ jq(window).load(function(){
                else if(unselecting == true)
                {
                 unselectBlock();
-                unselecting = false;
+                selected_td.length=0;
                }
 
                 
