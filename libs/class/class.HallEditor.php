@@ -129,6 +129,10 @@
                 case 'change_category':
                     SeatRepository::changeCategory($hallid, $params);
                     break;
+                    
+                case 'square_add':
+                    SeatRepository::squareAdd($hallid, $params);
+                    break;
                         
                 default:
                     echo 'No such action!';

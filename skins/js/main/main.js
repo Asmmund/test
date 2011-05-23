@@ -178,6 +178,22 @@ function categoryUpdate()
         
     }
     
+    //function of forming link to a seat with specific color
+    function formSeatLink(color, state)
+    {
+        var temp = red_seat.match(/^(.+\/)(_selected)?(\..+)$/);
+        if(state == 'unselect')
+        {
+            return temp[1] + color + temp[3];
+        }
+        else if(state == 'select')
+        {
+            return temp[1] + color + temp[2] + temp[3];
+        }
+        
+    }
+    
+    
     //if the seat is selected
     function is_selected(id)
     {
@@ -1118,14 +1134,27 @@ function clone(obj){
     return temp;
 }
 
-function SelectedTdFilterEmptySeats(selected_coords)
+function SelectedTdFilterSeats(selected_coords, type)
 {
     var objects = clone(selected_coords);
+    if(type == 'empty')
+    {
     jq.each(objects,function(i){
     var img = jq('#' + i + ' img.seat');
-        if(!(img.attr('id') >0))
+        if((img.attr('id') >0))
           delete objects[i];
-    });
+    })
+    }
+    else if (type == 'seats')
+    {
+    jq.each(objects,function(i){
+        var img = jq('#' + i + ' img.seat');
+        if (!(img.attr('id') >0) )
+          delete objects[i];
+    })
+    }
+    
+    
     return objects;
     
 }
@@ -1134,12 +1163,12 @@ function square_add()
 {
     var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
     var category_id = parseInt(temp[1]);
-    var color =temp[2];
-    
+    var seatcolor =temp[2];
+    var for_seats = SelectedTdFilterSeats(selected_coords, 'empty');
  
     action = 'square_add';
     var params = {};
-    params['selected_td'] = SelectedTdFilterEmptySeats(selected_coords);
+    params['selected_td'] = for_seats;
 
     params['category_id'] = parseInt(category_id);
 
@@ -1148,11 +1177,21 @@ function square_add()
     jq.ajax({
                  data: dataSend,
                  success: function(response){
-                    alert('success!');
+                    
+                    jq.each(for_seats,function(i,val){
+                       var cell = jq('#'+ i + ' img.seat');
+                       
+                       cell.attr('src', function(){
+                       var temp = red_seat.match(/^(.+).{3}(\..+)$/);
+                       return temp[1] + seatcolor + temp[2];
+                           
+                       });
+                    });
                  }
     });
+                    unselectBlock();
     
-    unselectBlock();
+    
 }
 
 
@@ -1164,8 +1203,9 @@ function square_add()
         square_add();
     else
         alert('You must select square of seats first!');
- })
-    jq(this).attr('src',icon_add_normal);
+     jq(this).attr('src',icon_add_normal);
 
+ })
+   
 
 });

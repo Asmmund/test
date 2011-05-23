@@ -389,9 +389,39 @@
     
     static public function squareAdd($hallid, $params)
     {
-        if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
-            throw new Exception('Error connecting to the Database!');
-        $selected_td = $params['seleced_td'];
+            try
+            {
+                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                $selected_td = $params['selected_td'];
+
+                $query = "INSERT INTO `seat`( `hall_id`,`x`, `y`, 
+                         `label`,`row`,`number`,`delimiter`, `category_id`)
+                          VALUES " ;
+                          
+                foreach($selected_td as $cell)
+                {
+                    $query .= "(" . $hallid . ", '" . (int)$cell['x'] . "','" . (int)$cell['y'] . "',
+                            'New Seat', '1','1', '/', " . (int)$params['category_id'] . " ) ,";
+                }
+                $query = rtrim($query, ',');
+                $query .= ";";
+                
+
+
+               if($ids = $connect->exec($query))
+                   echo '{"success":"true"}' ;
+               else
+                    throw new Exception('Error adding square of seats!');
+                    
+                
+               $connect = null;
+               
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
         
     }
 }   
