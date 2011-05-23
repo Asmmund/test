@@ -171,8 +171,8 @@ function categoryUpdate()
     {
         if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
                 jq('#'+id).attr('src', function(i,val){
-                    var new_src = val.match(/^(.+)(_selected)?(\..+)$/);
-                    var filename=new_src[1] + new_src[3];
+                    var new_src = val.match(/^(.+)_selected(\.jpg)$/);
+                    var filename=new_src[1] + new_src[2];
                     return filename;
                 })
         
@@ -199,13 +199,10 @@ function categoryUpdate()
     {
         if(!isImgId(id)) alert('Incorrect value passed to is_selected(id)');
         
-        var bool = false;
         var old_src = jq('#'+id).attr('src') ;
-        if( (old_src == green_seat_selected) || (old_src == blue_seat_selected) 
-            ||(old_src == red_seat_selected) || (old_src == yellow_seat_selected)
-            ||(old_src == violet_seat_selected)) bool = true;
-            
-        return bool;    
+        var selected_src = /^.+_selected\.jpg$/;
+        
+        return selected_src.test(old_src);
         
     }
     //function for selecting square of seats
