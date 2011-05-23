@@ -593,8 +593,6 @@ jq(window).load(function(){
                     var x_y = tmp.split(/_/)
                     selected_coords[1] = x_y[0];
                     selected_coords[2] = x_y[1];
-                    
-                    
                    selecting = true; 
                }
                /* else if it's the second time
@@ -618,6 +616,9 @@ jq(window).load(function(){
                else if(unselecting == true)
                {
                 unselectBlock();
+                selecting=true;
+                unselecting=false;
+                 selected_coords = {};
                }
 
                 
@@ -1196,11 +1197,15 @@ function square_add()
 
  jq('#square_add').click(function(){
     jq(this).attr('src',icon_add_selected);
-    if(!jQuery.isEmptyObject(selected_coords))
+    if(!jq.isPlainObject(selected_coords))
         square_add();
     else
         alert('You must select square of seats first!');
      jq(this).attr('src',icon_add_normal);
+                     selecting=true;
+                unselecting=false;
+                selected_coords = null;
+
 
  })
    
