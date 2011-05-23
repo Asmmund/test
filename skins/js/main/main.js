@@ -8,7 +8,7 @@ var action = 'add_seat';
 var ajax_load = '<img src="skins/images/loading.gif" />';
 //pool for id's of selected seats
 var selected_id = new Array();
-var selected_td = new Array();
+
 var selected_coords = {};
 var selecting = true; 
 var unselecting = false;
@@ -170,9 +170,8 @@ function categoryUpdate()
     function unselectOneSeat(id)
     {
         if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
-        var jq_id = jq('#'+id);
-                jq_id.attr('src', function(i,val){
-                    var new_src = val.match(/^(.+)(_selected)?(.+)$/);
+                jq('#'+id).attr('src', function(i,val){
+                    var new_src = val.match(/^(.+)(_selected)?(\..+)$/);
                     var filename=new_src[1] + new_src[3];
                     return filename;
                 })
@@ -197,15 +196,11 @@ function categoryUpdate()
   function selectBlock()
     {
 //      alert(block);
-        var temp1 =selected_td[0].match(/(-?[0-9]+)_(-?[0-9]+)/)
-        if(!temp1) alert('Error in selectBlock(block) at x1 y1');
-        var x1 = temp1[1];
-        var y1 = temp1[2];
-        var temp2 =selected_td[1].match(/(-?[0-9]+)_(-?[0-9]+)/)
-        if(!temp2) alert('Error in selectBlock(block) at x2 y2');
+        var x1 = selected_coords[1];
+        var y1 = selected_coords[2];
         
-        var x2 = temp2[1];
-        var y2 = temp2[2];
+        var x2 = selected_coords[3];
+        var y2 = selected_coords[4];
         selected_coords = {};
 //        alert(' x1 ' + x1 + ' x2 ' + x2 + '\n y1'+y1 + ' y2 '+y2);
         
@@ -221,7 +216,7 @@ function categoryUpdate()
         {
             var seat_id = i + '_'+j;
             if(!isTdId(seat_id)) alert('Error parsing values at selectBlock()!');
-            var img = jq('#' + seat_id + ' img'); 
+            var img = jq('#' + seat_id + ' img.seat'); 
 //            alert('#' + i + '_'+j);
             if(img.attr('id') > 0)
             {
@@ -243,7 +238,7 @@ function categoryUpdate()
     function unselectSeatInCell(cell)
     {
         if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
-        var jq_img = jq('#' + cell + ' img');
+        var jq_img = jq('#' + cell + ' img.seat');
         if(jq_img.attr('id')>0)
         {
             jq_img.attr('src', function(i, val){
@@ -267,7 +262,7 @@ function categoryUpdate()
             unselectSeatInCell(val['x']+ '_' + val['y']);
         });
         selected_coords = {};
-        selected_td.length = 0; 
+        
         selecting = true; 
     }
     
@@ -294,7 +289,7 @@ jq(window).load(function(){
 //editing hall size
 /////////////////////////////////////////////////////////////////////   
     jq('#up_arrow').click(function(){
-        var img = jq('#table > tbody>tr:first-child>td:first-child> img');
+        var img = jq('#table > tbody>tr:first-child>td:first-child> img.seat');
         
         var id_td = img.parent().attr('id');
 
@@ -310,7 +305,7 @@ jq(window).load(function(){
         
         
         
-        var for_each = jq('#table > tbody>tr:first-child>td>img');
+        var for_each = jq('#table > tbody>tr:first-child>td>img.seat');
         
         for_each.each(function(){
            
@@ -331,7 +326,7 @@ jq(window).load(function(){
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
         //getting the hallid
-        var img = jq("#table > tbody>tr:first-child> td:last-child>img");
+        var img = jq("#table > tbody>tr:first-child> td:last-child>img.seat");
         
         var hallid = img.attr('alt');
         var id_td = img.parent().attr('id');
@@ -342,7 +337,7 @@ jq(window).load(function(){
 
         tr_td.clone(true).insertAfter('#table >tbody>tr>td:last-child');
         
-        var for_each =jq('#table >tbody>tr>td:last-child>img');
+        var for_each =jq('#table >tbody>tr>td:last-child>img.seat');
 
         for_each.each(function(){
            jq(this).attr('title', new_x   + '|' + new_y)
@@ -358,7 +353,7 @@ jq(window).load(function(){
     
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
-        var img = jq("#table> tbody>tr:first-child> td:first-child> img");
+        var img = jq("#table> tbody>tr:first-child> td:first-child> img.seat");
         //getting the hallid
         var hallid =img.attr('alt');
         
@@ -370,7 +365,7 @@ jq(window).load(function(){
  
         tr_td.clone(true).insertBefore('#table >tbody>tr>td:first-child');
         
-        var for_each = jq('#table >tbody>tr >td:first-child > img');
+        var for_each = jq('#table >tbody>tr >td:first-child > img.seat');
         
         for_each.each(function(i){
             var row = i + new_x;
@@ -386,7 +381,7 @@ jq(window).load(function(){
     //adding row after the last one
     jq('#down_arrow').click(function(){
         //getting the hallid
-        var img =jq('#table > tbody>tr:last-child >td:first-child img'); 
+        var img =jq('#table > tbody>tr:last-child >td:first-child img.seat'); 
         var hallid = img.attr('alt');
         //getting the last row 
         var id_td = img.parent().attr('id');
@@ -397,7 +392,7 @@ jq(window).load(function(){
         var tr_td = jq('#table > tbody>tr:last-child');
         
         tr_td.clone(true).insertAfter('#table > tbody>tr:last-child');
-        var for_each = jq('#table > tbody>tr:last-child > td >img');
+        var for_each = jq('#table > tbody>tr:last-child > td >img.seat');
         for_each.each(function(){
            
            jq(this).attr('src',empty_image )
@@ -560,7 +555,7 @@ jq(window).load(function(){
                         data: dataSend,
                         success: function(response){
                             jq(click).attr('title', response.title);
-                            jq('#boxes div.window').hide();
+                            jq('#dialog').hide();
                             
                         }
                     });
@@ -581,12 +576,9 @@ jq(window).load(function(){
                {
                     var tmp = jq(click).parent().attr('id');
                     var x_y = tmp.split(/_/)
-                    selected_td.push(tmp);
-                    selected_coords[tmp] = {};
-                    selected_coords[tmp]['x'] = x_y[0];
-                    selected_coords[tmp]['y'] = x_y[1];
+                    selected_coords[1] = x_y[0];
+                    selected_coords[2] = x_y[1];
                     
-                        var id = jq(this).attr('id');
                     
                    selecting = true; 
                }
@@ -599,8 +591,11 @@ jq(window).load(function(){
                else if (selecting == true)
                {
                     var tmp = jq(click).parent().attr('id');
-                    selected_td.push(tmp);
-                    var id = jq(this).attr('id');
+
+                    var x_y = tmp.split(/_/)
+                    selected_coords[3] = x_y[0];
+                    selected_coords[4] = x_y[1];
+
                     selectBlock();
                     selecting=false;
                     unselecting = true;
@@ -608,7 +603,6 @@ jq(window).load(function(){
                else if(unselecting == true)
                {
                 unselectBlock();
-                selected_td.length=0;
                }
 
                 
@@ -635,12 +629,11 @@ jq(window).load(function(){
                     
                     
 
-                window_edit_categories.show();
                 windowListCategories();
 
     });
     
-    jq('#window_edit_categories  a.close').click(function(){
+    jq('#window_edit_categories a.close').click(function(){
         jq('#window_edit_categories').hide();
     });
     
@@ -885,7 +878,7 @@ function getCategoriesListForGroup()
                 getCategoriesListForGroup();
                 
                 
-                jq('#select_category_for_group  a.save').click(function(){
+                jq('#select_category_for_group > a.save').click(function(){
                   
                     var action = 'change_category';
                     var hallid = 1;
@@ -937,7 +930,7 @@ function getCategoriesListForGroup()
 //adding new category
 /////////////////////////////////////////////////////////////////////
 //window for adding category
-    jq('#window_edit_categories a.add_category').click(function(){
+    jq('#window_edit_categories > a.add_category').click(function(){
                 var winH = jq(window).height()+ 10;
                 var winW = jq(window).width()+ 10;
                 var add_category = jq('#add_category'); 
@@ -969,16 +962,16 @@ function getCategoriesListForGroup()
                      }
                  });
 
-        jq('#add_category a.close').click(function(){
-            add_category.hide();
-        });
+        
 
     });
     
 
 
     
-    
+    jq('#add_category a.close').click(function(){
+            jq('#add_category').hide();
+        });
 /////////////////////////////////////////////////////////////////////
 //editing  category
 /////////////////////////////////////////////////////////////////////
@@ -1140,6 +1133,7 @@ function square_add()
     else
         alert('You must select square of seats first!');
  })
+    jq(this).attr('src',icon_add_normal);
 
 
 });
