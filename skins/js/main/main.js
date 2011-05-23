@@ -1107,9 +1107,20 @@ function deleteCategory(id)
 /* *************************************************************************
  Square actions
 ************************************************************************* */
+function clone(obj){
+    if(obj == null || typeof(obj) != 'object')
+        return obj;
+
+    var temp = new obj.constructor(); // changed (twice)
+    for(var key in obj)
+        temp[key] = clone(obj[key]);
+
+    return temp;
+}
+
 function SelectedTdFilterEmptySeats(selected_coords)
 {
-    var objects = selected_coords.clone( true );
+    var objects = clone(selected_coords);
     jq.each(objects,function(i){
     var img = jq('#' + i + ' img.seat');
         if(!(img.attr('id') >0))
@@ -1128,7 +1139,7 @@ function square_add()
  
     action = 'square_add';
     var params = {};
-    //params['selected_td'] = SelectedTdFilterEmptySeats(selected_coords);
+    params['selected_td'] = SelectedTdFilterEmptySeats(selected_coords);
 
     params['category_id'] = parseInt(category_id);
 

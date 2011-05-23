@@ -391,7 +391,7 @@
     {
         if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
             throw new Exception('Error connecting to the Database!');
-        $selected_td = explode(',', $params['seleced_td']);
+        $selected_td = $params['seleced_td'];
         
     }
 }   
