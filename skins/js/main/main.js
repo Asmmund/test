@@ -237,6 +237,7 @@ function categoryUpdate()
     //function of unselecting seat by td id
     function unselectSeatInCell(cell)
     {
+
         if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
         var jq_img = jq('#' + cell + ' img.seat');
         if(jq_img.attr('id')>0)
@@ -246,7 +247,7 @@ function categoryUpdate()
                     var filename=new_src[1]+ new_src[3];
                     return filename;
             
-        }).error(function(){alert(('Error in unselectSeatInCell(cell), not correct image'))});
+        })
         }
         else
         {
@@ -261,8 +262,9 @@ function categoryUpdate()
         jq.each(selected_coords,function(i,val){
             unselectSeatInCell(val['x']+ '_' + val['y']);
         });
-        selected_coords = {};
         
+        
+        selected_coords = {};
         selecting = true; 
     }
     
@@ -1105,14 +1107,29 @@ function deleteCategory(id)
 /* *************************************************************************
  Square actions
 ************************************************************************* */
+function SelectedTdFilterEmptySeats(selected_coords)
+{
+    var objects = selected_coords.clone( true );
+    jq.each(objects,function(i){
+    var img = jq('#' + i + ' img.seat');
+        if(!(img.attr('id') >0))
+          delete objects[i];
+    });
+    return objects;
+    
+}
+
 function square_add()
 {
     var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
-    var category_id = temp[1];
-
+    var category_id = parseInt(temp[1]);
+    var color =temp[2];
+    
+ 
     action = 'square_add';
     var params = {};
-    params['selected_td'] = selected_coords;
+    //params['selected_td'] = SelectedTdFilterEmptySeats(selected_coords);
+
     params['category_id'] = parseInt(category_id);
 
     var hallid = 1;
@@ -1123,9 +1140,13 @@ function square_add()
                     alert('success!');
                  }
     });
-    unselectBlock();
     
+    unselectBlock();
 }
+
+
+
+
  jq('#square_add').click(function(){
     jq(this).attr('src',icon_add_selected);
     if(!jQuery.isEmptyObject(selected_coords))
