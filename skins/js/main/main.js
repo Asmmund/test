@@ -276,9 +276,9 @@ function categoryUpdate()
             unselectSeatInCell(val['x']+ '_' + val['y']);
         });
         
-        
+        selecting = false;
         selected_coords = {};
-        selecting = true; 
+         
     }
     
     
@@ -290,6 +290,15 @@ function categoryUpdate()
     }
     
     
+function numKeys(obj)
+{
+    var count = 0;
+    for(var prop in obj)
+    {
+        count++;
+    }
+    return count;
+}
     
     
     
@@ -586,14 +595,16 @@ jq(window).load(function(){
                // if it's  the first time then create first and second array elements
                //first 1X
                //second 1Y
+               var first;
                
-               if( jq.isEmptyObject(selected_coords))
+               if( numKeys(selected_coords) == 0)
                {
-                    var tmp = jq(click).parent().attr('id');
+                    first = jq(click);
+                    var tmp = first.parent().attr('id');
                     var x_y = tmp.split(/_/)
                     selected_coords[1] = x_y[0];
                     selected_coords[2] = x_y[1];
-                   selecting = true; 
+                    selecting = true;
                }
                /* else if it's the second time
                   then copy coords
@@ -616,9 +627,8 @@ jq(window).load(function(){
                else if(unselecting == true)
                {
                 unselectBlock();
-                selecting=true;
+                selecting=false;
                 unselecting=false;
-                 selected_coords = {};
                }
 
                 
@@ -914,7 +924,7 @@ function getCategoriesListForGroup()
                             jq.each(selected_id, function(i,value){
                                 jq('#' + value).attr('src', function(){
                                     var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
-                                    var filename=new_src[1]+color+ new_src[2];
+                                    var filename=new_src[1]+color+ new_src[3];
                                     return filename;
                                 });
                                 boxes_select_category_for_group.hide();  
@@ -1164,7 +1174,7 @@ function square_add()
     var seatcolor =temp[2];
     var for_seats = SelectedTdFilterSeats(selected_coords, 'empty');
  
-    action = 'square_add';
+    var action = 'square_add';
     var params = {};
     params['selected_td'] = for_seats;
 
@@ -1184,27 +1194,31 @@ function square_add()
                        return temp[1] + seatcolor + temp[2];
                            
                        });
+                       
                     });
                  }
     });
                     unselectBlock();
+                    selecting=false;
+                    unselecting=false;
+                    
     
     
 }
 
 
 
-
  jq('#square_add').click(function(){
-    jq(this).attr('src',icon_add_selected);
-    if(!jq.isPlainObject(selected_coords))
+    if(numKeys(selected_coords) > 3)
+    {
+        jq(this).attr('src',icon_add_selected);
         square_add();
+        jq(this).attr('src',icon_add_normal);
+        selecting=true;
+        unselecting=false;
+    }
     else
         alert('You must select square of seats first!');
-     jq(this).attr('src',icon_add_normal);
-                     selecting=true;
-                unselecting=false;
-                selected_coords = null;
 
 
  })
