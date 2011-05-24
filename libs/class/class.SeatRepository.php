@@ -353,7 +353,7 @@
                $stmt= $connect->prepare($query);
                
                if($stmt->execute(array(':label' => $params['label'], ':hallid'=>$hallid)))
-                   echo '{"success":"true"}';
+                   echo '{"success":"true", "label":"' . $params['label'] . '"}';
                else
                     throw new Exception('Error upgrading label of the seats!');
                

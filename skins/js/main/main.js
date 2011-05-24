@@ -273,7 +273,9 @@ function categoryUpdate()
     function unselectBlock()
     {
         jq.each(selected_coords,function(i,val){
-            unselectSeatInCell(val['x']+ '_' + val['y']);
+            var vals = val['x']+ '_' + val['y'];
+            if(isTdId(vals))
+            unselectSeatInCell(vals);
         });
         
         selecting = false;
@@ -824,7 +826,7 @@ jq(window).load(function(){
                     var action = 'update_labels';
                     var hallid = 1;
                     var params =  {};
-                    params['label'] = jq('#dialog #label').val();
+                    params['label'] = jq('#label').val();
                     params['selected'] = selected_id.toString();
                 
                     var dataSend = {'hallid':hallid,'action':action, 'params': params };
@@ -833,11 +835,8 @@ jq(window).load(function(){
                         success: function(response){
                             unselectSeats();
                             jq.each(selected_id, function(i,value){
-                                    var title = jq('#'+ value).attr('title');
-                                    var temp = title.match(/(.*?)L:(.*?)/);
-                                    var coords = temp[1];
-                                    jq('#'+value).attr('title', coords + 'L:' +params['label'])
-                                                 ;
+                                
+                                    jq('#'+value).attr('title',  response.label );
 
                                    });
                             
