@@ -394,26 +394,28 @@
                 if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                 $selected_td = $params['selected_td'];
-
+                $ids = array();
                 $query = "INSERT INTO `seat`( `hall_id`,`x`, `y`, 
                          `label`,`row`,`number`,`delimiter`, `category_id`)
-                          VALUES " ;
-                          
-                foreach($selected_td as $cell)
+                          VALUES (:hall_id, :x, :y, :label, :row, :number, :delimiter, :category_id);" ;
+                $stmt = $connect->prepare($query);
+                $result = true;
+
+                foreach($selected_td as $key =>$value)
                 {
-                    $query .= "(" . $hallid . ", '" . (int)$cell['x'] . "','" . (int)$cell['y'] . "',
-                            'New Seat', '1','1', '/', " . (int)$params['category_id'] . " ) ,";
-                }
-                $query = rtrim($query, ',');
-                $query .= ";";
-                
-
-
-               if($ids = $connect->exec($query))
-                   echo '{"success":"true"}' ;
-               else
-                    throw new Exception('Error adding square of seats!');
                     
+                    if(!$stmt->execute(array(':hall_id' => $hallid, ':x'=>$value['x'], ':y' =>$value['y'],
+                                          ':label'=>'New seat', ':row' => '1', ':number'=>'1',
+                                          ':delimiter'=> '/', ':category_id' =>$params['category_id'])))
+                                          $result = false;
+                    $ids[$key] = $connect->lastInsertId(); 
+                    
+                }
+                if($result)
+                    echo '{"success":"true", "ids":' . json_encode( array('ids' => $ids)) .'}';
+                else
+                    throw new Exception('Error creating square of seats!');
+
                 
                $connect = null;
                
@@ -424,5 +426,17 @@
            }           
         
     }
-}   
+} 
+/*
+                          
+                
+
+
+               if($ids = $connect->exec($query))
+                   echo '{"success":"true"}' ;
+               else
+                    throw new Exception('Error adding square of seats!');
+                    
+
+*/  
 ?>

@@ -77,6 +77,12 @@ function isImgId(id)
     
 }
 
+// function to get to know if the seat is dynamically created
+function isSquareSeat(seat_id)
+{
+    var param = /^.+_seat$/;
+    return param.test(seat_id);
+}
 //function of getting seatcategories
 function getSeatCategory()
 {
@@ -486,12 +492,13 @@ jq(window).load(function(){
         //if removing seats tool is in use
         else if ((action == 'remove_seat') )
         {
-            if(jq(click).attr('id') > 0)
+            var seat = jq(this);
+            if( (seat.attr('id')> 0))
             {
                 var params =  {};
-                params['id'] = jq(click).attr('id');
-                params['title'] = jq(click).attr('title');
-                var hallid = jq(this).attr('alt');
+                params['id'] = seat.attr('id');
+                params['title'] = seat.attr('title');
+                var hallid = seat.attr('alt');
                 
                 var dataSend = {'hallid':hallid,'action':action, 'params': params };
                 jq.ajax({
@@ -1165,7 +1172,43 @@ function SelectedTdFilterSeats(selected_coords, type)
     return objects;
     
 }
+/*
+            var category_id = temp[1];
+            var category_color=temp[2];
+            var coords = jq(click).parent().attr('id').split(/_/);
+            var params ={};
+            params['x']  = coords[0];
+            params['y'] = coords[1];
+            params['label']  = 'New Seat';
+            params['row']  = 1;
+            params['number']  = 1;
+            params['delimiter']  = '/';
+            params['categoryID']  = category_id;
+            hallid = jq(click).attr('alt');
+            
+            var dataSend = {'hallid':hallid, 'action':action, 'params':params};
 
+            jq.ajax({ 
+                data: dataSend,
+                success: function(response){
+                        jq(click).attr('src', function(){
+                            var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
+                            var filename=new_src[1]+category_color+ new_src[3];
+                            return filename;
+                            })
+                        .attr('id', response.id)
+                        .attr('alt', response.hallid)
+                        .attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
+                        
+                },
+
+            });
+            
+            }
+            
+
+
+*/
 function square_add()
 {
     var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
@@ -1175,11 +1218,10 @@ function square_add()
  
     var action = 'square_add';
     var params = {};
-    params['selected_td'] = for_seats;
-
     params['category_id'] = parseInt(category_id);
-
+    params['selected_td'] = for_seats;
     var hallid = 1;
+  
     var dataSend = {'hallid':hallid,'action':action, 'params': params };
     jq.ajax({
                  data: dataSend,
@@ -1187,14 +1229,12 @@ function square_add()
                     
                     jq.each(for_seats,function(i,val){
                        var cell = jq('#'+ i + ' img.seat');
-                       
                        cell.attr('src', function(){
                        var temp = red_seat.match(/^(.+).{3}(\..+)$/);
                        return temp[1] + seatcolor + temp[2];
-                           
-                       });
-                       cell.attr('id','seat_'+i);
-                       
+                    });
+                    var parent = cell.parent().attr('id').split(/_/);
+                    cell.attr('id',response.ids.ids[i]).attr('title',parent[0]+ '|'+parent[1] + 'L:New seat');
                     });
                  }
     });
