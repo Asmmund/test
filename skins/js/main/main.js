@@ -1172,43 +1172,7 @@ function SelectedTdFilterSeats(selected_coords, type)
     return objects;
     
 }
-/*
-            var category_id = temp[1];
-            var category_color=temp[2];
-            var coords = jq(click).parent().attr('id').split(/_/);
-            var params ={};
-            params['x']  = coords[0];
-            params['y'] = coords[1];
-            params['label']  = 'New Seat';
-            params['row']  = 1;
-            params['number']  = 1;
-            params['delimiter']  = '/';
-            params['categoryID']  = category_id;
-            hallid = jq(click).attr('alt');
-            
-            var dataSend = {'hallid':hallid, 'action':action, 'params':params};
-
-            jq.ajax({ 
-                data: dataSend,
-                success: function(response){
-                        jq(click).attr('src', function(){
-                            var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
-                            var filename=new_src[1]+category_color+ new_src[3];
-                            return filename;
-                            })
-                        .attr('id', response.id)
-                        .attr('alt', response.hallid)
-                        .attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
-                        
-                },
-
-            });
-            
-            }
-            
-
-
-*/
+//function of adding a chair;
 function square_add()
 {
     var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
@@ -1262,6 +1226,69 @@ function square_add()
 
 
  })
-   
+
+    //function of getting selected td id's of seats
+    function squareGetSeatId(td)
+    {
+        if(numKeys(td)>0)
+        {
+            var return_string = '';
+            jq.each(td, function(i){
+                var seat_id = jq('#'+ i + ' img.seat').attr('id');
+                return_string += seat_id + ', ';
+            });
+            return return_string;
+        }
+        else
+            alert(' Incorrect params passed to squareGetSeatId(td)!')
+    }
+    
+       
+   //function of emptyng seats withon selected range
+   function square_delete()
+   {
+    var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
+     if(numKeys(for_seats) > 0){
+        var action = 'square_remove';
+        var params = {};
+        params['selected_id'] = squareGetSeatId(for_seats);
+        var hallid = 1;
+        
+        var dataSend = {'hallid':hallid,'action':action, 'params': params };
+        jq.ajax({
+            data:dataSend,
+            success: function(response) {
+                        jq.each(for_seats,function(i,val){
+                            var img = jq('#' + i + ' img.seat');
+                            var title = img.attr('title').split('L:');
+                            img.attr('src',empty_image)
+                                                     .attr('id', '')
+                                                     .attr('title', title[0]);
+                        });    
+            }
+        })
+    
+   }
+   else 
+       alert('Select not empty seats!');
+       
+   unselectBlock();
+ }
+
+ jq('#square_remove').click(function(){
+    if(numKeys(selected_coords) > 0 && unselecting == true)
+    {
+        jq(this).attr('src', icon_remove_selected);
+        square_delete();
+        jq(this).attr('src', icon_remove_normal);
+        selecting=true;
+        unselecting=false;
+        
+    }
+    else
+        alert('You must select square of seats first!');
+
+ })
+
 
 });

@@ -47,6 +47,7 @@
                                 </tr>
                                 <tr id="square_actions">
                                     <td><img id="square_add" src="' . SITE_HOST . 'skins/images/icons/001_01.png" title="Add seats" /></td>
+                                    <td><img id="square_remove" src="' . SITE_HOST . 'skins/images/icons/001_02.png" title="Delete seats" /></td>
                                     
                                 </tr>
                                </table>
@@ -132,6 +133,10 @@
                     
                 case 'square_add':
                     SeatRepository::squareAdd($hallid, $params);
+                    break;
+                    
+                case 'square_remove':
+                    SeatRepository::squareRemove($hallid,$params);
                     break;
                         
                 default:

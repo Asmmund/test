@@ -426,17 +426,31 @@
            }           
         
     }
-} 
-/*
-                          
+    
+    static public function squareRemove($hallid,$params)
+    {
+            try
+            {
+                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                $query = "DELETE 
+                          FROM `seat`
+                          WHERE `seat_id` IN (" . rtrim($params['selected_id'], ', ') .") AND `hall_id` = :hall_id ;" ;
+                $stmt = $connect->prepare($query);
+
+                if($stmt->execute(array(':hall_id' => $hallid)))
+                    echo '{"success":"true"}';
+                else
+                    throw new Exception('Error deleting square of seats!');
+
                 
-
-
-               if($ids = $connect->exec($query))
-                   echo '{"success":"true"}' ;
-               else
-                    throw new Exception('Error adding square of seats!');
-                    
-
-*/  
+               $connect = null;
+               
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+    }
+} 
 ?>
