@@ -343,7 +343,7 @@ jq(window).load(function(){
            
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
-                   .attr('title', new_x +'|'+new_y)
+                   .attr('title', '')
                    .attr('id', '')
                    .parent().attr('id',new_x +'_'+new_y);
           new_y += 1;  
@@ -372,7 +372,7 @@ jq(window).load(function(){
         var for_each =jq('#table >tbody>tr>td:last-child>img.seat');
 
         for_each.each(function(){
-           jq(this).attr('title', new_x   + '|' + new_y)
+           jq(this).attr('title', '')
                    .attr("src" ,empty_image )
                    .attr('alt',hallid)
                    .attr('id', '')
@@ -401,7 +401,7 @@ jq(window).load(function(){
         
         for_each.each(function(i){
             var row = i + new_x;
-           jq(this).attr('title', row   + '|' + new_y)
+           jq(this).attr('title', '')
                    .attr("src" ,empty_image )
                    .attr('alt',hallid)
                    .attr('id', '')
@@ -429,7 +429,7 @@ jq(window).load(function(){
            
            jq(this).attr('src',empty_image )
                    .attr('alt',hallid)
-                   .attr('title', new_x+'|'+new_y)
+                   .attr('title', '')
                    .attr('id', '')
                    .parent().attr('id',new_x+'_'+new_y) ; 
                    
@@ -479,7 +479,7 @@ jq(window).load(function(){
                             })
                         .attr('id', response.id)
                         .attr('alt', response.hallid)
-                        .attr('title', params['x']+'|'+ params['y']+'L:' + params['label']  ); 
+                        .attr('title',params['row'] + params['delimiter'] + params['number']  ); 
                         
                 },
 
@@ -506,7 +506,7 @@ jq(window).load(function(){
                     success: function(response){
                         jq(click).attr('src', empty_image);
                         jq(click).attr('id', '');
-                        jq(click).attr('title', response.title);
+                        jq(click).attr('title', '');
                     },
                 });
             }
@@ -557,13 +557,14 @@ jq(window).load(function(){
                 boxes_window.css('top',  winH/2-boxes_window.height())
                     .css('left', winW/2-boxes_window.width()).show();
                 
-                var tag = jq(click).attr('title').match(/(.*?)\|(.*?)L:(.*)/);
+                var tag = jq(click).attr('title').match(/(-?[0-9]+)(.)(-?[0-9]+)/);
     
-                var label = tag[3];
-                
-                var row = tag[1];
-                var number = tag[2];
-                jq('#label').val(label);
+                var row_to_input = tag[1];
+                var delimiter_to_input = tag[2]
+                var number_to_input = tag[3];
+                jq('#edit_seat_row').val(row_to_input);
+                jq('#edit_seat_delimiter').val(delimiter_to_input);
+                jq('#edit_seat_number').val(number_to_input);
      
                  //showing window
                 boxes_window.show();
@@ -577,9 +578,9 @@ jq(window).load(function(){
                 {
                     var action = 'update_info';
                     var params =  {};
-                    params['label'] = jq('#label').val();
-                    params['row'] = row;
-                    params['number'] = number;
+                    params['row'] = jq('#edit_seat_row').val();
+                    params['number'] = jq('#edit_seat_number').val();
+                    params['delimiter'] = jq('#edit_seat_delimiter').val();
                     params['id'] = jq(click).attr('id');
                     var hallid = jq(click).attr('alt');
                 
@@ -1197,8 +1198,7 @@ function square_add()
                        var temp = red_seat.match(/^(.+).{3}(\..+)$/);
                        return temp[1] + seatcolor + temp[2];
                     });
-                    var parent = cell.parent().attr('id').split(/_/);
-                    cell.attr('id',response.ids.ids[i]).attr('title',parent[0]+ '|'+parent[1] + 'L:New seat');
+                    cell.attr('id',response.ids.ids[i]).attr('title','');
                     });
                  }
     });
@@ -1260,10 +1260,9 @@ function square_add()
             success: function(response) {
                         jq.each(for_seats,function(i,val){
                             var img = jq('#' + i + ' img.seat');
-                            var title = img.attr('title').split('L:');
                             img.attr('src',empty_image)
                                                      .attr('id', '')
-                                                     .attr('title', title[0]);
+                                                     .attr('title', '');
                         });    
             }
         })

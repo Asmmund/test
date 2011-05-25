@@ -183,8 +183,6 @@ info window
 #boxes .window {
     text-align:center;
   position:absolute;
-  width:450px;
-  height:150px;
   display:none;
   z-index:9999;
   padding:20px 20px 0px 20px;
@@ -194,7 +192,6 @@ info window
 }
 #boxes #dialog {
   width:200px;
-  height:150px;
 }
 #boxes #dialog p {
         margin: 15px 0 15px 0 ;

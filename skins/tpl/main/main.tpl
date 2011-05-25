@@ -4,7 +4,10 @@
 <div id="boxes">
     <div id="dialog" class="window">
         <p>Editing Seat information</p>
-         <div>Label: <input type="text" id="label" size="15" /> </div> <br />
+         <div>Row: <input type="text" id="edit_seat_row" size="10" /> </div> <br />
+         <div>Number: <input type="text" id="edit_seat_number" size="10" /> </div> <br />
+         <div>Character between row an number: <input type="text" id="edit_seat_delimiter" size="1" /> </div> <br />
+         
          
          
         <!-- close button is defined as close class -->

@@ -89,7 +89,6 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                     
-               preg_match('/(-?[0-9]+?)\|(-?[0-9]+?)/s',$params['title'],$matches);
   
                 $query = "DELETE 
                           FROM `seat`
@@ -97,7 +96,7 @@
 
                $stmt= $connect->prepare($query);
                if($stmt->execute(array( ':seat_id'=> (int)$params['id'], ':hall_id'=>(int)$hallid)))
-                  echo '{"success":"true", "title":"' . $matches[1] . '|'. $matches[2]. '"}';
+                  echo '{"success":"true" }';
                else
                     throw new Exception('Error deleting the row!');
                     
@@ -121,20 +120,25 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                     
+               $label = $params['row'] . $params['delimiter'] . $params['number']; 
+                    
                     
 
 
   
                 $query = "UPDATE `seat` 
-                          SET `label` = :label
+                          SET `row` = :row,
+                              `delimiter` = :delimiter,
+                              `number` = :number,
+                              `label` = :label
                           WHERE `seat_id` =  :seat_id AND `hall_id`= :hall_id;";
                $stmt= $connect->prepare($query);
 
-               if($stmt->execute(array(':label' => $params['label'], 
+               if($stmt->execute(array(':label' => $label, ':row' =>$params['row'],
+                                ':delimiter' =>$params['delimiter'], ':number' => $params['number'], 
                                     ':seat_id'=>(int)$params['id'],
                                     ':hall_id' => (int)$hallid)))
-                    echo '{"success":"true", "title":"' . $params['row'] . '|'. $params['number']. 'L:' 
-                          . $params['label'] .'"}';
+                    echo '{"success":"true", "title":"' . $label.'"}';
                else
                     throw new Exception('Error updating label!');
                     

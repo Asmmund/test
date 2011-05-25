@@ -91,7 +91,7 @@
                         $this->table .= '<td id="' . $i . '_' . $j .'">'. $this->drawSeat($seat) . '</td>';
                     else
                         $this->table .= '<td id="' . $i . '_' . $j .'"><img class="seat" src="skins/images/seat/empty.jpg" 
-                                           title="'.$i .'|' . $j . '" alt="'. $this->hall->hallid . '" /></td>';
+                                           title="" alt="'. $this->hall->hallid . '" /></td>';
 
                 }
                 $this->table .= '</tr>';
@@ -119,7 +119,7 @@
         {
             $seat = '<img  class="seat" id="' .$seat->seatID . '"
                       src="skins/images/seat/' . $seat->color  . '.jpg" 
-                      title="'. $seat->x .'|'. $seat->y .' L:' . $seat->label . '" 
+                      title="'. $seat->row . $seat->delimiter . $seat->number  . '" 
                       alt="' . $seat->hallid . '" />';
             
             return $seat;
