@@ -275,6 +275,23 @@ function categoryUpdate()
         }
     }
     
+    //function of selecting sell content
+    function selectSeatInCell(cell)
+    {
+        if(!isTdId(cell)) alert('Wrong param passed to selectSeatInCell(cell)!');
+        var jq_img = jq('#'+cell+'>img.seat');
+        if(jq_img.attr('id')>0 )
+        {
+            jq_img.attr('src' ,function(i,val){
+                var temp = val.match(/([a-zA-Z\/]+\/)([a-zA-Z]+)(\.jpg)|(\.png)/);
+                return temp[1] + temp[2] + '_selected' + temp[3];
+            });
+        }
+        else
+            jq_img.attr('src', empty_selected);
+        
+    }
+    
     //function of unselecting selected square
     function unselectBlock()
     {
@@ -606,14 +623,17 @@ jq(window).load(function(){
                //first 1X
                //second 1Y
                var first;
-               
+               var tmp;
                if( numKeys(selected_coords) == 0)
                {
+                
                     first = jq(click);
-                    var tmp = first.parent().attr('id');
+                    tmp = first.parent().attr('id');
                     var x_y = tmp.split(/_/)
                     selected_coords[1] = x_y[0];
                     selected_coords[2] = x_y[1];
+                    selectSeatInCell(tmp);
+                    
                     selecting = true;
                }
                /* else if it's the second time
@@ -624,11 +644,13 @@ jq(window).load(function(){
                */
                else if (selecting == true)
                {
+                
                     var tmp = jq(click).parent().attr('id');
 
                     var x_y = tmp.split(/_/)
                     selected_coords[3] = x_y[0];
                     selected_coords[4] = x_y[1];
+                    unselectSeatInCell(selected_coords[1] + '_'+selected_coords[2]);
 
                     selectBlock();
                     selecting=false;

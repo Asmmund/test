@@ -119,7 +119,7 @@
         {
             $seat = '<img  class="seat" id="' .$seat->seatID . '"
                       src="skins/images/seat/' . $seat->color  . '.jpg" 
-                      title="'. $seat->row . $seat->delimiter . $seat->number  . '" 
+                      title="'. $seat->label  . '" 
                       alt="' . $seat->hallid . '" />';
             
             return $seat;
