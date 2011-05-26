@@ -188,14 +188,17 @@ function categoryUpdate()
     function formSeatLink(color, state)
     {
         var temp = red_seat.match(/^(.+\/)(_selected)?(\..+)$/);
+        var output = 'error';
         if(state == 'unselect')
         {
-            return temp[1] + color + temp[3];
+            output = temp[1] + color + temp[3];
         }
         else if(state == 'select')
         {
-            return temp[1] + color + temp[2] + temp[3];
+            output = temp[1] + color + temp[2] + temp[3];
         }
+        
+        return output;
         
     }
     
@@ -477,11 +480,11 @@ jq(window).load(function(){
             var params ={};
             params['x']  = coords[0];
             params['y'] = coords[1];
-            params['label']  = 'New Seat';
             params['row']  = 1;
             params['number']  = 1;
             params['delimiter']  = '/';
             params['categoryID']  = category_id;
+            params['label']  = params['row'] + params['delimiter']+params['number'];
             hallid = jq(click).attr('alt');
             
             var dataSend = {'hallid':hallid, 'action':action, 'params':params};
@@ -574,7 +577,7 @@ jq(window).load(function(){
                 boxes_window.css('top',  winH/2-boxes_window.height())
                     .css('left', winW/2-boxes_window.width()).show();
                 
-                var tag = jq(click).attr('title').match(/(-?[0-9]+)(.)(-?[0-9]+)/);
+                var tag = jq(click).attr('title').match(/([0-9]+)(.)([0-9a-zA-Z]+)/);
     
                 var row_to_input = tag[1];
                 var delimiter_to_input = tag[2]
@@ -582,10 +585,27 @@ jq(window).load(function(){
                 jq('#edit_seat_row').val(row_to_input);
                 jq('#edit_seat_delimiter').val(delimiter_to_input);
                 jq('#edit_seat_number').val(number_to_input);
-     
+                //loading preview
+                preview_label();
+                
+                //onkeyup events
+                jq('#edit_seat_row').keyup(function(){
+                    this.value = this.value.replace(/[^0-9]/g,'');
+                    preview_label();
+                });
+                jq('#edit_seat_delimiter').keyup(function(){
+                    this.value = this.value.replace(/[^\\\/\_\.\s]/g,'');
+                    preview_label();
+                });
+                
+                jq('#edit_seat_number').keyup(function(){
+                    this.value = this.value.replace(/[^0-9a-zA-Z]/g,'');
+                    preview_label();
+                     
+                });
+
                  //showing window
                 boxes_window.show();
-                
                 jq('#dialog div.cancel').click(function() {
                     boxes_window.hide();
                 });
@@ -1252,17 +1272,17 @@ function square_add()
     //function of getting selected td id's of seats
     function squareGetSeatId(td)
     {
+        var return_string = 'error';
         if(numKeys(td)>0)
         {
-            var return_string = '';
             jq.each(td, function(i){
                 var seat_id = jq('#'+ i + ' img.seat').attr('id');
                 return_string += seat_id + ', ';
             });
-            return return_string;
         }
         else
             alert(' Incorrect params passed to squareGetSeatId(td)!')
+      return return_string;
     }
     
        
@@ -1393,5 +1413,13 @@ function square_add()
 
 
 
+//function of preview of edited label
+    function preview_label()
+    {
+        var row = jq('#edit_seat_row').val();
+        var delimiter = jq('#edit_seat_delimiter').val();
+        var number = jq('#edit_seat_number').val();
+        jq('#label_preview').html(row+delimiter+number);
+    }
 
 });
