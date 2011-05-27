@@ -29,6 +29,8 @@ var icon_category_group  = 'skins/images/icons/change_group.png';
 var icon_category_group_selected  = 'skins/images/icons/change_group_selected.png';
 var icon_squere_normal = 'skins/images/icons/squere.png';
 var icon_squere_selected = 'skins/images/icons/squere_selected.png';
+var icon_rotate_normal = 'skins/images/icons/rotate.png';
+var icon_rotate_selected = 'skins/images/icons/rotate_selected.png';
     
 // vars for img url's
 var empty_image = 'skins/images/seat/empty.jpg';
@@ -260,7 +262,7 @@ function categoryUpdate()
     function unselectSeatInCell(cell)
     {
 
-        if(!isTdId(cell)) alert('Wrong param passed to unselectSeatInCell!');
+        if(!isTdId(cell) ) alert('Wrong param passed to unselectSeatInCell! '+ cell);
         var jq_img = jq('#' + cell + ' img.seat');
         if(jq_img.attr('id')>0)
         {
@@ -279,9 +281,9 @@ function categoryUpdate()
     }
     
     //function of selecting sell content
-    function selectSeatInCell(cell)
+    function selectSeatInCell(cell )
     {
-        if(!isTdId(cell)) alert('Wrong param passed to selectSeatInCell(cell)!');
+        if(!isTdId(cell) ) alert('Wrong param passed to selectSeatInCell(cell)!');
         var jq_img = jq('#'+cell+'>img.seat');
         if(jq_img.attr('id')>0 )
         {
@@ -298,6 +300,8 @@ function categoryUpdate()
     //function of unselecting selected square
     function unselectBlock()
     {
+        if(numKeys(selected_coords) == 2)
+        unselectSeatInCell(selected_coords[1] + '_'+ selected_coords[2],true);
         jq.each(selected_coords,function(i,val){
             var vals = val['x']+ '_' + val['y'];
             if(isTdId(vals))
@@ -687,6 +691,15 @@ jq(window).load(function(){
             
 
         }
+        else if(action == 'rotate')
+        {
+            if(jq(click).attr('id')>0)
+            {
+                
+            }
+        }
+
+
     });
     
     
@@ -732,7 +745,6 @@ jq(window).load(function(){
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
         jq('#square_actions').hide();
-        hallUnselect();
         
     }
     
@@ -744,6 +756,9 @@ jq(window).load(function(){
         jq('#add_image').attr('src',icon_add_normal );
         jq('#remove_image').attr('src', icon_remove_normal);
         jq('#info_image').attr('src', icon_info_normal);
+        jq('#rotate_image').attr('src', icon_rotate_normal);
+        hallUnselect();
+        unselectBlock();
          
     }
 /* **************************************************************** 
@@ -799,6 +814,14 @@ jq(window).load(function(){
         
     });
 
+  jq('#rotate_image').click(function(){
+        action = 'rotate';
+        hideExtra();        
+        unselectIcons();
+
+        jq(this).attr('src', icon_rotate_selected );
+        
+    });
 
 /////////////////////////////////////////////////////////////////////
 //Group toolbar
