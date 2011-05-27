@@ -168,8 +168,8 @@ function categoryUpdate()
     {
         if(!isImgId(id)) alert('Incorrect value passed to selectOneSeat(id)');
          jq('#'+id).attr('src', function(i, val){
-                    var new_src = val.match(/^(.+)(_selected)?(\..+)$/);
-                    var filename=new_src[1]+ '_selected' + new_src[3];
+                    var new_src = val.match(/^(.+?)(\..+)$/);
+                    var filename=new_src[1]+ '_selected' + new_src[2];
                         return filename;
                 })
     }
@@ -179,8 +179,9 @@ function categoryUpdate()
     {
         if(!isImgId(id)) alert('Incorrect value passed to unselectOneSeat(id)');
                 jq('#'+id).attr('src', function(i,val){
-                    var new_src = val.match(/^(.+)_selected(\.jpg)$/);
-                    var filename=new_src[1] + new_src[2];
+                    var new_src = val.match(/^(.+?)(_selected)(\..+)$/);
+                    var filename=new_src[1] + new_src[3];
+
                     return filename;
                 })
         
@@ -267,6 +268,8 @@ function categoryUpdate()
         if(jq_img.attr('id')>0)
         {
             jq_img.attr('src', function(i, val){
+
+
                     var new_src = val.match(/^(.+)(_selected)(\..+)$/);
                     var filename=new_src[1]+ new_src[3];
                     return filename;
@@ -288,8 +291,8 @@ function categoryUpdate()
         if(jq_img.attr('id')>0 )
         {
             jq_img.attr('src' ,function(i,val){
-                var temp = val.match(/([a-zA-Z\/]+\/)([a-zA-Z]+)(\.jpg)|(\.png)/);
-                return temp[1] + temp[2] + '_selected' + temp[3];
+                var temp = val.match(/^(.+)(\..{3})$/);
+                return temp[1] + '_selected' + temp[2];
             });
         }
         else
@@ -610,12 +613,12 @@ jq(window).load(function(){
 
                  //showing window
                 boxes_window.show();
-                jq('#dialog div.cancel').click(function() {
+                jq('#dialog a.close').click(function() {
                     boxes_window.hide();
                 });
 
                 // closing window
-                jq('#dialog div.save').click(function()
+                jq('#dialog a.save').click(function()
                 {
                     var action = 'update_info';
                     var params =  {};
@@ -693,8 +696,37 @@ jq(window).load(function(){
         }
         else if(action == 'rotate')
         {
-            if(jq(click).attr('id')>0)
+            if(jq(this).attr('id')>0)
             {
+                var seat = jq(this); 
+                var id = seat.attr('id');
+                //Get the window height and width
+                var winH = jq(window).height();
+                var winW = jq(window).width();
+                var rotate_window = jq('#choose_rotation');
+                var choose_rotation_angle = jq('#choose_rotation_angle');
+                choose_rotation_angle.val('');
+                //Set the popup window to center
+                rotate_window.css('top',  winH/2-rotate_window.height())
+                    .css('left', winW/2-rotate_window.width())
+                    .show();
+
+                jq('#choose_rotation a.close').click(function() {
+                    rotate_window.hide();
+                });
+                
+                jq('#choose_rotation a.save').click(function() {
+                    var dropdown = choose_rotation_angle.val();
+                     jq(this).attr('src',function(i,val){
+                       var new_src = val.match(/(.+\/.+?)(_[0-9]{2,3})?(\..+)/);
+                       return  new_src[1]+'_' + dropdown + new_src[3];
+                    });
+                    
+
+
+                    rotate_window.hide();
+                });
+                
                 
             }
         }
@@ -745,6 +777,7 @@ jq(window).load(function(){
         jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
         jq('#square_actions').hide();
+        jq('#choose_rotation').hide();
         
     }
     
@@ -1250,6 +1283,9 @@ function square_add()
     var params = {};
     params['category_id'] = parseInt(category_id);
     params['selected_td'] = for_seats;
+    params['row'] = 1;
+    params['number'] = 1;
+    params['delimiter'] = '/';
     var hallid = 1;
   
     var dataSend = {'hallid':hallid,'action':action, 'params': params };
@@ -1263,7 +1299,7 @@ function square_add()
                        var temp = red_seat.match(/^(.+).{3}(\..+)$/);
                        return temp[1] + seatcolor + temp[2];
                     });
-                    cell.attr('id',response.ids.ids[i]).attr('title','');
+                    cell.attr('id',response.ids.ids[i]).attr('title',params['row'] + params['delimiter']+params['number']);
                     });
                  }
     });

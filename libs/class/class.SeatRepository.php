@@ -409,8 +409,9 @@
                 {
                     
                     if(!$stmt->execute(array(':hall_id' => $hallid, ':x'=>$value['x'], ':y' =>$value['y'],
-                                          ':label'=>'New seat', ':row' => '1', ':number'=>'1',
-                                          ':delimiter'=> '/', ':category_id' =>$params['category_id'])))
+                                          ':label'=>$params['row'] . $params['delimiter'] . $params['number'], 
+                                          ':row' => $params['row'], ':number'=>$params['number'],
+                                          ':delimiter'=> $params['delimiter'], ':category_id' =>$params['category_id'])))
                                           $result = false;
                     $ids[$key] = $connect->lastInsertId(); 
                     

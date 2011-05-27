@@ -180,29 +180,36 @@ info window
   z-index:9000;
   display:none;
 }
-#boxes .window {
-    text-align:center;
+#dialog, 
+#choose_rotation {
+   text-align:center;
   position:absolute;
   display:none;
   z-index:9999;
   padding:20px 20px 0px 20px;
   background: white;
   border: 1px black solid;
+  width:200px;
 
 }
-#boxes #dialog {
-  width:200px;
-}
-#boxes #dialog p {
+#dialog p,
+#choose_rotation p {
         margin: 15px 0 15px 0 ;
         font-weight: bolder;
 }
-#boxes #dialog .save,
-#boxes #dialog .cancel
+#choose_rotation select
+{
+    margin: 10px;
+}
+#dialog a.save,
+#dialog a.cancel,
+#choose_rotation a.save,
+#choose_rotation a.close
+
 {
             float:right;
             position:relative;
-            top: -10px;
+            top: 0px;
 }
 #boxes #edit_categories{
     float:right;

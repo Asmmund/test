@@ -11,8 +11,8 @@
          Preview: <p id="label_preview"></p><br />
          
         <!-- close button is defined as close class -->
-        <div class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></div>
-        <div class="cancel"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></div>
+        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
         
     </div>
  
@@ -65,6 +65,21 @@
         <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
     </div>
 
+    <div id="choose_rotation">
+        <p>Select angle of rotation</p>
+        <select id="choose_rotation_angle">
+            <option value="">Normal</option>
+            <option value="45">45</option>
+            <option value="90">90</option>
+            <option value="135">135</option>
+            <option value="180">180</option>
+            <option value="225">225</option>
+            <option value="270">270</option>
+            <option value="315">315</option>
+        </select>
+        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
+            </div>
 
 </div>
   
