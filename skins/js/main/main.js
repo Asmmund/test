@@ -474,6 +474,7 @@ jq(window).load(function(){
 
         //save the referense to clicked image
         var click = this;
+        var click_obj = jq(this);
         
         //if adding tool is in use
         if(action == 'add_seat')
@@ -696,10 +697,10 @@ jq(window).load(function(){
         }
         else if(action == 'rotate')
         {
-            if(jq(this).attr('id')>0)
+            if(click_obj.attr('id')>0)
             {
-                var seat = jq(this); 
-                var id = seat.attr('id');
+                 
+                var id = click_obj.attr('id');
                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
@@ -717,7 +718,7 @@ jq(window).load(function(){
                 
                 jq('#choose_rotation a.save').click(function() {
                     var dropdown = choose_rotation_angle.val();
-                     jq(this).attr('src',function(i,val){
+                     click_obj.attr('src',function(i,val){
                        var new_src = val.match(/(.+\/.+?)(_[0-9]{2,3})?(\..+)/);
                        return  new_src[1]+'_' + dropdown + new_src[3];
                     });
