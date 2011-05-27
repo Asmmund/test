@@ -697,10 +697,11 @@ jq(window).load(function(){
         }
         else if(action == 'rotate')
         {
-            if(click_obj.attr('id')>0)
+            var id = click_obj.attr('id');
+
+            if(id>0)
             {
                  
-                var id = click_obj.attr('id');
                 //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
@@ -711,16 +712,16 @@ jq(window).load(function(){
                 rotate_window.css('top',  winH/2-rotate_window.height())
                     .css('left', winW/2-rotate_window.width())
                     .show();
-
+                jq('#choose_rotation a.save').unbind('click');
                 jq('#choose_rotation a.close').click(function() {
                     rotate_window.hide();
                 });
                 
                 jq('#choose_rotation a.save').click(function() {
-                    var dropdown = choose_rotation_angle.val();
+                    var dropdown = (choose_rotation_angle.val() == '')?choose_rotation_angle.val():'_' +choose_rotation_angle.val();
                      click_obj.attr('src',function(i,val){
                        var new_src = val.match(/(.+\/.+?)(_[0-9]{2,3})?(\..+)/);
-                       return  new_src[1]+'_' + dropdown + new_src[3];
+                       return  new_src[1]+ dropdown + new_src[3];
                     });
                     
 
