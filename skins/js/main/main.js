@@ -616,12 +616,12 @@ jq(window).load(function(){
 
                  //showing window
                 boxes_window.show();
-                jq('#dialog a.close').click(function() {
+                jq('#dialog a.close').unbind().click(function() {
                     boxes_window.hide();
                 });
 
                 // closing window
-                jq('#dialog a.save').click(function()
+                jq('#dialog a.save').unbind().click(function()
                 {
                     var action = 'update_info';
                     var params =  {};
@@ -714,12 +714,10 @@ jq(window).load(function(){
                 rotate_window.css('top',  winH/2-rotate_window.height())
                     .css('left', winW/2-rotate_window.width())
                     .show();
-                jq('#choose_rotation a.close').unbind('click');
-                jq('#choose_rotation a.close').click(function() {
+                jq('#choose_rotation a.close').unbind().click(function() {
                     rotate_window.hide();
                 });
-                jq('#choose_rotation a.save').unbind('click');
-                jq('#choose_rotation a.save').click(function() {
+                jq('#choose_rotation a.save').unbind().click(function() {
                     var dropdown = (choose_rotation_angle.val() == '')?choose_rotation_angle.val():'_' +choose_rotation_angle.val();
                      click_obj.attr('src',function(i,val){
                        var new_src = val.match(/(.+\/.+?)(_[0-9]{2,3})?(\..+)/);
@@ -746,8 +744,7 @@ jq(window).load(function(){
     
     
     //window for editing categories
-    jq('#edit_categories').unbind('click');
-    jq('#edit_categories').click(function(){
+    jq('#edit_categories').unbind().click(function(){
                 var winH = jq(window).height();
                 var winW = jq(window).width();
                 //Set the popup window to center
