@@ -316,10 +316,10 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                     
-                 $temp = explode(',',$params['selected']);
+                 $temp = rtrim($params['selected'], ', ');
                  $query = "DELETE 
                           FROM `seat`
-                          WHERE `seat_id` IN ("  . implode(', ', array_map('intval', $temp) ).  ");";
+                          WHERE `seat_id` IN ("  .  $temp .  ");";
 
                     
                     if( $connect->exec($query))

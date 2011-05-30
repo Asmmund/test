@@ -35,16 +35,7 @@ var icon_rotate_selected = 'skins/images/icons/rotate_selected.png';
 // vars for img url's
 var empty_image = 'skins/images/seat/empty.jpg';
 var empty_selected = 'skins/images/seat/empty_selected.jpg';
-var blue_seat = 'skins/images/seat/blue.jpg';
-var blue_seat_selected = 'skins/images/seat/blue_selected.jpg';
-var green_seat = 'skins/images/seat/green.jpg';
-var green_seat_selected = 'skins/images/seat/green_selected.jpg';
-var red_seat = 'skins/images/seat/red.jpg';
-var red_seat_selected = 'skins/images/seat/red_selected.jpg';
-var violet_seat = 'skins/images/seat/violet.jpg';
-var violet_seat_selected = 'skins/images/seat/violet_selected.jpg';
-var yellow_seat = 'skins/images/seat/yellow.jpg';
-var yellow_seat_selected = 'skins/images/seat/yellow_selected.jpg';
+
 
 // vars used in editing categories
 var old_name;
@@ -303,8 +294,9 @@ function categoryUpdate()
     //function of unselecting selected square
     function unselectBlock()
     {
-        if(numKeys(selected_coords) == 2)
+        /*if(numKeys(selected_coords) == 2)
         unselectSeatInCell(selected_coords[1] + '_'+ selected_coords[2],true);
+        */
         
         jq.each(selected_coords,function(i,val){
             var vals = val['x']+ '_' + val['y'];
@@ -481,7 +473,7 @@ jq(window).load(function(){
         //if adding tool is in use
         if(action == 'add_seat')
         {
-            if(jq(click).attr('src') == empty_image)
+            if(jq(click).attr('src') == empty_image || click_obj.attr('id') == '')
             {
             var temp =jq('#dropdown_category').val().match(/([0-9]+)\|([a-zA-Z0-9]+)/);
             var category_id = temp[1];
@@ -502,14 +494,14 @@ jq(window).load(function(){
             jq.ajax({ 
                 data: dataSend,
                 success: function(response){
-                        jq(click).attr('src', function(){
-                            var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
-                            var filename=new_src[1]+category_color+ new_src[3];
+                        jq(click).attr('src', function(i,val){
+                            var new_src = val.match(/^(.+\/)empty(\..+)$/);
+                            var filename=new_src[1]+category_color+ new_src[2];
                             return filename;
                             })
                         .attr('id', response.id)
                         .attr('alt', response.hallid)
-                        .attr('title',params['row'] + params['delimiter'] + params['number']  ); 
+                        .attr('title',params['label']  ); 
                         
                 },
 
@@ -750,7 +742,7 @@ jq(window).load(function(){
                 //Set the popup window to center
                 var window_edit_categories =jq('#window_edit_categories'); 
                 window_edit_categories.css('top',  winH/2-window_edit_categories.height())
-                    .css('left', winW/2-window_edit_categories.width()).show();
+                    .css('left', winW/2 - 0.6*window_edit_categories.width()).show();
                     
                     
 
@@ -759,7 +751,7 @@ jq(window).load(function(){
     });
     jq('#window_edit_categories a.close').unbind('click');
     jq('#window_edit_categories a.close').click(function(){
-        unselectBlock();
+        //unselectBlock();
         jq('#window_edit_categories').hide();
     });
     
@@ -869,15 +861,15 @@ jq(window).load(function(){
 //Group toolbar
 /////////////////////////////////////////////////////////////////////
                 //deleting selected seats
-                jq('#group_delete').unbind('click');
-                jq('#group_delete').click(function(){
+                
+                jq('#group_delete').unbind('click').click(function(){
                     
                     if(selected_id != '')
                     {
                         var q = confirm('Are you sure you want to delete selected seats?');
                         if(q)
                     {
-                    jq(this).attr('src',icon_delete_group_selected);    
+                    jq('#group_delete').attr('src',icon_delete_group_selected);    
                     var action = 'delete_seats';
                     var params =  {};
                     params['selected'] = selected_id.toString();
@@ -892,7 +884,7 @@ jq(window).load(function(){
                                    jq.each(selected_id, function(i,value){
                                     jq('#'+ value).attr('src', empty_image);
                                    });
-                                   jq(this).attr('src',icon_delete_group);
+                                   jq('#group_delete').attr('src',icon_delete_group);
                                    selected_id.length = 0;
                                }
                           });
@@ -911,7 +903,7 @@ jq(window).load(function(){
                 
                 //changing label of the group
                 
-                jq('#group_label').unbind('click').click(function(){
+                    jq('#group_label').unbind('click').click(function(){
                     /*
                     if(selected_id != '')
                     {
@@ -1007,8 +999,8 @@ function getCategoriesListForGroup()
             });
 } 
                 //change category onclick
-                jq('#group_category').unbind('click');
-                jq('#group_category').click(function(){
+                
+                jq('#group_category').unbind('click').click(function(){
                     if(selected_id != '')
                     {
                         var click =jq(this); 
@@ -1042,16 +1034,15 @@ function getCategoriesListForGroup()
                         data: dataSend,
                         success: function(response){
                             jq.each(selected_id, function(i,value){
-                                jq('#' + value).attr('src', function(){
-                                    var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
-                                    var filename=new_src[1]+color+ new_src[3];
-                                    return filename;
+                                jq('#' + value).attr('src', function(j,val){
+                                    var new_src = val.match(/(.+\/)([a-z]+)((\_[0-9]{2,3})?(_selected)(\.[a-z]{2,4}))/);
+                                    return new_src[1]+color+new_src[3];
                                 });
                                 boxes_select_category_for_group.hide();  
                                 click.attr('src', icon_category_group);
 
                                    });
-                            
+                            unselectSeats();
                             selected_id.length = 0;
                             boxes_select_category_for_group.hide();
                             click.attr('src', icon_category_group);
@@ -1087,13 +1078,13 @@ function getCategoriesListForGroup()
                 jq('#name').val('New category name');
                 jq('#color').val('');
 
-                add_category.css('top',  winH/2.2-add_category.height())
-                    .css('left', winW/1.5-add_category.width()).show();
+                add_category.css('top',  winH/2-add_category.height())
+                    .css('left', winW/2-add_category.width()).show();
 
     });
     
-    jq('#add_category a.save').unbind('click');
-    jq('#add_category a.save').click(function(){
+    
+    jq('#add_category a.save').unbind('click').click(function(){
         var add_category = jq('#add_category');
         var action = 'add_category';
         var params =  {};
@@ -1117,8 +1108,8 @@ function getCategoriesListForGroup()
     });
     
 
-    jq('#add_category a.close').unbind('click');
-    jq('#add_category a.close').click(function(){
+    
+    jq('#add_category a.close').unbind('click').click(function(){
             jq('#add_category').hide();
         });
 /////////////////////////////////////////////////////////////////////
@@ -1134,8 +1125,8 @@ function editCategoryWindow(id)
     var winW = jq(window).width()+ 10;
     //Set the popup window to center
     var edit_category_window = jq('#edit_category_window');
-    edit_category_window.css('top',  winH/2.2-edit_category_window.height())
-        .css('left', winW/1.5-edit_category_window.width()).show();
+    edit_category_window.css('top',  winH/2-edit_category_window.height())
+        .css('left', winW/2-edit_category_window.width()).show();
       
         var action = 'get_category_info';
         var params =  {};
@@ -1314,9 +1305,9 @@ function square_add()
                     
                     jq.each(for_seats,function(i,val){
                        var cell = jq('#'+ i + ' img.seat');
-                       cell.attr('src', function(){
-                       var temp = red_seat.match(/^(.+).{3}(\..+)$/);
-                       return temp[1] + seatcolor + temp[2];
+                       cell.attr('src', function(i,val){
+                       var temp = val.match(/^(.+\/)(.+)(\..+)$/);
+                       return temp[1] + seatcolor + temp[3];
                     });
                     cell.attr('id',response.ids.ids[i]).attr('title',params['row'] + params['delimiter']+params['number']);
                     });
@@ -1331,8 +1322,8 @@ function square_add()
 }
 
 
- jq('#square_add').unbind('click');
- jq('#square_add').click(function(){
+ 
+ jq('#square_add').unbind('click').click(function(){
     if(numKeys(selected_coords) > 0 && unselecting == true)
     {
         jq(this).attr('src',icon_add_selected);
@@ -1392,11 +1383,11 @@ function square_add()
        
    unselectBlock();
  }
-  jq('#square_remove').unbind('click');
- jq('#square_remove').click(function(){
+  
+ jq('#square_remove').unbind('click').click(function(){
     
     var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
-    if( unselecting == true && numKeys(for_seats)>0)
+    if( unselecting == true )
     {
         if(confirm('Are you sure you want to delete all of the selected seats?'))
     {
@@ -1452,10 +1443,10 @@ function square_add()
                         success: function(response){
                             jq.each(for_seats, function(i,value){
                                 
-                                jq('#' + i + ' img.seat').attr('src', function(){
-                                        var new_src = red_seat.match(/^(.+)red(_selected)?(\..+)$/);
-                                        var filename=new_src[1]+color+ new_src[3];
-                                        return filename;
+                                jq('#' + i + ' img.seat').attr('src', function(i,val){
+                                        var new_src = val.match(/(.+\/)([a-z]+)((\_[0-9]{2,3})?(_selected)?(\.[a-z]{2,4}))/);
+                                        
+                                        return new_src[1]+ color + new_src[3];
                                     });
 
                                  });
