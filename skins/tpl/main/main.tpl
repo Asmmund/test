@@ -3,16 +3,29 @@
     <!-- windows-->
 <div id="boxes">
     <div id="dialog" class="window">
+    
         <p>Editing Seat information</p>
-         <div>Row: <input type="text" id="edit_seat_row" size="10" maxlength="10" /> </div> <br />
-         <div>Number: <input type="text" id="edit_seat_number" size="10" maxlength="10" /> </div> <br />
-         <div>Character between row an number: <input type="text" id="edit_seat_delimiter" size="1" maxlength="1" /> </div> <br />
+        <table>
+        <tr>
+            <td >Row:</td><td ><input type="text" id="edit_seat_row" size="10" maxlength="10" /> </td>
+        </tr><br />
+        <tr>
+            <td>Number:</td>
+            <td><input type="text" id="edit_seat_number" size="10" maxlength="10" /></td>
+        </tr><br />
+        <tr>
+            <td>Character between row and number:<pre>[\_/|. ]</td><td></pre><input type="text" id="edit_seat_delimiter" size="10" maxlength="1" /></td>
+        </tr><br />
+        <tr>
+            <td>Preview:</td> <td><p id="label_preview"></p></td>
+        </tr><br />
          
-         Preview: <p id="label_preview"></p><br />
          
+         </table>
         <!-- close button is defined as close class -->
-        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
         <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
+        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        
         
     </div>
  
@@ -41,7 +54,7 @@
                <option value="yellow">Yellow</option>
                <option value="violet">Violet</option>
                </select><br />
-        <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
+        <a class="close" href="javascript:void(0);">Close</a><a class="save" href="javascript:void(0);">Save</a>
         
     </div>
 
@@ -56,13 +69,13 @@
                <option value="yellow">Yellow</option>
                <option value="violet">Violet</option>
                </select><br />
-        <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
+        <a class="close" href="javascript:void(0);">Close</a><a class="save" href="javascript:void(0);">Save</a>
         
     </div>
     
     <div id="select_category_for_group">
         <p class="list">select_category_for_group</p>
-        <a class="save" href="javascript:void(0);">Save</a><a class="close" href="javascript:void(0);">Close</a>
+        <a class="close" href="javascript:void(0);">Close</a><a class="save" href="javascript:void(0);">Save</a>
     </div>
 
     <div id="choose_rotation">
@@ -76,9 +89,10 @@
             <option value="225">225</option>
             <option value="270">270</option>
             <option value="315">315</option>
-        </select>
-        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        </select><br />
         <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
+        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        
             </div>
 
 </div>

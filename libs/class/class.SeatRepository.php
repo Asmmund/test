@@ -374,15 +374,15 @@
                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
                     throw new Exception('Error connecting to the Database!');
                     
-               $temp = explode(',',$params['selected']);
-               
+               //$temp = explode(',',$params['selected']);
+               //implode(', ', array_map('intval', $temp) )
+               $temp = rtrim($params['selected'],', ');
                $query = 'UPDATE `seat`
                          SET `category_id` = :category_id
-                         WHERE `seat_id` IN (' .  implode(', ', array_map('intval', $temp) ).  ") 
+                         WHERE `seat_id` IN (' . $temp .  ") 
                          AND `hall_id` = :hallid;";
 
                $stmt= $connect->prepare($query);
-               
                if($stmt->execute(array(':category_id' => $params['categoryID'], ':hallid'=>$hallid)))
                    echo '{"success":"true"}';
                else

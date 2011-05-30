@@ -207,7 +207,7 @@ info window
 #choose_rotation a.close
 
 {
-            float:right;
+            
             position:relative;
             top: 0px;
 }
@@ -313,4 +313,8 @@ info window
 #div_dropdown_category a#edit_categories {
     margin:20px 0 20px 0;
     float:right;
+}
+
+#edit_seat_delimiter {
+    margin:  5px;
 }

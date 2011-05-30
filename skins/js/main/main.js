@@ -305,6 +305,7 @@ function categoryUpdate()
     {
         if(numKeys(selected_coords) == 2)
         unselectSeatInCell(selected_coords[1] + '_'+ selected_coords[2],true);
+        
         jq.each(selected_coords,function(i,val){
             var vals = val['x']+ '_' + val['y'];
             if(isTdId(vals))
@@ -347,6 +348,7 @@ jq(window).load(function(){
 /////////////////////////////////////////////////////////////////////
 //editing hall size
 /////////////////////////////////////////////////////////////////////   
+    jq('#up_arrow').unbind('click');
     jq('#up_arrow').click(function(){
         var img = jq('#table > tbody>tr:first-child>td:first-child> img.seat');
         
@@ -383,6 +385,7 @@ jq(window).load(function(){
     });
 
     //adding the table cell after each column
+    jq('#right_arrow').unbind('click');
     jq('#right_arrow').click(function(){
         //getting the hallid
         var img = jq("#table > tbody>tr:first-child> td:last-child>img.seat");
@@ -411,6 +414,7 @@ jq(window).load(function(){
     
     
     //addint cell befoe the fitst cell of each row
+    jq('#left_arrow').unbind('click');
     jq('#left_arrow').click(function(){
         var img = jq("#table> tbody>tr:first-child> td:first-child> img.seat");
         //getting the hallid
@@ -438,6 +442,7 @@ jq(window).load(function(){
   
   
     //adding row after the last one
+    jq('#down_arrow').unbind('click');    
     jq('#down_arrow').click(function(){
         //getting the hallid
         var img =jq('#table > tbody>tr:last-child >td:first-child img.seat'); 
@@ -470,6 +475,7 @@ jq(window).load(function(){
 //actions when clicked on seat
 /////////////////////////////////////////////////////////////////////    
     // if the seat is pressed
+    jq('#table img.seat').unbind('click');    
     jq('#table img.seat').click(function(){
 
         //save the referense to clicked image
@@ -598,27 +604,29 @@ jq(window).load(function(){
                 
                 //onkeyup events
                 jq('#edit_seat_row').keyup(function(){
-                    this.value = this.value.replace(/[^0-9]/g,'');
+                    this.value = this.value.replace(/[^0-9\s]/g,'');
                     preview_label();
                 });
                 jq('#edit_seat_delimiter').keyup(function(){
-                    this.value = this.value.replace(/[^\\\/\_\.\s]/g,'');
+                    this.value = this.value.replace(/[^\\\/\_\.\s\|]/g,'');
                     preview_label();
                 });
                 
                 jq('#edit_seat_number').keyup(function(){
-                    this.value = this.value.replace(/[^0-9a-zA-Z]/g,'');
+                    this.value = this.value.replace(/[^0-9a-zA-Z\s]/g,'');
                     preview_label();
                      
                 });
 
                  //showing window
                 boxes_window.show();
+                jq('#dialog a.close').unbind('click');
                 jq('#dialog a.close').click(function() {
                     boxes_window.hide();
                 });
 
                 // closing window
+                jq('#dialog a.save').unbind('click');
                 jq('#dialog a.save').click(function()
                 {
                     var action = 'update_info';
@@ -661,7 +669,6 @@ jq(window).load(function(){
                     selected_coords[1] = x_y[0];
                     selected_coords[2] = x_y[1];
                     selectSeatInCell(tmp);
-                    
                     selecting = true;
                }
                /* else if it's the second time
@@ -678,6 +685,7 @@ jq(window).load(function(){
                     var x_y = tmp.split(/_/)
                     selected_coords[3] = x_y[0];
                     selected_coords[4] = x_y[1];
+                    //alert(selected_coords[1] + '_' + selected_coords[2]);
                     unselectSeatInCell(selected_coords[1] + '_'+selected_coords[2]);
 
                     selectBlock();
@@ -712,11 +720,11 @@ jq(window).load(function(){
                 rotate_window.css('top',  winH/2-rotate_window.height())
                     .css('left', winW/2-rotate_window.width())
                     .show();
-                jq('#choose_rotation a.save').unbind('click');
+                jq('#choose_rotation a.close').unbind('click');
                 jq('#choose_rotation a.close').click(function() {
                     rotate_window.hide();
                 });
-                
+                jq('#choose_rotation a.save').unbind('click');
                 jq('#choose_rotation a.save').click(function() {
                     var dropdown = (choose_rotation_angle.val() == '')?choose_rotation_angle.val():'_' +choose_rotation_angle.val();
                      click_obj.attr('src',function(i,val){
@@ -744,6 +752,7 @@ jq(window).load(function(){
     
     
     //window for editing categories
+    jq('#edit_categories').unbind('click');
     jq('#edit_categories').click(function(){
                 var winH = jq(window).height();
                 var winW = jq(window).width();
@@ -757,7 +766,7 @@ jq(window).load(function(){
                 windowListCategories();
 
     });
-    
+    jq('#window_edit_categories a.close').unbind('click');
     jq('#window_edit_categories a.close').click(function(){
         jq('#window_edit_categories').hide();
     });
@@ -800,6 +809,7 @@ jq(window).load(function(){
 **************************************************************** */   
 
    //if the select icon is pressed
+   jq('#select_image').unbind('click');
    jq('#select_image').click(function(){
         action = 'select_seat';
         hideExtra();
@@ -810,6 +820,7 @@ jq(window).load(function(){
    });
    
    //if the add icon is pressed then action (general var) is set to add) 
+   jq('#add_image').unbind('click');
     jq('#add_image').click(function(){
         action = 'add_seat';
         hideExtra();
@@ -821,6 +832,7 @@ jq(window).load(function(){
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
+    jq('#remove_image').unbind('click');
     jq('#remove_image').click(function(){
         action = 'remove_seat';
          hideExtra();
@@ -829,6 +841,7 @@ jq(window).load(function(){
         jq(this).attr('src', icon_remove_selected );
     });
     
+    jq('#info_image').unbind('click');
     jq('#info_image').click(function(){
        action = 'update_info';
         hideExtra();
@@ -836,7 +849,8 @@ jq(window).load(function(){
 
         jq(this).attr('src', icon_info_selected); 
     });
-
+    
+    jq('#square').unbind('click');
     jq('#square').click(function(){
         action = 'square';
         hideExtra();        
@@ -848,8 +862,9 @@ jq(window).load(function(){
         jq(this).attr('src', icon_squere_selected );
         
     });
-
-  jq('#rotate_image').click(function(){
+    
+    jq('#rotate_image').unbind('click');
+    jq('#rotate_image').click(function(){
         action = 'rotate';
         hideExtra();        
         unselectIcons();
@@ -862,7 +877,9 @@ jq(window).load(function(){
 //Group toolbar
 /////////////////////////////////////////////////////////////////////
                 //deleting selected seats
+                jq('#group_delete').unbind('click');
                 jq('#group_delete').click(function(){
+                    
                     if(selected_id != '')
                     {
                         var q = confirm('Are you sure you want to delete selected seats?');
@@ -901,10 +918,12 @@ jq(window).load(function(){
 
                 
                 //changing label of the group
+                jq('#group_label').unbind('click');
                 jq('#group_label').click(function(){
+                    /*
                     if(selected_id != '')
                     {
-                        click =jq(this); 
+                        var click =jq(this); 
                     click.attr('src', icon_label_group_selected);
                     
                     
@@ -914,7 +933,7 @@ jq(window).load(function(){
                 var boxes_window =jq('#dialog'); 
                 //Set the popup window to center
 
-                jq('#label').val('Enter label');
+                
                 
                 boxes_window.css('top',  winH/2-boxes_window.height())
                     .css('left', winW/2-boxes_window.width()).show();
@@ -922,13 +941,14 @@ jq(window).load(function(){
 
      
 
-                
+                //jq('#dialog div.cancel').unbind('click');
                 jq('#dialog div.cancel').click(function() {
                     boxes_window.hide();
                     click.attr('src',icon_label_group);
                 });
 
                 // 
+                jq('#dialog div.save').unbind('click');
                 jq('#dialog div.save').click(function()
                 {
                     var action = 'update_labels';
@@ -966,7 +986,7 @@ jq(window).load(function(){
                else 
                    alert('To perform group actions you must select seats!');
 
-                });
+                */});
                 
                 
 //function of getting seatcategories
@@ -995,6 +1015,7 @@ function getCategoriesListForGroup()
             });
 } 
                 //change category onclick
+                jq('#group_category').unbind('click');
                 jq('#group_category').click(function(){
                     if(selected_id != '')
                     {
@@ -1010,7 +1031,7 @@ function getCategoriesListForGroup()
                     
                 getCategoriesListForGroup();
                 
-                
+                jq('#select_category_for_group > a.save').unbind('click');
                 jq('#select_category_for_group > a.save').click(function(){
                   
                     var action = 'change_category';
@@ -1047,9 +1068,11 @@ function getCategoriesListForGroup()
                   
                   
                });
-
+               
+               jq('#select_category_for_group  a.close').unbind('click');
                jq('#select_category_for_group  a.close').click(function(){
                   boxes_select_category_for_group.hide();
+                  click.attr('src', icon_category_group);
                });
                
                }
@@ -1063,6 +1086,7 @@ function getCategoriesListForGroup()
 //adding new category
 /////////////////////////////////////////////////////////////////////
 //window for adding category
+    jq('#window_edit_categories > a.add_category').unbind('click');
     jq('#window_edit_categories > a.add_category').click(function(){
                 var winH = jq(window).height()+ 10;
                 var winW = jq(window).width()+ 10;
@@ -1075,7 +1099,8 @@ function getCategoriesListForGroup()
                     .css('left', winW/1.5-add_category.width()).show();
 
     });
-
+    
+    jq('#add_category a.save').unbind('click');
     jq('#add_category a.save').click(function(){
         var add_category = jq('#add_category');
         var action = 'add_category';
@@ -1100,8 +1125,7 @@ function getCategoriesListForGroup()
     });
     
 
-
-    
+    jq('#add_category a.close').unbind('click');
     jq('#add_category a.close').click(function(){
             jq('#add_category').hide();
         });
@@ -1203,6 +1227,7 @@ function deleteCategory(id)
     
     
     //saving updated category 
+    jq('#edit_category_window >  a.save').unbind('click');
     jq('#edit_category_window >  a.save').click(function(){
         var action = 'update_category';
         var params =  {};
@@ -1226,7 +1251,7 @@ function deleteCategory(id)
     });
     });
      
-
+    jq('#edit_category_window   a.close').unbind('click');
     jq('#edit_category_window   a.close').click(function(){
         jq('#edit_category_window_name').val('');
         jq('#edit_category_window_color').val('');
@@ -1314,7 +1339,7 @@ function square_add()
 }
 
 
-
+ jq('#square_add').unbind('click');
  jq('#square_add').click(function(){
     if(numKeys(selected_coords) > 0 && unselecting == true)
     {
@@ -1333,16 +1358,19 @@ function square_add()
     //function of getting selected td id's of seats
     function squareGetSeatId(td)
     {
-        var return_string = 'error';
+        var return_string = '';
         if(numKeys(td)>0)
         {
             jq.each(td, function(i){
+                
                 var seat_id = jq('#'+ i + ' img.seat').attr('id');
+//                alert(seat_id);
                 return_string += seat_id + ', ';
             });
         }
         else
             alert(' Incorrect params passed to squareGetSeatId(td)!')
+//            alert(return_string);
       return return_string;
     }
     
@@ -1372,7 +1400,7 @@ function square_add()
        
    unselectBlock();
  }
-
+  jq('#square_remove').unbind('click');
  jq('#square_remove').click(function(){
     
     var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
@@ -1400,6 +1428,7 @@ function square_add()
         var action = 'square_category';
         var params = {};
         params['selected_id'] = squareGetSeatId(for_seats);
+//        alert(squareGetSeatId(for_seats));
         var hallid = 1;
         var dataSend = {'hallid':hallid,'action':action, 'params': params };
                     var winH = jq(window).height();
@@ -1411,7 +1440,7 @@ function square_add()
                     
                 getCategoriesListForGroup();
                 
-                
+                jq('#select_category_for_group > a.save').unbind('click');
                 jq('#select_category_for_group > a.save').click(function(){
                   
                     var action = 'change_category';
@@ -1444,8 +1473,9 @@ function square_add()
                   
                 unselectBlock();
             });
-
-               jq('#select_category_for_group  a.close').click(function(){
+            
+            jq('#select_category_for_group > a.close').unbind('click');
+            jq('#select_category_for_group > a.close').click(function(){
                   jq('#select_category_for_group').hide();
                });
 
@@ -1455,7 +1485,7 @@ function square_add()
         
     } 
  
- 
+ jq('#square_category').unbind('click');
  jq('#square_category').click(function(){
     var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
     if( unselecting == true && numKeys(for_seats)>0)
