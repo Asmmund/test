@@ -1356,7 +1356,7 @@ function square_add()
             jq.each(td, function(i){
                 
                 var seat_id = jq('#'+ i + ' img.seat').attr('id');
-                alert(seat_id);
+//                alert(seat_id);
                 return_string += seat_id + ', ';
             });
         }
