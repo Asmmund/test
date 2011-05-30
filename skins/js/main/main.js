@@ -910,8 +910,8 @@ jq(window).load(function(){
 
                 
                 //changing label of the group
-                jq('#group_label').unbind('click');
-                jq('#group_label').click(function(){
+                
+                jq('#group_label').unbind('click').click(function(){
                     /*
                     if(selected_id != '')
                     {
@@ -1323,7 +1323,7 @@ function square_add()
                  }
     });
                     unselectBlock();
-                    selecting=false;
+                    
                     unselecting=false;
                     
     
@@ -1356,7 +1356,7 @@ function square_add()
             jq.each(td, function(i){
                 
                 var seat_id = jq('#'+ i + ' img.seat').attr('id');
-//                alert(seat_id);
+                alert(seat_id);
                 return_string += seat_id + ', ';
             });
         }
@@ -1444,7 +1444,7 @@ function square_add()
 
                     params['categoryID'] = category_array[1];
                     
-                    params['selected'] = squareGetSeatId(for_seats);;
+                    params['selected'] = squareGetSeatId(for_seats);
 
                     var dataSend = {'hallid':hallid,'action':action, 'params': params };
                     jq.ajax({
@@ -1466,8 +1466,8 @@ function square_add()
                 unselectBlock();
             });
             
-            jq('#select_category_for_group > a.close').unbind('click');
-            jq('#select_category_for_group > a.close').click(function(){
+            
+            jq('#select_category_for_group > a.close').unbind('click').click(function(){
                 unselectBlock();
                   jq('#select_category_for_group').hide();
                });
@@ -1478,8 +1478,8 @@ function square_add()
         
     } 
  
- jq('#square_category').unbind('click');
- jq('#square_category').click(function(){
+ 
+ jq('#square_category').unbind('click').click(function(){
     var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
     if( unselecting == true && numKeys(for_seats)>0)
     {
@@ -1506,4 +1506,57 @@ function square_add()
         jq('#label_preview').html(row+delimiter+number);
     }
 
+
+
+//rotating selected seats
+    function square_rotate(array_seat_id)
+    {
+            //Get the window height and width
+                var winH = jq(window).height();
+                var winW = jq(window).width();
+                var rotate_window = jq('#choose_rotation');
+                var choose_rotation_angle = jq('#choose_rotation_angle');
+                choose_rotation_angle.val('');
+                //Set the popup window to center
+                rotate_window.css('top',  winH/2-rotate_window.height())
+                    .css('left', winW/2-rotate_window.width())
+                    .show();
+                jq('#choose_rotation a.close').unbind().click(function() {
+                    unselectBlock();
+                    rotate_window.hide();
+                   jq('#square_rotate').attr('src', icon_rotate_normal);
+                });
+                
+                jq('#choose_rotation a.save').unbind().click(function() {
+                    var dropdown = (choose_rotation_angle.val() == '')?choose_rotation_angle.val():'_' +choose_rotation_angle.val();
+                     jq.each(array_seat_id,function(j,value){
+                        
+                        var img = jq('#' + j + ' img.seat');
+                        if(img.attr('id')>0)
+                        img.attr('src',function(i,val){
+                            var tmp = val.match(/(.+\/)([a-z]+)(\_[0-9]{2,3})?(_selected)(\.[a-z]{2,4})/);
+                            return tmp[1]+tmp[2] + dropdown + tmp[4] + tmp[5];
+                        })
+                     });
+                     
+                    unselectBlock();
+                    rotate_window.hide();
+                    jq('#square_rotate').attr('src', icon_rotate_normal);
+              })   
+    }
+    
+    jq('#square_rotate').unbind().click(function(){
+         var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
+         if(numKeys(for_seats)>0  && unselecting == true)
+      {
+         jq(this).attr('src', icon_rotate_selected);
+         
+         square_rotate( for_seats);
+
+      }
+      else
+          alert('Some seats must be selected!');   
+    });
+    
+    
 });

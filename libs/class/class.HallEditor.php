@@ -51,6 +51,7 @@
                                     <td><img id="square_remove" src="' . SITE_HOST . 'skins/images/icons/delete_group.png" title="Delete seats" /></td>
                                     <td><img id="square_label" src="' . SITE_HOST . 'skins/images/icons/label_group.png" title="Change label" /></td>
                                     <td><img id="square_category" src="' . SITE_HOST . 'skins/images/icons/change_group.png" title="Change category" /></td>
+                                    <td><img id="square_rotate" src="' . SITE_HOST . 'skins/images/icons/rotate.png" title="Rotate selected seats" /></td>
                                     
                                 </tr>
                                </table>
