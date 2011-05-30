@@ -348,7 +348,6 @@ jq(window).load(function(){
 /////////////////////////////////////////////////////////////////////
 //editing hall size
 /////////////////////////////////////////////////////////////////////   
-    jq('#up_arrow').unbind('click');
     jq('#up_arrow').click(function(){
         var img = jq('#table > tbody>tr:first-child>td:first-child> img.seat');
         
@@ -385,7 +384,6 @@ jq(window).load(function(){
     });
 
     //adding the table cell after each column
-    jq('#right_arrow').unbind('click');
     jq('#right_arrow').click(function(){
         //getting the hallid
         var img = jq("#table > tbody>tr:first-child> td:last-child>img.seat");
@@ -414,7 +412,6 @@ jq(window).load(function(){
     
     
     //addint cell befoe the fitst cell of each row
-    jq('#left_arrow').unbind('click');
     jq('#left_arrow').click(function(){
         var img = jq("#table> tbody>tr:first-child> td:first-child> img.seat");
         //getting the hallid
@@ -442,7 +439,6 @@ jq(window).load(function(){
   
   
     //adding row after the last one
-    jq('#down_arrow').unbind('click');    
     jq('#down_arrow').click(function(){
         //getting the hallid
         var img =jq('#table > tbody>tr:last-child >td:first-child img.seat'); 
@@ -475,7 +471,7 @@ jq(window).load(function(){
 //actions when clicked on seat
 /////////////////////////////////////////////////////////////////////    
     // if the seat is pressed
-    jq('#table img.seat').unbind('click');    
+        
     jq('#table img.seat').click(function(){
 
         //save the referense to clicked image
@@ -620,13 +616,11 @@ jq(window).load(function(){
 
                  //showing window
                 boxes_window.show();
-                jq('#dialog a.close').unbind('click');
                 jq('#dialog a.close').click(function() {
                     boxes_window.hide();
                 });
 
                 // closing window
-                jq('#dialog a.save').unbind('click');
                 jq('#dialog a.save').click(function()
                 {
                     var action = 'update_info';
@@ -768,6 +762,7 @@ jq(window).load(function(){
     });
     jq('#window_edit_categories a.close').unbind('click');
     jq('#window_edit_categories a.close').click(function(){
+        unselectBlock();
         jq('#window_edit_categories').hide();
     });
     
@@ -1476,6 +1471,7 @@ function square_add()
             
             jq('#select_category_for_group > a.close').unbind('click');
             jq('#select_category_for_group > a.close').click(function(){
+                unselectBlock();
                   jq('#select_category_for_group').hide();
                });
 
