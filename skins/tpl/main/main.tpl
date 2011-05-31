@@ -93,7 +93,122 @@
         <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
         <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
         
-            </div>
+    </div>
+    
+    <div id="windows_group_label">
+        <h3>Set label</h3>
+        <a class="close" href="javascript:void(0);">Close</a>
+        <div style="clear:both;"></div>
+        <table>
+            <tr>
+       
+         <td>Row Start:</td><td><input type="text" maxlength="3" size="3" id="windows_group_label_row_start"/></td>
+            <td><input type="radio" name="radio_row_start" value="1" />Top to bottom</td>
+            <td><input type="radio" name="radio_row_start" value="0" />Bottom to top</td>
+        
+            </tr>
+        <tr><td>Number Start:</td><td><input type="text" maxlength="3" size="3" id="windows_group_label_number_start"/></td>
+            <td><input type="radio" name="radio_number_start" value="1" />Left to right</td>
+            <td><input type="radio" name="radio_number_start" value="0" />Right to left</td>
+        </tr>
+        </table>
+
+
+        <div class="example">
+            <table>
+            <tr>
+            	<td><input type="radio" name="variants" value="1" /></td>
+            	<td>10.1</td>
+            	<td>10.2</td>
+            	<td>10.3</td>
+            	<td>...</td>
+            	<td></td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>11.1</td>
+            	<td>11.2</td>
+            	<td>11.3</td>
+            	<td>...</td>
+            	<td></td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>...</td>
+            	<td></td>
+            	<td></td>
+            	<td></td>
+            	<td></td>
+            </tr>
+            </table>
+      </div>
+      
+        <div class="example">
+            <table>
+            <tr>
+            	<td><input type="radio" name="variants" value="2" /></td>
+            	<td>10.1</td>
+            	<td>10.3</td>
+            	<td>10.5</td>
+            	<td>...</td>
+            	<td>(oneven numbers)</td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>11.1</td>
+            	<td>11.3</td>
+            	<td>11.5</td>
+            	<td>...</td>
+            	<td></td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>...</td>
+            	<td></td>
+            	<td></td>
+            	<td></td>
+            	<td></td>
+            </tr>
+            </table>
+      </div>
+
+        <div class="example">
+            <table>
+            <tr>
+            	<td><input type="radio" name="variants" value="3" /></td>
+            	<td>10.2</td>
+            	<td>10.4</td>
+            	<td>10.6</td>
+            	<td>...</td>
+            	<td>(even numbers)</td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>11.2</td>
+            	<td>11.4</td>
+            	<td>11.6</td>
+            	<td>...</td>
+            	<td></td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>...</td>
+            	<td></td>
+            	<td></td>
+            	<td></td>
+            	<td></td>
+            </tr>
+            </table>
+            
+        <a class="ok" href="javascript:void(0);">OK</a>
+        <a class="advanced" href="javascript:void(0);" >Advanced</a>
+      </div>
+      
+      
+    </div>
+         
+         
+         
 
 </div>
   

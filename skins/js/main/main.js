@@ -49,7 +49,7 @@ jq.ajaxSetup({
                 dataType: 'JSON',
                 cache: false,
                 error: function(response) {
-                        alert('Error processing query! ');
+                        alert('Error processing query!');
                 }
 });
 
@@ -769,10 +769,12 @@ jq(window).load(function(){
         jq('#dialog').hide();
         jq('#multiple_actions').hide();
         jq('#div_dropdown_category').hide(); 
-        jq('#edit_categories').hide();
+            jq('#edit_categories').hide();
         jq('#window_edit_categories').hide();
         jq('#square_actions').hide();
         jq('#choose_rotation').hide();
+        jq('#windows_group_label').hide();
+        
         
     }
     
@@ -796,7 +798,7 @@ jq(window).load(function(){
    jq('#select_image').unbind('click');
    jq('#select_image').click(function(){
         action = 'select_seat';
-        hideExtra();
+       // hideExtra();
         unselectIcons();
         jq('#multiple_actions').show();
 
@@ -816,8 +818,8 @@ jq(window).load(function(){
     });
     
     //if the remove icon is pressed then action (general var) is set to remove)
-    jq('#remove_image').unbind('click');
-    jq('#remove_image').click(function(){
+    
+    jq('#remove_image').unbind('click').click(function(){
         action = 'remove_seat';
          hideExtra();
         unselectIcons();
@@ -1548,6 +1550,47 @@ function square_add()
       else
           alert('Some seats must be selected!');   
     });
+    
+    
+    /* ////////////////////////////////////////////////////
+        set label for the selected area
+    //////////////////////////////////////////////////// */
+     function square_label(for_seats)
+     {
+        var windows_group_label = jq('#windows_group_label');
+        var winH = jq(window).height();
+        var winW = jq(window).width();
+        
+        windows_group_label.css('top', winH/2 - windows_group_label.height()/2)
+                           .css('left', winW/2 - windows_group_label.width()/2)
+                           .css('z-index', '1')
+                           .show();
+                           
+        jq('#windows_group_label a.close').unbind('click').click(function(){
+            unselectBlock();
+            windows_group_label.hide();
+            jq('#square_label').attr('src', icon_label_group);
+        })
+     }
+    
+    jq('#square_label').unbind('click').click(function(){
+       var for_seats = SelectedTdFilterSeats(selected_coords, 'seats');
+         if(numKeys(for_seats)>0  && unselecting == true)
+      {
+         jq(this).attr('src', icon_label_group_selected);
+         square_label(for_seats);
+
+      }
+      else
+          alert('Some seats must be selected!');           
+    });
+    
+    
+    
+    
+    
+    
+    
     
     
 });

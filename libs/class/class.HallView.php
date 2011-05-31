@@ -46,25 +46,26 @@
 
         private function DrawArrows()
         {
-            $this->string = ' 
-                                 <div id="up_arrow">
-                                     <img src="' . SITE_HOST . 
+            $this->string = ' <div id = "content">
+                                 <div id="up_div" >
+                                     <img id="up_arrow" src="' . SITE_HOST . 
                                          'skins/images/up_arrow.jpg" width="75" height="42" title="Add one row to the beggining of the hall" />
-                                  </div> <br />
+                                  </div>
                                   
-                                 <div id="left_arrow" >
-                                     <img  src="' . SITE_HOST . 
+                                 <div id="left_div" >
+                                     <img id="left_arrow"  src="' . SITE_HOST . 
                                          'skins/images/left_arrow.jpg"  width="42" height="75" title="Add one column to the beggining  of the hall" />
                                  </div>' . 
                                  $this->string . 
-                                 '<div id="right_arrow" style="">
-                                     <img  src="' . SITE_HOST . 
+                                 '<div id="right_direction_div">
+                                     <img id="right_arrow"  src="' . SITE_HOST . 
                                          'skins/images/right_arrow.jpg" width="42" height="75" title="Add one column to the end  of the hall" />
-                                 </div><br />
+                                 </div>
                                          
-                                <div id="down_arrow" style="">
-                                    <img src="' . SITE_HOST . 
+                                <div id="down_div">
+                                    <img id="down_arrow" src="' . SITE_HOST . 
                                         'skins/images/down_arrow.jpg" width="75" height="42" title="Add one row to the end  of the hall" />
+                                </div>
                                 </div>
                              </div>';
         }
@@ -99,7 +100,8 @@
              $this->string .= $this->table . '  </table>
                             </div>';
              
-             return $this->table;
+             return $this->table. '  </table>
+                            </div>';
         }
         
         private function getSeat($x,$y)

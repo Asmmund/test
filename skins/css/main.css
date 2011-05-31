@@ -70,7 +70,6 @@ the output div
 */
 #content{
     width: 998px;
-    padding: 10px;
     margin: 0px auto; /* centering the content */
 }
 
@@ -83,7 +82,7 @@ grid & the hall model
     width:950px;
     overflow:scroll; 
     border:1px solid;
-    padding: 5px;
+    padding: 10px;
     position:absolute;
     top:200px;
 }
@@ -109,37 +108,36 @@ grid & the hall model
 /* 
 arrows
 */
-#main #up_arrow{
-    width:50%;
-    text-align:center;
-    position: relative;
-    left:150px;
-    top: 130px;
-    margin-bottom:15px;    
+#up_div{
+float: none;
+position:relative;
+top: 135px;
+left:250px;
+z-index: 1;
+
 }
-#main #letf_arrow{
-    width:42px; 
-    height:75px; 
+ #left_div{
+float:left;
+position:relative;
+top:490px;
+left: -270px;
+z-index: 1;
 }
-#main #left_arrow img {
-    float: left;
-    position:absolute;
-    top:550px; 
-    left:80px;
+#left_arrow  {
 }
 
-#main #right_arrow {
-    float: right;
-    position:absolute;
-    left:1230px;
-    top: 550px;
+#right_direction_div {
+float:right;
+position:relative;
+top:490px;
+left:340px;
+z-index: 1;
 }
-#main #down_arrow {
-    width:80%;
-    text-align:center;
-    position:absolute;
-    top:1020px;
-    left:230px;
+#down_arrow {
+position:relative;
+left:205px;
+top: 990px;
+z-index: 1;
 }
 
 
@@ -304,17 +302,52 @@ info window
 #div_dropdown_category {
     float:right;
     width:200px;
+    margin: 20px 0 10px 0;
 }
 
 #div_dropdown_category #dropdown_category {
     width:200px;
 }
 
-#div_dropdown_category a#edit_categories {
+#edit_categories {
     margin:20px 0 20px 0;
     float:right;
 }
 
 #edit_seat_delimiter {
     margin:  5px;
+}
+
+/** window group label standart    */
+#windows_group_label{
+position:absolute;
+width: 500px;
+border: 1px solid black;
+background: white;
+padding:10px;
+display:none;
+}
+#windows_group_label h3 {
+    float:left;
+    font:1.1em bold;
+}
+#windows_group_label a.close {
+    float:right;
+}
+#windows_group_label div.example {
+    border:  1px solid black;
+    width: 80%;
+    margin:5px;
+    padding:5px;
+}
+#windows_group_label div.example td {
+    width:70px;
+}
+#windows_group_label a.ok{
+    float:left;
+    margin: 10px;
+}
+#windows_group_label a.advanced{
+    float:left;
+    margin: 10px 0 10px 50px;
 }
