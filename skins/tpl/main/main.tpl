@@ -102,14 +102,14 @@
         <table>
             <tr>
        
-         <td>Row Start:</td><td><input type="text" maxlength="3" size="3" id="windows_group_label_row_start"/></td>
-            <td><input type="radio" name="radio_row_start" value="1" />Top to bottom</td>
-            <td><input type="radio" name="radio_row_start" value="0" />Bottom to top</td>
+         <td>Row Start:</td><td><input type="text" maxlength="3" size="3" id="windows_group_label_row_start" value="1" /></td>
+            <td><input type="radio" name="radio_row_start" value="0" checked="checked" />Top to bottom</td>
+            <td><input type="radio" name="radio_row_start" value="1" />Bottom to top</td>
         
             </tr>
-        <tr><td>Number Start:</td><td><input type="text" maxlength="3" size="3" id="windows_group_label_number_start"/></td>
-            <td><input type="radio" name="radio_number_start" value="1" />Left to right</td>
-            <td><input type="radio" name="radio_number_start" value="0" />Right to left</td>
+        <tr><td>Number Start:</td><td><input type="text" maxlength="3" value="1" size="3" id="windows_group_label_number_start" /></td>
+            <td><input type="radio" name="radio_number_start" value="0" checked="checked" />Left to right</td>
+            <td><input type="radio" name="radio_number_start" value="1" />Right to left</td>
         </tr>
         </table>
 
@@ -117,7 +117,7 @@
         <div class="example">
             <table>
             <tr>
-            	<td><input type="radio" name="variants" value="1" /></td>
+            	<td><input type="radio" name="variant" value="1" checked="checked" /></td>
             	<td>10.1</td>
             	<td>10.2</td>
             	<td>10.3</td>
@@ -146,7 +146,7 @@
         <div class="example">
             <table>
             <tr>
-            	<td><input type="radio" name="variants" value="2" /></td>
+            	<td><input type="radio" name="variant" value="2" /></td>
             	<td>10.1</td>
             	<td>10.3</td>
             	<td>10.5</td>
@@ -175,7 +175,7 @@
         <div class="example">
             <table>
             <tr>
-            	<td><input type="radio" name="variants" value="3" /></td>
+            	<td><input type="radio" name="variant" value="3" /></td>
             	<td>10.2</td>
             	<td>10.4</td>
             	<td>10.6</td>
@@ -207,7 +207,12 @@
       
     </div>
          
-         
+   <div id="advanced_windows_group_label">
+        <h3>Set label</h3>
+        <a class="close" href="javascript:void(0);">Close</a>
+        <div style="clear:both;"></div>
+   
+   </div>      
          
 
 </div>

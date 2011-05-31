@@ -113,7 +113,6 @@ float: none;
 position:relative;
 top: 135px;
 left:250px;
-z-index: 1;
 
 }
  #left_div{
@@ -121,9 +120,6 @@ float:left;
 position:relative;
 top:490px;
 left: -270px;
-z-index: 1;
-}
-#left_arrow  {
 }
 
 #right_direction_div {
@@ -131,13 +127,11 @@ float:right;
 position:relative;
 top:490px;
 left:340px;
-z-index: 1;
 }
-#down_arrow {
+#down_div{
 position:relative;
 left:205px;
 top: 990px;
-z-index: 1;
 }
 
 
@@ -327,11 +321,13 @@ background: white;
 padding:10px;
 display:none;
 }
-#windows_group_label h3 {
+#windows_group_label h3,
+#advanced_windows_group_label h3 {
     float:left;
     font:1.1em bold;
 }
-#windows_group_label a.close {
+#windows_group_label a.close,
+#advanced_windows_group_label a.close {
     float:right;
 }
 #windows_group_label div.example {
@@ -340,6 +336,10 @@ display:none;
     margin:5px;
     padding:5px;
 }
+#windows_group_label > table  tr {
+    margin:4px;
+}
+
 #windows_group_label div.example td {
     width:70px;
 }
@@ -350,4 +350,8 @@ display:none;
 #windows_group_label a.advanced{
     float:left;
     margin: 10px 0 10px 50px;
+}
+
+#advanced_windows_group_label{
+    display:none;
 }

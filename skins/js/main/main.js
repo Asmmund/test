@@ -1555,6 +1555,25 @@ function square_add()
     /* ////////////////////////////////////////////////////
         set label for the selected area
     //////////////////////////////////////////////////// */
+     function sortCoords(for_seats,kind_x,kind_y)
+     {
+        if(kind_x == 0)
+        {
+            jq.each(for_seats,function(i,val){
+                if(prev == undefined || val['x']<prev['x'])
+                var prev = val
+            });
+        }
+        else if (kind_x == 1)
+        {
+            alert('bottom to top');
+        }
+        else
+            alert('Error passing "kind_x" params to sortCoords()')
+     }
+     
+     
+     
      function square_label(for_seats)
      {
         var windows_group_label = jq('#windows_group_label');
@@ -1566,11 +1585,41 @@ function square_add()
                            .css('z-index', '1')
                            .show();
                            
-        jq('#windows_group_label a.close').unbind('click').click(function(){
+        jq('#windows_group_label>a.close').unbind('click').click(function(){
             unselectBlock();
             windows_group_label.hide();
             jq('#square_label').attr('src', icon_label_group);
-        })
+        });
+        
+        jq('#windows_group_label a.ok').unbind('click').click(function(){
+            
+            var row_starting = jq('#windows_group_label_row_start').val();
+            var starting_from = jq("input[name=radio_row_start]:checked").val();
+            //if starting_from = 0 - it's' Top to bottom
+            //if starting_from = 1 - it's Bottom to top'
+            var number_starting = jq('#windows_group_label_number_start').val();
+            var numbers_from = jq("input[name=radio_number_start]:checked").val();
+            var variant = jq("input[name=variant]:checked").val();
+            //sortCoords(for_seats,kind_x,kind_y)
+            /*alert('Row start: ' +row_starting+ ' starting from: code ' + starting_from 
+                  + '\nNumber start: ' + number_starting + ' Code: ' + numbers_from+ '\nvariant: '+ variant); 
+              */
+            jq.each(for_seats,function(i,val){
+                alert( 'x: '+ val['x']+ 'y:'+val['y']);
+            });
+            
+
+            unselectBlock();
+            windows_group_label.hide();
+            jq('#square_label').attr('src', icon_label_group);
+            
+        });
+        
+        jq('#windows_group_label a.advanced').unbind('click').click(function(){
+            //windows_group_label.hide();
+            
+        });
+        
      }
     
     jq('#square_label').unbind('click').click(function(){
