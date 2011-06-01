@@ -1670,7 +1670,6 @@ function square_add()
          else
              return true;
          }
-     
      // function that anwsers for putting row numbers in the hall
      function ticketSeats(array,ticketSeats_row,ticketSeats_number)
      {
@@ -1691,16 +1690,21 @@ function square_add()
                 var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
                 cell.attr('title', starting_row + '.' + starting_number);
                 
-                starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+                //starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+                starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 1)
+                                  :(Number(starting_number)+1).toString();
             }
             else
             {
                 starting_number = ticketSeats_number;
-                starting_row  = String.fromCharCode(starting_row.charCodeAt() + 1);
+                starting_row  = (isNaN(starting_row))?String.fromCharCode(starting_row.charCodeAt() + 1)
+                               :(Number(starting_row)+1).toString();
                 var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
                 cell.attr('title', starting_row + '.' + starting_number);
                 x = array[key][0];
-                starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+               // starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+                starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 1)
+                                  :(Number(starting_number)+1).toString();
                 
             }
             //alert(active_x + '\n'+ active_y);
@@ -1722,7 +1726,6 @@ function square_add()
 
             var img = jq('#' + array[key][0] + '_'+ array[key][1] + ' img.seat');
             var label = img.attr('title');
-            alert(label);
             seat[key] = {};
             seat[key].id = img.attr('id');
             seat[key].row  = array[key][0];

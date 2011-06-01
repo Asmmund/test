@@ -102,12 +102,12 @@
         <table>
             <tr>
        
-         <td>Row Start:</td><td><input type="text" maxlength="3" size="3" id="windows_group_label_row_start" value="1" /></td>
+         <td>Row Start:</td><td><input type="text" maxlength="1" size="1" id="windows_group_label_row_start" value="1" /></td>
             <td><input type="radio" name="radio_row_start" value="0" checked="checked" />Top to bottom</td>
             <td><input type="radio" name="radio_row_start" value="1" />Bottom to top</td>
         
             </tr>
-        <tr><td>Number Start:</td><td><input type="text" maxlength="3" value="1" size="3" id="windows_group_label_number_start" /></td>
+        <tr><td>Number Start:</td><td><input type="text" maxlength="1" value="1" size="1" id="windows_group_label_number_start" /></td>
             <td><input type="radio" name="radio_number_start" value="0" checked="checked" />Left to right</td>
             <td><input type="radio" name="radio_number_start" value="1" />Right to left</td>
         </tr>
