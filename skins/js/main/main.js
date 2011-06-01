@@ -1663,13 +1663,20 @@ function square_add()
         return array;
      }
      
+     function isArray(obj) {
+         //returns true is it is an array
+         if (obj.constructor.toString().indexOf('Array') == -1)
+             return false;
+         else
+             return true;
+         }
      
      // function that anwsers for putting row numbers in the hall
      function ticketSeats(array,ticketSeats_row,ticketSeats_number)
      {
         //basic validation
         if(ticketSeats_row.length == 0 || ticketSeats_number.length == 0
-            || array.toString().length == 0)
+            || !isArray(array))
             alert('Error in ticketSeats(array,ticketSeats_row,ticketSeats_number)\n array: '+ array
                  +'\nticketSeats_row: '+ ticketSeats_row + '\nticketSeats_number: ' + ticketSeats_number);
         
@@ -1696,12 +1703,38 @@ function square_add()
                 starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
                 
             }
-            
             //alert(active_x + '\n'+ active_y);
         }
+        
+            return array;
+        
                  
      }
      
+     // funciton of obiaining seat_id lf selected seats
+     function square_labelGetId(array)
+     {
+         if(!isArray(array))
+             alert('Error parsing "array" in square_labelGetId(array) \narray: ' + array);
+         var seat = [];
+         for(var key in array)
+         {
+
+            var img = jq('#' + array[key][0] + '_'+ array[key][1] + ' img.seat');
+            var label = img.attr('title');
+            alert(label);
+            seat[key] = {};
+            seat[key].id = img.attr('id');
+            seat[key].row  = array[key][0];
+            seat[key].number  = array[key][1];
+            seat[key].delimiter = '.';
+            seat[key].label =label;
+         }   
+         
+         return seat;
+     }
+     
+     //function of setting label for selected seats
      function square_label(for_seats)
      {
         var windows_group_label = jq('#windows_group_label');
@@ -1735,6 +1768,21 @@ function square_add()
             */
             
             ticketSeats(array,row_starting,number_starting);
+            
+            var action = 'square_set_label';
+            var hallid = 1;
+            var params =  {};
+            params['object'] = square_labelGetId(array); 
+            var dataSend = {'hallid':hallid,'action':action, 'params': params };
+
+                    jq.ajax({
+                        data: dataSend,
+                        success: function(response){
+                            
+                        }
+                    });                  
+            
+            
             unselectBlock();
             windows_group_label.hide();
             jq('#square_label').attr('src', icon_label_group);
@@ -1769,3 +1817,4 @@ function square_add()
     
     
 });
+

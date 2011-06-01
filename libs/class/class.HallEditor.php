@@ -139,6 +139,9 @@
                 case 'square_add':
                     SeatRepository::squareAdd($hallid, $params);
                     break;
+                case 'square_set_label':
+                    SeatRepository::squareSetLabel($hallid, $params);
+                    break;
                     
                         
                 default:

@@ -432,6 +432,47 @@
         
     }
     
+    static public function squareSetLabel($hallid,$params)
+    {
+        //var_dump($params['object']);
+            try
+            {
+                if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+                $query = 'INSERT INTO `seat`(`seat_id`, `row`,`number`, `delimiter`, `label`, `hall_id`)
+                     VALUES ';
+
+                foreach($params['object'] as $cell)
+                {
+                    $query .= "(". $cell['id'] . " , '". $cell['row'] . "', '". $cell['number'] . "', '". $cell['delimiter'] . "', '"
+                             . $cell['label'] . "','". $hallid . "'), ";
+                }
+                $query = rtrim($query, ', ');
+                $query .= ' ON DUPLICATE KEY UPDATE `row`=VALUES(`row`), `number`=VALUES(`number`)
+                           , `delimiter`=VALUES(`delimiter`), `label`=VALUES(`label`), `hall_id`=VALUES(`hall_id`);';
+                //echo $query;
+
+                $stmt = $connect->prepare($query);
+                
+
+                if($stmt->execute())
+                    echo '{"success":"true"}';
+                else
+                    throw new Exception('Error setting labels of square of seats!');                
+                
+                
+               $connect = null;
+               
+           }
+           catch(PDOException $e)
+           {
+               echo '<b>' . $e->getMessage() . '</b>';
+           }           
+
+        
+    }
+    
 
 } 
 ?>
