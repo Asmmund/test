@@ -1664,6 +1664,43 @@ function square_add()
      }
      
      
+     // function that anwsers for putting row numbers in the hall
+     function ticketSeats(array,ticketSeats_row,ticketSeats_number)
+     {
+        //basic validation
+        if(ticketSeats_row.length == 0 || ticketSeats_number.length == 0
+            || array.toString().length == 0)
+            alert('Error in ticketSeats(array,ticketSeats_row,ticketSeats_number)\n array: '+ array
+                 +'\nticketSeats_row: '+ ticketSeats_row + '\nticketSeats_number: ' + ticketSeats_number);
+        
+        
+        var x = array[0][0];
+        var starting_row  = ticketSeats_row; 
+        var starting_number = ticketSeats_number;
+        for(var key in array)
+        {
+            if(array[key][0] == x)
+            {
+                var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                cell.attr('title', starting_row + '.' + starting_number);
+                
+                starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+            }
+            else
+            {
+                starting_number = ticketSeats_number;
+                starting_row  = String.fromCharCode(starting_row.charCodeAt() + 1);
+                var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                cell.attr('title', starting_row + '.' + starting_number);
+                x = array[key][0];
+                starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+                
+            }
+            
+            //alert(active_x + '\n'+ active_y);
+        }
+                 
+     }
      
      function square_label(for_seats)
      {
@@ -1683,20 +1720,21 @@ function square_add()
         });
         
         jq('#windows_group_label a.ok').unbind('click').click(function(){
-            
             var row_starting = jq('#windows_group_label_row_start').val();
-            var starting_from = jq("input[name=radio_row_start]:checked").val();
             //if starting_from = 0 - it's' Top to bottom
             //if starting_from = 1 - it's Bottom to top'
+            var starting_from = jq("input[name=radio_row_start]:checked").val();
             var number_starting = jq('#windows_group_label_number_start').val();
+            ///same as starting_from
             var numbers_from = jq("input[name=radio_number_start]:checked").val();
+
             var variant = jq("input[name=variant]:checked").val();
             var array = sortCoords(for_seats,starting_from,numbers_from);
             /*alert('Row start: ' +row_starting+ ' starting from: code ' + starting_from 
                   + '\nNumber start: ' + number_starting + ' Code: ' + numbers_from+ '\nvariant: '+ variant); 
             */
-            alert(array);
-
+            
+            ticketSeats(array,row_starting,number_starting);
             unselectBlock();
             windows_group_label.hide();
             jq('#square_label').attr('src', icon_label_group);
