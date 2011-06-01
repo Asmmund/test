@@ -1555,21 +1555,112 @@ function square_add()
     /* ////////////////////////////////////////////////////
         set label for the selected area
     //////////////////////////////////////////////////// */
+    function xAscYAsc(a1,a2)
+    {
+        var a = [];
+        a[0] = parseInt(a1[0]);
+        a[1] = parseInt(a1[1]);
+        var b = [];
+        b[0] = parseInt(a2[0]);
+        b[1] = parseInt(a2[1]);
+        if(a[0] == b[0]){
+            if(a[1] == b[1]) return 0;
+            else if(a[1] <  b[1]) return -1;
+            else if(a[1] >  b[1]) return 1;
+        }
+        else if(a[0] < b[0]) return -1;
+        else if(a[0] > b[0]) return 1;
+    }
+
+    function xDescYDesc(a1,a2)
+    {
+        var a = [];
+        a[0] = parseInt(a1[0]);
+        a[1] = parseInt(a1[1]);
+        var b = [];
+        b[0] = parseInt(a2[0]);
+        b[1] = parseInt(a2[1]);
+        if(a[0] == b[0]){
+            if(a[1] == b[1]) return 0;
+            else if(a[1] >  b[1]) return -1;
+            else if(a[1] <  b[1]) return 1;
+        }
+        else if(a[0] > b[0]) return -1;
+        else if(a[0] < b[0]) return 1;
+    }
+    
+    
+    function xAscYDesc(a1,a2)
+    {
+        var a = [];
+        a[0] = parseInt(a1[0]);
+        a[1] = parseInt(a1[1]);
+        var b = [];
+        b[0] = parseInt(a2[0]);
+        b[1] = parseInt(a2[1]);
+        if(a[0] == b[0]){
+            if(a[1] == b[1]) return 0;
+            else if(a[1] >  b[1]) return -1;
+            else if(a[1] <  b[1]) return 1;
+        }
+        else if(a[0] < b[0]) return -1;
+        else if(a[0] > b[0]) return 1;
+    }
+    
+    function xDescYAsc(a1,a2)
+    {
+        var a = [];
+        a[0] = parseInt(a1[0]);
+        a[1] = parseInt(a1[1]);
+        var b = [];
+        b[0] = parseInt(a2[0]);
+        b[1] = parseInt(a2[1]);
+        if(a[0] == b[0]){
+            if(a[1] == b[1]) return 0;
+            else if(a[1] <  b[1]) return -1;
+            else if(a[1] >  b[1]) return 1;
+        }
+        else if(a[0] > b[0]) return -1;
+        else if(a[0] < b[0]) return 1;
+        
+    }
+
+
+
+     //function of sorting itself
      function sortCoords(for_seats,kind_x,kind_y)
      {
-        if(kind_x == 0)
+        var array = [];
+        for(var key in for_seats)
         {
-            jq.each(for_seats,function(i,val){
-                if(prev == undefined || val['x']<prev['x'])
-                var prev = val
-            });
+            var key = [for_seats[key].x,for_seats[key].y]
+            array.push(key);
         }
-        else if (kind_x == 1)
+        
+        
+        if(kind_x == 0 && kind_y == 0)
         {
-            alert('bottom to top');
+            
+            array.sort(xAscYAsc);
+        }
+        //if have to reverse all variables
+        else if(kind_x == 1 && kind_y == 1)
+        {
+            array.sort(xDescYDesc);
+        }
+        //if have to reverse only x
+        else if(kind_x == 1 && kind_y == 0)
+        {
+            array.sort(xDescYAsc);
+        }
+        //if have to reverse only y
+        else if(kind_x == 0 && kind_y == 1)
+        {
+            array.sort(xAscYDesc);
         }
         else
-            alert('Error passing "kind_x" params to sortCoords()')
+            alert('Error parsing "kind_x","kind_y" params in sortCoords() \nkind_x: '+ kind_x + '\nkind_y ' + kind_y)
+        return array;
      }
      
      
@@ -1600,14 +1691,11 @@ function square_add()
             var number_starting = jq('#windows_group_label_number_start').val();
             var numbers_from = jq("input[name=radio_number_start]:checked").val();
             var variant = jq("input[name=variant]:checked").val();
-            //sortCoords(for_seats,kind_x,kind_y)
+            var array = sortCoords(for_seats,starting_from,numbers_from);
             /*alert('Row start: ' +row_starting+ ' starting from: code ' + starting_from 
                   + '\nNumber start: ' + number_starting + ' Code: ' + numbers_from+ '\nvariant: '+ variant); 
-              */
-            jq.each(for_seats,function(i,val){
-                alert( 'x: '+ val['x']+ 'y:'+val['y']);
-            });
-            
+            */
+            alert(array);
 
             unselectBlock();
             windows_group_label.hide();
