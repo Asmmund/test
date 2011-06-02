@@ -117,7 +117,7 @@
         <div class="example">
             <table>
             <tr>
-            	<td><input type="radio" name="variant" value="1" checked="checked" /></td>
+            	<td><input type="radio" name="variant" value="all" checked="checked" /></td>
             	<td>10.1</td>
             	<td>10.2</td>
             	<td>10.3</td>
@@ -146,7 +146,7 @@
         <div class="example">
             <table>
             <tr>
-            	<td><input type="radio" name="variant" value="2" /></td>
+            	<td><input type="radio" name="variant" value="odd" /></td>
             	<td>10.1</td>
             	<td>10.3</td>
             	<td>10.5</td>
@@ -175,7 +175,7 @@
         <div class="example">
             <table>
             <tr>
-            	<td><input type="radio" name="variant" value="3" /></td>
+            	<td><input type="radio" name="variant" value="even" /></td>
             	<td>10.2</td>
             	<td>10.4</td>
             	<td>10.6</td>

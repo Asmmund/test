@@ -303,12 +303,6 @@
         
     }
     
-/*
-
-                $query = "DELETE 
-                          FROM `seat`
-                          WHERE `seat_id` IN (" . implode(', ', array_map('intval', $params['array_id']))  . ");";
-*/    
     static public function deleteSeats($hallid, $params)
     {
             try
@@ -321,7 +315,6 @@
                           FROM `seat`
                           WHERE `seat_id` IN ("  .  $temp .  ");";
 
-                    
                     if( $connect->exec($query))
                   echo '{"success":"true"}';
                else

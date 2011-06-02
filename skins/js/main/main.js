@@ -798,7 +798,7 @@ jq(window).load(function(){
    jq('#select_image').unbind('click');
    jq('#select_image').click(function(){
         action = 'select_seat';
-       // hideExtra();
+        hideExtra();
         unselectIcons();
         jq('#multiple_actions').show();
 
@@ -1671,7 +1671,7 @@ function square_add()
              return true;
          }
      // function that anwsers for putting row numbers in the hall
-     function ticketSeats(array,ticketSeats_row,ticketSeats_number)
+     function ticketSeats(array,ticketSeats_row,ticketSeats_number,variant)
      {
         //basic validation
         if(ticketSeats_row.length == 0 || ticketSeats_number.length == 0
@@ -1682,7 +1682,13 @@ function square_add()
         
         var x = array[0][0];
         var starting_row  = ticketSeats_row; 
+        
+        if(variant == 'all' || variant == 'odd')
         var starting_number = ticketSeats_number;
+        else if(variant == 'even')
+        var starting_number =(isNaN(ticketSeats_number))?String.fromCharCode(ticketSeats_number.charCodeAt() + 1)
+                                  :(Number(ticketSeats_number)+1).toString(); 
+        
         for(var key in array)
         {
             if(array[key][0] == x)
@@ -1691,20 +1697,32 @@ function square_add()
                 cell.attr('title', starting_row + '.' + starting_number);
                 
                 //starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+                if(variant == 'all')
                 starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 1)
                                   :(Number(starting_number)+1).toString();
+                else if(variant == 'odd' || variant == 'even')
+                starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 2)
+                                  :(Number(starting_number)+2).toString();
             }
             else
             {
-                starting_number = ticketSeats_number;
+        if(variant == 'all' || variant == 'odd')
+        starting_number = ticketSeats_number;
+        else if(variant == 'even')
+        starting_number =(isNaN(ticketSeats_number))?String.fromCharCode(ticketSeats_number.charCodeAt() + 1)
+                                  :(Number(ticketSeats_number)+1).toString(); 
                 starting_row  = (isNaN(starting_row))?String.fromCharCode(starting_row.charCodeAt() + 1)
                                :(Number(starting_row)+1).toString();
                 var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
                 cell.attr('title', starting_row + '.' + starting_number);
                 x = array[key][0];
                // starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
+                if(variant == 'all')
                 starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 1)
                                   :(Number(starting_number)+1).toString();
+                else if(variant == 'odd' || variant == 'even')
+                starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 2)
+                                  :(Number(starting_number)+2).toString();
                 
             }
             //alert(active_x + '\n'+ active_y);
@@ -1765,12 +1783,13 @@ function square_add()
             var numbers_from = jq("input[name=radio_number_start]:checked").val();
 
             var variant = jq("input[name=variant]:checked").val();
+            
             var array = sortCoords(for_seats,starting_from,numbers_from);
             /*alert('Row start: ' +row_starting+ ' starting from: code ' + starting_from 
                   + '\nNumber start: ' + number_starting + ' Code: ' + numbers_from+ '\nvariant: '+ variant); 
             */
             
-            ticketSeats(array,row_starting,number_starting);
+            ticketSeats(array,row_starting,number_starting,variant);
             
             var action = 'square_set_label';
             var hallid = 1;
