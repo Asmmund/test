@@ -102,12 +102,12 @@
         <table>
             <tr>
        
-         <td>Row Start:</td><td><input type="text" maxlength="1" size="1" id="windows_group_label_row_start" value="1" /></td>
+         <td>Row Start:</td><td><input type="text" maxlength="2" size="2" id="windows_group_label_row_start" value="1" /></td>
             <td><input type="radio" name="radio_row_start" value="0" checked="checked" />Top to bottom</td>
             <td><input type="radio" name="radio_row_start" value="1" />Bottom to top</td>
         
             </tr>
-        <tr><td>Number Start:</td><td><input type="text" maxlength="1" value="1" size="1" id="windows_group_label_number_start" /></td>
+        <tr><td>Number Start:</td><td><input type="text" maxlength="2" value="2" size="1" id="windows_group_label_number_start" /></td>
             <td><input type="radio" name="radio_number_start" value="0" checked="checked" />Left to right</td>
             <td><input type="radio" name="radio_number_start" value="1" />Right to left</td>
         </tr>
@@ -208,11 +208,81 @@
     </div>
          
    <div id="advanced_windows_group_label">
-        <h3>Set label</h3>
+        <h3>Set label - advanced</h3>
         <a class="close" href="javascript:void(0);">Close</a>
         <div style="clear:both;"></div>
+        
+                <div class="set">
+                <table>
+                <tr>
+                    <td>Row directions:</td>
+                    <td><input type="radio" name="advanced_windows_group_label_row_directions" value="0" checked="checked" />Top to bottom</td>
+                    <td><input type="radio" name="advanced_windows_group_label_row_directions" value="1" />Bottom to top</td>
+                </tr>
+                <tr>
+                    <td>Number directions:</td>
+                    <td><input type="radio" name="advanced_windows_group_label_number_directions" value="0" checked="checked" />Left to rignt</td>
+                    <td><input type="radio" name="advanced_windows_group_label_number_directions" value="1" />Right to left</td>
+                </tr>
+                </table>
+                </div>
+                
+                <div class="set">
+                <table>
+                <tr>
+                    <td>Rows are:</td>
+                    <td><input type="radio" name="advanced_windows_group_label_rows_are" value="0" checked="checked" />Numeric</td>
+                    <td><input type="radio" name="advanced_windows_group_label_rows_are" value="1" />Alphanumeric</td>
+                </tr>                
+                <tr>
+                    <td>Numbers are:</td>
+                    <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="0" />Numeric</td>
+                    <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="1" checked="checked" />Alphanumeric</td>
+                </tr>  
+                </table>              
+                </div>
+
+                <div class="set">
+                <table>
+                <tr>
+                    <td>Row start: <input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="1" maxlength="1" /></td>
+                    <td>Row increment: <input type="text"  value="1" id="advanced_windows_group_label_row_increment" size="1" maxlength="1" /></td>
+                </tr>                
+                <tr>
+                    <td>Number start: <input type="text"  value="A" id="advanced_windows_group_label_number_starting" size="1" maxlength="1" /> </td>
+                    <td>Number increment:</td>
+                    <td>
+                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="fixed" checked="checked" />Fixed(A, A, A ...)<br />
+                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="inc" />A,B,C,D ...<br />  
+                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="odd" />A,C,E,F ...
+                                          </td> 
+                </tr>
+                </table>              
+                </div>
+                
+                <div class="set">
+                <table>
+                <tr>
+                    <td>Character between row and number <input type="text"  value="." id="advanced_windows_group_label_delimiter" size="1" maxlength="1" /></td>
+                    
+                </tr>
+                 <tr class="preview">
+                 <td>Preview:</td>
+                 <td><table id="advanced_windows_group_label_preview_table"> </table></td>
+                 </tr>
+                 <tr>
+                 <td style="float:left;" id="advanced_windows_group_label_preview"></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 </tr>
+                </table>              
+                </div>
+                
+         <a class="ok" href="javascript:void(0);">OK</a>
+
+        </div>
    
-   </div>      
          
 
 </div>

@@ -313,18 +313,14 @@ info window
 }
 
 /** window group label standart    */
-#windows_group_label{
+#windows_group_label,
+#advanced_windows_group_label{
 position:absolute;
 width: 500px;
 border: 1px solid black;
 background: white;
 padding:10px;
 display:none;
-}
-#windows_group_label h3,
-#advanced_windows_group_label h3 {
-    float:left;
-    font:1.1em bold;
 }
 #windows_group_label a.close,
 #advanced_windows_group_label a.close {
@@ -343,6 +339,7 @@ display:none;
 #windows_group_label div.example td {
     width:70px;
 }
+#advanced_windows_group_label a.ok,
 #windows_group_label a.ok{
     float:left;
     margin: 10px;
@@ -352,6 +349,15 @@ display:none;
     margin: 10px 0 10px 50px;
 }
 
-#advanced_windows_group_label{
-    display:none;
+#windows_group_label h3,
+#advanced_windows_group_label h3 {
+    float:left;
+    font:1.2em;
+    font-weight: bold;
+}
+#advanced_windows_group_label .set {
+    margin: 10px 0 10px 0;
+}
+#advanced_windows_group_label .set table{
+    width: 90%;
 }

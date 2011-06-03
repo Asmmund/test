@@ -591,16 +591,16 @@ jq(window).load(function(){
                 preview_label();
                 
                 //onkeyup events
-                jq('#edit_seat_row').keyup(function(){
+                jq('#edit_seat_row').unbind('keyup').keyup(function(){
                     this.value = this.value.replace(/[^0-9\s]/g,'');
                     preview_label();
                 });
-                jq('#edit_seat_delimiter').keyup(function(){
+                jq('#edit_seat_delimiter').unbind('keyup').keyup(function(){
                     this.value = this.value.replace(/[^\\\/\_\.\s\|]/g,'');
                     preview_label();
                 });
                 
-                jq('#edit_seat_number').keyup(function(){
+                jq('#edit_seat_number').unbind('keyup').keyup(function(){
                     this.value = this.value.replace(/[^0-9a-zA-Z\s]/g,'');
                     preview_label();
                      
@@ -1696,7 +1696,6 @@ function square_add()
                 var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
                 cell.attr('title', starting_row + '.' + starting_number);
                 
-                //starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
                 if(variant == 'all')
                 starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 1)
                                   :(Number(starting_number)+1).toString();
@@ -1716,7 +1715,6 @@ function square_add()
                 var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
                 cell.attr('title', starting_row + '.' + starting_number);
                 x = array[key][0];
-               // starting_number = String.fromCharCode(starting_number.charCodeAt() + 1);
                 if(variant == 'all')
                 starting_number = (isNaN(starting_number))?String.fromCharCode(starting_number.charCodeAt() + 1)
                                   :(Number(starting_number)+1).toString();
@@ -1811,10 +1809,214 @@ function square_add()
             
         });
         
-        jq('#windows_group_label a.advanced').unbind('click').click(function(){
-            //windows_group_label.hide();
+        
+        
+        
+        function advanced_windows_group_preview_label()
+        {
+            var row = jq('#advanced_windows_group_label_row_starting').val();
+            var number  = jq('#advanced_windows_group_label_number_starting').val();
+            var delimiter = jq('#advanced_windows_group_label_delimiter').val();
+            var rows_are = jq("input[name=advanced_windows_group_label_rows_are]:checked").val() ;
+            var numbers_are =jq("input[name=advanced_windows_group_label_numbers_are]:checked").val();
+            var row_increment = jq('#advanced_windows_group_label_row_increment').val();
+            var advanced_windows_group_label_row_starting = jq('advanced_windows_group_label_row_starting').val()
+            var advanced_windows_group_label_row_increment = jq('advanced_windows_group_label_row_increment').val();
+            var advanced_windows_group_label_numbers_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
+            var advanced_windows_group_label_row_directions = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
+            var advanced_windows_group_label_number_directions =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
+            //var result = row+delimiter+number;
+            var result ='';
+            var row_output = row;    
+            var number_output=number;
             
+            
+            //row & number asc
+            if((advanced_windows_group_label_row_directions == 0) 
+                && (advanced_windows_group_label_number_directions == 0))
+            {
+            
+            for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +1:
+                            String.fromCharCode(number_output.charCodeAt() + 1) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +2:
+                            String.fromCharCode(number_output.charCodeAt() + 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) + Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() + Number(row_increment)) ;
+            }
+            
+           }
+           // row & number desc
+           else if((advanced_windows_group_label_row_directions == 1) 
+                && (advanced_windows_group_label_number_directions == 1))
+           {
+        for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) -1:
+                            String.fromCharCode(number_output.charCodeAt() - 1) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) -2:
+                            String.fromCharCode(number_output.charCodeAt() - 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) - Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() - Number(row_increment)) ;
+            }            
+           }
+            // row asc & number desc
+           else if((advanced_windows_group_label_row_directions == 0) 
+                && (advanced_windows_group_label_number_directions == 1))
+           {
+             if(advanced_windows_group_label_numbers_increment == 'odd')
+             {
+                
+             var multi = (advanced_windows_group_label_numbers_increment == 'odd')? 2:1;
+                    number_output = (numbers_are == 0)?Number(number_output) -3*multi:
+                            String.fromCharCode(number_output.charCodeAt() - 3*multi);
+              } 
+              else if(advanced_windows_group_label_numbers_increment == 'inc')
+              {
+                
+              }
+        for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +1:
+                            String.fromCharCode(number_output.charCodeAt() +1 ) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +2:
+                            String.fromCharCode(number_output.charCodeAt() + 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) + Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() + Number(row_increment)) ;
+            }            
+           }
+           
+           //row desc & nuber asc
+           else if((advanced_windows_group_label_row_directions == 1) 
+                && (advanced_windows_group_label_number_directions == 0))
+           {
+        for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +1:
+                            String.fromCharCode(number_output.charCodeAt() + 1) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +2:
+                            String.fromCharCode(number_output.charCodeAt() + 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) - Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() - Number(row_increment)) ;
+            }            
+           }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            jq('#advanced_windows_group_label_preview').html(result);
+            
+        }
+        
+        jq('#windows_group_label a.advanced').unbind('click').click(function(){
+            windows_group_label.hide();
+            var advanced_windows_group_label = jq('#advanced_windows_group_label');
+            advanced_windows_group_label.css('top', winH/2 - advanced_windows_group_label.height()/2)
+                           .css('left', winW/2 - advanced_windows_group_label.width()/2)
+                           .css('z-index', '1')
+                           .show();
+                           
+            advanced_windows_group_preview_label();
+            
+            jq('#advanced_windows_group_label a.close').unbind('click').click(function(){
+                advanced_windows_group_label.hide();
+                unselectBlock();
+                jq('#square_label').attr('src', icon_label_group);
+            });
+           jq('#advanced_windows_group_label_row_starting,'
+              + ' #advanced_windows_group_label_row_increment,'
+              + '#advanced_windows_group_label_number_starting,'
+              +' #advanced_windows_group_label_delimiter')
+           .keyup(function(){
+               advanced_windows_group_preview_label();
+               });
+           
+           
+           jq('input[name=advanced_windows_group_label_rows_are],'
+              + ' input[name=advanced_windows_group_label_numbers_are], '
+              + 'input[name=advanced_windows_group_label_numbers_increment], '
+              + 'input[name=advanced_windows_group_label_row_directions], '
+              + 'input[name=advanced_windows_group_label_number_directions]')
+               .unbind('click')
+               .click(function(){
+                   advanced_windows_group_preview_label(); 
+               });
+
         });
+        
         
      }
     
