@@ -252,9 +252,9 @@
                     <td>Number start: <input type="text"  value="A" id="advanced_windows_group_label_number_starting" size="1" maxlength="1" /> </td>
                     <td>Number increment:</td>
                     <td>
-                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="fixed" checked="checked" />Fixed(A, A, A ...)<br />
-                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="inc" />A,B,C,D ...<br />  
-                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="odd" />A,C,E,F ...
+                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="fixed" />Fixed(A, A, A ...)<br />
+                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="inc" checked="checked" />A,B,C,D ...<br />  
+                                          <input type="radio" name="advanced_windows_group_label_numbers_increment" value="pass_one" />A,C,E,F ...
                                           </td> 
                 </tr>
                 </table>              

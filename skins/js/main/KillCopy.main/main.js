@@ -1849,7 +1849,7 @@ function square_add()
                         number_output = (numbers_are == 0)?Number(number_output) +1:
                             String.fromCharCode(number_output.charCodeAt() + 1) 
                     }
-                    else if(advanced_windows_group_label_numbers_increment == 'pass_one')
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
                     {
                         number_output = (numbers_are == 0)?Number(number_output) +2:
                             String.fromCharCode(number_output.charCodeAt() + 2) 
@@ -1863,11 +1863,120 @@ function square_add()
                               String.fromCharCode(row_output.charCodeAt() + Number(row_increment)) ;
             }
             
-            
            }
-           else 
-               result = 'Not yet ready!'
-       
+           // row & number desc
+           else if((advanced_windows_group_label_row_directions == 1) 
+                && (advanced_windows_group_label_number_directions == 1))
+           {
+        for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) -1:
+                            String.fromCharCode(number_output.charCodeAt() - 1) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) -2:
+                            String.fromCharCode(number_output.charCodeAt() - 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) - Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() - Number(row_increment)) ;
+            }            
+           }
+            // row asc & number desc
+           else if((advanced_windows_group_label_row_directions == 0) 
+                && (advanced_windows_group_label_number_directions == 1))
+           {
+             if(advanced_windows_group_label_numbers_increment == 'odd')
+             {
+                
+             var multi = (advanced_windows_group_label_numbers_increment == 'odd')? 2:1;
+                    number_output = (numbers_are == 0)?Number(number_output) -3*multi:
+                            String.fromCharCode(number_output.charCodeAt() - 3*multi);
+              } 
+              else if(advanced_windows_group_label_numbers_increment == 'inc')
+              {
+                
+              }
+        for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +1:
+                            String.fromCharCode(number_output.charCodeAt() +1 ) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +2:
+                            String.fromCharCode(number_output.charCodeAt() + 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) + Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() + Number(row_increment)) ;
+            }            
+           }
+           
+           //row desc & nuber asc
+           else if((advanced_windows_group_label_row_directions == 1) 
+                && (advanced_windows_group_label_number_directions == 0))
+           {
+        for(var i=0;i<3;i++)
+            {
+                result += '<tr>';
+                
+                for(var j=0; j<3; j++)
+                {
+                    
+                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
+                    if(advanced_windows_group_label_numbers_increment == 'inc')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +1:
+                            String.fromCharCode(number_output.charCodeAt() + 1) 
+                    }
+                    else if(advanced_windows_group_label_numbers_increment == 'odd')
+                    {
+                        number_output = (numbers_are == 0)?Number(number_output) +2:
+                            String.fromCharCode(number_output.charCodeAt() + 2) 
+                    }
+                }
+                
+                result += '</tr>';
+                if(advanced_windows_group_label_numbers_increment != 'fixed')
+                    number_output = number;
+                row_output = (rows_are == 0)?Number(row_output) - Number(row_increment):
+                              String.fromCharCode(row_output.charCodeAt() - Number(row_increment)) ;
+            }            
+           }
+            
+            
+            
+            
+            
+            
+            
+            
+            
             jq('#advanced_windows_group_label_preview').html(result);
             
         }
@@ -1906,84 +2015,9 @@ function square_add()
                    advanced_windows_group_preview_label(); 
                });
                
-          
+               
+          //implementing the chosen settings to the choosen settings for advanced settings     
           jq('#advanced_windows_group_label a.ok').unbind('click').click(function(){
-
-
-
-
-
-
-    function advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,c)
-    {
-        //basic validation
-        if(starting_from.length==0)starting_from = 1;
-        if(number_from.length==0)number_from =1;
-        if(row_increment.length==0)row_increment =1;
-        if(numbers_increment.length==0)numbers_increment = 1;
-        if(starting_from.length == 0 || number_from.length == 0 || delimiter.length == 0
-            || row_increment.length == 0 || numbers_increment.length == 0
-            || !isArray(array))
-            alert('Error in advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,numbers_increment)'
-                    +'\n array: '+ array
-                 +'\nstarting_from: '+ starting_from + '\nnumber_from: ' + number_from + '\ndelimiter: '
-                 + delimiter + '\nrow_increment: ' + row_increment + '\nnumbers_increment: ' + numbers_increment);
-
-        var x = array[0][0];
-        var current_row  = starting_from; 
-        
-        var current_number = number_from;
-        
-        
-        for(var key in array)
-        {
-            if(array[key][0] == x)
-            {
-                var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
-                cell.attr('title', current_row + delimiter + current_number);
-                
-                if(numbers_increment == 'inc')
-                {
-                current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 1)
-                                  :(Number(current_number)+1).toString();
-                }
-                else if(numbers_increment == 'pass_one')
-                {
-                    current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 2)
-                                  :(Number(current_number)+2).toString();
-                }
-            }
-            else
-            {
-                x = array[key][0];
-                current_row = (isNaN(current_row))?String.fromCharCode(current_row.charCodeAt() + row_increment)
-                               :(Number(current_row)+ Number(row_increment)).toString();
-                current_number = number_from;
-                var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
-                cell.attr('title', current_row + '.' + current_number);
-                if(numbers_increment == 'inc')
-                {
-                current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 1)
-                                  :(Number(current_number)+1).toString();
-                }
-                else if(numbers_increment == 'pass_one')
-                {
-                    current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 2)
-                                  :(Number(current_number)+2).toString();
-                }
-                
-            }
-        }
-        
-            return array;
-    }        
-
-
-
-
-
-
-
           var starting_from = jq('#advanced_windows_group_label_row_starting').val();
             var number_from = jq('#advanced_windows_group_label_number_starting').val();
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
@@ -1991,31 +2025,13 @@ function square_add()
             var numbers_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
             var row_directions = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
             var number_directions =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
-            
 
-             
+            var variant = numbers_increment; 
             
             var array = sortCoords(for_seats,row_directions,number_directions);
-            advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,numbers_increment);          
-            
-            var action = 'square_set_label';
-            var hallid = 1;
-            var params =  {};
-            params['object'] = square_labelGetId(array); 
-            var dataSend = {'hallid':hallid,'action':action, 'params': params };
-
-                    jq.ajax({
-                        data: dataSend,
-                        success: function(response){
-                            
-                        }
-                    });                  
-            
-            
-            
-            unselectBlock();
-            advanced_windows_group_label.hide();
-            jq('#square_label').attr('src', icon_label_group);
+            //ticketSeats(array,row_starting,number_starting,variant);          
+          
+          
             
           });
 
