@@ -359,5 +359,8 @@ display:none;
     margin: 10px 0 10px 0;
 }
 #advanced_windows_group_label .set table{
-    width: 90%;
+    width: 100%;
+}
+#group_label_preview td {
+    width:50px;
 }

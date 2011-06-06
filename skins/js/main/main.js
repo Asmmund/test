@@ -1670,6 +1670,91 @@ function square_add()
          else
              return true;
          }
+         
+                     function createObjectHall(rows,numbers,starting_row,row_increment, number_start,numbers_increment)
+            {
+                if( isNaN(rows) || isNaN(numbers)) alert('Wrong values passed to'+
+                                                          ' createObjectHall(rows,numbers,startin_row,row_increment, number_start)'
+                                                          + '\nrows ' + rows 
+                                                          + '\nnumbers ' + numbers);
+                rows = Number(rows);
+                numbers = Number(numbers);
+                starting_row = (starting_row.length = 0)?starting_row = 1: Number(starting_row);
+                row_increment = (row_increment.length = 0)? row_increment =1: Number(row_increment);
+                //alert(row_increment); 
+                if(number_start == 0)number_start =1; else number_start= Number(number_start);  
+                //number_increment = (number_increment.length = 0)?number_increment =1:Number(number_increment); 
+                var temp_hall = [];
+                var key = 0;
+                var seat_number = number_start;
+
+                for(var i = starting_row; i< starting_row + rows * row_increment; i+=row_increment)
+                {
+                    
+                    for(var j = 0; j<3; j++)
+                    {
+                        
+                    
+                    if(number_increment == 'fixed')
+                    {
+                        temp_hall[key] =  {};
+                        temp_hall[key].x = i;
+                        temp_hall[key].y = number_start;
+                        key++;
+                        
+                    }
+                    else if(number_increment == 'inc')
+                    {
+                        temp_hall[key] =  {};
+                        temp_hall[key].x = i;
+                        temp_hall[key].y = seat_number;
+                        key++;
+                        seat_number++;
+                    }
+                    else if(number_increment == 'pass_one')
+                    {
+                        temp_hall[key] =  {};
+                        temp_hall[key].x = i;
+                        temp_hall[key].y = seat_number;
+                        key++;
+                        seat_number+=2;
+                        
+                    }
+                    
+                    }
+                    seat_number = number_start;
+                }
+
+               return temp_hall;
+            }
+            
+        
+            
+            function drawPreview(hall,delimiter)
+            {
+                if(!isArray(hall)) alert('Wrong params passed to drawPreview(hall) \nhall: ' + hall + '\ndelimiter' + delimiter);
+                var row_coord = hall[0][0];
+                var result = '<tr>';
+                //alert(hall);
+                jq.each(hall,function(key,val){
+                    
+                    if(row_coord == val[0])
+                    {
+                        result += '<td style="width:100px" >&nbsp' + val[0] + delimiter + val[1] + '&nbsp</td>';
+                    }
+                    else
+                    {
+                        row_coord = val[0];
+                        result += '<td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td style="width:100px">&nbsp' + val[0] + delimiter + val[1] + '&nbsp</td>';
+                        
+                    }
+                  
+                })
+                result+= '</tr>';
+                return result;
+                
+            }
+
      // function that anwsers for putting row numbers in the hall
      function ticketSeats(array,ticketSeats_row,ticketSeats_number,variant)
      {
@@ -1819,56 +1904,24 @@ function square_add()
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
             var rows_are = jq("input[name=advanced_windows_group_label_rows_are]:checked").val() ;
             var numbers_are =jq("input[name=advanced_windows_group_label_numbers_are]:checked").val();
+            var row_starting = jq('#advanced_windows_group_label_row_starting').val()
             var row_increment = jq('#advanced_windows_group_label_row_increment').val();
-            var advanced_windows_group_label_row_starting = jq('advanced_windows_group_label_row_starting').val()
-            var advanced_windows_group_label_row_increment = jq('advanced_windows_group_label_row_increment').val();
-            var advanced_windows_group_label_numbers_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
-            var advanced_windows_group_label_row_directions = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
-            var advanced_windows_group_label_number_directions =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
+            var number_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
+            var row_directions = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
+            var number_directions =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
             //var result = row+delimiter+number;
             var result ='';
             var row_output = row;    
             var number_output=number;
             
-            
-            //row & number asc
-            if((advanced_windows_group_label_row_directions == 0) 
-                && (advanced_windows_group_label_number_directions == 0))
-            {
-            
-            for(var i=0;i<3;i++)
-            {
-                result += '<tr>';
-                
-                for(var j=0; j<3; j++)
-                {
-                    
-                    result +='<td>&nbsp</td><td>&nbsp</td><td>' +row_output+delimiter+ number_output+ '</td><td>&nbsp</td><td>&nbsp</td>';
-                    if(advanced_windows_group_label_numbers_increment == 'inc')
-                    {
-                        number_output = (numbers_are == 0)?Number(number_output) +1:
-                            String.fromCharCode(number_output.charCodeAt() + 1) 
-                    }
-                    else if(advanced_windows_group_label_numbers_increment == 'pass_one')
-                    {
-                        number_output = (numbers_are == 0)?Number(number_output) +2:
-                            String.fromCharCode(number_output.charCodeAt() + 2) 
-                    }
-                }
-                
-                result += '</tr>';
-                if(advanced_windows_group_label_numbers_increment != 'fixed')
-                    number_output = number;
-                row_output = (rows_are == 0)?Number(row_output) + Number(row_increment):
-                              String.fromCharCode(row_output.charCodeAt() + Number(row_increment)) ;
-            }
+            var tmp_hall = createObjectHall(3,3,row,row_increment,number,number_increment);
+           
+             var temp_hall = sortCoords(tmp_hall,row_directions,number_directions); 
             
             
-           }
-           else 
-               result = 'Not yet ready!'
+            result = drawPreview(temp_hall,delimiter);
        
-            jq('#advanced_windows_group_label_preview').html(result);
+            jq('#group_label_preview').html(result);
             
         }
         
