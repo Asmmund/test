@@ -1688,8 +1688,9 @@ function square_add()
             var num_dir = jq("input[name=radio_number_start]:checked").val();
             
             var hallObjAll = sortCoords(createObjectHall(3,3,row_start,1,num_start,'inc'),row_dir,num_dir);
-            var hallObjOdd = sortCoords(createObjectHall(3,3,1,1,1,'pass_one'),row_dir,num_dir);
-            var hallObjEven = sortCoords(createObjectHall(3,3,1,1,2,'pass_one'),row_dir,num_dir);
+            var hallObjOdd = sortCoords(createObjectHall(3,3,row_start,1,num_start,'pass_one'),row_dir,num_dir);
+            num_start++;
+            var hallObjEven = sortCoords(createObjectHall(3,3,row_start,1,num_start,'pass_one'),row_dir,num_dir);
             //draw  hall with inc of numbers
             var previewHallObjAll = drawPreview(hallObjAll, '.');
             jq('#sim_leb_all').html(previewHallObjAll);
