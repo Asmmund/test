@@ -1283,6 +1283,12 @@ function SelectedTdFilterSeats(selected_coords, type)
     return objects;
     
 }
+
+function getKey(data) {
+  for (var prop in data)
+    return data[prop][0];
+}        
+
 //function of adding a chair;
 function square_add()
 {
@@ -1671,7 +1677,38 @@ function square_add()
              return true;
          }
          
-                     function createObjectHall(rows,numbers,starting_row,row_increment, number_start,numbers_increment)
+         
+         
+         //function of standart reaction of  keyup in set label window
+         function standart_set_label_preview()
+         {
+            var row_start = jq('#windows_group_label_row_start').val();
+            var num_start = jq('#windows_group_label_number_start').val();
+            var row_dir = jq("input[name=radio_row_start]:checked").val();
+            var num_dir = jq("input[name=radio_number_start]:checked").val();
+            
+            var hallObjAll = sortCoords(createObjectHall(3,3,row_start,1,num_start,'inc'),row_dir,num_dir);
+            var hallObjOdd = sortCoords(createObjectHall(3,3,1,1,1,'pass_one'),row_dir,num_dir);
+            var hallObjEven = sortCoords(createObjectHall(3,3,1,1,2,'pass_one'),row_dir,num_dir);
+            //draw  hall with inc of numbers
+            var previewHallObjAll = drawPreview(hallObjAll, '.');
+            jq('#sim_leb_all').html(previewHallObjAll);
+            
+            var previewHallObjOdd = drawPreview(hallObjEven,'.');
+            jq('#sim_leb_odd').html(previewHallObjOdd);
+            
+            var previewHallObjEven = drawPreview(hallObjOdd,'.');
+            jq('#sim_leb_even').html(previewHallObjEven);
+            
+            
+         }
+         
+         
+  
+        
+         
+         //function for creating hall object
+         function createObjectHall(rows,numbers,starting_row,row_increment, number_start,number_increment)
             {
                 if( isNaN(rows) || isNaN(numbers)) alert('Wrong values passed to'+
                                                           ' createObjectHall(rows,numbers,startin_row,row_increment, number_start)'
@@ -1740,6 +1777,7 @@ function square_add()
                     
                     if(row_coord == val[0])
                     {
+//                        alert(val[0]);
                         result += '<td style="width:100px" >&nbsp' + val[0] + delimiter + val[1] + '&nbsp</td>';
                     }
                     else
@@ -1764,8 +1802,7 @@ function square_add()
             alert('Error in ticketSeats(array,ticketSeats_row,ticketSeats_number)\n array: '+ array
                  +'\nticketSeats_row: '+ ticketSeats_row + '\nticketSeats_number: ' + ticketSeats_number);
         
-        
-        var x = array[0][0];
+        var x = getKey(array);
         var starting_row  = ticketSeats_row; 
         
         if(variant == 'all' || variant == 'odd')
@@ -1849,7 +1886,13 @@ function square_add()
                            .css('left', winW/2 - windows_group_label.width()/2)
                            .css('z-index', '1')
                            .show();
-                           
+        standart_set_label_preview()
+        jq('input[name=radio_number_start],input[name=radio_row_start]').unbind('click').click(function(){
+            standart_set_label_preview();
+        });
+        jq('#windows_group_label_number_start, #windows_group_label_row_start').keyup(function(){
+            standart_set_label_preview();
+        })                   
         jq('#windows_group_label>a.close').unbind('click').click(function(){
             unselectBlock();
             windows_group_label.hide();

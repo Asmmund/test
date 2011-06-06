@@ -101,7 +101,7 @@
         <div style="clear:both;"></div>
         <table>
 
-        <tr><td>Number start: [ ] </td><td><input type="text" maxlength="4" value="2" size="4" id="windows_group_label_number_start" /></td>
+        <tr><td>Number start: [ ] </td><td><input type="text" maxlength="4" value="1" size="4" id="windows_group_label_number_start" /></td>
             <td><input type="radio" name="radio_number_start" value="0" checked="checked" />Left to right</td>
             <td><input type="radio" name="radio_number_start" value="1" />Right to left</td>
         </tr>
@@ -115,96 +115,36 @@
             </tr>
         </table>
 
-
         <div class="example">
+                        <input type="radio" name="variant" value="all" checked="checked" />All Numbers
             <table>
-            <tr>
-            	<td><input type="radio" name="variant" value="all" checked="checked" /></td>
-            	<td>10.1</td>
-            	<td>10.2</td>
-            	<td>10.3</td>
-            	<td>...</td>
-            	<td></td>
-            </tr>
-            <tr>
-            	<td></td>
-            	<td>11.1</td>
-            	<td>11.2</td>
-            	<td>11.3</td>
-            	<td>...</td>
-            	<td></td>
-            </tr>
-            <tr>
-            	<td></td>
-            	<td>...</td>
-            	<td></td>
-            	<td></td>
-            	<td></td>
-            	<td></td>
-            </tr>
+                <div id="sim_leb_all">
+               </div>
             </table>
       </div>
+
       
         <div class="example">
+        <input type="radio" name="variant" value="odd" />Even numbers
+
+
             <table>
-            <tr>
-            	<td><input type="radio" name="variant" value="odd" /></td>
-            	<td>10.1</td>
-            	<td>10.3</td>
-            	<td>10.5</td>
-            	<td>...</td>
-            	<td>(oneven numbers)</td>
-            </tr>
-            <tr>
-            	<td></td>
-            	<td>11.1</td>
-            	<td>11.3</td>
-            	<td>11.5</td>
-            	<td>...</td>
-            	<td></td>
-            </tr>
-            <tr>
-            	<td></td>
-            	<td>...</td>
-            	<td></td>
-            	<td></td>
-            	<td></td>
-            	<td></td>
-            </tr>
+                <div id="sim_leb_odd">
+               </div>
             </table>
       </div>
 
         <div class="example">
+                     <input type="radio" name="variant" value="even" />Odd numbers
             <table>
-            <tr>
-            	<td><input type="radio" name="variant" value="even" /></td>
-            	<td>10.2</td>
-            	<td>10.4</td>
-            	<td>10.6</td>
-            	<td>...</td>
-            	<td>(even numbers)</td>
-            </tr>
-            <tr>
-            	<td></td>
-            	<td>11.2</td>
-            	<td>11.4</td>
-            	<td>11.6</td>
-            	<td>...</td>
-            	<td></td>
-            </tr>
-            <tr>
-            	<td></td>
-            	<td>...</td>
-            	<td></td>
-            	<td></td>
-            	<td></td>
-            	<td></td>
-            </tr>
+                <div id="sim_leb_even">
+               </div>
+            
             </table>
             
+      </div>
         <a class="ok" href="javascript:void(0);">OK</a>
         <a class="advanced" href="javascript:void(0);" >Advanced</a>
-      </div>
       
       
     </div>
