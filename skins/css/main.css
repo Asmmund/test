@@ -119,7 +119,7 @@ left:250px;
 float:left;
 position:relative;
 top:490px;
-left: -270px;
+left: -290px;
 }
 
 #right_direction_div {
@@ -363,4 +363,20 @@ display:none;
 }
 #group_label_preview td {
     width:50px;
+}
+#upload-area {
+    display:none;
+    width:300px;
+    position:absolute;
+    background:white;
+    border: 1px black solid;
+    padding: 10px;
+}
+
+#upload-area a {
+    padding:7px;
+}
+
+#upload-area a.close{
+    float:right;
 }

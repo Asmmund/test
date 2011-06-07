@@ -1,4 +1,4 @@
-/* Setting no conflict version*/
+    /* Setting no conflict version*/
 var jq = jQuery.noConflict();
 
 
@@ -31,12 +31,20 @@ var icon_squere_normal = 'skins/images/icons/squere.png';
 var icon_squere_selected = 'skins/images/icons/squere_selected.png';
 var icon_rotate_normal = 'skins/images/icons/rotate.png';
 var icon_rotate_selected = 'skins/images/icons/rotate_selected.png';
+var icon_upload_background = 'skins/images/icons/upload.jpg';
+var icon_upload_background_selected = 'skins/images/icons/upload_selected.jpg';
+
     
 // vars for img url's
 var empty_image = 'skins/images/seat/empty.jpg';
 var empty_selected = 'skins/images/seat/empty_selected.jpg';
 
-
+//regex for validating input
+var regex_row = /[^0-9]+/;
+var regex_number = /[^0-9]+/;
+var regex_delimiter = /[^\.\-\s\|\\\,\/\_]/;
+//general label format
+var regex_label = /([0-9]+)([\.\-\s\|\\\,\/\_])([0-9]+)/;
 // vars used in editing categories
 var old_name;
 var old_seatcolor;
@@ -576,14 +584,15 @@ jq(window).load(function(){
                 var winW = jq(window).width();
                 var boxes_window = jq('#dialog');
                 //Set the popup window to center
-                boxes_window.css('top',  winH/2-boxes_window.height())
-                    .css('left', winW/2-boxes_window.width()).show();
+                boxes_window.css('top',  winH/2-boxes_window.height()/2)
+                    .css('left', winW/2-boxes_window.width()/2).show();
                 
-                var tag = jq(click).attr('title').match(/([0-9]+)(.)([0-9a-zA-Z]+)/);
+                var tag = jq(click).attr('title').match(regex_label);
     
                 var row_to_input = tag[1];
                 var delimiter_to_input = tag[2]
                 var number_to_input = tag[3];
+                
                 jq('#edit_seat_row').val(row_to_input);
                 jq('#edit_seat_delimiter').val(delimiter_to_input);
                 jq('#edit_seat_number').val(number_to_input);
@@ -592,16 +601,16 @@ jq(window).load(function(){
                 
                 //onkeyup events
                 jq('#edit_seat_row').unbind('keyup').keyup(function(){
-                    this.value = this.value.replace(/[^0-9\s]/g,'');
+                    this.value = this.value.replace(regex_row,'');
                     preview_label();
                 });
                 jq('#edit_seat_delimiter').unbind('keyup').keyup(function(){
-                    this.value = this.value.replace(/[^\\\/\_\.\s\|]/g,'');
+                    this.value = this.value.replace(regex_delimiter,'');
                     preview_label();
                 });
                 
                 jq('#edit_seat_number').unbind('keyup').keyup(function(){
-                    this.value = this.value.replace(/[^0-9a-zA-Z\s]/g,'');
+                    this.value = this.value.replace(regex_seat,'');
                     preview_label();
                      
                 });
@@ -703,8 +712,8 @@ jq(window).load(function(){
                 var choose_rotation_angle = jq('#choose_rotation_angle');
                 choose_rotation_angle.val('');
                 //Set the popup window to center
-                rotate_window.css('top',  winH/2-rotate_window.height())
-                    .css('left', winW/2-rotate_window.width())
+                rotate_window.css('top',  winH/2-rotate_window.height()/2)
+                    .css('left', winW/2-rotate_window.width()/2)
                     .show();
                 jq('#choose_rotation a.close').unbind().click(function() {
                     rotate_window.hide();
@@ -741,8 +750,8 @@ jq(window).load(function(){
                 var winW = jq(window).width();
                 //Set the popup window to center
                 var window_edit_categories =jq('#window_edit_categories'); 
-                window_edit_categories.css('top',  winH/2-window_edit_categories.height())
-                    .css('left', winW/2 - 0.6*window_edit_categories.width()).show();
+                window_edit_categories.css('top',  winH/2-window_edit_categories.height()/2)
+                    .css('left', winW/2 - window_edit_categories.width()/2).show();
                     
                     
 
@@ -751,7 +760,6 @@ jq(window).load(function(){
     });
     jq('#window_edit_categories a.close').unbind('click');
     jq('#window_edit_categories a.close').click(function(){
-        //unselectBlock();
         jq('#window_edit_categories').hide();
     });
     
@@ -1012,8 +1020,8 @@ function getCategoriesListForGroup()
                     var winW = jq(window).width();
                     var boxes_select_category_for_group =jq('#select_category_for_group'); 
                     //Set the popup window to center
-                    boxes_select_category_for_group.css('top',  winH/2-boxes_select_category_for_group.height())
-                    .css('left', winW/2-boxes_select_category_for_group.width()).show();
+                    boxes_select_category_for_group.css('top',  winH/2-boxes_select_category_for_group.height()/2)
+                    .css('left', winW/2-boxes_select_category_for_group.width()/2).show();
                     
                 getCategoriesListForGroup();
                 
@@ -1073,15 +1081,15 @@ function getCategoriesListForGroup()
 //window for adding category
     jq('#window_edit_categories > a.add_category').unbind('click');
     jq('#window_edit_categories > a.add_category').click(function(){
-                var winH = jq(window).height()+ 10;
-                var winW = jq(window).width()+ 10;
+                var winH = jq(window).height();
+                var winW = jq(window).width();
                 var add_category = jq('#add_category'); 
                 //Set the popup window to center
                 jq('#name').val('New category name');
                 jq('#color').val('');
 
-                add_category.css('top',  winH/2-add_category.height())
-                    .css('left', winW/2-add_category.width()).show();
+                add_category.css('top',  winH/2-add_category.height()/2)
+                    .css('left', winW/2-add_category.width()/2).show();
 
     });
     
@@ -1123,12 +1131,12 @@ function getCategoriesListForGroup()
 //editing category
 function editCategoryWindow(id)
 {
-    var winH = jq(window).height()-50;
-    var winW = jq(window).width()+ 10;
+    var winH = jq(window).height();
+    var winW = jq(window).width();
     //Set the popup window to center
     var edit_category_window = jq('#edit_category_window');
-    edit_category_window.css('top',  winH/2-edit_category_window.height())
-        .css('left', winW/2-edit_category_window.width()).show();
+    edit_category_window.css('top',  winH/2-edit_category_window.height()/2)
+        .css('left', winW/2-edit_category_window.width()/2).show();
       
         var action = 'get_category_info';
         var params =  {};
@@ -1517,8 +1525,8 @@ function square_add()
                 var choose_rotation_angle = jq('#choose_rotation_angle');
                 choose_rotation_angle.val('');
                 //Set the popup window to center
-                rotate_window.css('top',  winH/2-rotate_window.height())
-                    .css('left', winW/2-rotate_window.width())
+                rotate_window.css('top',  winH/2-rotate_window.height()/2)
+                    .css('left', winW/2-rotate_window.width()/2)
                     .show();
                 jq('#choose_rotation a.close').unbind().click(function() {
                     unselectBlock();
@@ -1984,14 +1992,34 @@ function square_add()
                 unselectBlock();
                 jq('#square_label').attr('src', icon_label_group);
             });
-           jq('#advanced_windows_group_label_row_starting,'
-              + ' #advanced_windows_group_label_row_increment,'
-              + '#advanced_windows_group_label_number_starting,'
-              +' #advanced_windows_group_label_delimiter')
-           .keyup(function(){
+            
+            //validating the input 
+           jq('#advanced_windows_group_label_row_increment')
+               .unbind('keyup').keyup(function(){
                advanced_windows_group_preview_label();
                });
-           
+           jq('#advanced_windows_group_label_row_starting')
+               .unbind('keyup')
+               .keyup(function(){
+                    this.value = this.value.replace(regex_row,'');
+                    advanced_windows_group_preview_label();     
+               });
+               
+            jq('#advanced_windows_group_label_number_starting')
+               .unbind('keyup')
+               .keyup(function(){
+                    this.value = this.value.replace(regex_number,'');
+                    advanced_windows_group_preview_label();     
+               });
+            jq(' #advanced_windows_group_label_delimiter')
+               .unbind('keyup')
+               .keyup(function(){
+                    this.value = this.value.replace(regex_delimiter,'');
+                    advanced_windows_group_preview_label();     
+               });
+               
+               
+               //of radio change the preview
            
            jq('input[name=advanced_windows_group_label_rows_are],'
               + ' input[name=advanced_windows_group_label_numbers_are], '
@@ -2134,7 +2162,45 @@ function square_add()
     });
     
     
-    
+    jq('#upload_background').unbind('click').click(function(){
+        var image = jq(this);
+        image.attr('src',icon_upload_background_selected);
+        var upload_area = jq('#upload-area');
+        var winH = jq(window).height();
+        var winW = jq(window).width();
+        
+        upload_area.css('top', winH/2 - upload_area.height()/2)
+                           .css('left', winW/2 - upload_area.width()/2)
+                           .css('z-index', '1')
+                           .show();
+     
+      jq('#upload1').upload({
+     name: 'file',
+     method: 'post',
+     enctype: 'multipart/form-data',
+     action: 'skins/js/main/upload.php',
+     onSubmit: function() {
+          jq('#progress1').html(ajax_load);
+     },
+     onComplete: function(data,textStatus) {
+        var info = jQuery.parseJSON(data);
+          jq('#progress1').text('filename: ' + info.filename);
+          jq('#grid').css("background","url(upload/"+info.filename+") no-repeat 0 0 ")
+                     .css('background-size', '100%;');
+          upload_area.hide();
+     }
+});
+
+       
+       
+                           
+      jq('#upload-area a.close').unbind('click').click(function(){
+            upload_area.hide();
+            image.attr('src',icon_upload_background);
+        });
+
+
+    })
     
     
     

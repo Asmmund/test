@@ -40,6 +40,7 @@
                                     <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/icons/001_02.png" title="Delete a seat" /></td>
                                     <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/icons/label_icon.png" title="Change label of the seat" /></td>
                                     <td class="rotate"><img id="rotate_image" src="' . SITE_HOST . 'skins/images/icons/rotate.png" title="Rotate a seat" /></td>
+                                    <td><img id="upload_background" src="' . SITE_HOST . 'skins/images/icons/upload.jpg" title="Upload background of the hall" /></td>
                                 </tr>
                                 <tr id="multiple_actions">
                                     <td class="group_delete"><img id="group_delete" src="' . SITE_HOST . 'skins/images/icons/delete_group.png" title="Delete selected seats" /></td>

@@ -7,14 +7,14 @@
         <p>Editing Seat information</p>
         <table>
         <tr>
-            <td >Row:</td><td ><input type="text" id="edit_seat_row" size="10" maxlength="10" /> </td>
+            <td >Row:</td><td ><input type="text" id="edit_seat_row" size="4" maxlength="4" /> </td>
         </tr><br />
         <tr>
             <td>Number:</td>
-            <td><input type="text" id="edit_seat_number" size="10" maxlength="10" /></td>
+            <td><input type="text" id="edit_seat_number" size="4" maxlength="4" /></td>
         </tr><br />
         <tr>
-            <td>Character between row and number:<pre>[\_/|. ]</td><td></pre><input type="text" id="edit_seat_delimiter" size="10" maxlength="1" /></td>
+            <td>Character between row and number:[,.-_|\/&nbsp;]</td><td><input type="text" id="edit_seat_delimiter" size="1" maxlength="1" /></td>
         </tr><br />
         <tr>
             <td>Preview:</td> <td><p id="label_preview"></p></td>
@@ -101,14 +101,14 @@
         <div style="clear:both;"></div>
         <table>
 
-        <tr><td>Number start: [ ] </td><td><input type="text" maxlength="4" value="1" size="4" id="windows_group_label_number_start" /></td>
+        <tr><td>Number start: [0-9] </td><td><input type="text" maxlength="4" value="1" size="4" id="windows_group_label_number_start" /></td>
             <td><input type="radio" name="radio_number_start" value="0" checked="checked" />Left to right</td>
             <td><input type="radio" name="radio_number_start" value="1" />Right to left</td>
         </tr>
 
             <tr>
        
-         <td>Row start: [ ] </td><td><input type="text" maxlength="4" size="4" id="windows_group_label_row_start" value="1" /></td>
+         <td>Row start: [0-9] </td><td><input type="text" maxlength="4" size="4" id="windows_group_label_row_start" value="1" /></td>
             <td><input type="radio" name="radio_row_start" value="0" checked="checked" />Top to bottom</td>
             <td><input type="radio" name="radio_row_start" value="1" />Bottom to top</td>
         
@@ -188,11 +188,11 @@
                 <div class="set">
                 <table>
                 <tr>
-                    <td>Row start: [ ] <input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="4" maxlength="4" /></td>
-                    <td>Row increment: [ ]  <input type="text"  value="1" id="advanced_windows_group_label_row_increment" size="4" maxlength="4" /></td>
+                    <td>Row start: [0-9] <input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="4" maxlength="4" /> </td>
+                    <td>Row increment: <input type="text"  value="1" id="advanced_windows_group_label_row_increment" size="4" maxlength="4" />[0-9]</td>
                 </tr>                
                 <tr>
-                    <td>Number start: [ ] <input type="text"  value="1" id="advanced_windows_group_label_number_starting" size="4" maxlength="4" /> </td>
+                    <td>Number start:<input type="text"  value="1" id="advanced_windows_group_label_number_starting" size="4" maxlength="4" />  [0-9]</td>
                     <td>Number increment:</td>
                     <td>
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="fixed" />Fixed(A, A, A ...)<br />
@@ -206,7 +206,7 @@
                 <div class="set">
                 <table>
                 <tr>
-                    <td>Character between row and number: [ ] <input type="text"  value="." id="advanced_windows_group_label_delimiter" size="1" maxlength="1" /></td>
+                    <td>Character between row and number: [,.-|\/_&nbsp;] <input type="text"  value="." id="advanced_windows_group_label_delimiter" size="1" maxlength="1" /></td>
                     
                 </tr>
                  <tr class="preview">
@@ -225,6 +225,13 @@
         </div>
    
          
+
+<div id="upload-area">
+
+        <a href="#" id="upload1">Click to upload a picture of the hall</a>
+        <div id="progress1"></div>
+        <a href="javascript:void(0);" class="close">Close</a>
+</div>
 
 </div>
   
