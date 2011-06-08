@@ -8,8 +8,10 @@
 	<meta name="author" content="Elmor" />
     <link type="text/css" rel="stylesheet" href="<?php echo SITE_HOST;?>skins/css/main.css" />
     <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/ocupload.js" ></script>    
-    
+    <script type="text/javascript" src="<?php echo SITE_HOST;?>skins/js/fileuploader.js" ></script>
+
+    <link type="text/css" rel="stylesheet" href="<?php echo SITE_HOST;?>skins/css/fileuploader.css" />
+        
     
 	<title>Outsourcing Ukraine</title>
 </head>

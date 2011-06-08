@@ -2164,7 +2164,6 @@ function square_add()
     
     jq('#upload_background').unbind('click').click(function(){
         var image = jq(this);
-        image.attr('src',icon_upload_background_selected);
         var upload_area = jq('#upload-area');
         var winH = jq(window).height();
         var winW = jq(window).width();
@@ -2174,28 +2173,30 @@ function square_add()
                            .css('z-index', '1')
                            .show();
      
-      jq('#upload1').upload({
-     name: 'file',
-     method: 'post',
-     enctype: 'multipart/form-data',
-     action: 'skins/js/main/upload.php',
-     onSubmit: function() {
-          jq('#progress1').html(ajax_load);
-     },
-     onComplete: function(data,textStatus) {
-        var info = jQuery.parseJSON(data);
-          jq('#progress1').text('filename: ' + info.filename);
-          jq('#grid').css("background","url(upload/"+info.filename+") no-repeat 0 0 ")
-                     .css('background-size', '100%;');
-          upload_area.hide();
-     }
+         var uploader = new qq.FileUploader({
+    // pass the dom node (ex. $(selector)[0] for jQuery users)
+    element: document.getElementById('file-uploader'),
+    // path to server-side upload script
+    action: 'skins/js/upload.php',
+    allowedExtensions: ['png', 'gif', 'bmp', 'jpg'],
+    
+    onComplete: function(id, fileName, responseJSON){
+        if(responseJSON.success == true)
+        {
+            jq('#grid').css('background', 'url(upload/' + fileName + ') no-repeat 0 0');
+            jq('#upload-area').hide();
+
+        }
+    }
+    
 });
 
-       
+    
+      
        
                            
       jq('#upload-area a.close').unbind('click').click(function(){
-            upload_area.hide();
+            jq('#upload-area').hide();
             image.attr('src',icon_upload_background);
         });
 
