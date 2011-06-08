@@ -49,22 +49,31 @@
             $this->string = ' <div id = "content">
                                  <div id="up_div" >
                                      <img id="up_arrow" src="' . SITE_HOST . 
-                                         'skins/images/up_arrow.jpg" width="75" height="42" title="Add one row to the beggining of the hall" />
+                                         'skins/images/up_arrow.jpg" width="75" height="42" title="Add one row to the beggining" /><br />
+                                    <img id="up_minus" src="' . SITE_HOST . 
+                                        'skins/images/down_arrow.jpg" width="75" height="42" title="Remove one empty row from the beggining" />
+                                         
                                   </div>
                                   
                                  <div id="left_div" >
                                      <img id="left_arrow"  src="' . SITE_HOST . 
-                                         'skins/images/left_arrow.jpg"  width="42" height="75" title="Add one column to the beggining  of the hall" />
+                                         'skins/images/left_arrow.jpg"  width="42" height="75" title="Add one column to the beggining" />
+                                     <img id="left_minus"  src="' . SITE_HOST . 
+                                         'skins/images/right_arrow.jpg" width="42" height="75" title="Remove one empty column from the beggining" />
                                  </div>' . 
                                  $this->string . 
                                  '<div id="right_direction_div">
+                                     <img id="right_minus"  src="' . SITE_HOST . 
+                                         'skins/images/left_arrow.jpg"  width="42" height="75" title="Remove one empty column from the end" />
                                      <img id="right_arrow"  src="' . SITE_HOST . 
-                                         'skins/images/right_arrow.jpg" width="42" height="75" title="Add one column to the end  of the hall" />
+                                         'skins/images/right_arrow.jpg" width="42" height="75" title="Add one column to the end  " />
                                  </div>
                                          
                                 <div id="down_div">
+                                     <img id="down_minus" src="' . SITE_HOST . 
+                                         'skins/images/up_arrow.jpg" width="75" height="42" title="Remove one empty row from the end" /><br />
                                     <img id="down_arrow" src="' . SITE_HOST . 
-                                        'skins/images/down_arrow.jpg" width="75" height="42" title="Add one row to the end  of the hall" />
+                                        'skins/images/down_arrow.jpg" width="75" height="42" title="Add one row to the end" />
                                 </div>
                                 </div>
                              </div>';

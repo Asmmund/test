@@ -109,29 +109,25 @@ grid & the hall model
 arrows
 */
 #up_div{
-float: none;
 position:relative;
-top: 135px;
-left:250px;
-
+left: 200px;
+top: 100px;
 }
  #left_div{
-float:left;
 position:relative;
-top:490px;
-left: -290px;
+left: -110px;
+top: 450px;
 }
 
 #right_direction_div {
-float:right;
 position:relative;
-top:490px;
-left:340px;
+top: 380px;
+left: 980px;
 }
 #down_div{
 position:relative;
-left:205px;
-top: 990px;
+left: 430px;
+top:820px;
 }
 
 
@@ -326,19 +322,17 @@ display:none;
 #advanced_windows_group_label a.close {
     float:right;
 }
-#windows_group_label div.example ,
-#advanced_windows_group_label td.example{
+#windows_group_label div.example {
     border:  1px solid black;
     width: 80%;
-    margin:10px;
+    margin:5px;
     padding:5px;
 }
 #windows_group_label > table  tr {
     margin:4px;
 }
 
-#windows_group_label div.example td.
-#advanced_windows_group_label td.example td{
+#windows_group_label div.example td {
     width:70px;
 }
 #advanced_windows_group_label a.ok,

@@ -210,7 +210,7 @@
                     
                 </tr>
                  <tr class="preview">
-                 <td class="example"><table class="example" id="group_label_preview"></table></td>
+                 <td>Preview:<table id="group_label_preview"></table></td>
                  <td></td>
                  <td ></td>
                  <td></td>
