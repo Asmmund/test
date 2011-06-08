@@ -2183,7 +2183,7 @@ function square_add()
     onComplete: function(id, fileName, responseJSON){
         if(responseJSON.success == true)
         {
-            jq('#grid').css('background', 'url(upload/' + fileName + ') no-repeat 0 0');
+            jq('#grid').css('background', 'url(/upload/' + fileName + ') no-repeat 0 0');
             jq('#upload-area').hide();
 
         }
