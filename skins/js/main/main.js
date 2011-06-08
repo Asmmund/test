@@ -782,7 +782,7 @@ jq(window).load(function(){
         jq('#square_actions').hide();
         jq('#choose_rotation').hide();
         jq('#windows_group_label').hide();
-        
+        jq('#upload-area').hide();
         
     }
     
