@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Elmor" />
+  
+	<title>Untitled 2</title>
+<style>
+    #wizard_1, #wizard_2, #wizard_3 {border: 1px solid black; padding:10px;position: relative}
+    .part { width:400px; margin:10px}
+    #wizard_1 div.previous, #wizard_1 div.next, #wizard_1  a.skip, 
+    #wizard_2 div.previous, #wizard_2 div.next, #wizard_2  a.skip, 
+    #wizard_3 div.previous, #wizard_3 div.next, #wizard_3  a.skip 
+    {margin: 0 5px 5px 5px; float:left;}
+    #wizard_1  div.bottom,#wizard_2 div.bottom, #wizard_3 div.bottom {position:relative;top: -15px;}
+    #wizard_2 div.bottom {position: relative; bottom: 0;}
+    #wizard_3 tr {width: 500px;}
+    #wizard_3 td {width: 500px;}
+    
+</style>
+</head>
+
+
+<body>
+
+<div id="wizard_1">
+<h3>Layout</h3>
+    <div class="part">
+        <p></p><input type="radio" name="layout" value="1" />one block</p>
+        <img />
+    </div>
+    <div class="part">
+        <input type="radio" name="layout" value="2" />two blocks</p>
+        <img />
+    </div>
+    <div class="bottom">
+        <div class="previous">&laquo; Previous</div><div class="next">Next &raquo;</div><a href="javascript:void(0);" class="skip">Skip</a>
+    </div>
+
+</div>
+
+
+
+
+
+<div id="wizard_2">
+<h3>Size</h3>
+    <div class="part">
+    <table>
+        <tr>
+        <td>Number of rows</td>
+        <td><input id="wizard_2_row" type="text" size="4" maxlength="4" /></td>
+        </tr>
+        <tr>
+        <td>Number of seats per row</td>
+        <td><input id="wizard_2_number" type="text" size="4" maxlength="4" /></td>
+        </tr>
+    </table>
+    </div>
+    <div class="bottom">
+        <div class="previous">&laquo; Previous</div><div class="next">Next &raquo;</div><a href="javascript:void(0);" class="skip">Skip</a>
+    </div>
+
+</div>
+
+<div id="wizard_3">
+<h3>Seat numbering</h3>
+    <div class="part">
+    <table>
+        <tr>
+        <td>Row start</td>
+        <td><input id="wizard_3_row_start" type="text" size="4" maxlength="4" /></td>
+        <td><input type="radio" name="wizard_3_row_dir" value="0" checked="checked" />Top to bottom</td>
+        <td><input type="radio" name="wizard_3_row_dir" value="1" checked="checked" />Bottom to top</td>
+        </tr>
+        <tr>
+        <td>Number of seats per row</td>
+        <td><input id="wizard_2_number" type="text" size="4" maxlength="4" /></td>
+        <td><input type="radio" name="wizard_3_num_dir" value="0" checked="checked" />Left to right</td>
+        <td><input type="radio" name="wizard_3_num_dir" value="1" checked="checked" />Right to left</td>
+        </tr>
+    </table>
+    </div>
+    
+    <div class="bottom">
+        <div class="previous">&laquo; Previous</div><div class="next">Next &raquo;</div><a href="javascript:void(0);" class="skip">Skip</a>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
