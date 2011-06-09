@@ -392,7 +392,9 @@ jq(window).load(function(){
                 remove = false;
         });
         if(remove == true)
-        jq('#table >tbody>tr:first-child').remove();
+            jq('#table >tbody>tr:first-child').remove();
+        else if(remove == false)
+            alert("You can remove only empty row!")
         
     });
 
@@ -433,6 +435,8 @@ jq(window).load(function(){
         });
         if(remove == true)
         for_each.parent().remove();
+        else if(remove == false)
+            alert("You can remove only empty column!")
         
     });
     
@@ -472,6 +476,8 @@ jq(window).load(function(){
         });
         if(remove == true)
         for_each.parent().remove();
+        else if(remove == false)
+            alert("You can remove only empty column!")
         
     });
   
@@ -511,7 +517,9 @@ jq(window).load(function(){
                 remove = false;
         });
         if(remove == true)
-        jq('#table > tbody>tr:last-child').remove();
+            jq('#table > tbody>tr:last-child').remove();
+        else if(remove == false)
+            alert("You can remove only empty row!")
     });
 
 
