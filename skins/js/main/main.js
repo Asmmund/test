@@ -382,6 +382,19 @@ jq(window).load(function(){
         
         
     });
+    
+    jq('#up_minus').click(function(){
+        var for_each = jq('#table > tbody>tr:first-child>td>img.seat');
+        
+        var remove = true;
+        for_each.each(function(){
+            if(jq(this).attr('id')>0)
+                remove = false;
+        });
+        if(remove == true)
+        jq('#table >tbody>tr:first-child').remove();
+        
+    });
 
     //adding the table cell after each column
     jq('#right_arrow').click(function(){
@@ -410,6 +423,18 @@ jq(window).load(function(){
 
     });
     
+    jq('#right_minus').click(function(){
+        var for_each = jq('#table >tbody>tr>td:last-child>img.seat');
+        
+        var remove = true;
+        for_each.each(function(){
+            if(jq(this).attr('id')>0)
+                remove = false;
+        });
+        if(remove == true)
+        for_each.parent().remove();
+        
+    });
     
     //addint cell befoe the fitst cell of each row
     jq('#left_arrow').click(function(){
@@ -437,6 +462,18 @@ jq(window).load(function(){
         });
     });
   
+    jq('#left_minus').click(function(){
+        var for_each = jq('#table >tbody>tr >td:first-child > img.seat');
+        
+        var remove = true;
+        for_each.each(function(){
+            if(jq(this).attr('id')>0)
+                remove = false;
+        });
+        if(remove == true)
+        for_each.parent().remove();
+        
+    });
   
     //adding row after the last one
     jq('#down_arrow').click(function(){
@@ -464,6 +501,17 @@ jq(window).load(function(){
            new_y += 1; 
         });
         
+    });
+    jq('#down_minus').click(function(){
+        var for_each = jq('#table > tbody>tr:last-child > td >img.seat');
+        
+        var remove = true;
+        for_each.each(function(){
+            if(jq(this).attr('id')>0)
+                remove = false;
+        });
+        if(remove == true)
+        jq('#table > tbody>tr:last-child').remove();
     });
 
 

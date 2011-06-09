@@ -114,20 +114,23 @@ left: 200px;
 top: 100px;
 }
  #left_div{
-position:relative;
-left: -110px;
-top: 450px;
+float:left;    
+position:absolute;
+left: 30px;
+top: 550px;
+
 }
 
 #right_direction_div {
+    float:right;
 position:relative;
-top: 380px;
-left: 980px;
+top: 480px;
+left: 80px;
 }
 #down_div{
-position:relative;
-left: 430px;
-top:820px;
+position:absolute;
+left: 600px;
+top:1030px;
 }
 
 
