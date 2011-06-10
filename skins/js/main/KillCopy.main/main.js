@@ -1775,12 +1775,6 @@ function square_add()
             
          }
          
-//function to fire if rows or numbers are chars
-         function createObjectHallString(rows,numbers,starting_row,row_increment,rows_are,number_start,number_increment,numbers_are)
-         {
-            
-         }
-         
          
   
         
@@ -2044,15 +2038,7 @@ function square_add()
             var row_output = row;    
             var number_output=number;
             
-            var tmp_hall ;
-            if((rows_are == 1)||(numbers_are ==1))
-            {
-                tmp_hall = createObjectHall(3,3,row,row_increment,number,number_increment);
-            }
-            else
-            {
-                tmp_hall = createObjectHall(3,3,row,row_increment,number,number_increment);
-            }
+            var tmp_hall = createObjectHall(3,3,row,row_increment,number,number_increment);
            
              var temp_hall = sortCoords(tmp_hall,row_directions,number_directions); 
             

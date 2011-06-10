@@ -125,7 +125,7 @@
 
       
         <div class="example">
-        <input type="radio" name="variant" value="odd" />Even numbers
+        <input type="radio" name="variant" value="even" />Even numbers
 
 
             <table>
@@ -135,7 +135,7 @@
       </div>
 
         <div class="example">
-                     <input type="radio" name="variant" value="even" />Odd numbers
+                     <input type="radio" name="variant" value="odd" />Odd numbers
             <table>
                 <div id="sim_leb_even">
                </div>
@@ -179,8 +179,8 @@
                 </tr>                
                 <tr>
                     <td>Numbers are:</td>
-                    <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="0" />Numeric</td>
-                    <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="1" checked="checked" />Alphanumeric</td>
+                    <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="0" checked="checked" />Numeric</td>
+                    <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="1"  />Alphanumeric</td>
                 </tr>  
                 </table>              
                 </div>
