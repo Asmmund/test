@@ -40,8 +40,9 @@ var empty_image = 'skins/images/seat/empty.jpg';
 var empty_selected = 'skins/images/seat/empty_selected.jpg';
 
 //regex for validating input
-var regex_row = /[^0-9a-zA-Z]+/;
-var regex_number = /[^0-9a-zA-Z]+/;
+var reget_numers = /[^0-9]+/;
+var regex_row_advanced = /[^0-9a-zA-Z]+/;
+var regex_number_advanced = /[^0-9a-zA-Z]+/;
 var regex_delimiter = /[^\.\-\s\|\\\,\/\_]/;
 //general label format
 var regex_label = /([0-9]+)([\.\-\s\|\\\,\/\_])([0-9]+)/;
@@ -1973,11 +1974,13 @@ function square_add()
                            .css('left', winW/2 - windows_group_label.width()/2)
                            .css('z-index', '1')
                            .show();
-        standart_set_label_preview()
+        standart_set_label_preview();
         jq('input[name=radio_number_start],input[name=radio_row_start]').unbind('click').click(function(){
             standart_set_label_preview();
         });
         jq('#windows_group_label_number_start, #windows_group_label_row_start').keyup(function(){
+            this.value = this.value.replace(reget_numers,'');
+
             standart_set_label_preview();
         })                   
         jq('#windows_group_label>a.close').unbind('click').click(function(){
@@ -2087,14 +2090,14 @@ function square_add()
            jq('#advanced_windows_group_label_row_starting')
                .unbind('keyup')
                .keyup(function(){
-                    this.value = this.value.replace(regex_row,'');
+                    this.value = this.value.replace(regex_row_advanced,'');
                     advanced_windows_group_preview_label();     
                });
                
             jq('#advanced_windows_group_label_number_starting')
                .unbind('keyup')
                .keyup(function(){
-                    this.value = this.value.replace(regex_number,'');
+                    this.value = this.value.replace(regex_number_advanced,'');
                     advanced_windows_group_preview_label();     
                });
             jq(' #advanced_windows_group_label_delimiter')
