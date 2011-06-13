@@ -313,7 +313,8 @@ info window
 
 /** window group label standart    */
 #windows_group_label,
-#advanced_windows_group_label{
+#advanced_windows_group_label
+{
 position:absolute;
 width: 500px;
 border: 1px solid black;
@@ -324,6 +325,9 @@ display:none;
 #windows_group_label a.close,
 #advanced_windows_group_label a.close {
     float:right;
+}
+#numbers_alphanumeric, #row_alphanumeric {
+    display:none
 }
 #windows_group_label div.example {
     border:  1px solid black;
@@ -338,6 +342,9 @@ display:none;
 #windows_group_label div.example td {
     width:70px;
 }
+#advanced_windows_group_label div.example td {
+    width:100px;
+} 
 #advanced_windows_group_label a.ok,
 #windows_group_label a.ok{
     float:left;

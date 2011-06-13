@@ -150,56 +150,86 @@
     </div>
          
    <div id="advanced_windows_group_label">
-        <h3>Set label - advanced</h3>
+        <h1>Set label - advanced</h1>
         <a class="close" href="javascript:void(0);">Close</a>
         <div style="clear:both;"></div>
         
                 <div class="set">
+                <h3>Seat numbers</h3><br />
                 <table>
                 <tr>
-                    <td>Number directions:</td>
+                    <td>Directions:</td>
                     <td><input type="radio" name="advanced_windows_group_label_number_directions" value="0" checked="checked" />Left to rignt</td>
                     <td><input type="radio" name="advanced_windows_group_label_number_directions" value="1" />Right to left</td>
                 </tr>
-                <tr>
-                    <td>Row directions:</td>
-                    <td><input type="radio" name="advanced_windows_group_label_row_directions" value="0" checked="checked" />Top to bottom</td>
-                    <td><input type="radio" name="advanced_windows_group_label_row_directions" value="1" />Bottom to top</td>
-                </tr>
-
-                </table>
-                </div>
-                
-                <div class="set">
-                <table>
-                <tr>
-                    <td>Rows are:</td>
-                    <td><input type="radio" name="advanced_windows_group_label_rows_are" value="0" checked="checked" />Numeric</td>
-                    <td><input type="radio" name="advanced_windows_group_label_rows_are" value="1" />Alphanumeric</td>
-                </tr>                
-                <tr>
-                    <td>Numbers are:</td>
+                                <tr>
+                    <td>Seat numbers are:</td>
                     <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="0" checked="checked" />Numeric</td>
                     <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="1"  />Alphanumeric</td>
                 </tr>  
-                </table>              
-                </div>
-
-                <div class="set">
-                <table>
-                <tr>
-                    <td>Row start: <input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="4" maxlength="4" /> </td>
-                    <td>Row increment: <input type="text"  value="1" id="advanced_windows_group_label_row_increment" size="4" maxlength="4" /></td>
-                </tr>                
-                <tr>
-                    <td>Number start:<input type="text"  value="1" id="advanced_windows_group_label_number_starting" size="4" maxlength="4" /></td>
-                    <td>Number increment:</td>
+                 <tr>
+                   <td>Seat number start:<input type="text"  value="1" id="advanced_windows_group_label_number_starting" size="4" maxlength="4" /></td>
+                 </tr>
+                 
+                  <tr id="numbers_alphanumeric">
+                    <td>Seat number increment:</td>
                     <td>
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="fixed" />Fixed(A, A, A ...)<br />
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="inc" checked="checked" />A,B,C,D ...<br />  
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="pass_one" />A,C,E,F ...
                                           </td> 
                 </tr>
+                <tr id="numbers_numeric">
+                    <td>Seat number increment:</td>
+                    <td><input type="text" size="4" maxlength="4" value="1" id="advanced_windows_group_label_numbers_numeric_increment" /></td>             
+                </tr>
+                </table>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                
+                <div class="set">
+                <h3>Row numbers</h3><br />
+                <table>
+                <tr>
+                    <td>Directions:</td>
+                    <td><input type="radio" name="advanced_windows_group_label_row_directions" value="0" checked="checked" />Top to bottom</td>
+                    <td><input type="radio" name="advanced_windows_group_label_row_directions" value="1" />Bottom to top</td>
+                </tr>
+                <tr>
+                    <td>Rows are:</td>
+                    <td><input type="radio" name="advanced_windows_group_label_rows_are" value="0" checked="checked" />Numeric</td>
+                    <td><input type="radio" name="advanced_windows_group_label_rows_are" value="1" />Alphanumeric</td>
+                </tr>
+                
+
+                                
+                <tr>
+                    <td>Row start: <input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="4" maxlength="4" /> </td>
+                </tr>
+                 
+                  <tr id="row_alphanumeric">
+                    <td>Row number increment:</td>
+                    <td>
+                                          <input type="radio" name="advanced_windows_group_label_row_increment" value="fixed" />Fixed(A, A, A ...)<br />
+                                          <input type="radio" name="advanced_windows_group_label_row_increment" value="inc" checked="checked" />A,B,C,D ...<br />  
+                                          <input type="radio" name="advanced_windows_group_label_row_increment" value="pass_one" />A,C,E,F ...
+                                          </td> 
+                </tr>
+                <tr id="row_numeric">
+                    <td>Row number increment:</td>
+                    <td><input type="text" size="4" maxlength="4" value="1" id="advanced_windows_group_row_numeric_increment" /></td>             
+                </tr>
+                
+                                
                 </table>              
                 </div>
                 
