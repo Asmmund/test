@@ -2019,17 +2019,17 @@ function square_add()
         
         function advanced_windows_group_preview_label()
         {
-            var row_directions = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
-            var number_directions =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
+            var number_direction =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
             
             //numbers
             var number_starting  = jq('#advanced_windows_group_label_number_starting').val();
             var number_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
-            var numbers_numeric_increment = jq('#advanced_windows_group_label_numbers_numeric_increment').val();
-            var numbers_are =jq("input[name=advanced_windows_group_label_numbers_are]:checked").val();
+            var number_numeric_increment = jq('#advanced_windows_group_label_numbers_numeric_increment').val();
+            var number_are =jq("input[name=advanced_windows_group_label_numbers_are]:checked").val();
 //            alert(number_directions + '\n' + number_starting + '\n' + numbers_numeric_increment+ '\n' +  number_increment + '\n'+numbers_are);
             
             //rows
+            var row_direction = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
             var row_starting = jq('#advanced_windows_group_label_row_starting').val();
             var row_are = jq("input[name=advanced_windows_group_label_rows_are]:checked").val() ;
             var row_starting = jq('#advanced_windows_group_label_row_starting').val()
@@ -2039,16 +2039,19 @@ function square_add()
             
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
             //var result = row+delimiter+number;
-            var result ='Number params: ' + number_directions + ', ' + number_starting + ', ' + numbers_numeric_increment+ ', ' +  number_increment + ', '+numbers_are;
-            result = result + '<br />' + 'Row params:' + row_directions + ', ' + row_starting + ', ' + row_numeric_increment+ ', ' + row_increment+ ', ' + row_are;
-            result = result + '<br />Delimiter' + delimiter; 
-
-
+            var result ='Number params: ' + number_direction + ', ' + number_starting + ', ' + number_numeric_increment+ ', ' +  number_increment + ', '+number_are;
+            result = result + '<br />' + 'Row params:' + row_direction + ', ' + row_starting + ', ' + row_numeric_increment+ ', ' + row_increment+ ', ' + row_are;
+            result = result + '<br />Delimiter' + delimiter;
+            
+            
+             var tmp_hall = createObjectHall(3,3,number_direction, number_starting, number_increment,
+             number_numeric_increment,number_are,
+             row_direction,row_starting, row_increment, row_numeric_increment, row_are); 
 
 /*            var row_output = row;    
             var number_output=number;
             
-            var tmp_hall = createObjectHall(3,3,row,row_increment,rows_are,number,number_increment,numbers_are);
+           
            
              var temp_hall = sortCoords(tmp_hall,row_directions,number_directions); 
             
