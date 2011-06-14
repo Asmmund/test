@@ -43,6 +43,7 @@ var empty_selected = 'skins/images/seat/empty_selected.jpg';
 var regex_row = /[^0-9]+/;
 var regex_number = /[^0-9]+/;
 var regex_delimiter = /[^\.\-\s\|\\\,\/\_]/;
+var regex_alphanumeric = /[^a-zA-Z0-9]/;
 //general label format
 var regex_label = /([0-9]+)([\.\-\s\|\\\,\/\_])([0-9]+)/;
 // vars used in editing categories
@@ -1837,7 +1838,59 @@ function square_add()
 
              return temp_hall;
          }  
+         
+         //action of creating a hall for advanced label 
+         function createAdvancedObjectHall(number_number, number_direction,
+             number_starting, number_increment, number_numeric_increment, number_are,rows_number,
+             row_direction,row_starting, row_increment, row_numeric_increment, row_are)
+         {
+            var temp_hall =[];
+            var key = 0;
+            var seat_number = number_starting;
+
+                for(var i = row_starting; i< row_starting + rows_number * row_increment; i+=row_increment )
+                {
+                    
+                    for(var j = 0; j<3; j++)
+                    {
+                        
+                    
+                    if(number_increment == 'fixed')
+                    {
+                        temp_hall[key] =  {};
+                        temp_hall[key].x = i;
+                        temp_hall[key].y = number_start;
+                        key++;
+                        
+                    }
+                    else if(number_increment == 'inc')
+                    {
+                        temp_hall[key] =  {};
+                        temp_hall[key].x = i;
+                        temp_hall[key].y = seat_number;
+                        key++;
+                        seat_number++;
+                        //if(numbers_are == 0) seat_number++; else seat_number.incrementAllByOne();
+                    }
+                    else if(number_increment == 'pass_one')
+                    {
+                        temp_hall[key] =  {};
+                        temp_hall[key].x = i;
+                        temp_hall[key].y = seat_number;
+                        key++;
+                        seat_number+=2;
+                        
+                    }
+                    
+                }
+                seat_number = number_start;
+             }
             
+            return temp_hall;
+            
+         }  
+         
+         //function of drawing a preview of the hall 
             function drawPreview(hall,delimiter)
             {
                 if(!isArray(hall)) alert('Wrong params passed to drawPreview(hall) \nhall: ' + hall + '\ndelimiter' + delimiter);
@@ -1967,8 +2020,16 @@ function square_add()
         jq('input[name=radio_number_start],input[name=radio_row_start]').unbind('click').click(function(){
             standart_set_label_preview();
         });
-        jq('#windows_group_label_number_start, #windows_group_label_row_start').keyup(function(){
+       jq('#windows_group_label_row_start').keyup(function(){
+           this.value = this.value.replace(regex_row,'');
+            
             standart_set_label_preview();
+        });
+        jq('#windows_group_label_number_start').keyup(function(){
+           this.value = this.value.replace(regex_number,'');
+            
+            standart_set_label_preview();
+            
         })                   
         jq('#windows_group_label>a.close').unbind('click').click(function(){
             unselectBlock();
@@ -2044,9 +2105,9 @@ function square_add()
             result = result + '<br />Delimiter' + delimiter;
             
             
-             var tmp_hall = createObjectHall(3,3,number_direction, number_starting, number_increment,
-             number_numeric_increment,number_are,
-             row_direction,row_starting, row_increment, row_numeric_increment, row_are); 
+            // var tmp_hall = createAdvancedObjectHall(3,3,number_direction, number_starting, number_increment,
+             //number_numeric_increment,number_are,
+             //row_direction,row_starting, row_increment, row_numeric_increment, row_are); 
 
 /*            var row_output = row;    
             var number_output=number;
@@ -2081,19 +2142,21 @@ function square_add()
             //validating the input 
            jq('#advanced_windows_group_label_row_increment')
                .unbind('keyup').keyup(function(){
+                    this.value = this.value.replace(regex_row,'');
                advanced_windows_group_preview_label();
                });
            jq('#advanced_windows_group_label_row_starting')
                .unbind('keyup')
                .keyup(function(){
-                    this.value = this.value.replace(regex_row,'');
+                    
+                    this.value = this.value.replace(regex_alphanumeric,'');
                     advanced_windows_group_preview_label();     
                });
                
             jq('#advanced_windows_group_label_number_starting')
                .unbind('keyup')
                .keyup(function(){
-                    this.value = this.value.replace(regex_number,'');
+                    this.value = this.value.replace(regex_alphanumeric,'');
                     advanced_windows_group_preview_label();     
                });
                
