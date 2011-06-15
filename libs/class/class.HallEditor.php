@@ -59,7 +59,7 @@
                                </table>
                                <div id="div_dropdown_category">
                                   <img src="skins/images/loading.gif" />
-                               </div> ';
+                               </div><br clear="all" /> ';
             return $this->controlls;            
         }
         
@@ -91,8 +91,7 @@
         //function of formatting output string
         private function ShowAll(HallView $view)
         {
-            $this->final = $this->SwitchScripts() . $this->showEditor() . 
-                 '<div id="result">' .$view->DrawHall() . '</div>';
+            $this->final = $this->SwitchScripts() .'<div id="result">' . $this->showEditor() .$view->DrawHall() . '</div>';
             
         }
 

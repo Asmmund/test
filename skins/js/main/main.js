@@ -63,9 +63,15 @@ jq.ajaxSetup({
 });
 
 //function of increasind sting by one
-String.prototype.incrementAllByOne = function() {
+    String.prototype.increment = function() {
     return this.split('').map(function(s) {
         return String.fromCharCode(s.charCodeAt(0) + 1);
+    }).join('');
+}
+
+    String.prototype.incrementByTwo = function() {
+    return this.split('').map(function(s) {
+        return String.fromCharCode(s.charCodeAt(0) + 2);
     }).join('');
 }
 //function to validate cell id
@@ -1840,53 +1846,17 @@ function square_add()
          }  
          
          //action of creating a hall for advanced label 
-         function createAdvancedObjectHall(number_number, number_direction,
-             number_starting, number_increment, number_numeric_increment, number_are,rows_number,
-             row_direction,row_starting, row_increment, row_numeric_increment, row_are)
+         function createAdvancedObjectHall(num_number,num_row,number_starting, number_increment,
+             number_numeric_increment, number_are,number_direction, 
+             row_starting, row_increment, row_numeric_increment, row_are, row_direction)
          {
             var temp_hall =[];
             var key = 0;
-            var seat_number = number_starting;
+            //get the last characted code
+            var last_char_code = number_starting[number_starting.length - 1].charCodeAt()
 
-                for(var i = row_starting; i< row_starting + rows_number * row_increment; i+=row_increment )
-                {
-                    
-                    for(var j = 0; j<3; j++)
-                    {
-                        
-                    
-                    if(number_increment == 'fixed')
-                    {
-                        temp_hall[key] =  {};
-                        temp_hall[key].x = i;
-                        temp_hall[key].y = number_start;
-                        key++;
-                        
-                    }
-                    else if(number_increment == 'inc')
-                    {
-                        temp_hall[key] =  {};
-                        temp_hall[key].x = i;
-                        temp_hall[key].y = seat_number;
-                        key++;
-                        seat_number++;
-                        //if(numbers_are == 0) seat_number++; else seat_number.incrementAllByOne();
-                    }
-                    else if(number_increment == 'pass_one')
-                    {
-                        temp_hall[key] =  {};
-                        temp_hall[key].x = i;
-                        temp_hall[key].y = seat_number;
-                        key++;
-                        seat_number+=2;
-                        
-                    }
-                    
-                }
-                seat_number = number_start;
-             }
             
-            return temp_hall;
+           // return temp_hall;
             
          }  
          
@@ -2100,14 +2070,15 @@ function square_add()
             
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
             //var result = row+delimiter+number;
+            
             var result ='Number params: ' + number_direction + ', ' + number_starting + ', ' + number_numeric_increment+ ', ' +  number_increment + ', '+number_are;
             result = result + '<br />' + 'Row params:' + row_direction + ', ' + row_starting + ', ' + row_numeric_increment+ ', ' + row_increment+ ', ' + row_are;
             result = result + '<br />Delimiter' + delimiter;
             
             
-            // var tmp_hall = createAdvancedObjectHall(3,3,number_direction, number_starting, number_increment,
-             //number_numeric_increment,number_are,
-             //row_direction,row_starting, row_increment, row_numeric_increment, row_are); 
+             var tmp_hall = createAdvancedObjectHall(3,3, number_starting, number_increment,
+             number_numeric_increment,number_are,number_direction,
+            row_starting, row_increment, row_numeric_increment, row_are,row_direction); 
 
 /*            var row_output = row;    
             var number_output=number;

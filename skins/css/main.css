@@ -60,7 +60,7 @@ body {
     background: white;/* of the body */
     color: black; /* of the text in the body*/
     font-family:  Arial, Verdana, Helvetica, sans-serif; /* fonts to be used*/
-    font-size: 16px; /* size of font - em is the standart set for the browser of the user */
+    font-size: 12px; /* size of font - em is the standart set for the browser of the user */
     margin: 0; /* Margin from all sides*/
     padding:0; /* padding set to 0 */
     
@@ -69,7 +69,7 @@ body {
 the output div
 */
 #content{
-    width: 998px;
+    width: 650px;
     margin: 0px auto; /* centering the content */
 }
 
@@ -78,13 +78,13 @@ the output div
 grid & the hall model
 */
 #grid {
-    height:800px;
-    width:950px;
+    height:500px;
+    width:600px;
     overflow:scroll; 
     border:1px solid;
     padding: 10px;
     position:absolute;
-    top:200px;
+    top:150px;
 }
 #grid > #table {
     border: solid #D3D3D3 1px; /*A9A9A9 */ 
@@ -110,27 +110,27 @@ arrows
 */
 #up_div{
 position:relative;
-left: 200px;
-top: 100px;
+left: 300px;
+top: -20px;
 }
  #left_div{
 float:left;    
-position:absolute;
-left: 30px;
-top: 550px;
+position:relative;
+left: -60px;
+top: 230px;
 
 }
 
 #right_direction_div {
     float:right;
 position:relative;
-top: 480px;
-left: 80px;
+top: 260px;
+left: 30px;
 }
 #down_div{
-position:absolute;
-left: 600px;
-top:1030px;
+position:relative;
+left: 250px;
+top:520px;
 }
 
 
@@ -139,7 +139,8 @@ Toolbar
 */
 #main #control_panel{
     float:left;
-    height:25px;
+    height:115px;
+    width: 300px;
 }
 #main #control_panel > .select,
 #main #control_panel > .add,
