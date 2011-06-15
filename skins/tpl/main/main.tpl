@@ -150,7 +150,7 @@
     </div>
          
    <div id="advanced_windows_group_label">
-        <h1>Set label - advanced</h1>
+        <h3>Set label - advanced</h3>
         <a class="close" href="javascript:void(0);">Close</a>
         <div style="clear:both;"></div>
         
