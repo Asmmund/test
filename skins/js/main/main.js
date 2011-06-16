@@ -5,7 +5,7 @@ var jq = jQuery.noConflict();
 //default action
 var action = 'add_seat';
 //dif images
-var ajax_load = '<img src="skins/images/loading.gif" />';
+var ajax_load = '<img src="skins/images/loading.gif" height="30px" width="30px" />';
 //pool for id's of selected seats
 var selected_id = new Array();
 
@@ -112,7 +112,7 @@ function getSeatCategory()
                         jq.each(response.seatcategory,function(){
                             if(this.type.seatcategory_id != '')
                             options += '<option  value="'+this.type.seatcategory_id 
-                                        +'|'+this.type.seatcolor+'">\'' + this.type.name + '\' color:' + this.type.seatcolor + '</option>';
+                                        +'|'+this.type.seatcolor+'">\'' + this.type.name + '</option>';
                         });
                         options += '</select>';
                         
@@ -135,15 +135,15 @@ function windowListCategories()
             jq.ajax({ 
                 data: dataSend,
                 success: function(response){
-                    var list = '<ul class="list">';
+                    var list = '<table class="list">';
 
                     jq.each(response.seatcategory,function(){
-                        list += '<li>\'' 
-                             + this.type.name + '\' color:'+ this.type.seatcolor  
-                             + '<a href="javascript:void(0)" class="edit" id="'+ this.type.seatcategory_id+'">Edit</a>'
-                             + '<a href="javascript:void(0)" class="delete" id="'+ this.type.seatcategory_id+'">Delete</a></li>';
+                        list += '<tr><td>\'' 
+                             + this.type.name   
+                             + '</td><td><a href="javascript:void(0)" class="edit" id="'+ this.type.seatcategory_id+'">Edit</a>'
+                             + '</td><td><a href="javascript:void(0)" class="delete" id="'+ this.type.seatcategory_id+'">Delete</a></td><tr>';
                         });
-                    list += '</ul>';
+                    list += '</table>';
                     
                     jq('#window_list_categories').html(list);
                     
@@ -2157,11 +2157,13 @@ function square_add()
                 var value = jq('input[name=advanced_windows_group_label_rows_are]:checked').val();
                 if(value == '0' )
                 {
+                       jq('#advanced_windows_group_label_row_starting').val('1');
                         jq('#row_numeric').show();
                         jq('#row_alphanumeric').hide();
                 }
                 else if (value == '1')
                 {
+                       jq('#advanced_windows_group_label_row_starting').val('A');
                         jq('#row_numeric').hide();
                         jq('#row_alphanumeric').show();
                     
@@ -2173,11 +2175,13 @@ function square_add()
                 var value = jq('input[name=advanced_windows_group_label_numbers_are]:checked').val();
                 if(value == '0' )
                 {
+                       jq('#advanced_windows_group_label_number_starting').val('1');
                         jq('#numbers_numeric').show();
                         jq('#numbers_alphanumeric').hide();
                 }
                 else if (value == '1')
                 {
+                       jq('#advanced_windows_group_label_number_starting').val('A');
                         jq('#numbers_numeric').hide();
                         jq('#numbers_alphanumeric').show();
                     

@@ -80,18 +80,18 @@ grid & the hall model
 #grid {
     height:500px;
     width:600px;
-    overflow:scroll; 
-    border:1px solid;
+    overflow:auto; 
+   
     padding: 10px;
-    position:absolute;
-    top:150px;
+    position:relative;
+    top:-50px;
 }
 #grid > #table {
-    border: solid #D3D3D3 1px; /*A9A9A9 */ 
+    border: solid #D3D3D3 1px;/* A9A9A9 */ 
     
 }
 #grid > #table tr {
-    border: solid #D3D3D3 1px;
+    
 }
 
 #grid > #table td {
@@ -109,6 +109,7 @@ grid & the hall model
 arrows
 */
 #up_div{
+    width:100px;
 position:relative;
 left: 300px;
 top: -20px;
@@ -124,13 +125,14 @@ top: 230px;
 #right_direction_div {
     float:right;
 position:relative;
-top: 260px;
+top: -315px;
 left: 30px;
 }
 #down_div{
+width:100px;
 position:relative;
-left: 250px;
-top:520px;
+left: 300px;
+top:-25px;
 }
 
 
@@ -174,11 +176,11 @@ info window
 }
 #dialog, 
 #choose_rotation {
-   text-align:center;
+   text-align:left;
   position:absolute;
   display:none;
   z-index:9999;
-  padding:20px 20px 0px 20px;
+  padding:5px 5px 0px 5px;
   background: white;
   border: 1px black solid;
   width:200px;
@@ -186,7 +188,7 @@ info window
 }
 #dialog p,
 #choose_rotation p {
-        margin: 15px 0 15px 0 ;
+        margin: 5px 0 5px 0 ;
         font-weight: bolder;
 }
 #choose_rotation select
@@ -199,94 +201,101 @@ info window
 #choose_rotation a.close
 
 {
-            
+            margin:5px;
             position:relative;
-            top: 0px;
-}
-#boxes #edit_categories{
-    float:right;
-    position:relative;
-    top: 40px;
-    left:-105px;
-    display:none;
+            
 }
 /* edit categories */
- #boxes #window_edit_categories {
-  text-align:center;
+#edit_categories {
+    float:right;
+    position:relative;
+    top:110px;
+    right: -10px;
+}
+ #window_edit_categories {
+  text-align:left;
   position:absolute;
-  width:550px;
+  width:250px;
   z-index:9999;
   display:none;
-  padding:10px 10px 10px 10px;
+  margin:5px;
+  padding:5px;
+  
   background: white;
   border: 1px black solid;
-
 }
-#boxes > #window_edit_categories >#window_list_categories
+#window_edit_categories p {
+    font-weight: bold;
+    margin: 5px;
+}
+#window_edit_categories >#window_list_categories
 {
-    margin: 30px 0 30px 0 ;
+    margin: 15px 0 15px 0 ;
 }
 
-#boxes > #window_edit_categories >#window_list_categories >ul >li
+#window_edit_categories >#window_list_categories  tr >td
 {
-    margin:5px 0 5px 0;
+    margin:10px ;
     font: 1.1em bold;
 }
 
 
-#boxes #window_edit_categories a {
+#window_edit_categories a {
     margin: 5px;
 }
 
 /* Add category*/
-#boxes  #add_category {
-  text-align:center;
+#add_category {
+  text-align:left;
   position:absolute;
-  width:350px;
+  width:250px;
   z-index:9999;
   border: 1px black solid;
   display: none;
-  padding:5px 5px 5px 5px;
+ margin:5px;
   background: white;
 }
 
-#boxes  #add_category input,
-#boxes  #add_category select,
-#boxes  #add_category a{
+#add_category *{
     margin:5px;
 }
 
 /* Edit category */
-#boxes #edit_category_window{
-  text-align:center;
+#edit_category_window{
+  text-align:left;
   position:absolute;
-  width:350px;
+  width:250px;
   z-index:9999;
   border: 1px black solid;
   display: none;
-  padding:5px 5px 5px 5px;
+  padding:5px ;
   background: white;
 }
     
-#boxes  #edit_category_window input,
-#boxes  #edit_category_window select,
-#boxes  #edit_category_window a{
-    margin:5px;
+#edit_category_window * {
+    margin:0 0  5px 5px;
+}
+#edit_category_window p {
+    font-weight: bold;
 }
 /* select category for group of seats */
-#boxes #select_category_for_group
+#select_category_for_group
 {
-  text-align:center;
+  text-align:left;
   position:absolute;
-  width:350px;
+  width:250px;
   z-index:9999;
   border: 1px black solid;
   display: none;
-  padding:5px 5px 5px 5px;
+  margin:5px;
   background: white;
     
 }
-#boxes #select_category_for_group *
+#select_category_for_group div {
+    font-weight: bold;
+}
+#select_category_for_group a,
+#select_category_for_group *
 
 {
     margin: 5px;
@@ -300,7 +309,7 @@ info window
 }
 
 #div_dropdown_category #dropdown_category {
-    width:200px;
+    width:120px;
 }
 
 #edit_categories {
@@ -317,14 +326,14 @@ info window
 #advanced_windows_group_label
 {
 position:absolute;
-width: 500px;
+width: 600px;
 border: 1px solid black;
 background: white;
 padding:10px;
 display:none;
 }
-#windows_group_label a.close,
-#advanced_windows_group_label a.close {
+#windows_group_label .close.img {
+    margin:0;
     float:right;
 }
 #numbers_alphanumeric, #row_alphanumeric {
@@ -336,6 +345,11 @@ display:none;
     margin:5px;
     padding:5px;
 }
+
+#advanced_windows_group_label table{
+    width:90%;
+}
+
 #windows_group_label > table  tr {
     margin:4px;
 }
@@ -343,9 +357,9 @@ display:none;
 #windows_group_label div.example td {
     width:70px;
 }
-#advanced_windows_group_label div.example td {
-    width:100px;
-} 
+
+#windows_group_label a.close,
+#advanced_windows_group_label a.close,
 #advanced_windows_group_label a.ok,
 #windows_group_label a.ok{
     float:left;
@@ -356,24 +370,24 @@ display:none;
     margin: 10px 0 10px 50px;
 }
 
-#windows_group_label h3,
-#advanced_windows_group_label h3 {
+#windows_group_label p,
+#advanced_windows_group_label p.bold
+{
     float:left;
-    font:1.2em;
     font-weight: bold;
 }
-#advanced_windows_group_label .set {
-    margin: 10px 0 10px 0;
+#advanced_windows_group_label h3,
+ {
+    float:left;
+    font-weight: bold;
 }
-#advanced_windows_group_label .set table{
-    width: 100%;
-}
+
 #group_label_preview td {
     width:50px;
 }
 #upload-area {
     display:none;
-    width:300px;
+    width:250px;
     position:absolute;
     background:white;
     border: 1px black solid;
@@ -385,10 +399,37 @@ display:none;
 }
 
 #upload-area a.close{
-    float:right;
+    float:left;
 }
 
-#upload-area h3.heading {
+#upload-area p.heading {
     margin: 5px;
-    text-align:center;
+    font-weight: bold;
+    text-align:left;
+}
+
+#advanced_windows_group_label .close.img,
+#upload-area .close.img,
+.close.img{
+ float:right;
+ width:24px;
+ height:24px;   
+}
+
+
+#advanced_windows_group_label .preview{
+    margin:10px 0 0 10px;
+}
+#stage {
+    margin: 50px;
+    width: 300px;
+    height: 100px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+#stage p{
+    line-height:100px;
+    text-align: center;
+    font:1.2em;
+    font-weight:bold;
 }

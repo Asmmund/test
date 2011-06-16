@@ -1,8 +1,8 @@
 <!-- shins/tpl/main/main.tpl begin-->
 
     <!-- windows-->
-<div id="boxes">
     <div id="dialog" class="window">
+        <a class="close img"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="24" height="24" /></a>
     
         <p>Editing Seat information</p>
         <table>
@@ -14,7 +14,7 @@
             <td><input type="text" id="edit_seat_number" size="4" maxlength="4" /></td>
         </tr><br />
         <tr>
-            <td>Character between row and number:[,.-_|\/&nbsp;]</td><td><input type="text" id="edit_seat_delimiter" size="1" maxlength="1" /></td>
+            <td>Character between row and number:</td><td><input type="text" id="edit_seat_delimiter" size="1" maxlength="1" /></td>
         </tr><br />
         <tr>
             <td>Preview:</td> <td><p id="label_preview"></p></td>
@@ -23,19 +23,16 @@
          
          </table>
         <!-- close button is defined as close class -->
-        <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
-        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        <a class="close" href="javascript:void(0);">Cancel</a>&nbsp;
+        <a class="save" href="javascript:void(0);">Save</a><br /><br />
         
         
     </div>
- 
-     
-     <a href="javascript:void(0);" id="edit_categories">Edit categories</a>
-    <!-- Do not remove div#mask, because you'll need it to fill the whole screen --> 
-    <div id="mask"></div>
     
-    <!-- Categories editing window --> 
     <div id="window_edit_categories">
+        <a class="close img"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="24" height="24" /></a>
+        <p>Edit categories</p>
+        <br />
         <a href="javascript:void(0);" class="add_category">Add Category</a>
          <div id="window_list_categories">
          
@@ -44,8 +41,10 @@
          <a href="javascript:void(0);" class="close">Close</a> 
         <!-- close button is defined as close class -->
     </div>
-    
+
     <div id="add_category">
+    <a class="close img"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
+    <p>Add category</p>
         Name: <input type="text" size="20" id="name" /><br />
         Color: <select id="color">
                <option value="green">Green</option>
@@ -58,7 +57,9 @@
         
     </div>
 
+
     <div id="edit_category_window">
+        <a href="javascript:void(0);" class="close img"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="24" height="24" /></a>
          <input type="hidden" id="edit_category_window_seatcategory_id" value="0" />
          <p>Edit Category Information</p>
         Name: <input type="text" size="20" id="edit_category_window_name" /> <br />
@@ -72,13 +73,17 @@
         <a class="close" href="javascript:void(0);">Close</a><a class="save" href="javascript:void(0);">Save</a>
         
     </div>
-    
-    <div id="select_category_for_group">
-        <p class="list">select_category_for_group</p>
+
+   <div id="select_category_for_group">
+        <a class="close" href="javascript:void(0);" ><img class="close img" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
+       <div>Select category for group</div>
+        <p class="list"></p>
         <a class="close" href="javascript:void(0);">Close</a><a class="save" href="javascript:void(0);">Save</a>
+        <br /><br />
     </div>
 
     <div id="choose_rotation">
+        <a class="close" href="javascript:void(0);" ><img class="close img" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
         <p>Select angle of rotation</p>
         <select id="choose_rotation_angle">
             <option value="">Normal</option>
@@ -90,14 +95,19 @@
             <option value="270">270</option>
             <option value="315">315</option>
         </select><br />
-        <a class="close"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg" width="48" height="48" /></a>
-        <a class="save"><img src="<?php echo SITE_HOST;?>skins/images/save_icon.jpg" width="48" height="48" /></a>
+        <a href="javascript:void(0);" class="close">Close</a>
+        <a href="javascript:void(0);" class="save">Save</a>
+        <br /><br />
         
     </div>
-    
+
+
+
+
     <div id="windows_group_label">
-        <h3>Set label</h3>
-        <a class="close" href="javascript:void(0);">Close</a>
+        <a class="close img" href="javascript:void(0);" ><img class="close img" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
+
+        <p >Set label</p>
         <div style="clear:both;"></div>
         <table>
 
@@ -143,20 +153,27 @@
             </table>
             
       </div>
-        <a class="ok" href="javascript:void(0);">OK</a>
+        <a href="javascript:void(0);" class="close">Close</a>
+        <a class="ok" href="javascript:void(0);">Save</a>
         <a class="advanced" href="javascript:void(0);" >Advanced</a>
       
       
     </div>
-         
+
+
+
+
+
    <div id="advanced_windows_group_label">
-        <h3>Set label - advanced</h3>
-        <a class="close" href="javascript:void(0);">Close</a>
+        <a class="close img" href="javascript:void(0);" ><img class="close img" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
+        <p class="bold">Set label - advanced</p>
         <div style="clear:both;"></div>
         
-                <div class="set">
-                <h3>Seat numbers</h3><br />
+                
                 <table>
+                <tr>
+                    <td><p class="bold">Seat numbers</p></td>
+                </tr>
                 <tr>
                     <td>Directions:</td>
                     <td><input type="radio" name="advanced_windows_group_label_number_directions" value="0" checked="checked" />Left to rignt</td>
@@ -168,23 +185,25 @@
                     <td><input type="radio" name="advanced_windows_group_label_numbers_are" value="1"  />Alphanumeric</td>
                 </tr>  
                  <tr>
-                   <td>Seat number start:<input type="text"  value="1" id="advanced_windows_group_label_number_starting" size="4" maxlength="4" /></td>
+                   <td>Seat number start:</td>
+                   <td><input type="text"  value="1" id="advanced_windows_group_label_number_starting" size="4" maxlength="4" /></td>
+                   <td></td>
                  </tr>
                  
                   <tr id="numbers_alphanumeric">
-                    <td>Seat number increment:</td>
+                    <td>Seat increment:</td>
                     <td>
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="fixed" />Fixed(A, A, A ...)<br />
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="inc" checked="checked" />A,B,C,D ...<br />  
                                           <input type="radio" name="advanced_windows_group_label_numbers_increment" value="pass_one" />A,C,E,F ...
-                                          </td> 
+                    </td>
+                    <td></td>
                 </tr>
                 <tr id="numbers_numeric">
                     <td>Seat number increment:</td>
-                    <td><input type="text" size="4" maxlength="4" value="1" id="advanced_windows_group_label_numbers_numeric_increment" /></td>             
+                    <td><input type="text" size="4" maxlength="4" value="1" id="advanced_windows_group_label_numbers_numeric_increment" /></td>
+                    <td></td>
                 </tr>
-                </table>
-                </div>
 
 
 
@@ -196,9 +215,10 @@
 
 
                 
-                <div class="set">
-                <h3>Row numbers</h3><br />
-                <table>
+                <tr>
+                    <td><p class="bold"><p class="bold">Row numbers</p></p></td>
+                </tr>
+                
                 <tr>
                     <td>Directions:</td>
                     <td><input type="radio" name="advanced_windows_group_label_row_directions" value="0" checked="checked" />Top to bottom</td>
@@ -213,7 +233,9 @@
 
                                 
                 <tr>
-                    <td>Row start: <input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="4" maxlength="4" /> </td>
+                    <td>Row start:</td>
+                    <td><input type="text"  value="1" id="advanced_windows_group_label_row_starting" size="4" maxlength="4" /></td>
+                    <td></td>
                 </tr>
                  
                   <tr id="row_alphanumeric">
@@ -229,35 +251,37 @@
                     <td><input type="text" size="4" maxlength="4" value="1" id="advanced_windows_group_row_numeric_increment" /></td>             
                 </tr>
                 
-                                
-                </table>              
-                </div>
-                
-                <div class="set">
-                <table>
                 <tr>
-                    <td>Character between row and number:  <input type="text"  value="." id="advanced_windows_group_label_delimiter" size="1" maxlength="1" /></td>
+                    <td>Character between row and number: </td>
+                    <td class="input"><input type="text"  value="." id="advanced_windows_group_label_delimiter" size="1" maxlength="1" /></td>
+                    <td></td>
                     
                 </tr>
                  <tr class="preview">
-                 <td>Preview:<table id="group_label_preview"></table></td>
+                 <td><p class="bold">Preview:</p> </td>
+                 </tr>
+
+                 <tr >
+                 <td> <table id="group_label_preview"></table></td>
                  <td></td>
-                 <td ></td>
                  <td></td>
                  <td></td>
                  <td></td>
                  </tr>
                 </table>              
-                </div>
                 
-         <a class="ok" href="javascript:void(0);">OK</a>
-
-        </div>
-   
+         <a class="close" href="javascript:void(0);">Close</a>
+         <a class="ok" href="javascript:void(0);">Save</a>
          
 
+        </div>
+
+
+
+
 <div id="upload-area">
-<h3 class="heading">Upload Hall background image</h3>
+  <a class="close img" href="javascript:void(0);" ><img class="close img" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
+<p class="heading">Upload Hall background image</p>
 <div id="file-uploader">       
     <noscript>          
         <p>Please enable JavaScript to use file uploader.</p>
@@ -266,13 +290,14 @@
 </div>
 <a href="javascript:void(0);" class="close">Close</a>
 </div>
+     <a href="javascript:void(0);" id="edit_categories">Edit categories</a>
 
-</div>
-  
 
 
     <div id="main">
-        
+        <div id="stage">
+            <p>STAGE</p>
+        </div>
             <?php
                 echo $halleditor->seatEditor(1,'link');
             ?>

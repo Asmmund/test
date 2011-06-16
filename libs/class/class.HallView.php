@@ -49,17 +49,17 @@
             $this->string = ' <div id = "content">
                                  <div id="up_div" >
                                      <img id="up_arrow" src="' . SITE_HOST . 
-                                         'skins/images/up_arrow.jpg" width="37" height="22" title="Add one row to the beggining" /><br />
+                                         'skins/images/up_arrow.jpg" width="37" height="22" title="Add one row to the beginning" /><br />
                                     <img id="up_minus" src="' . SITE_HOST . 
-                                        'skins/images/down_arrow.jpg" width="37" height="22 title="Remove one empty row from the beggining" />
+                                        'skins/images/down_arrow.jpg" width="37" height="22" title="Remove one empty row from the beginning" />
                                          
                                   </div>
                                   
                                  <div id="left_div" >
                                      <img id="left_arrow"  src="' . SITE_HOST . 
-                                         'skins/images/left_arrow.jpg"  width="22" height="37" title="Add one column to the beggining" />
+                                         'skins/images/left_arrow.jpg"  width="22" height="37" title="Add one column to the beginning" />
                                      <img id="left_minus"  src="' . SITE_HOST . 
-                                         'skins/images/right_arrow.jpg" width="22" height="37" title="Remove one empty column from the beggining" />
+                                         'skins/images/right_arrow.jpg" width="22" height="37" title="Remove one empty column from the beginning" />
                                  </div>' . 
                                  $this->string . 
                                  '<div id="right_direction_div">
