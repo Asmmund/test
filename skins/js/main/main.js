@@ -573,7 +573,7 @@ jq(window).load(function(){
                 success: function(response){
                         jq(click).attr('src', function(i,val){
                             var new_src = val.match(/^(.+\/)empty(\..+)$/);
-                            var filename=new_src[1]+category_color+ new_src[2];
+                            var filename=new_src[1]+category_color+'_0'+ new_src[2];
                             return filename;
                             })
                         .attr('id', response.id)
@@ -779,7 +779,7 @@ jq(window).load(function(){
                 var winW = jq(window).width();
                 var rotate_window = jq('#choose_rotation');
                 var choose_rotation_angle = jq('#choose_rotation_angle');
-                choose_rotation_angle.val('');
+                choose_rotation_angle.val('0');
                 //Set the popup window to center
                 rotate_window.css('top',  winH/2-rotate_window.height()/2)
                     .css('left', winW/2-rotate_window.width()/2)
@@ -788,15 +788,27 @@ jq(window).load(function(){
                     rotate_window.hide();
                 });
                 jq('#choose_rotation a.save').unbind().click(function() {
-                    var dropdown = (choose_rotation_angle.val() == '')?choose_rotation_angle.val():'_' +choose_rotation_angle.val();
-                     click_obj.attr('src',function(i,val){
-                       var new_src = val.match(/(.+\/.+?)(_[0-9]{2,3})?(\..+)/);
-                       return  new_src[1]+ dropdown + new_src[3];
-                    });
-                    
+                    var action = 'rotate_seats';
+                    var hallid = 1;
+                    var params =  {};
+                    params['id'] = id; 
+                    params['rotate'] = choose_rotation_angle.val();
+                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
 
+                    jq.ajax({
+                        data: dataSend,
+                        success: function(response){
+                            var img = jq('#'+id);
+                              img.attr('src',function(i,val){
+                                console.log(val);
+                                var tmp = val.match(/^(.+\/[a-z]+)(_[0-9]{1,3})?(\.[a-z]{2,4})$/);
+                                return tmp[1] + '_'+ choose_rotation_angle.val()+ tmp[3] ;
+                                });
+                                rotate_window.hide(); 
 
-                    rotate_window.hide();
+                        }
+                    });                  
+
                 });
                 
                 
@@ -1375,7 +1387,7 @@ function square_add()
                        var cell = jq('#'+ i + ' img.seat');
                        cell.attr('src', function(i,val){
                        var temp = val.match(/^(.+\/)(.+)(\..+)$/);
-                       return temp[1] + seatcolor + temp[3];
+                       return temp[1] + seatcolor +'_0' + temp[3];
                     });
                     cell.attr('id',response.ids.ids[i]).attr('title',params['row'] + params['delimiter']+params['number']);
                     });
@@ -1564,18 +1576,28 @@ function square_add()
         var number = jq('#edit_seat_number').val();
         jq('#label_preview').html(row+delimiter+number);
     }
-
+    function getIdFromTd(array_seat)
+    {
+        //if(!isArray(array_seat)) alert('Error in getIdFromTd(array) \n array: '+array_seat);
+        var seat_id = [];
+          jq.each(array_seat,function(j,value){
+               var img = jq('#' + j + ' img.seat');
+               if(img.attr('id')>0)
+                   seat_id.push(img.attr('id'));
+          })
+          return seat_id;
+    }
 
 
 //rotating selected seats
-    function square_rotate(array_seat_id)
+    function square_rotate(array_seat)
     {
             //Get the window height and width
                 var winH = jq(window).height();
                 var winW = jq(window).width();
                 var rotate_window = jq('#choose_rotation');
                 var choose_rotation_angle = jq('#choose_rotation_angle');
-                choose_rotation_angle.val('');
+                choose_rotation_angle.val('0');
                 //Set the popup window to center
                 rotate_window.css('top',  winH/2-rotate_window.height()/2)
                     .css('left', winW/2-rotate_window.width()/2)
@@ -1587,22 +1609,48 @@ function square_add()
                 });
                 
                 jq('#choose_rotation a.save').unbind().click(function() {
-                    var dropdown = (choose_rotation_angle.val() == '')?choose_rotation_angle.val():'_' +choose_rotation_angle.val();
-                     jq.each(array_seat_id,function(j,value){
+                    var id = getIdFromTd(array_seat);
+                    
+                    var dropdown = '_' +choose_rotation_angle.val();
+                    
+            
+                    var action = 'rotate_seats';
+                    var hallid = 1;
+                    var params =  {};
+                    params['id'] = id.toString(); 
+                    params['rotate'] = choose_rotation_angle.val();
+                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
+
+                    jq.ajax({
+                        data: dataSend,
+                        success: function(response){
+                            jq.each(id,function(j,val){
+                               var img = jq('#'+val);
+                                img.attr('src',function(i,val){
+                                    var tmp = val.match(/(.+\/)([a-z]+)(_[0-9]{1,3})?(_selected)(\.[a-z]{2,4})/);
+                                    return tmp[1]+tmp[2] + dropdown + tmp[4] + tmp[5];
+                                });                                
+                            });
+                            unselectSeats();
+                            unselectBlock();
+                            jq('#square_rotate').attr('src', icon_rotate_normal);
+                            jq('#group_rotate').attr('src', icon_rotate_normal);
+                            rotate_window.hide();
+                        }
+                    });                  
+                    
+/*                    
+                    var dropdown = '_' +choose_rotation_angle.val();
+                     jq.each(array_seat,function(j,value){
                         
                         var img = jq('#' + j + ' img.seat');
                         if(img.attr('id')>0)
                         img.attr('src',function(i,val){
-                            var tmp = val.match(/(.+\/)([a-z]+)(\_[0-9]{2,3})?(_selected)(\.[a-z]{2,4})/);
+                            var tmp = val.match(/(.+\/)([a-z]+)(_[0-9]{1,3})?(_selected)(\.[a-z]{2,4})/);
                             return tmp[1]+tmp[2] + dropdown + tmp[4] + tmp[5];
                         })
                      });
-                     
-                     unselectSeats();
-                    unselectBlock();
-                    jq('#square_rotate').attr('src', icon_rotate_normal);
-                    jq('#group_rotate').attr('src', icon_rotate_normal);
-                    rotate_window.hide();
+  */                   
               })   
     }
     
@@ -1612,7 +1660,7 @@ function square_add()
       {
          jq(this).attr('src', icon_rotate_selected);
          
-         square_rotate( for_seats);
+         square_rotate(for_seats);
 
       }
       else
@@ -2238,7 +2286,6 @@ function square_add()
             
             //advancedTicketSeats(array,row_starting,number_starting,delimiter,row_increment,numbers_increment);          
             
-            console.log(array);
             
             var action = 'square_set_label';
             var hallid = 1;

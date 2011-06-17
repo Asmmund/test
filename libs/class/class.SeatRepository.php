@@ -20,7 +20,7 @@
                     throw new Exception('Error connecting to the Database!');
   
                 $query = "SELECT `seat`.`seat_id`,`seat`.`row`, `seat`.`number`,  `seat`.`x`, `seat`.`y`,
-                                `seat`.`label`, `seat`.`delimiter`, `seat`.`category_id`,
+                                `seat`.`label`, `seat`.`delimiter`, `seat`.`rotate`, `seat`.`category_id`,
                                 `seatcategory`.`name`, `seatcategory`.`seatcolor`
                            FROM `seat` JOIN `seatcategory`
                            WHERE `seat`.`hall_id` =" . $hallid . " 
@@ -34,7 +34,7 @@
                 {
                     $this->array_object[] = new Seat($row['seat_id'],$row['row'],$row['number'], 
                                       $hallid, $row['x'],$row['y'],$row['label'],
-                                      $row['delimiter'],$row['category_id'],$row['seatcolor']);
+                                      $row['delimiter'],$row['category_id'],$row['seatcolor'], $row['rotate']);
                 }
                 
                 $connect = null;
@@ -466,6 +466,24 @@
         
     }
     
+    static public function rotateSeats($hallid,$params)
+    {
+               if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
+                    throw new Exception('Error connecting to the Database!');
+                    
+               $query = 'UPDATE `seat`
+                         SET `rotate` = :rotate
+                         WHERE `seat_id` IN (' . $params['id'] .  ") 
+                         AND `hall_id` = :hallid;";
+
+               $stmt= $connect->prepare($query);
+               if($stmt->execute(array(':rotate' => $params['rotate'], ':hallid'=>$hallid)))
+                   echo '{"success":"true"}';
+               else
+                    throw new Exception('Error upgrading category of the seats!');
+        
+
+    }
 
 } 
 ?>

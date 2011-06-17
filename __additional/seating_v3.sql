@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `seat` (
   `row` varchar(10) NOT NULL,
   `number` varchar(10) NOT NULL,
   `delimiter` varchar(10) NOT NULL,
+  `rotate` INT(2) NOT NULL DEFAULT 0,
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`seat_id`),
   KEY `category_id` (`category_id`)

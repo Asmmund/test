@@ -143,6 +143,9 @@
                 case 'square_set_label':
                     SeatRepository::squareSetLabel($hallid, $params);
                     break;
+                case 'rotate_seats':
+                    SeatRepository::rotateSeats($hallid,$params);
+                    break;
                     
                         
                 default:

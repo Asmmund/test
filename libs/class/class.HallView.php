@@ -129,7 +129,7 @@
         private function drawSeat( $seat)
         {
             $seat = '<img  class="seat" id="' .$seat->seatID . '"
-                      src="skins/images/seat/' . $seat->color  . '.jpg" 
+                      src="skins/images/seat/' . $seat->color  . '_'. $seat->rotate .  '.jpg" 
                       title="'. $seat->label  . '" 
                       alt="' . $seat->hallid . '" />';
             

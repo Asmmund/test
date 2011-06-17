@@ -49,12 +49,13 @@
         }
         
         
-        public function __construct( $id,$r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid,$seatcolor)
+        public function __construct( $id,$r,$number, $hallid, $x, $y, $label, $delimiter, $categoryid,$seatcolor,$rotate)
         {
                 $this->seatID = $id;
                 $this->row = $r;
                 $this->number = $number;
                 $this->hallid = $hallid;
+                $this->rotate = $rotate;
 
                 $this->x = $x;
                 $this->y = $y;

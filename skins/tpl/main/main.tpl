@@ -86,7 +86,7 @@
         <a class="close" href="javascript:void(0);" ><img class="close img" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
         <p>Select angle of rotation</p>
         <select id="choose_rotation_angle">
-            <option value="">Normal</option>
+            <option value="0">Normal</option>
             <option value="45">45</option>
             <option value="90">90</option>
             <option value="135">135</option>
