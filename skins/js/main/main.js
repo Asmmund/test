@@ -315,9 +315,9 @@ function categoryUpdate()
     //function of unselecting selected square
     function unselectBlock()
     {
-        /*if(numKeys(selected_coords) == 2)
+        if(numKeys(selected_coords) == 2  && !isNaN(selected_coords[1])&& !isNaN(selected_coords[2]) )
         unselectSeatInCell(selected_coords[1] + '_'+ selected_coords[2],true);
-        */
+        
         
         jq.each(selected_coords,function(i,val){
             var vals = val['x']+ '_' + val['y'];
@@ -1111,9 +1111,8 @@ function getCategoriesListForGroup()
                                 
                                 jq('#' + value).attr('src', function(j,val){
                                     
-                                    var new_src = val.match(/(.+\/)([a-z]+)((\_[0-9]{1,3})?(_selected)?(\.[a-z]{2,4}))/);
-                                    console.log(new_src);
-                                    return new_src[1]+color+new_src[3];
+                                    var new_src = val.match(/(.+\/)([a-z]+)(\_[0-9]{1,3})?(_selected)?(\.[a-z]{2,4})/);
+                                    return new_src[1]+color + new_src[3]+new_src[5];
                                 });
                                 boxes_select_category_for_group.hide();  
                                 click.attr('src', icon_category_group);
