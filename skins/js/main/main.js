@@ -978,79 +978,62 @@ jq(window).load(function(){
 
                 });
 
-
+function getTdCoords(selected_id)
+{
+    var selected_coords = {};
+    jq.each(selected_id, function(i,val){
+        var img = jq('#' + val);
+        var coord = img.parent().attr('id');
+        var array = coord.split('_');
+        selected_coords[coord] = {};
+        
+        selected_coords[coord].x =array[0];
+        selected_coords[coord].y =array[1];
+    })
+    return selected_coords;
+}
                 
                 //changing label of the group
                 
                     jq('#group_label').unbind('click').click(function(){
-                    /*
+                    
                     if(selected_id != '')
                     {
+                        
                         var click =jq(this); 
-                    click.attr('src', icon_label_group_selected);
-                    
-                    
-                 //Get the window height and width
-                var winH = jq(window).height();
-                var winW = jq(window).width();
-                var boxes_window =jq('#dialog'); 
-                //Set the popup window to center
+                        var for_seats = getTdCoords(selected_id);
+                        if(numKeys(for_seats)>0 )
+                         {
+                            jq(this).attr('src', icon_label_group_selected);
+                            square_label(for_seats);
 
-                
-                
-                boxes_window.css('top',  winH/2-boxes_window.height())
-                    .css('left', winW/2-boxes_window.width()).show();
-                
-
-     
-
-                //jq('#dialog div.cancel').unbind('click');
-                jq('#dialog div.cancel').click(function() {
-                    boxes_window.hide();
-                    click.attr('src',icon_label_group);
-                });
-
-                // 
-                jq('#dialog div.save').unbind('click');
-                jq('#dialog div.save').click(function()
-                {
-                    var action = 'update_labels';
-                    var hallid = 1;
-                    var params =  {};
-                    params['label'] = jq('#label').val();
-                    params['selected'] = selected_id.toString();
-                
-                    var dataSend = {'hallid':hallid,'action':action, 'params': params };
-                    jq.ajax({
-                        data: dataSend,
-                        success: function(response){
-                            unselectSeats();
-                            jq.each(selected_id, function(i,value){
-                                
-                                    jq('#'+value).attr('title',  response.label );
-
-                                   });
-                            
-                            selected_id.length = 0;
-                            boxes_window.hide();
-                            click.attr('src',icon_label_group);
-
-                            
-                        }
-                    });
-
-                });
+                         }
+                         else
+                             alert('Some seats must be selected!');           
                 
              
-                    
                     
                      }
         
                else 
                    alert('To perform group actions you must select seats!');
 
-                */});
+                });
                 
+                // rotating group
+                jq('#group_rotate').unbind('click').click(function(){
+                   var click = jq(this);
+                        var for_seats = getTdCoords(selected_id);
+                        if(numKeys(for_seats)>0 )
+                         {
+                            jq(this).attr('src', icon_label_group_selected);
+                            square_rotate( for_seats);
+
+                         }
+                         else
+                             alert('Some seats must be selected!');           
+                    
+                });
                 
 //function of getting seatcategories
 function getCategoriesListForGroup()
@@ -1615,9 +1598,11 @@ function square_add()
                         })
                      });
                      
+                     unselectSeats();
                     unselectBlock();
-                    rotate_window.hide();
                     jq('#square_rotate').attr('src', icon_rotate_normal);
+                    jq('#group_rotate').attr('src', icon_rotate_normal);
+                    rotate_window.hide();
               })   
     }
     
@@ -1853,7 +1838,7 @@ function square_add()
             var temp_hall =[];
             var key = 0;
             //get the last characted code
-            var last_char_code = number_starting[number_starting.length - 1].charCodeAt()
+            var last_char_code = (number_starting[number_starting.length - 1]  == undefined || number_starting == '')? 0 :number_starting[number_starting.length - 1].charCodeAt()
 
             
            // return temp_hall;
@@ -1981,7 +1966,7 @@ function square_add()
         var windows_group_label = jq('#windows_group_label');
         var winH = jq(window).height();
         var winW = jq(window).width();
-        
+        console.log(for_seats);
         windows_group_label.css('top', winH/2 - windows_group_label.height()/2)
                            .css('left', winW/2 - windows_group_label.width()/2)
                            .css('z-index', '1')
@@ -2002,6 +1987,9 @@ function square_add()
             
         })                   
         jq('#windows_group_label>a.close').unbind('click').click(function(){
+            jq('#group_label').attr('src', icon_label_group);
+            unselectSeats();
+            
             unselectBlock();
             windows_group_label.hide();
             jq('#square_label').attr('src', icon_label_group);
@@ -2034,14 +2022,16 @@ function square_add()
                     jq.ajax({
                         data: dataSend,
                         success: function(response){
+            unselectBlock();
+            windows_group_label.hide();
+            jq('#square_label').attr('src', icon_label_group);
                             
+            unselectBlock();
+            windows_group_label.hide();
                         }
                     });                  
             
             
-            unselectBlock();
-            windows_group_label.hide();
-            jq('#square_label').attr('src', icon_label_group);
             
         });
         
@@ -2078,7 +2068,8 @@ function square_add()
             
              var tmp_hall = createAdvancedObjectHall(3,3, number_starting, number_increment,
              number_numeric_increment,number_are,number_direction,
-            row_starting, row_increment, row_numeric_increment, row_are,row_direction); 
+            row_starting, row_increment, row_numeric_increment, row_are,row_direction);
+            console.log(tmp_hall); 
 
 /*            var row_output = row;    
             var number_output=number;
@@ -2105,9 +2096,12 @@ function square_add()
             advanced_windows_group_preview_label();
             
             jq('#advanced_windows_group_label a.close').unbind('click').click(function(){
-                advanced_windows_group_label.hide();
-                unselectBlock();
-                jq('#square_label').attr('src', icon_label_group);
+            jq('#group_label').attr('src', icon_label_group);
+            unselectSeats();
+            unselectBlock();
+            jq('#square_label').attr('src', icon_label_group);
+            advanced_windows_group_label.hide();
+          
             });
             
             //validating the input 
@@ -2196,92 +2190,55 @@ function square_add()
 
 
 
+// *******************************************************************
+    function advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,number_increment)
+    {
+   
+    }        
+// *******************************************************************
+
+
+
+
+
+
 
           jq('#advanced_windows_group_label a.ok').unbind('click').click(function(){
-
-    function advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,c)
-    {
-        //basic validation
-        if(starting_from.length==0)starting_from = 1;
-        if(number_from.length==0)number_from =1;
-        if(row_increment.length==0)row_increment =1;
-        if(numbers_increment.length==0)numbers_increment = 1;
-        if(starting_from.length == 0 || number_from.length == 0 || delimiter.length == 0
-            || row_increment.length == 0 || numbers_increment.length == 0
-            || !isArray(array))
-            alert('Error in advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,numbers_increment)'
-                    +'\n array: '+ array
-                 +'\nstarting_from: '+ starting_from + '\nnumber_from: ' + number_from + '\ndelimiter: '
-                 + delimiter + '\nrow_increment: ' + row_increment + '\nnumbers_increment: ' + numbers_increment);
-
-        var x = array[0][0];
-        var current_row  = starting_from; 
-        
-        var current_number = number_from;
-        
-        
-        for(var key in array)
-        {
-            if(array[key][0] == x)
-            {
-                var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
-                cell.attr('title', current_row + delimiter + current_number);
-                
-                if(numbers_increment == 'inc')
-                {
-                current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 1)
-                                  :(Number(current_number)+1).toString();
-                }
-                else if(numbers_increment == 'pass_one')
-                {
-                    current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 2)
-                                  :(Number(current_number)+2).toString();
-                }
-            }
-            else
-            {
-                x = array[key][0];
-                current_row = (isNaN(current_row))?String.fromCharCode(current_row.charCodeAt() + row_increment)
-                               :(Number(current_row)+ Number(row_increment)).toString();
-                current_number = number_from;
-                var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
-                cell.attr('title', current_row + '.' + current_number);
-                if(numbers_increment == 'inc')
-                {
-                current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 1)
-                                  :(Number(current_number)+1).toString();
-                }
-                else if(numbers_increment == 'pass_one')
-                {
-                    current_number = (isNaN(current_number))?String.fromCharCode(current_number.charCodeAt() + 2)
-                                  :(Number(current_number)+2).toString();
-                }
-                
-            }
-        }
-        
-            return array;
-    }        
+           
 
 
+            var number_direction =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
+            
+            //numbers
+            var number_starting  = jq('#advanced_windows_group_label_number_starting').val();
+            var number_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
+            var number_numeric_increment = jq('#advanced_windows_group_label_numbers_numeric_increment').val();
+            var number_are =jq("input[name=advanced_windows_group_label_numbers_are]:checked").val();
+            if(number_starting==undefined)number_starting =1;
+            if(number_numeric_increment == undefined)number_numeric_increment = 1;
+            
+            //rows
+            var row_direction = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
+            var row_are = jq("input[name=advanced_windows_group_label_rows_are]:checked").val() ;
+            var row_starting = jq('#advanced_windows_group_label_row_starting').val()
+            var row_increment =  jq('input[name=advanced_windows_group_label_row_increment]:checked').val();
+            var row_numeric_increment = jq('#advanced_windows_group_row_numeric_increment').val();
+            if(row_starting==undefined)row_starting =1;
+            if(row_numeric_increment==undefined)row_numeric_increment = 1;
+            
 
-
-
-
-
-          var starting_from = jq('#advanced_windows_group_label_row_starting').val();
-            var number_from = jq('#advanced_windows_group_label_number_starting').val();
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
-            var row_increment = jq('#advanced_windows_group_label_row_increment').val();
-            var numbers_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
-            var row_directions = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
-            var number_directions =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
-            
+            //var result = row+delimiter+number;
 
+
+
+           
              
+            var array = sortCoords(for_seats,row_direction,number_direction);
             
-            var array = sortCoords(for_seats,row_directions,number_directions);
-            advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,numbers_increment);          
+            //advancedTicketSeats(array,row_starting,number_starting,delimiter,row_increment,numbers_increment);          
+            
+            console.log(array);
             
             var action = 'square_set_label';
             var hallid = 1;
@@ -2292,15 +2249,17 @@ function square_add()
                     jq.ajax({
                         data: dataSend,
                         success: function(response){
+                            unselectSeats();
+                            jq('#group_label').attr('src', icon_label_group);
+            
+            unselectBlock();
+            advanced_windows_group_label.hide();
+            jq('#square_label').attr('src', icon_label_group);
                             
                         }
                     });                  
             
             
-            
-            unselectBlock();
-            advanced_windows_group_label.hide();
-            jq('#square_label').attr('src', icon_label_group);
             
           });
 

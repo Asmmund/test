@@ -421,10 +421,10 @@ display:none;
     margin:10px 0 0 10px;
 }
 #stage {
-    margin: 50px;
     width: 300px;
     height: 100px;
     margin: 0 auto;
+    margin-top: 10px;
     border: 1px solid black;
 }
 #stage p{

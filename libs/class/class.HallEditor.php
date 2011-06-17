@@ -44,8 +44,9 @@
                                 </tr>
                                 <tr id="multiple_actions">
                                     <td class="group_delete"><img id="group_delete" src="' . SITE_HOST . 'skins/images/icons/delete_group.png" title="Delete selected seats" /></td>
-                                    
+                                    <td><img id="group_label" src="' . SITE_HOST . 'skins/images/icons/label_group.png" title="Change label" /></td>
                                     <td class="group_category"><img id="group_category" src="' . SITE_HOST . 'skins/images/icons/change_group.png" title="Change category of selected seats" /></td>
+                                    <td><img id="group_rotate" src="' . SITE_HOST . 'skins/images/icons/rotate.png" title="Rotate selected seats" /></td>
                                     
                                 </tr>
                                 <tr id="square_actions">
