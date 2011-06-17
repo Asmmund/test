@@ -377,7 +377,7 @@
 
                $stmt= $connect->prepare($query);
                if($stmt->execute(array(':category_id' => $params['categoryID'], ':hallid'=>$hallid)))
-                   echo '{"success":"true"}';
+                   echo '{"success":true}';
                else
                     throw new Exception('Error upgrading category of the seats!');
         

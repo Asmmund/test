@@ -1108,18 +1108,19 @@ function getCategoriesListForGroup()
                         data: dataSend,
                         success: function(response){
                             jq.each(selected_id, function(i,value){
+                                
                                 jq('#' + value).attr('src', function(j,val){
-                                    var new_src = val.match(/(.+\/)([a-z]+)((\_[0-9]{2,3})?(_selected)(\.[a-z]{2,4}))/);
+                                    
+                                    var new_src = val.match(/(.+\/)([a-z]+)((\_[0-9]{1,3})?(_selected)?(\.[a-z]{2,4}))/);
+                                    console.log(new_src);
                                     return new_src[1]+color+new_src[3];
                                 });
                                 boxes_select_category_for_group.hide();  
                                 click.attr('src', icon_category_group);
+                                unselectSeats();
+                                selected_id = [];
 
                                    });
-                            unselectSeats();
-                            selected_id.length = 0;
-                            boxes_select_category_for_group.hide();
-                            click.attr('src', icon_category_group);
                         }
                     });                  
                   
@@ -1524,7 +1525,7 @@ function square_add()
                             jq.each(for_seats, function(i,value){
                                 
                                 jq('#' + i + ' img.seat').attr('src', function(i,val){
-                                        var new_src = val.match(/(.+\/)([a-z]+)((\_[0-9]{2,3})?(_selected)?(\.[a-z]{2,4}))/);
+                                        var new_src = val.match(/(.+\/)([a-z]+)((_[0-9]{1,3})?(_selected)?(\.[a-z]{2,4}))/);
                                         
                                         return new_src[1]+ color + new_src[3];
                                     });
