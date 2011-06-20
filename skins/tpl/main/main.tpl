@@ -295,9 +295,6 @@
 
 
     <div id="main">
-        <div id="stage">
-            <p>STAGE</p>
-        </div>
             <?php
                 echo $halleditor->seatEditor(1,'link');
             ?>

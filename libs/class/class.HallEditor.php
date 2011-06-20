@@ -38,6 +38,7 @@
                                     <td class="square"><img id="square" src="' . SITE_HOST . 'skins/images/icons/squere.png" title="Select square of seats" /></td>
                                     <td class="add"><img id="add_image" src="' . SITE_HOST . 'skins/images/icons/002_01.png" title="Add a seat" /></td>
                                     <td class="remove"><img id="remove_image" src="' . SITE_HOST . 'skins/images/icons/001_02.png" title="Delete a seat" /></td>
+                                    <td><img id="category" src="' . SITE_HOST . 'skins/images/icons/change_group.png" title="Change category" /></td>
                                     <td class="info"><img id="info_image" src="' . SITE_HOST . 'skins/images/icons/label_icon.png" title="Change label of the seat" /></td>
                                     <td class="rotate"><img id="rotate_image" src="' . SITE_HOST . 'skins/images/icons/rotate.png" title="Rotate a seat" /></td>
                                     <td><img id="upload_background" src="' . SITE_HOST . 'skins/images/icons/upload.jpg" title="Upload background of the hall" /></td>

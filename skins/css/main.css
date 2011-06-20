@@ -109,10 +109,10 @@ grid & the hall model
 arrows
 */
 #up_div{
-    width:100px;
+width:100px;
 position:relative;
 left: 300px;
-top: -20px;
+top: -110px;
 }
  #left_div{
 float:left;    
@@ -209,8 +209,9 @@ info window
 #edit_categories {
     float:right;
     position:relative;
-    top:110px;
+    top:195px;
     right: -10px;
+    z-index: 1;
 }
  #window_edit_categories {
   text-align:left;
@@ -227,16 +228,18 @@ info window
 #window_edit_categories p {
     font-weight: bold;
     margin: 5px;
+    font: 1em arial;
 }
 #window_edit_categories >#window_list_categories
 {
+    font: 1em arial;
     margin: 15px 0 15px 0 ;
 }
 
 #window_edit_categories >#window_list_categories  tr >td
 {
     margin:10px ;
-    font: 1.1em bold;
+    font: 1.1em bold arial;
 }
 
 
@@ -305,17 +308,18 @@ info window
 #div_dropdown_category {
     float:right;
     width:200px;
-    margin: 20px 0 10px 0;
+    
+    margin: 20px 0 0px 0px;
+    position: relative;
+    top:170px;
+    left: 80px;
+    
 }
 
 #div_dropdown_category #dropdown_category {
     width:120px;
 }
 
-#edit_categories {
-    margin:20px 0 20px 0;
-    float:right;
-}
 
 #edit_seat_delimiter {
     margin:  5px;
@@ -421,14 +425,14 @@ display:none;
     margin:10px 0 0 10px;
 }
 #stage {
-    width: 300px;
-    height: 100px;
+    width: 400px;
+    height: 50px;
     margin: 0 auto;
     margin-top: 10px;
     border: 1px solid black;
 }
 #stage p{
-    line-height:100px;
+    line-height:50px;
     text-align: center;
     font:1.2em;
     font-weight:bold;

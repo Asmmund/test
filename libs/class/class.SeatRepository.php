@@ -377,7 +377,7 @@
 
                $stmt= $connect->prepare($query);
                if($stmt->execute(array(':category_id' => $params['categoryID'], ':hallid'=>$hallid)))
-                   echo '{"success":true}';
+                   echo '{"success":"true"}';
                else
                     throw new Exception('Error upgrading category of the seats!');
         
@@ -386,6 +386,8 @@
     
     static public function squareAdd($hallid, $params)
     {
+            if (count($params['selected_td'])>0)
+            {
             try
             {
                 if(!$connect = new PDO('mysql:host=' . MYSQL_SERVER . ';dbname=' . MYSQL_DB,MYSQL_USER, MYSQL_PASS))
@@ -421,7 +423,10 @@
            catch(PDOException $e)
            {
                echo '<b>' . $e->getMessage() . '</b>';
-           }           
+           }
+           }
+           else 
+               echo '{"error":"true"}';           
         
     }
     

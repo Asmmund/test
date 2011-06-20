@@ -40,9 +40,17 @@
         {
             $this->DrawGrid();
             $this->DrawArrows();
+            $this->DrawStage();
             return $this->string;
         }
         
+        private function DrawStage()
+        {
+            $this->string= '
+                    <div id="stage">
+                        <p>STAGE</p>
+                    </div>' . $this->string;
+        }
 
         private function DrawArrows()
         {
