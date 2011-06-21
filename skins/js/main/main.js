@@ -603,7 +603,7 @@ jq(window).load(function(){
                 success: function(response){
                         jq(click).attr('src', function(i,val){
                             var new_src = val.match(/^(.+\/)empty(\..+)$/);
-                            var filename=new_src[1]+category_color+'_0'+ new_src[2];
+                            var filename=new_src[1]+category_color+'_0'+'.jpg';
                             return filename;
                             })
                         .attr('id', response.id)
@@ -1480,7 +1480,7 @@ function square_add()
                        var cell = jq('#'+ i + ' img.seat');
                            cell.attr('src', function(i,val){
                            var temp = val.match(/^(.+\/)(.+)(\..+)$/);
-                           return temp[1] + seatcolor +'_0' + temp[3];
+                           return temp[1] + seatcolor +'_0' + '.jpg';
                         });
                     cell.attr('id',response.ids.ids[i]).attr('title',params['row'] + params['delimiter']+params['number']);
                     });
@@ -2168,7 +2168,7 @@ function square_add()
         
         
         
-        
+/*begin */        
         function advanced_windows_group_preview_label()
         {
             //numbers
@@ -2200,6 +2200,11 @@ function square_add()
             jq('#group_label_preview').html(result);
             
         }
+/* End */        
+        
+        
+        
+        
         
         jq('#windows_group_label a.advanced').unbind('click').click(function(){
             windows_group_label.hide();
@@ -2306,12 +2311,6 @@ function square_add()
 
 
 
-// *******************************************************************
-    function advancedTicketSeats(array,starting_from,number_from,delimiter,row_increment,number_increment)
-    {
-   
-    }        
-// *******************************************************************
 
 
 
@@ -2411,7 +2410,7 @@ function square_add()
     // pass the dom node (ex. $(selector)[0] for jQuery users)
     element: document.getElementById('file-uploader'),
     // path to server-side upload script
-    action: 'skins/js/upload.php',
+    action: '/skins/js/upload.php',
     allowedExtensions: ['png', 'gif', 'bmp', 'jpg'],
     
     onComplete: function(id, fileName, responseJSON){
