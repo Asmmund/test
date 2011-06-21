@@ -1,4 +1,4 @@
-<!-- shins/tpl/main/main.tpl begin-->
+    <!-- shins/tpl/main/main.tpl begin-->
 
     <!-- windows-->
     <div id="dialog" class="window">
@@ -43,7 +43,7 @@
     </div>
 
     <div id="add_category">
-    <a class="close img"><img src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
+    <a class="close img" ><img width="24" height="24" src="<?php echo SITE_HOST;?>skins/images/cancel_icon.jpg"  /></a>
     <p>Add category</p>
         Name: <input type="text" size="20" id="name" /><br />
         Color: <select id="color">
@@ -87,13 +87,13 @@
         <p>Select angle of rotation</p>
         <select id="choose_rotation_angle">
             <option value="0">Normal</option>
-            <option value="45">45</option>
-            <option value="90">90</option>
-            <option value="135">135</option>
-            <option value="180">180</option>
-            <option value="225">225</option>
-            <option value="270">270</option>
-            <option value="315">315</option>
+            <option value="45">45° clockwise</option>
+            <option value="90">90° clockwise</option>
+            <option value="135">135° clockwise</option>
+            <option value="180">180°</option>
+            <option value="225">135° counter clockwise</option>
+            <option value="270">90° counter clockwise</option>
+            <option value="315">45° counter clockwise</option>
         </select><br />
         <a href="javascript:void(0);" class="close">Close</a>
         <a href="javascript:void(0);" class="save">Save</a>

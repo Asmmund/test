@@ -36,7 +36,7 @@ var icon_upload_background_selected = 'skins/images/icons/upload_selected.jpg';
 
     
 // vars for img url's
-var empty_image = 'skins/images/seat/empty.jpg';
+var empty_image = 'skins/images/seat/empty.png';
 var empty_selected = 'skins/images/seat/empty_selected.jpg';
 
 //regex for validating input
@@ -393,7 +393,6 @@ jq(window).load(function(){
         
         
         
-        
     });
     
     jq('#up_minus').click(function(){
@@ -435,6 +434,12 @@ jq(window).load(function(){
                    .parent().attr('id',new_x +'_'+new_y) ;
            new_x +=1; 
         });
+        var stage = jq('#stage');
+        var width = stage.width();
+        stage.animate({
+            width: '+=39'
+        });
+        
 
     });
     
@@ -447,7 +452,15 @@ jq(window).load(function(){
                 remove = false;
         });
         if(remove == true)
+        {
+        var stage = jq('#stage');
+        var width = stage.width();
+        stage.animate({
+            width: '-=39'
+        });
+            
         for_each.parent().remove();
+        }
         else if(remove == false)
             alert("You can remove only empty column!")
         
@@ -477,6 +490,12 @@ jq(window).load(function(){
                    .attr('id', '')
                    .parent().attr('id',row  + '_' + new_y) ; 
         });
+        var stage = jq('#stage');
+        var width = stage.width();
+        stage.animate({
+            width: '+=39'
+        });
+        
     });
   
     jq('#left_minus').click(function(){
@@ -485,10 +504,21 @@ jq(window).load(function(){
         var remove = true;
         for_each.each(function(){
             if(jq(this).attr('id')>0)
+            {
+               
                 remove = false;
+            }
         });
         if(remove == true)
+        {
+                   var stage = jq('#stage');
+                   var width = stage.width();
+                   stage.animate({
+                   width: '-=38'
+        });
+            
         for_each.parent().remove();
+        }
         else if(remove == false)
             alert("You can remove only empty column!")
         
@@ -879,7 +909,6 @@ jq(window).load(function(){
     
     //window for editing categories
     jq('#edit_categories').unbind('click').click(function(){
-        console.log('!');
                 var winH = jq(window).height();
                 var winW = jq(window).width();
                 //Set the popup window to center
@@ -2142,9 +2171,8 @@ function square_add()
         
         function advanced_windows_group_preview_label()
         {
-            var number_direction =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
-            
             //numbers
+            var number_direction =  jq('input[name=advanced_windows_group_label_number_directions]:checked').val();
             var number_starting  = jq('#advanced_windows_group_label_number_starting').val();
             var number_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
             var number_numeric_increment = jq('#advanced_windows_group_label_numbers_numeric_increment').val();
@@ -2161,28 +2189,14 @@ function square_add()
 //            alert(row_directions + '\n' + row_starting + '\n' + row_numeric_increment+ '\n' + row_increment+ '\n' + row_are);
             
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
-            //var result = row+delimiter+number;
+
             
             var result ='Number params: ' + number_direction + ', ' + number_starting + ', ' + number_numeric_increment+ ', ' +  number_increment + ', '+number_are;
             result = result + '<br />' + 'Row params:' + row_direction + ', ' + row_starting + ', ' + row_numeric_increment+ ', ' + row_increment+ ', ' + row_are;
             result = result + '<br />Delimiter' + delimiter;
             
-            
-             var tmp_hall = createAdvancedObjectHall(3,3, number_starting, number_increment,
-             number_numeric_increment,number_are,number_direction,
-            row_starting, row_increment, row_numeric_increment, row_are,row_direction);
-            console.log(tmp_hall); 
 
-/*            var row_output = row;    
-            var number_output=number;
-            
-           
-           
-             var temp_hall = sortCoords(tmp_hall,row_directions,number_directions); 
-            
-            
-            result = drawPreview(temp_hall,delimiter);
-*/       
+
             jq('#group_label_preview').html(result);
             
         }
@@ -2403,7 +2417,11 @@ function square_add()
     onComplete: function(id, fileName, responseJSON){
         if(responseJSON.success == true)
         {
-            jq('#grid').css('background', 'url(/upload/' + fileName + ') no-repeat 0 0');
+            jq('#grid').css('background', 'url(/upload/' + fileName + ') no-repeat 0 0')
+                       .css('-webkit-background-size','cover')
+                       .css('-moz-background-size','cover')
+                       .css('-o-background-size','cover')
+                       .css('background-size','cover');
             jq('#upload-area').hide();
 
         }

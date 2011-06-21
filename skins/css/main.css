@@ -81,13 +81,14 @@ grid & the hall model
     height:500px;
     width:600px;
     overflow:auto; 
-   
+    text-align: center;
     padding: 10px;
     position:relative;
     top:-50px;
 }
 #grid > #table {
-    border: solid #D3D3D3 1px;/* A9A9A9 */ 
+    border: solid #D3D3D3 1px;/* A9A9A9 */
+    margin: 0 auto; 
     
 }
 #grid > #table tr {
@@ -183,7 +184,7 @@ info window
   padding:5px 5px 0px 5px;
   background: white;
   border: 1px black solid;
-  width:200px;
+  width:300px;
 
 }
 #dialog p,
@@ -209,8 +210,8 @@ info window
 #edit_categories {
     float:right;
     position:relative;
-    top:195px;
-    right: -10px;
+    top:25px;
+    right: 85px;
     z-index: 1;
 }
  #window_edit_categories {
@@ -255,13 +256,18 @@ info window
   z-index:9999;
   border: 1px black solid;
   display: none;
- margin:5px;
+  margin:10px;
+  padding:10px;
   background: white;
 }
 
-#add_category *{
-    margin:5px;
+#add_category input,
+#add_category  p,
+#add_category  select,
+#add_category  .close{
+        margin: 5px;
 }
+
 
 /* Edit category */
 #edit_category_window{
@@ -308,11 +314,10 @@ info window
 #div_dropdown_category {
     float:right;
     width:200px;
-    
     margin: 20px 0 0px 0px;
     position: relative;
-    top:170px;
-    left: 80px;
+    top:0px;
+    left: -20px;
     
 }
 
@@ -414,6 +419,7 @@ display:none;
 
 #advanced_windows_group_label .close.img,
 #upload-area .close.img,
+#add_category .close.img, 
 .close.img{
  float:right;
  width:24px;
@@ -429,6 +435,8 @@ display:none;
     height: 50px;
     margin: 0 auto;
     margin-top: 10px;
+    position:relative;
+    right:20px;
     border: 1px solid black;
 }
 #stage p{
