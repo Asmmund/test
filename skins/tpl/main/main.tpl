@@ -262,14 +262,13 @@
                  </tr>
 
                  <tr >
-                 <td> <table id="group_label_preview"></table></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
                  </tr>
-                </table>              
-                
+                </table>
+                <div style="float:left; width:300px;">
+                    <table id="group_label_preview"></table>
+                </div>              
+
+         <br clear="both" />       
          <a class="close" href="javascript:void(0);">Close</a>
          <a class="ok" href="javascript:void(0);">Save</a>
          

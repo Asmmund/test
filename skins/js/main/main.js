@@ -1962,22 +1962,7 @@ function square_add()
 
              return temp_hall;
          }  
-         
-         //action of creating a hall for advanced label 
-         function createAdvancedObjectHall(num_number,num_row,number_starting, number_increment,
-             number_numeric_increment, number_are,number_direction, 
-             row_starting, row_increment, row_numeric_increment, row_are, row_direction)
-         {
-            var temp_hall =[];
-            var key = 0;
-            //get the last characted code
-            var last_char_code = (number_starting[number_starting.length - 1]  == undefined || number_starting == '')? 0 :number_starting[number_starting.length - 1].charCodeAt()
-
-            
-           // return temp_hall;
-            
-         }  
-         
+    
          //function of drawing a preview of the hall 
             function drawPreview(hall,delimiter)
             {
@@ -2001,7 +1986,7 @@ function square_add()
                     else
                     {
                         row_coord = val[0];
-                        result += '<td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td style="width:100px">&nbsp' + val[0] + delimiter + val[1] + '&nbsp</td>';
+                        result += '<td style="width:150px"></td></tr><tr><td style="width:150px">&nbsp' + val[0] + delimiter + val[1] + '&nbsp</td>';
                         
                     }
                   
@@ -2099,7 +2084,6 @@ function square_add()
         var windows_group_label = jq('#windows_group_label');
         var winH = jq(window).height();
         var winW = jq(window).width();
-        console.log(for_seats);
         windows_group_label.css('top', winH/2 - windows_group_label.height()/2)
                            .css('left', winW/2 - windows_group_label.width()/2)
                            .css('z-index', '1')
@@ -2155,9 +2139,11 @@ function square_add()
                     jq.ajax({
                         data: dataSend,
                         success: function(response){
+                            unselectSeats();
             unselectBlock();
             windows_group_label.hide();
             jq('#square_label').attr('src', icon_label_group);
+            jq('#group_label').attr('src', icon_label_group)
                             
                         }
                     });                  
@@ -2189,15 +2175,47 @@ function square_add()
 //            alert(row_directions + '\n' + row_starting + '\n' + row_numeric_increment+ '\n' + row_increment+ '\n' + row_are);
             
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
-
+            var rows = 3;
+            var numbers = 3;
+            var result = '<b>Params are not correct!</b>';
+            var temp_hall = [];
+            var key = 0;
+            var sort;
             
-            var result ='Number params: ' + number_direction + ', ' + number_starting + ', ' + number_numeric_increment+ ', ' +  number_increment + ', '+number_are;
-            result = result + '<br />' + 'Row params:' + row_direction + ', ' + row_starting + ', ' + row_numeric_increment+ ', ' + row_increment+ ', ' + row_are;
-            result = result + '<br />Delimiter' + delimiter;
+
+          if(row_are == 0 && number_are == 0 && !isNaN(number_starting)
+              && !isNaN(number_numeric_increment) && !isNaN(row_starting) && !isNaN(row_numeric_increment))
+          {
+            /* creating hall */
+            number_starting = (number_starting == '')?1:Number(number_starting);
+            number_numeric_increment = (number_numeric_increment == '')?1:Number(number_numeric_increment);
+            row_starting  = (row_starting == '')?1:Number(row_starting);
+            row_numeric_increment = (row_numeric_increment == '')? 1: Number(row_numeric_increment);
             
-
-
-            jq('#group_label_preview').html(result);
+            for(var i = row_starting;i<row_starting +rows*row_numeric_increment; i+=row_numeric_increment)
+            {
+                for(var j = number_starting; j< number_starting + numbers*number_numeric_increment;j+=number_numeric_increment)
+                {
+                 temp_hall[key] = {};
+                 temp_hall[key].x = i;
+                 temp_hall[key].y = j;
+                 key++;   
+                }
+                
+            }
+            //sorting coords
+            sort = sortCoords(temp_hall,row_direction,number_direction);
+            
+            result = drawPreview(sort,delimiter);
+          }   
+          
+          
+          
+          
+          
+          
+          
+          jq('#group_label_preview').html(result);
             
         }
 /* End */        
@@ -2226,9 +2244,9 @@ function square_add()
             });
             
             //validating the input 
-           jq('#advanced_windows_group_label_row_increment')
+           jq('#advanced_windows_group_row_numeric_increment')
                .unbind('keyup').keyup(function(){
-                    this.value = this.value.replace(regex_row,'');
+                    this.value = this.value.replace(regex_alphanumeric,'');
                advanced_windows_group_preview_label();
                });
            jq('#advanced_windows_group_label_row_starting')
@@ -2240,6 +2258,12 @@ function square_add()
                });
                
             jq('#advanced_windows_group_label_number_starting')
+               .unbind('keyup')
+               .keyup(function(){
+                    this.value = this.value.replace(regex_alphanumeric,'');
+                    advanced_windows_group_preview_label();     
+               });
+            jq('#advanced_windows_group_label_numbers_numeric_increment')
                .unbind('keyup')
                .keyup(function(){
                     this.value = this.value.replace(regex_alphanumeric,'');
