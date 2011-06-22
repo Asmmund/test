@@ -836,7 +836,6 @@ jq(window).load(function(){
                         success: function(response){
                             var img = jq('#'+id);
                               img.attr('src',function(i,val){
-                                console.log(val);
                                 var tmp = val.match(/^(.+\/[a-z]+)(_[0-9]{1,3})?(\.[a-z]{2,4})$/);
                                 return tmp[1] + '_'+ choose_rotation_angle.val()+ tmp[3] ;
                                 });
@@ -1838,7 +1837,6 @@ function square_add()
             array.push(key);
         }
         
-        
         if(kind_x == 0 && kind_y == 0)
         {
             
@@ -1987,6 +1985,38 @@ function square_add()
                     {
                         row_coord = val[0];
                         result += '<td style="width:150px"></td></tr><tr><td style="width:150px">&nbsp' + val[0] + delimiter + val[1] + '&nbsp</td>';
+                        
+                    }
+                  
+                })
+                result+= '</tr>';
+                return result;
+                
+            }
+            //if the hall is object
+            function drawPreviewObject(hall,delimiter)
+            {
+                if(!isArray(hall)) alert('Wrong params passed to drawPreview(hall) \nhall: ' + hall + '\ndelimiter' + delimiter);
+                //function get first key
+                function getFirstKey(hall)
+                {
+                    for(var key in hall)
+                       return hall[key].x;
+                }
+                var row_coord = getFirstKey(hall);
+                var result = '<tr>';
+                //alert(hall);
+                jq.each(hall,function(key,val){
+                    
+                    if(row_coord == val.x)
+                    {
+//                     
+ result += '<td style="width:100px" >&nbsp' + val.x + delimiter + val.y + '&nbsp</td>';
+                    }
+                    else
+                    {
+                        row_coord = val.x;
+                        result += '<td style="width:150px"></td></tr><tr><td style="width:150px">&nbsp' + val.x + delimiter + val.y + '&nbsp</td>';
                         
                     }
                   
@@ -2153,7 +2183,312 @@ function square_add()
         });
         
         
-        
+  /* sort objects */
+              function stringAscDesc(a1, a2)
+            {
+                var temp;
+                var a = [];
+                if(isNaN(a1[0]))
+                {
+                temp = a1[0];
+                a[0] = temp.toLowerCase();
+                }
+                else
+                    a[0] = a1[0];
+                if(isNaN(a1[1]))
+                {
+                temp = a1[1];
+                a[1] = temp.toLowerCase();
+                }
+                else
+                    a[1] = a1[1];
+                
+                var b = [];
+                if(isNaN(a2[0]))
+                {
+                temp = a1[0];
+                b[0] = temp.toLowerCase();
+                }
+                else
+                    b[0] = a2[0];
+                if(isNaN(a2[1]))
+                {
+                temp = a2[1];
+                b[1] = temp.toLowerCase();
+                }
+                else
+                    b[1] = a2[1];
+                if(a[0] == b[0])
+                {
+                    if(a[1]== b[1]) return 0;
+                    else if(a[1]> b[1]) return 1;
+                    else if(a[1]< b[1]) return -1
+                }
+                else if(a[0] < b[0]) return 1;
+                else if(a[0] > b[0]) return -1;
+                
+            }
+              function stringAscAsc(a1, a2)
+            {
+                var temp;
+                var a = [];
+                if(isNaN(a1[0]))
+                {
+                temp = a1[0];
+                a[0] = temp.toLowerCase();
+                }
+                else
+                    a[0] = a1[0];
+                if(isNaN(a1[1]))
+                {
+                temp = a1[1];
+                a[1] = temp.toLowerCase();
+                }
+                else
+                    a[1] = a1[1];
+                
+                var b = [];
+                if(isNaN(a2[0]))
+                {
+                temp = a1[0];
+                b[0] = temp.toLowerCase();
+                }
+                else
+                    b[0] = a2[0];
+                if(isNaN(a2[1]))
+                {
+                temp = a2[1];
+                b[1] = temp.toLowerCase();
+                }
+                else
+                    b[1] = a2[1];
+                if(a[0] == b[0])
+                {
+                    if(a[1]== b[1]) return 0;
+                    else if(a[1]< b[1]) return -1;
+                    else if(a[1]> b[1]) return 1
+                }
+                else if(a[0] < b[0]) return -1;
+                else if(a[0] > b[0]) return 1;
+                
+            }
+              function stringDescAsc(a1, a2)
+            {
+                var temp;
+                var a = [];
+                if(isNaN(a1[0]))
+                {
+                temp = a1[0];
+                a[0] = temp.toLowerCase();
+                }
+                else
+                    a[0] = a1[0];
+                if(isNaN(a1[1]))
+                {
+                temp = a1[1];
+                a[1] = temp.toLowerCase();
+                }
+                else
+                    a[1] = a1[1];
+                
+                var b = [];
+                if(isNaN(a2[0]))
+                {
+                temp = a1[0];
+                b[0] = temp.toLowerCase();
+                }
+                else
+                    b[0] = a2[0];
+                if(isNaN(a2[1]))
+                {
+                temp = a2[1];
+                b[1] = temp.toLowerCase();
+                }
+                else
+                    b[1] = a2[1];
+                if(a[0] == b[0])
+                {
+                    if(a[1]== b[1]) return 0;
+                    else if(a[1]< b[1]) return -1;
+                    else if(a[1]> b[1]) return 1
+                }
+                else if(a[0] > b[0]) return -1;
+                else if(a[0] < b[0]) return 1;
+                
+            }
+            
+              function stringDescDesc(a1, a2)
+            {
+                var temp;
+                var a = [];
+                if(isNaN(a1[0]))
+                {
+                temp = a1[0];
+                a[0] = temp.toLowerCase();
+                }
+                else
+                    a[0] = a1[0];
+                if(isNaN(a1[1]))
+                {
+                temp = a1[1];
+                a[1] = temp.toLowerCase();
+                }
+                else
+                    a[1] = a1[1];
+                
+                var b = [];
+                if(isNaN(a2[0]))
+                {
+                temp = a1[0];
+                b[0] = temp.toLowerCase();
+                }
+                else
+                    b[0] = a2[0];
+                if(isNaN(a2[1]))
+                {
+                temp = a2[1];
+                b[1] = temp.toLowerCase();
+                }
+                else
+                    b[1] = a2[1];
+
+                if(a[0] == b[0])
+                {
+                    if(a[1]== b[1]) return 0;
+                    else if(a[1]> b[1]) return -1;
+                    else if(a[1]< b[1]) return 1
+                }
+                else if(a[0] > b[0]) return -1;
+                else if(a[0] < b[0]) return 1;
+                
+            }
+
+            
+        function sortCoordsString(temp_hall,row_direction,number_direction)
+        {
+        var array = [];
+        for(var key in temp_hall)
+        {
+            var key = [temp_hall[key].x,temp_hall[key].y]
+            array.push(key);
+        }
+        if(row_direction == 0 && number_direction == 1)
+        {
+            array.sort(stringAscDesc);
+        }
+        else if(row_direction == 0 && number_direction == 0)
+        {
+            array.sort(stringAscAsc);
+        }
+        else if(row_direction == 1 && number_direction == 0)
+        {
+            array.sort(stringDescAsc);
+        }
+        else if(row_direction == 1 && number_direction == 1)
+        {
+            array.sort(stringDescDesc);
+        }
+        return array;
+    }
+
+
+    function sortCoordsStrNum(temp_hall,row_direction,number_direction)
+    {
+                        var array = [];
+        for(var key in temp_hall)
+        {
+            var key = [temp_hall[key].x,temp_hall[key].y]
+            array.push(key);
+        }
+        if(row_direction == 0 && number_direction == 1)
+        {
+            array.sort(StrNumAscDesc);
+        }
+        else if(row_direction == 0 && number_direction == 0)
+        {
+            array.sort(StrNumAscAsc);
+        }
+        else if(row_direction == 1 && number_direction == 0)
+        {
+            array.sort(StrNumDescAsc);
+        }
+        else if(row_direction == 1 && number_direction == 1)
+        {
+            array.sort(StrNumDescDesc);
+        }
+        return array;
+    }
+    
+    function StrNumDescAsc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a1[1] - a2[1];
+        else return a2[0].localeCompare(a1[0]);
+    }
+    function StrNumAscAsc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a1[1] - a2[1];
+        else return a1[0].localeCompare(a2[0]);
+    }
+    function StrNumAscDesc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a2[1] - a1[1];
+        else return a1[0].localeCompare(a2[0]);
+    }
+    function StrNumDescDesc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a2[1] - a1[1];
+        else return a2[0].localeCompare(a1[0]);
+    }
+    
+    
+    function sortCoordsStrStr(temp_hall,row_direction,number_direction)
+    {
+                        var array = [];
+        for(var key in temp_hall)
+        {
+            var key = [temp_hall[key].x,temp_hall[key].y]
+            array.push(key);
+        }
+        if(row_direction == 0 && number_direction == 1)
+        {
+            array.sort(StrStrAscDesc);
+        }
+        else if(row_direction == 0 && number_direction == 0)
+        {
+            array.sort(StrStrAscAsc);
+        }
+        else if(row_direction == 1 && number_direction == 0)
+        {
+            array.sort(StrStrDescAsc);
+        }
+        else if(row_direction == 1 && number_direction == 1)
+        {
+            array.sort(StrStrDescDesc);
+        }
+         return array;
+         console.log(array);
+    }    
+    function StrStrAscDesc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a2[1].localeCompare(a1[1]);
+        else return a1[0].localeCompare(a2[0]);
+    }
+    function StrStrAscAsc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a1[1].localeCompare(a2[1]);
+        else return a1[0].localeCompare(a2[0]);
+    }
+    function StrStrDescAsc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a1[1].localeCompare(a2[1]);
+        else return a2[0].localeCompare(a1[0]);
+    }
+    function StrStrDescDesc(a1,a2)
+    {
+        if(a1[0] == a2[0]) return a2[1].localeCompare(a1[1]);
+        else return a2[0].localeCompare(a1[0]);
+    }
+    
 /*begin */        
         function advanced_windows_group_preview_label()
         {
@@ -2162,9 +2497,9 @@ function square_add()
             var number_starting  = jq('#advanced_windows_group_label_number_starting').val();
             var number_increment = jq('input[name=advanced_windows_group_label_numbers_increment]:checked').val();
             var number_numeric_increment = jq('#advanced_windows_group_label_numbers_numeric_increment').val();
-            var number_are =jq("input[name=advanced_windows_group_label_numbers_are]:checked").val();
+            var number_are =Number(jq("input[name=advanced_windows_group_label_numbers_are]:checked").val());
 //            alert(number_directions + '\n' + number_starting + '\n' + numbers_numeric_increment+ '\n' +  number_increment + '\n'+numbers_are);
-            
+
             //rows
             var row_direction = jq('input[name=advanced_windows_group_label_row_directions]:checked').val();
             var row_starting = jq('#advanced_windows_group_label_row_starting').val();
@@ -2205,9 +2540,121 @@ function square_add()
             }
             //sorting coords
             sort = sortCoords(temp_hall,row_direction,number_direction);
+            result = drawPreview(sort,delimiter);
+          }
+          else if(number_are == 1 && row_are == 0  && !isNaN(row_starting) && !isNaN(row_numeric_increment)  )
+          {
+            /* creating hall */
+            number_starting = (number_starting == '')?'A':number_starting;
+            var number_seat = number_starting;
+            row_starting  = (row_starting == '')?1:Number(row_starting);
+            row_numeric_increment = (row_numeric_increment == '')? 1: Number(row_numeric_increment);
+
+             for(var i = row_starting;i<row_starting +rows*row_numeric_increment; i+=row_numeric_increment)
+             {
+                
+                for(var j  =0;j<3; j++)
+                {
+                 temp_hall[key] = {};
+                 temp_hall[key].x = i;
+                 temp_hall[key].y = number_seat;
+                 key++;   
+                    
+                    if( number_increment=='inc')
+                    {
+                        number_seat = number_seat.increment();
+                    }
+                    else if(number_increment == 'pass_one')
+                    {
+                        number_seat = number_seat.incrementByTwo();
+                    }
+                }
+                number_seat = number_starting;
+
+                     
+                
+           }
+
+            sort =sortCoordsString(temp_hall,row_direction,number_direction);
+            result = drawPreview(sort,delimiter);
+             
+
+            
+          }   
+          else if(number_are == 0 && row_are == 1  && !isNaN(number_starting) && !isNaN(number_numeric_increment)  )
+          {
+            
+            // creating hall 
+            row_starting = (row_starting == '')?'A':row_starting;
+            var row_seat = row_starting;
+            number_starting  = (number_starting == '')?1:Number(number_starting);
+            number_numeric_increment = (number_numeric_increment == '')? 1: Number(number_numeric_increment);
+            for(var  i = 0; i<3; i++)
+            {
+                for(var j = number_starting; j< number_starting + numbers*number_numeric_increment;j+=number_numeric_increment)
+                {
+                 temp_hall[key] = {};
+                 temp_hall[key].x = row_seat;
+                 temp_hall[key].y = j;
+                 key++;   
+                }
+                if(row_increment == 'inc')
+                {
+                    row_seat = row_seat.increment();
+                }
+                else if(row_increment == 'pass_one')
+                {
+                    row_seat = row_seat.incrementByTwo();
+                }
+          }
+          sort = sortCoordsStrNum(temp_hall,row_direction,number_direction);
             
             result = drawPreview(sort,delimiter);
           }   
+          else if(number_are == 1 && row_are == 1 )
+          {
+            row_starting = (row_starting == '')?'A':row_starting;
+            var row_seat = row_starting;
+            number_starting = (number_starting == '')?'A':number_starting;
+            var number_seat = number_starting;
+            for(var  i = 0; i<3; i++)
+            {
+                for(var j = 0; j<3;j++)
+                {
+                 temp_hall[key] = {};
+                 temp_hall[key].x = row_seat;
+                 temp_hall[key].y = number_seat;
+                 key++; 
+                    if( number_increment=='inc')
+                    {
+                        number_seat = number_seat.increment();
+                    }
+                    else if(number_increment == 'pass_one')
+                    {
+                        number_seat = number_seat.incrementByTwo();
+                    }
+                   
+                }
+                number_seat = number_starting;
+                if(row_increment == 'inc')
+                {
+                    row_seat = row_seat.increment();
+                }
+                else if(row_increment == 'pass_one')
+                {
+                    row_seat = row_seat.incrementByTwo();
+                }
+                sort = sortCoordsStrStr(temp_hall,row_direction,number_direction);
+                
+            
+            result = drawPreview(sort,delimiter);                
+          }
+          
+          
+            
+      }
+          
+             
           
           
           

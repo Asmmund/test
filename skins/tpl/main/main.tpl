@@ -264,8 +264,8 @@
                  <tr >
                  </tr>
                 </table>
-                <div style="float:left; width:300px;">
-                    <table id="group_label_preview"></table>
+                <div style="float:left; width:300px; padding:5px;">
+                    <table id="group_label_preview" ></table>
                 </div>              
 
          <br clear="both" />       
