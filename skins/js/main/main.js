@@ -2222,8 +2222,7 @@ function square_add()
         }
         if(row_direction == 0 && number_direction == 1)
         {
-                        alert('AscDesc');
-array.sort(stringAscDesc);
+            array.sort(stringAscDesc);
         }
         else if(row_direction == 0 && number_direction == 0)
         {
@@ -2498,19 +2497,7 @@ array.sort(stringAscDesc);
             
             result = drawPreview(sort,delimiter);                
           }
-          
-          
-            
       }
-          
-             
-          
-          
-          
-          
-          
-          
-          
           jq('#group_label_preview').html(result);
             
         }
