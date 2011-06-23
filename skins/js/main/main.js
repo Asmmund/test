@@ -2097,6 +2097,7 @@ function square_add()
 
             var img = jq('#' + array[key][0] + '_'+ array[key][1] + ' img.seat');
             var label = img.attr('title');
+            var temp = label.match(regex_label);
             seat[key] = {};
             seat[key].id = img.attr('id');
             seat[key].row  = array[key][0];
@@ -2314,7 +2315,6 @@ function square_add()
             array.sort(StrStrDescDesc);
         }
          return array;
-         console.log(array);
     }    
     function StrStrAscDesc(a1,a2)
     {
@@ -2504,7 +2504,54 @@ function square_add()
 /* End */        
         
         
+            function advancedTicketSeats(array,delimiter,
+                                  number_starting,number_numeric_increment,number_increment,number_are,
+                                  row_starting,row_increment,row_numeric_increment, row_are)
+            {
+                if(number_are == 0 && row_are == 0 )
+                {
+                   var x = getKey(array);
+                   var starting_row  = Number(row_starting);
+                   var starting_number = Number(number_starting);
+                   var number_numeric_increment = Number(number_numeric_increment);
+                   var row_numeric_increment = Number(row_numeric_increment);
+                   
         
+                   for(var key in array)
+                   {
+                      if(array[key][0] == x)
+                      {
+                          var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                          cell.attr('title', starting_row + delimiter + starting_number);
+                          
+                          starting_number+= number_numeric_increment;
+                      }
+                      else
+                      {
+                        var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                        starting_number = Number(number_starting);           
+                        starting_row += row_numeric_increment
+                        cell.attr('title', starting_row + delimiter + starting_number);
+                        x = array[key][0];
+                        starting_number+= number_numeric_increment;
+                      }
+                    }
+            }
+            else if(number_are == 1 && row_are == 0 )
+                {
+                    
+                }
+                else if(number_are == 0 && row_are == 1 )
+                {
+                    
+                }
+                else if(number_are == 1 && row_are == 1 )
+                {
+                    
+                }
+
+            }          
+            
         
         
         jq('#windows_group_label a.advanced').unbind('click').click(function(){
@@ -2651,15 +2698,35 @@ function square_add()
 
             var delimiter = jq('#advanced_windows_group_label_delimiter').val();
             //var result = row+delimiter+number;
-
-
-
+            
+            
+            var array = 'error';
            
-             
-            var array = sortCoords(for_seats,row_direction,number_direction);
+          if(row_are == 0 && number_are == 0 )
+          {
+             array = sortCoords(for_seats,row_direction,number_direction);
+          }
+          else if(number_are == 1 && row_are == 0   )
+          {
+
+            array =sortCoordsString(for_seats,row_direction,number_direction);
+          }   
+          else if(number_are == 0 && row_are == 1 )
+          {
+              array = sortCoordsStrNum(for_seats,row_direction,number_direction);
+          }   
+          else if(number_are == 1 && row_are == 1 )
+          {
+                array = sortCoordsStrStr(for_seats,row_direction,number_direction);
+          }
             
-            //advancedTicketSeats(array,row_starting,number_starting,delimiter,row_increment,numbers_increment);          
-            
+
+
+          if(array != 'error')
+          {
+            advancedTicketSeats(array,delimiter,
+                                  number_starting,number_numeric_increment,number_increment,number_are,
+                                  row_starting,row_increment,row_numeric_increment, row_are);          
             
             var action = 'square_set_label';
             var hallid = 1;
@@ -2673,12 +2740,20 @@ function square_add()
                             unselectSeats();
                             jq('#group_label').attr('src', icon_label_group);
             
-            unselectBlock();
-            advanced_windows_group_label.hide();
-            jq('#square_label').attr('src', icon_label_group);
-                            
+                            unselectBlock();
+                            unselectSeats();
+                            advanced_windows_group_label.hide();
+                            jq('#square_label').attr('src', icon_label_group);
+                            jq('#group_label').attr('src', icon_label_group);
                         }
+                        
                     });                  
+            
+            
+
+          }  
+            
+            
             
             
             
