@@ -2186,181 +2186,29 @@ function square_add()
   /* sort objects */
               function stringAscDesc(a1, a2)
             {
-                var temp;
-                var a = [];
-                if(isNaN(a1[0]))
-                {
-                temp = a1[0];
-                a[0] = temp.toLowerCase();
-                }
-                else
-                    a[0] = a1[0];
-                if(isNaN(a1[1]))
-                {
-                temp = a1[1];
-                a[1] = temp.toLowerCase();
-                }
-                else
-                    a[1] = a1[1];
                 
-                var b = [];
-                if(isNaN(a2[0]))
-                {
-                temp = a1[0];
-                b[0] = temp.toLowerCase();
-                }
-                else
-                    b[0] = a2[0];
-                if(isNaN(a2[1]))
-                {
-                temp = a2[1];
-                b[1] = temp.toLowerCase();
-                }
-                else
-                    b[1] = a2[1];
-                if(a[0] == b[0])
-                {
-                    if(a[1]== b[1]) return 0;
-                    else if(a[1]> b[1]) return 1;
-                    else if(a[1]< b[1]) return -1
-                }
-                else if(a[0] < b[0]) return 1;
-                else if(a[0] > b[0]) return -1;
+                if(a1[0] == a2[0])return a2[1].localeCompare(a1[1]);
+                else return   a1[0] - a2[0];
                 
+ 
             }
               function stringAscAsc(a1, a2)
             {
-                var temp;
-                var a = [];
-                if(isNaN(a1[0]))
-                {
-                temp = a1[0];
-                a[0] = temp.toLowerCase();
-                }
-                else
-                    a[0] = a1[0];
-                if(isNaN(a1[1]))
-                {
-                temp = a1[1];
-                a[1] = temp.toLowerCase();
-                }
-                else
-                    a[1] = a1[1];
-                
-                var b = [];
-                if(isNaN(a2[0]))
-                {
-                temp = a1[0];
-                b[0] = temp.toLowerCase();
-                }
-                else
-                    b[0] = a2[0];
-                if(isNaN(a2[1]))
-                {
-                temp = a2[1];
-                b[1] = temp.toLowerCase();
-                }
-                else
-                    b[1] = a2[1];
-                if(a[0] == b[0])
-                {
-                    if(a[1]== b[1]) return 0;
-                    else if(a[1]< b[1]) return -1;
-                    else if(a[1]> b[1]) return 1
-                }
-                else if(a[0] < b[0]) return -1;
-                else if(a[0] > b[0]) return 1;
+                if(a1[0] == a2[0])return a1[1].localeCompare(a2[1]);
+                else return   a1[0] - a2[0];
                 
             }
               function stringDescAsc(a1, a2)
             {
-                var temp;
-                var a = [];
-                if(isNaN(a1[0]))
-                {
-                temp = a1[0];
-                a[0] = temp.toLowerCase();
-                }
-                else
-                    a[0] = a1[0];
-                if(isNaN(a1[1]))
-                {
-                temp = a1[1];
-                a[1] = temp.toLowerCase();
-                }
-                else
-                    a[1] = a1[1];
-                
-                var b = [];
-                if(isNaN(a2[0]))
-                {
-                temp = a1[0];
-                b[0] = temp.toLowerCase();
-                }
-                else
-                    b[0] = a2[0];
-                if(isNaN(a2[1]))
-                {
-                temp = a2[1];
-                b[1] = temp.toLowerCase();
-                }
-                else
-                    b[1] = a2[1];
-                if(a[0] == b[0])
-                {
-                    if(a[1]== b[1]) return 0;
-                    else if(a[1]< b[1]) return -1;
-                    else if(a[1]> b[1]) return 1
-                }
-                else if(a[0] > b[0]) return -1;
-                else if(a[0] < b[0]) return 1;
+                if(a1[0] == a2[0])return a1[1].localeCompare(a2[1]);
+                else return   a2[0] - a1[0];
                 
             }
             
               function stringDescDesc(a1, a2)
             {
-                var temp;
-                var a = [];
-                if(isNaN(a1[0]))
-                {
-                temp = a1[0];
-                a[0] = temp.toLowerCase();
-                }
-                else
-                    a[0] = a1[0];
-                if(isNaN(a1[1]))
-                {
-                temp = a1[1];
-                a[1] = temp.toLowerCase();
-                }
-                else
-                    a[1] = a1[1];
-                
-                var b = [];
-                if(isNaN(a2[0]))
-                {
-                temp = a1[0];
-                b[0] = temp.toLowerCase();
-                }
-                else
-                    b[0] = a2[0];
-                if(isNaN(a2[1]))
-                {
-                temp = a2[1];
-                b[1] = temp.toLowerCase();
-                }
-                else
-                    b[1] = a2[1];
-
-                if(a[0] == b[0])
-                {
-                    if(a[1]== b[1]) return 0;
-                    else if(a[1]> b[1]) return -1;
-                    else if(a[1]< b[1]) return 1
-                }
-                else if(a[0] > b[0]) return -1;
-                else if(a[0] < b[0]) return 1;
-                
+                if(a1[0] == a2[0])return a2[1].localeCompare(a1[1]);
+                else return   a2[0] - a1[0];
             }
 
             
@@ -2374,7 +2222,8 @@ function square_add()
         }
         if(row_direction == 0 && number_direction == 1)
         {
-            array.sort(stringAscDesc);
+                        alert('AscDesc');
+array.sort(stringAscDesc);
         }
         else if(row_direction == 0 && number_direction == 0)
         {
