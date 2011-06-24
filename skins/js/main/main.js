@@ -1059,16 +1059,19 @@ jq(window).load(function(){
                     jq.ajax({
                                data: dataSend,
                                success: function(response){
+                                
                                    jq.each(selected_id, function(i,value){
+                                    
                                     jq('#'+ value).attr('src', empty_image);
                                    });
                                    jq('#group_delete').attr('src',icon_delete_group);
                                    selected_id.length = 0;
+                                   unselectSeats();
                                }
                           });
                           
                     }
-                    unselectSeats();
+                    
                }
         
                else 
@@ -2187,7 +2190,6 @@ function square_add()
   /* sort objects */
               function stringAscDesc(a1, a2)
             {
-                
                 if(a1[0] == a2[0])return a2[1].localeCompare(a1[1]);
                 else return   a1[0] - a2[0];
                 
@@ -2511,10 +2513,10 @@ function square_add()
                 if(number_are == 0 && row_are == 0 )
                 {
                    var x = getKey(array);
-                   var starting_row  = Number(row_starting);
-                   var starting_number = Number(number_starting);
-                   var number_numeric_increment = Number(number_numeric_increment);
-                   var row_numeric_increment = Number(row_numeric_increment);
+                   var starting_row  =( row_starting != '')?Number(row_starting):1;
+                   var starting_number = (number_starting!= '')?Number(number_starting):1;
+                   var number_numeric_increment = (number_numeric_increment == '')?1:Number(number_numeric_increment);
+                   var row_numeric_increment =(row_numeric_increment == '')?1: Number(row_numeric_increment);
                    
         
                    for(var key in array)
@@ -2529,7 +2531,7 @@ function square_add()
                       else
                       {
                         var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
-                        starting_number = Number(number_starting);           
+                        starting_number = (number_starting!= '')?Number(number_starting):1;           
                         starting_row += row_numeric_increment
                         cell.attr('title', starting_row + delimiter + starting_number);
                         x = array[key][0];
@@ -2538,15 +2540,113 @@ function square_add()
                     }
             }
             else if(number_are == 1 && row_are == 0 )
-                {
+            {
+                   var x = getKey(array);
+                   var starting_number = (number_starting != '')?number_starting: 'A' ;
+                   var starting_row  =( row_starting != '')?Number(row_starting):1;
+                   var row_numeric_increment = (row_numeric_increment != '')?Number(row_numeric_increment): 1 ;
+                   for(var key in array)
+                   {
+                      if(array[key][0] == x)
+                      {
+                          var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                          cell.attr('title', starting_row + delimiter + starting_number);
+                          
+                          if(number_increment == 'inc')
+                              starting_number = starting_number.increment()
+                          else if(number_increment == 'pass_one')
+                              starting_number = starting_number.incrementByTwo();
+                      }
+                      else
+                      {
+                        var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                        var starting_number = (number_starting == '')? 'A': number_starting;
+                        starting_row += row_numeric_increment
+                        cell.attr('title', starting_row + delimiter + starting_number);
+                        x = array[key][0];
+                          if(number_increment == 'inc')
+                              starting_number = starting_number.increment();
+                          else if(number_increment == 'pass_one')
+                              starting_number = starting_number.incrementByTwo();
+                      }
+                   }
+                   
+            }
+            else if(number_are == 0 && row_are == 1 )
+            {
+                   var x = getKey(array);
+                   var starting_number = (number_starting!= '')?Number(number_starting):1;
+                   var number_numeric_increment = (number_numeric_increment != '')?Number(number_numeric_increment):1;
+                   var starting_row  = (starting_row == '')? 'A': row_starting;
+                   for(var key in array)
+                   {
                     
-                }
-                else if(number_are == 0 && row_are == 1 )
-                {
-                    
-                }
+                      if(array[key][0] == x)
+                      {
+                          var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                          cell.attr('title', starting_row + delimiter + starting_number);
+                          
+                          starting_number+= number_numeric_increment;
+                          
+                      }
+                      else
+                      {
+                        var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                        starting_number = (number_starting == '')?1:Number(number_starting);
+                        
+                        if(row_increment == 'inc')
+                            starting_row = starting_row.increment();
+                        else if(row_increment == 'pass_one')
+                            starting_row = starting_row.incrementByTwo();
+                        
+                        cell.attr('title', starting_row + delimiter + starting_number);
+                        x = array[key][0];
+                        starting_number+= number_numeric_increment;
+                        
+                      }
+                      
+                   }
+
+            }
                 else if(number_are == 1 && row_are == 1 )
                 {
+                   var x = getKey(array);
+                   var starting_number = (number_starting == '')? 'A': number_starting;
+                   var starting_row  = (row_starting == '')? 'A': row_starting;
+                   for(var key in array)
+                   {
+                    
+                      if(array[key][0] == x)
+                      {
+                          var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                          cell.attr('title', starting_row + delimiter + starting_number);
+                          
+                          if(number_increment == 'inc')
+                              starting_number = starting_number.increment()
+                          else if(number_increment == 'pass_one')
+                              starting_number = starting_number.incrementByTwo();
+                          
+                      }
+                      else
+                      {
+                        var starting_number = (number_starting == '')? 'A': number_starting;
+                        
+                        if(row_increment == 'inc')
+                            starting_row = starting_row.increment();
+                        else if(row_increment == 'pass_one')
+                            starting_row = starting_row.incrementByTwo();
+
+                        var cell = jq('#' + array[key][0] + '_' + array[key][1] + ' img.seat');
+                        cell.attr('title', starting_row + delimiter + starting_number);
+                        x = array[key][0];
+                          if(number_increment == 'inc')
+                              starting_number = starting_number.increment()
+                          else if(number_increment == 'pass_one')
+                              starting_number = starting_number.incrementByTwo();
+                        
+                      }
+                      
+                   }
                     
                 }
 
@@ -2701,6 +2801,7 @@ function square_add()
             
             
             var array = 'error';
+            
            
           if(row_are == 0 && number_are == 0 )
           {
@@ -2708,26 +2809,24 @@ function square_add()
           }
           else if(number_are == 1 && row_are == 0   )
           {
+            array =sortCoords(for_seats,row_direction,number_direction);
 
-            array =sortCoordsString(for_seats,row_direction,number_direction);
           }   
           else if(number_are == 0 && row_are == 1 )
           {
-              array = sortCoordsStrNum(for_seats,row_direction,number_direction);
+              array = sortCoords(for_seats,row_direction,number_direction);
           }   
           else if(number_are == 1 && row_are == 1 )
           {
-                array = sortCoordsStrStr(for_seats,row_direction,number_direction);
+                array = sortCoords(for_seats,row_direction,number_direction);
           }
-            
 
 
           if(array != 'error')
           {
-            advancedTicketSeats(array,delimiter,
+                advancedTicketSeats(array,delimiter,
                                   number_starting,number_numeric_increment,number_increment,number_are,
-                                  row_starting,row_increment,row_numeric_increment, row_are);          
-            
+                                  row_starting,row_increment,row_numeric_increment, row_are);           
             var action = 'square_set_label';
             var hallid = 1;
             var params =  {};
